@@ -198,7 +198,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             Version 1.0
         </div>
         <!-- Default to the left -->
-        <strong>Copyright &copy; 2017 <a href="#">One</a>.</strong> All rights reserved.
+        <strong>Copyright &copy; 2017&nbsp;&nbsp;Powered by <a href="https://github.com/hefengbao/one">One</a>.</strong> All rights reserved.
     </footer>
 
     <!-- Add the sidebar's background. This div must be placed
