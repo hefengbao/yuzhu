@@ -61,11 +61,9 @@
     <div id="links">
         <div class="container">
             <div class="row">
-                <div class="col-sm-2">
+                <div class="col-sm-10">
                     <i class="material-icons brand"></i>
-                    &copy;&nbsp;&nbsp;2017 @if(date('Y')>'2017' ) - {{ date('Y')  }} @endif
-                </div>
-                <div class="col-sm-8 text-center offset">
+                    &copy;&nbsp;&nbsp;2017 @if(date('Y')>'2017' ) - {{ date('Y')  }} @endif&nbsp;&nbsp;Powered by <a href="https://github.com/hefengbao/one">One</a>
                 </div>
                 <div class="col-md-2 text-right offset">
                     <ul class="list-inline">
