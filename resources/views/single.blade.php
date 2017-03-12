@@ -5,8 +5,7 @@
 @section('author'){{ $post->user->name }}@stop
 @section('title'){{ $post->post_title }} - @parent @stop
 @section('css')
-    <link href="//cdn.bootcss.com/highlight.js/9.9.0/styles/default.min.css" rel="stylesheet">
-    <link href="//cdn.bootcss.com/lightbox2/2.9.0/css/lightbox.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/highlight.js/9.9.0/styles/default.min.css" rel="stylesheet">
 @stop
 @section('content')
     <section class="blog-post">
@@ -87,7 +86,7 @@
                             <div class="form-group">
                                 <label for="comment_content" class="col-sm-2 control-label">评论 <sup>*</sup></label>
                                 <div class="col-sm-10">
-                                    <textarea name="comment_content" id="comment_content" class="form-control" rows="4" placeholder="请输入评论内容,支持Markdown语法" required></textarea>
+                                    <textarea name="comment_content" id="comment_content" class="form-control" rows="4" placeholder="请输入评论内容,支持Markdown语法"></textarea>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -102,23 +101,15 @@
     </section>
 @stop
 @section('script')
-    <script src="//cdn.bootcss.com/highlight.js/9.9.0/highlight.min.js"></script>
-    <script src="//cdn.bootcss.com/lightbox2/2.9.0/js/lightbox.min.js"></script>
+    <script src="https://cdn.bootcss.com/highlight.js/9.9.0/highlight.min.js"></script>
     <script>
         hljs.initHighlightingOnLoad();
-        lightbox.option({
-            'resizeDuration': 200,
-            'wrapAround': true
-        })
         $(function () {
             $("[data-toggle='popover']").popover({
                 html : true,
                 trigger : 'hover',
                 container: 'body',
                 placement: 'auto top',
-            });
-            $(".blog-post-content img").each(function () {
-                $(this).wrap('<a href="'+$(this).attr("src")+'" data-lightbox="roadtrip" title="点击或在新窗口(标签页)打开查看"></a>');
             });
             $(".reply").on('click',function () {
                 var obj = $(this).parents('li');

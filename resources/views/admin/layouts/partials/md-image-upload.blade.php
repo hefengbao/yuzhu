@@ -17,7 +17,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <p>图片格式为 png、jpg、jpeg、gif，大小在2M内</p>
+                        <p>图片格式为 png、jpg、jpeg、gif，大小在1M内</p>
                     </div>
                     <div class="form-group">
                         <span class="btn btn-success fileinput-button">

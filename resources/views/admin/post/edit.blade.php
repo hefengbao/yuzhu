@@ -3,8 +3,8 @@
     编辑文章 - @parent
 @stop
 @section('css')
-    <link href="//cdn.bootcss.com/select2/4.0.3/css/select2.min.css" rel="stylesheet">
-    <link href="//cdn.bootcss.com/simplemde/1.11.2/simplemde.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/select2/4.0.3/css/select2.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/simplemde/1.11.2/simplemde.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/datepicker3.css') }}">
 @stop
 @section('pageHeader')
@@ -31,7 +31,7 @@
                         </div>
                         <div class="form-group">
                             <label for="post_content" class="control-label">内容 <sup>*</sup></label>
-                            <div class="bao-editor" id="bao-editor">
+                            <div class="form-group">
                                 <textarea id="post_content" name="post_content" class="form-control" rows="40" placeholder="Enter ...">{{ $post->post_content }}</textarea>
                             </div>
                         </div>
@@ -111,8 +111,8 @@
 @stop
 
 @section('script')
-    <script src="//cdn.bootcss.com/simplemde/1.11.2/simplemde.min.js"></script>
-    <script src="//cdn.bootcss.com/select2/4.0.3/js/select2.min.js"></script>
+    <script src="https://cdn.bootcss.com/simplemde/1.11.2/simplemde.min.js"></script>
+    <script src="https://cdn.bootcss.com/select2/4.0.3/js/select2.min.js"></script>
     <script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
     <script src="{{ asset('js/jquery.ui.widget.js') }}"></script>
     <script src="{{ asset('js/jquery.fileupload.js') }}"></script>
