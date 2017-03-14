@@ -33,7 +33,7 @@
                         @endif
                         <a href="#" class="btn btn-info btn-fab" id="btn-share"><i class="material-icons">share</i></a>
                     </p>
-                    <ul class="text-center" id="favorite" hidden>
+                    <div class="text-center" id="favorite" hidden>
                         <p>“赏~”</p>
                         <ul class="list-unstyled">
                             @if($post->user->wechatpay)
@@ -48,8 +48,8 @@
                                     <p>支付宝</p>
                                 </li>
                             @endif
-                        </table>
-                    </ul>
+                        </ul>
+                    </div>
                     <div class="text-center" id="share" hidden>
                         <div class="bdsharebuttonbox"></a><a href="#" class="bds_bdhome" data-cmd="bdhome" title="分享到百度新首页"></a><a href="#" class="bds_bdysc" data-cmd="bdysc" title="分享到百度云收藏"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_youdao" data-cmd="youdao" title="分享到有道云笔记"></a></div>
                     </div>

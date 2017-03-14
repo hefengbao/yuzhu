@@ -1,9 +1,14 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Models\Role;
+use App\Models\Permission;
+use Zizaco\Entrust\Traits\EntrustRoleTrait;
+use Carbon\Carbon;
 
-class OptionTableSeeder extends Seeder
+class RoleTableSeeder extends Seeder
 {
+    use EntrustRoleTrait;
     /**
      * Run the database seeds.
      *
@@ -11,50 +16,38 @@ class OptionTableSeeder extends Seeder
      */
     public function run()
     {
-        //
-        DB::table('options')->insert([
-            [
-                'id'=>1,
-                'option_name'=>'title',
-                'option_value'=>'One',
-                'created_at'=>\Carbon\Carbon::now(),
-                'updated_at'=>\Carbon\Carbon::now(),
-            ],
-            [
-                'id'=>2,
-                'option_name'=>'subtitle',
-                'option_value'=>'This is a simple blog',
-                'created_at'=>\Carbon\Carbon::now(),
-                'updated_at'=>\Carbon\Carbon::now(),
-            ],
-            [
-                'id'=>3,
-                'option_name'=>'keywords',
-                'option_value'=>'',
-                'created_at'=>\Carbon\Carbon::now(),
-                'updated_at'=>\Carbon\Carbon::now(),
-            ],
-            [
-                'id'=>4,
-                'option_name'=>'description',
-                'option_value'=>'This is a simple',
-                'created_at'=>\Carbon\Carbon::now(),
-                'updated_at'=>\Carbon\Carbon::now(),
-            ],
-            [
-                'id'=>5,
-                'option_name'=>'icp',
-                'option_value'=>'',
-                'created_at'=>\Carbon\Carbon::now(),
-                'updated_at'=>\Carbon\Carbon::now(),
-            ],
-            [
-                'id'=>6,
-                'option_name'=>'close_register',
-                'option_value'=>'0',
-                'created_at'=>\Carbon\Carbon::now(),
-                'updated_at'=>\Carbon\Carbon::now(),
-            ]
+        //角色
+        $admin = Role::create([
+            'name'=>'admin',
+            'display_name'=>'管理员',
+            'description'=>'管理员',
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now(),
         ]);
+
+        $user = Role::create([
+            'name'=>'user',
+            'display_name'=>'用户',
+            'description'=>'普通用户',
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now(),
+        ]);
+
+
+        //给角色赋予权限
+        $permissions = Permission::all();
+        foreach ($permissions as $permission){
+            $admin->attachPermission($permission);
+        }
+
+        $userPermissions = Permission::where('name','post.index')
+            ->orWhere('name','post.create')
+            ->orWhere('name','post.destroy')
+            ->orWhere('name','post.edit')
+            ->orWhere('name','user.profile')
+            ->get();
+        foreach ($userPermissions as $permission){
+            $user->attachPermission($permission);
+        }
     }
 }
