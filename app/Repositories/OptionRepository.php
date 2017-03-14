@@ -50,11 +50,14 @@ class OptionRepository
      */
     public function save($data){
         Cache::forget('option');
+        if (!isset($data['close_register'])){
+            $this->option->updateOrCreate(['option_name'=>'close_register'],['option_name'=>'close_register','option_value'=>0]);
+        }
         foreach ($data as $item => $value){
             $this->option->updateOrCreate(['option_name'=>$item],['option_name'=>$item,'option_value'=>$value]);
         }
-        $this->getAll();
-        return true;
+
+        return  $this->getAll();
     }
 
     public function getOptionByName($name){

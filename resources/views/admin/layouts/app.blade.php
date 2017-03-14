@@ -33,19 +33,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Scripts -->
     <script>
         window.Laravel = <?php echo json_encode([
-                'csrfToken' => csrf_token(),
+            'csrfToken' => csrf_token(),
         ]); ?>;
-
-            APP_URL = '<?php echo url('/') ?>';
+        APP_URL = '<?php echo url('/') ?>';
     </script>
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
-
     <!-- Main Header -->
     <header class="main-header">
-
         <!-- Logo -->
         <a href="javascript:;" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
@@ -53,7 +50,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <!-- logo for regular state and mobile devices -->
             <span class="logo-lg"><b>O</b>ne</span>
         </a>
-
         <!-- Header Navbar -->
         <nav class="navbar navbar-static-top" role="navigation">
             <!-- Sidebar toggle button-->
@@ -69,14 +65,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <!-- Menu Toggle Button -->
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <!-- The user image in the navbar-->
-                            <img src="{{ asset('uploads/avatars/'.Auth::user()->avatar) }}" class="user-image" alt="User Image">
+                            <img src="{{ Auth::user()->avatar ? asset('uploads/avatars/'.Auth::user()->avatar) : asset('img/avatar.png') }}" class="user-image" alt="User Image">
                             <!-- hidden-xs hides the username on small devices so only the image appears. -->
                             <span class="hidden-xs">{{ Auth::user()->name }}</span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- The user image in the menu -->
                             <li class="user-header">
-                                <img src="{{ asset('uploads/avatars/'.Auth::user()->avatar) }}" class="img-circle" alt="User Image">
+                                <img src="{{ Auth::user()->avatar ? asset('uploads/avatars/'.Auth::user()->avatar) : asset('img/avatar.png') }}" class="img-circle" alt="User Image">
                                 <p>
                                     {{ Auth::user()->name }}
                                     <!--角色-->
@@ -110,63 +106,96 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <ul class="sidebar-menu">
                 <li class="header">HEADER</li>
                 <!-- Optionally, you can add icons to the links -->
+
                 <li class="{{ active_class(if_route_pattern(["dashboard.index"]),'active') }}"><a href="{{ route('dashboard.index') }}"><i class="fa fa-dashboard"></i> <span>仪表盘</span></a></li>
-                <li class="treeview {{ active_class(if_route_pattern(["post.*","tag.*","category.*"]),'active') }}">
-                    <a href="#"><i class="fa fa-edit"></i> <span>文章</span>
-                        <span class="pull-right-container">
+                @if(Auth::user()->can(['post.*'])||Auth::user()->can(['tag.*'])||Auth::user()->can(['category.*']))
+                    <li class="treeview {{ active_class(if_route_pattern(["post.*","tag.*","category.*"]),'active') }}">
+                        <a href="#"><i class="fa fa-edit"></i> <span>文章</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            @if(Auth::user()->can('post.*'))
+                                <li class="{{ active_class(if_route_pattern(["post.index","post.edit"]),'active') }}"><a href="{{ url('admin/post') }}"><i class="fa fa-circle-o" aria-hidden="true"></i>所有文章</a></li>
+                            @endif
+                            @if(Auth::user()->can('post.create'))
+                                <li class="{{ active_class(if_route_pattern(["post.create"]),'active') }}"><a href="{{ url('admin/post/create') }}"><i class="fa fa-circle-o" aria-hidden="true"></i>写文章</a></li>
+                            @endif
+                            @if(Auth::user()->can('category.*'))
+                                <li class="{{ active_class(if_route_pattern(["category.*"]),'active') }}"><a href="{{ url('admin/category') }}"><i class="fa fa-circle-o" aria-hidden="true"></i>分类目录</a></li>
+                            @endif
+                            @if(Auth::user()->can('tag.*'))
+                                <li class="{{ active_class(if_route_pattern(["tag.*"]),'active') }}"><a href="{{ url('admin/tag') }}"><i class="fa fa-circle-o" aria-hidden="true"></i>标签</a></li>
+                            @endif
+                        </ul>
+                    </li>
+                @endif
+                @if(Auth::user()->can('page.*'))
+                    <li class="treeview {{ active_class(if_route_pattern(["page.*"]),'active') }}">
+                        <a href="#"><i class="fa fa-files-o"></i> <span>页面</span>
+                            <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li class="{{ active_class(if_route_pattern(["post.index","post.edit"]),'active') }}"><a href="{{ url('admin/post') }}"><i class="fa fa-circle-o" aria-hidden="true"></i>所有文章</a></li>
-                        <li class="{{ active_class(if_route_pattern(["post.create"]),'active') }}"><a href="{{ url('admin/post/create') }}"><i class="fa fa-circle-o" aria-hidden="true"></i>写文章</a></li>
-                        <li class="{{ active_class(if_route_pattern(["category.*"]),'active') }}"><a href="{{ url('admin/category') }}"><i class="fa fa-circle-o" aria-hidden="true"></i>分类目录</a></li>
-                        <li class="{{ active_class(if_route_pattern(["tag.*"]),'active') }}"><a href="{{ url('admin/tag') }}"><i class="fa fa-circle-o" aria-hidden="true"></i>标签</a></li>
-                    </ul>
-                </li>
-                <li class="treeview {{ active_class(if_route_pattern(["page.*"]),'active') }}">
-                    <a href="#"><i class="fa fa-files-o"></i> <span>页面</span>
-                        <span class="pull-right-container">
+                        </a>
+                        <ul class="treeview-menu">
+                            @if(Auth::user()->can('page.*'))
+                                <li class="{{ active_class(if_route_pattern(["page.index","page.edit"]),'active') }}"><a href="{{ url('admin/page') }}"><i class="fa fa-circle-o" aria-hidden="true"></i>所有页面</a></li>
+                            @endif
+                            @if(Auth::user()->can('page.index'))
+                                <li class="{{ active_class(if_route_pattern(["page.create"]),'active') }}"><a href="{{ url('admin/page/create') }}"><i class="fa fa-circle-o" aria-hidden="true"></i>新建页面</a></li>
+                            @endif
+                        </ul>
+                    </li>
+                @endif
+                @if(Auth::user()->can('appearance.*'))
+                    <li class="treeview {{ active_class(if_route_pattern(["appearance.*"]),'active') }}">
+                        <a href="#"><i class="fa fa-paint-brush" aria-hidden="true"></i> <span>外观</span>
+                            <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li class="{{ active_class(if_route_pattern(["page.index","page.edit"]),'active') }}"><a href="{{ url('admin/page') }}"><i class="fa fa-circle-o" aria-hidden="true"></i>所有页面</a></li>
-                        <li class="{{ active_class(if_route_pattern(["page.create"]),'active') }}"><a href="{{ url('admin/page/create') }}"><i class="fa fa-circle-o" aria-hidden="true"></i>新建页面</a></li>
-                    </ul>
-                </li>
-                <li class="treeview {{ active_class(if_route_pattern(["appearance.*"]),'active') }}">
-                    <a href="#"><i class="fa fa-paint-brush" aria-hidden="true"></i> <span>外观</span>
-                        <span class="pull-right-container">
+                        </a>
+                        <ul class="treeview-menu">
+                            @if(Auth::user()->can('appearance.menu'))
+                                <li class="{{ active_class(if_route_pattern(["appearance.menu"]),'active') }}"><a href="{{ url('admin/appearance/menu') }}"><i class="fa fa-circle-o" aria-hidden="true"></i>菜单</a></li>
+                            @endif
+                        </ul>
+                    </li>
+                @endif
+                @if(Auth::user()->can('user.*'))
+                    <li class="treeview {{ active_class(if_route_pattern(["user.*"]),'active') }}">
+                        <a href="#"><i class="fa fa-user" aria-hidden="true"></i> <span>用户</span>
+                            <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li class="{{ active_class(if_route_pattern(["appearance.menu"]),'active') }}"><a href="{{ url('admin/appearance/menu') }}"><i class="fa fa-circle-o" aria-hidden="true"></i>菜单</a></li>
-                    </ul>
-                </li>
-                <li class="treeview {{ active_class(if_route_pattern(["user.*"]),'active') }}">
-                    <a href="#"><i class="fa fa-user" aria-hidden="true"></i> <span>用户</span>
-                        <span class="pull-right-container">
+                        </a>
+                        <ul class="treeview-menu">
+                            @if(Auth::user()->can('user.index'))
+                                <li class="{{ active_class(if_route_pattern(["user.index"]),'active') }}"><a href="{{ url('admin/user') }}"><i class="fa fa-circle-o" aria-hidden="true"></i>所有用户</a></li>
+                            @endif
+                            @if(Auth::user()->can('user.profile'))
+                                <li class="{{ active_class(if_route_pattern(["user.profile*"]),'active') }}"><a href="{{ url('admin/user/profile') }}/{{ Auth::id() }}"><i class="fa fa-circle-o" aria-hidden="true"></i>个人资料</a></li>
+                            @endif
+                        </ul>
+                    </li>
+                @endif
+                @if(Auth::user()->can('option.*'))
+                    <li class="treeview {{ active_class(if_route_pattern(["option.*"]),'active') }}">
+                        <a href="#"><i class="fa fa-cog" aria-hidden="true"></i> <span>设置</span>
+                            <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li class="{{ active_class(if_route_pattern(["user.index"]),'active') }}"><a href="{{ url('admin/user') }}"><i class="fa fa-circle-o" aria-hidden="true"></i>所有用户</a></li>
-                        <li class="{{ active_class(if_route_pattern(["user.profile*"]),'active') }}"><a href="{{ url('admin/user/profile') }}/{{ Auth::id() }}"><i class="fa fa-circle-o" aria-hidden="true"></i>个人资料</a></li>
-                    </ul>
-                </li>
-                <li class="treeview {{ active_class(if_route_pattern(["option.*"]),'active') }}">
-                    <a href="#"><i class="fa fa-cog" aria-hidden="true"></i> <span>设置</span>
-                        <span class="pull-right-container">
-                            <i class="fa fa-angle-left pull-right"></i>
-                        </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li class="{{ active_class(if_route_pattern(["option.index"]),'active') }}"><a href="{{ url('admin/option') }}"><i class="fa fa-circle-o" aria-hidden="true"></i>基本</a></li>
-                        <li class="{{ active_class(if_route_pattern(["option.cache"]),'active') }}"><a href="{{ route('option.cache') }}"><i class="fa fa-circle-o" aria-hidden="true"></i>缓存</a></li>
-                    </ul>
-                </li>
+                        </a>
+                        <ul class="treeview-menu">
+                            @if(Auth::user()->can('option.index'))
+                                <li class="{{ active_class(if_route_pattern(["option.index"]),'active') }}"><a href="{{ url('admin/option') }}"><i class="fa fa-circle-o" aria-hidden="true"></i>基本</a></li>
+                            @endif
+                            @if(Auth::user()->can('option.cache'))
+                                <li class="{{ active_class(if_route_pattern(["option.cache"]),'active') }}"><a href="{{ route('option.cache') }}"><i class="fa fa-circle-o" aria-hidden="true"></i>缓存</a></li>
+                            @endif
+                        </ul>
+                    </li>
+                @endif
             </ul>
             <!-- /.sidebar-menu -->
         </section>

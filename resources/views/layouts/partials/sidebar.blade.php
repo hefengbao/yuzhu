@@ -9,7 +9,7 @@
 @if(isset($single))
 <div class="sidebar-module">
     <div class="panel panel-default">
-        <div class="panel-body text-center">
+        <div class="panel-body text-center" id="author">
             <a href="{{ route('author.show',$post->user->id) }}"><img src="{{ $post->user->avatar!=null ? asset('uploads/avatars/'.$post->user->avatar):asset('img/avatar.png') }}" alt="avatar" class="avatar avatar-img-thumbnail" style="margin: 5px;"></a>
             <p><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;<a href="{{ route('author.show',$post->user->id) }}">{{ $post->user->name }}</a></p>
             <p><i>{{ $post->user->introduction }}</i></p>

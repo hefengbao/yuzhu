@@ -58,9 +58,9 @@ class UpdateUserRequest extends FormRequest
             $data['avatar'] = $upload_status['filename'];
         }
         // 微信支付二维码
-        if ($file = $this->file('weichatpay')) {
+        if ($file = $this->file('wechatpay')) {
             $upload_status = app('App\One\Handler\ImageUploadHandler')->uploadImage($file);
-            $data['weichatpay'] = $upload_status['filename'];
+            $data['wechatpay'] = $upload_status['filename'];
         }
 
         // 微信二维码

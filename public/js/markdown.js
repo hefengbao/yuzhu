@@ -2,11 +2,12 @@
  * Created by hefengbao on 2017/2/28.
  */
 var filename="http://";
+var progress = 0;
 var simplemde = new SimpleMDE({
-    autofocus: true,
+    autofocus: false,
     autosave: {
-        enabled: true,
-        uniqueId: 'baoblog'
+        enabled: false,
+        uniqueId: 'one_blog'
     },
     spellChecker: false,
     element: document.getElementById("post_content"),
@@ -29,15 +30,16 @@ var simplemde = new SimpleMDE({
             action: function customFunction(editor){
                 var cm = editor.codemirror;
                 var options = editor.options;
-                var _url = '';
                 $("#md-image-upload").modal('show');
-                $("#btn-insert").on('click',function () {
+                $("#msg_upload").text(' ');
+                $("#btn-insert").off('click').on('click',function () {
+                    var url = '';
                     var _val =$('#image_url').val();
                     if (_val == ''){
                         $("#msg").html('请上传图片或输入图片地址');
                     }else {
-                        _url = _val;
-                        var url = "![]("+_url+")";
+                        var url = "![]("+_val+")";
+                        console.log(url);
                         if(options.promptURLs) {
                             url = prompt(options.promptTexts.image);
                             if(!url) {
@@ -45,6 +47,7 @@ var simplemde = new SimpleMDE({
                             }
                         }
                         $("#md-image-upload").modal('hide');
+
                         cm.replaceSelection(url);
                     }
                 });
@@ -60,6 +63,7 @@ var simplemde = new SimpleMDE({
         "|",
         "guide"
     ],
+    tabSize: 4,
 });
 
 var url = APP_URL + "/admin/post/upload";
@@ -77,7 +81,7 @@ $('#fileupload').fileupload({
         $("#image_url").val(APP_URL +'/'+ data.result.filename);
     },
     progressall: function (e, data) {
-        var progress = parseInt(data.loaded / data.total * 100, 10);
+        progress = parseInt(data.loaded / data.total * 100, 10);
         $('#progress .progress-bar').css(
             'width',
             progress + '%'

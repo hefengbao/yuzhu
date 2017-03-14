@@ -172,6 +172,7 @@ return [
         Mews\Purifier\PurifierServiceProvider::class,
         Roumen\Sitemap\SitemapServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
+        Zizaco\Entrust\EntrustServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -240,6 +241,7 @@ return [
         'Purifier' => Mews\Purifier\Facades\Purifier::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Active' => HieuLe\Active\Facades\Active::class,
+        'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
     ],
 
 ];

@@ -10,7 +10,7 @@ namespace App\Repositories;
 use App\Models\Post;
 use App\One\Markdown;
 use Cache;
-
+use Auth;
 
 class PostRepository
 {
@@ -95,7 +95,8 @@ class PostRepository
      * @return mixed
      */
     public function paginate(){
-       return $this->post->select(Post::postInfo)->latest()->published()->paginate(10);
+        $posts = $this->post->select(Post::postInfo)->latest()->published()->paginate(10);
+        return $posts;
     }
 
     /**
@@ -103,7 +104,12 @@ class PostRepository
      * @return mixed
      */
     public function adminPaginate(){
-        return $this->post->select(Post::postInfo)->latest()->post()->paginate(10);
+        if (Auth::user()->hasRole('admin')) {//管理员，获取所有文章
+            $posts = $this->post->select(Post::postInfo)->latest()->post()->paginate(10);
+        }else{//普通用户，获取当前用户文章
+            $posts = $this->post->select(Post::postInfo)->latest()->post()->currentUser()->paginate(10);
+        }
+        return $posts;
     }
 
     /**

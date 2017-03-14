@@ -24,9 +24,35 @@
                 <div class="blog-post-content">
                     <h2 class="blog-post-title">{{ $post->post_title }}</h2>
                     {!! $post->post_content_filter !!}
-                </div>
-                <div id="share">
-                    <!--分享代码区-->
+                    <p class="copy-right">
+                        转载请注明出处：<a href="{{ $post->post_slug }}">{{ route('article.index',$post->post_slug ) }}</a>
+                    </p>
+                    <p class="bs-component btn-group-sm text-center">
+                        @if($post->user->wechatpay || $post->user->alipay)
+                        <a href="#" class="btn btn-danger btn-fab" id="btn-favorite"><i class="material-icons">favorite</i></a>
+                        @endif
+                        <a href="#" class="btn btn-info btn-fab" id="btn-share"><i class="material-icons">share</i></a>
+                    </p>
+                    <ul class="text-center" id="favorite" hidden>
+                        <p>“赏~”</p>
+                        <ul class="list-unstyled">
+                            @if($post->user->wechatpay)
+                                <li>
+                                    <img src='{{ asset($post->user->wechatpay) }}' >
+                                    <p>微信支付</p>
+                                </li>
+                            @endif
+                            @if($post->user->alipay)
+                                <li>
+                                    <img src='{{ asset($post->user->alipay) }}'>
+                                    <p>支付宝</p>
+                                </li>
+                            @endif
+                        </table>
+                    </ul>
+                    <div class="text-center" id="share" hidden>
+                        <div class="bdsharebuttonbox"></a><a href="#" class="bds_bdhome" data-cmd="bdhome" title="分享到百度新首页"></a><a href="#" class="bds_bdysc" data-cmd="bdysc" title="分享到百度云收藏"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_youdao" data-cmd="youdao" title="分享到有道云笔记"></a></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -102,6 +128,7 @@
 @stop
 @section('script')
     <script src="https://cdn.bootcss.com/highlight.js/9.9.0/highlight.min.js"></script>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
     <script>
         hljs.initHighlightingOnLoad();
         $(function () {
@@ -110,6 +137,22 @@
                 trigger : 'hover',
                 container: 'body',
                 placement: 'auto top',
+            });
+            $("#btn-favorite").on('click',function () {
+                $('#share').prop('hidden',true);
+                if ($('#favorite').prop('hidden') == false){
+                    $('#favorite').prop('hidden',true);
+                }else {
+                    $('#favorite').prop('hidden',false);
+                }
+            });
+            $("#btn-share").on('click',function () {
+                $('#favorite').prop('hidden',true);
+                if ($('#share').prop('hidden') == false){
+                    $('#share').prop('hidden',true);
+                }else {
+                    $('#share').prop('hidden',false);
+                }
             });
             $(".reply").on('click',function () {
                 var obj = $(this).parents('li');

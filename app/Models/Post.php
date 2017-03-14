@@ -7,6 +7,7 @@ use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Nicolaslopezj\Searchable\SearchableTrait;
+use Auth;
 
 class Post extends Model
 {
@@ -92,6 +93,9 @@ class Post extends Model
         $query->where('post_type','=','post');
     }
 
+    public function scopeCurrentUser($query){
+        $query->where('user_id','=',Auth::id());
+    }
     public function setPublishedAtAttribute($value)
     {
         $this->attributes['published_at'] = date_format(date_create($value.' '.Carbon::now()->toTimeString()),'Y-m-d H:i:s');
