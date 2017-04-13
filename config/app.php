@@ -170,7 +170,6 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         HieuLe\Active\ActiveServiceProvider::class,
         Mews\Purifier\PurifierServiceProvider::class,
-        Roumen\Sitemap\SitemapServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
         Zizaco\Entrust\EntrustServiceProvider::class,
 
