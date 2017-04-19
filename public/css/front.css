@@ -1,5 +1,6 @@
 pre{
     border: none;
+    background-color: #f0f0f0;
 }
 img {
     max-width: 100%;
@@ -62,7 +63,7 @@ img {
     width: 24px;
 }
 .copy-right{
-    background-color: #EBEBEB;
+    background-color: #f0f0f0;
     padding: 15px;
     border-radius: 10px 10px;
 }

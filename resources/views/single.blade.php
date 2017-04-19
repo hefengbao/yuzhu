@@ -29,9 +29,9 @@
                     </p>
                     <p class="bs-component btn-group-sm text-center">
                         @if($post->user->wechatpay || $post->user->alipay)
-                        <a href="#" class="btn btn-danger btn-fab" id="btn-favorite"><i class="material-icons">favorite</i></a>
+                        <a href="javascript:;" class="btn btn-danger btn-fab" id="btn-favorite"><i class="material-icons">favorite</i></a>
                         @endif
-                        <a href="#" class="btn btn-info btn-fab" id="btn-share"><i class="material-icons">share</i></a>
+                        <a href="javascript:;" class="btn btn-info btn-fab" id="btn-share"><i class="material-icons">share</i></a>
                     </p>
                     <div class="text-center" id="favorite" hidden>
                         <p>“赏~”</p>

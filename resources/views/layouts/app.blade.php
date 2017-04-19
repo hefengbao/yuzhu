@@ -72,14 +72,13 @@
             <div class="row">
                 <div class="col-sm-10">
                     <i class="material-icons brand"></i>
-                    &copy;&nbsp;&nbsp;2017 @if(date('Y')>'2017' ) - {{ date('Y')  }} @endif&nbsp;&nbsp;Powered by <a href="https://github.com/hefengbao/one">One</a>
+                    &copy;&nbsp;&nbsp;2017 @if(date('Y')>'2017' ) - {{ date('Y')  }} @endif&nbsp;&nbsp;Powered by <a href="https://github.com/hefengbao/one">One</a>&nbsp;@if($icp)
+                        |&nbsp;<a href="http://www.miitbeian.gov.cn" target="_blank">{{ $icp }}</a>
+                    @endif
                 </div>
                 <div class="col-md-2 text-right offset">
                     <ul class="list-inline">
                         <li><a href="{{ url('sitemap.xml') }}" target="_blank">网站地图</a></li>
-                        @if($icp)
-                        <li><a href="http://www.miitbeian.gov.cn" target="_blank">{{ $icp }}</a></li>
-                        @endif
                     </ul>
                 </div>
             </div>

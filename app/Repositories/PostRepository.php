@@ -79,7 +79,7 @@ class PostRepository
             $tags= $input['tags'];
             if (!empty($tags)) {
                 foreach ($tags as $tag){
-                    $tagInfo = $this->tagRepository->create(['tag_name'=>$tag]);
+                    $tagInfo = $this->tagRepository->save(['tag_name'=>$tag]);
                     array_push($tag_ids, $tagInfo->id);
                 }
             }
