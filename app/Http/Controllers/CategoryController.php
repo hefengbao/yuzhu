@@ -18,8 +18,8 @@ class CategoryController extends Controller
     }
 
     public function index(){
-        $categorys = $this->categoryRepository->paginate();
-        return view('admin.category.index',compact('categorys'));
+        $categories = $this->categoryRepository->paginate();
+        return view('admin.category.index',compact('categories'));
     }
 
     public function posts($slug){
@@ -30,7 +30,7 @@ class CategoryController extends Controller
     }
 
     public function store(CreateCategoryRequest $request){
-        $this->categoryRepository->save($request->except('_token'));
+        $this->categoryRepository->save($request->except("_token"));
         return redirect()->route('category.index');
     }
 }

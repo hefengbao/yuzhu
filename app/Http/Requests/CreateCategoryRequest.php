@@ -25,8 +25,8 @@ class CreateCategoryRequest extends FormRequest
     {
         return [
             //
-            'category_name'=>'required|unique',
-            'category_slug'=>'required|unique'
+            'category_name'=>'required|unique:categories',
+            'category_slug'=>'required|unique:categories'
         ];
     }
 }

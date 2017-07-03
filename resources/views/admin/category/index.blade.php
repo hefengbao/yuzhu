@@ -40,7 +40,7 @@
                         <th>操作</th>
                     </tr>
                     </thead>
-                    @foreach($categorys as $category)
+                    @foreach($categories as $category)
                         <tr>
                             <td>{{ $category->category_name }}</td>
                             <td>{{ $category->category_slug }}</td>
@@ -49,7 +49,7 @@
                         </tr>
                     @endforeach
                 </table>
-                {!! $categorys->links() !!}
+                {!! $categories->links() !!}
             </div>
         </div>
     </div>
