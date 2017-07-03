@@ -24,5 +24,5 @@ php artisan migrate --seed
 chmod -R 775 storage/
 ```
 
-##License
+## License
 MIT
