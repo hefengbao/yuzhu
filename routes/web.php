@@ -24,22 +24,29 @@ Route::post('/comment','CommentController@store')->name('comment.store');
 
 Route::group(['prefix'=>'admin','middleware'=>['web','auth']], function(){
     Route::get('/','DashboardController@index')->name('dashboard.index');
-    Route::post('post/upload','PostController@uploadImage')->name('post.upload');
-    Route::get('post/create','PostController@create')->name('post.create');
+
+    Route::get('post','PostController@index')->middleware(['permission:post.index'])->name('post.index');
+    Route::get('post/create','PostController@create')->middleware(['permission:post.create'])->name('post.create');
     Route::post('post','PostController@store')->name('post.store');
-    Route::get('post','PostController@index')->name('post.index');
-    Route::get('post/{id}/edit','PostController@edit')->name('post.edit');
+    Route::get('post/{id}/edit','PostController@edit')->middleware(['permission:post.edit'])->name('post.edit');
     Route::patch('post/{id}','PostController@update')->name('post.update');
-    Route::delete('post/{id}','PostController@destroy')->name('post.destroy');
-    Route::resource('tag', 'TagController');
-    Route::resource('category', 'CategoryController',['except'=>['show']]);
-    Route::resource('page', 'PageController',['except'=>['show']]);
-    Route::resource('option', 'OptionController',['except'=>['show']]);
-    Route::get('appearance/menu','MenuController@index')->name('appearance.menu');
-    Route::post('option/menu','OptionController@menuStore')->name('option.menu');
-    Route::get('option/cache','OptionController@cache')->name('option.cache');
-    Route::post('option/clearcache','OptionController@clearAllCache')->name('option.clearcache');
-    Route::resource('user', 'UserController',['only'=>['index','update']]);
+    Route::delete('post/{id}','PostController@destroy')->middleware(['permission:post.destroy'])->name('post.destroy');
+
+    Route::post('post/upload','PostController@uploadImage')->name('post.upload');
+
+    Route::group(['middle'=>'role:admin'],function (){
+        Route::resource('tag', 'TagController');
+        Route::resource('category', 'CategoryController',['except'=>['show']]);
+        Route::resource('page', 'PageController',['except'=>['show']]);
+        Route::resource('option', 'OptionController',['except'=>['show']]);
+        Route::get('appearance/menu','MenuController@index')->name('appearance.menu');
+        Route::post('option/menu','OptionController@menuStore')->name('option.menu');
+        Route::get('option/cache','OptionController@cache')->name('option.cache');
+        Route::post('option/clearcache','OptionController@clearAllCache')->name('option.clearcache');
+        Route::get('user','UserController@index')->name('user.index');
+    });
+    //Route::resource('user', 'UserController',['only'=>['index','update']]);
+    Route::patch('user/{id}','UserController@update')->name('user.update');
     Route::get('user/profile/{id}','UserController@profile')->name('user.profile');
 
 });
