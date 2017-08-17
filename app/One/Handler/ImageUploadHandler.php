@@ -2,6 +2,7 @@
 
 namespace App\One\Handler;
 
+use Intervention\Image\Exception\ImageException;
 use Intervention\Image\Facades\Image;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Auth;
@@ -43,7 +44,7 @@ class ImageUploadHandler
     {
         $extension = strtolower($this->file->getClientOriginalExtension());
         if ($extension && !in_array($extension, $this->allowed_extensions)) {
-            throw new ImageUploadException('You can only upload image with extensions: ' . implode($this->allowed_extensions, ','));
+            throw new ImageException('You can only upload image with extensions: ' . implode($this->allowed_extensions, ','));
         }
     }
 

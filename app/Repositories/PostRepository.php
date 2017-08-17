@@ -11,6 +11,7 @@ use App\Models\Post;
 use App\One\Markdown;
 use Cache;
 use Auth;
+use Carbon\Carbon;
 
 class PostRepository
 {
@@ -39,11 +40,11 @@ class PostRepository
         $input['post_type'] = 'post';
         $input['post_content_filter'] = $this->markdown->convertMarkdownToHtml($input['post_content']);
         $input['post_excerpt'] = trim($input['post_excerpt']) == '' ? makeExcerpt($input['post_content_filter']): trim($input['post_excerpt']);
-
+        //$input['published_at'] = date_format(date_create($input['published_at'].' '.Carbon::now()->toTimeString()),'Y-m-d H:i:s');
         $post = $this->post->create($input);
 
         $category = $this->categoryRepository->getCategoryById($input['category_id']);
-        Cache::forget('categorys');
+        Cache::forget('categories');
         $category->increment('count',1);
         $tag_ids = [];
         if(array_has($input, 'tags')){

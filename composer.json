@@ -16,8 +16,9 @@
         "league/html-to-markdown": "^4.4",
         "mews/purifier": "^2.0",
         "nicolaslopezj/searchable": "^1.9",
+        "predis/predis": "^1.1",
         "suin/php-rss-writer": "^1.5",
-        "zizaco/entrust": "^1.7"
+        "zizaco/entrust": "^1.8"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^2.3",

@@ -9,7 +9,7 @@ namespace App\Repositories;
 
 use App\Models\Post;
 use App\One\Markdown;
-
+use Auth;
 
 class PageRepository
 {
@@ -20,7 +20,7 @@ class PageRepository
     {
         $this->post = $post;
         $this->markdown = $markdown;
-        $this->user_id = 1;
+        $this->user_id = Auth::user()->id;
     }
 
     public function save($input){

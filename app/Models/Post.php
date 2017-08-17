@@ -12,8 +12,9 @@ use Auth;
 class Post extends Model
 {
     use SoftDeletes;
-    //
+
     protected $dates=['published_at'];
+    public $timestamps = false;
     protected $fillable=[
         'user_id',
         'post_title',
@@ -98,6 +99,7 @@ class Post extends Model
     }
     public function setPublishedAtAttribute($value)
     {
-        $this->attributes['published_at'] = date_format(date_create($value.' '.Carbon::now()->toTimeString()),'Y-m-d H:i:s');
+        //$this->attributes['published_at'] = date_format(date_create($value.' '.Carbon::now()->toTimeString()),'Y-m-d H:i:s');
+        $this->attributes['published_at'] = new Carbon($value.' '.Carbon::now()->toTimeString());
     }
 }

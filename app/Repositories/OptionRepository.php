@@ -30,7 +30,7 @@ class OptionRepository
      * @return array $option
      */
     public function getAll(){
-        $option = Cache::rememberForever('option',function (){
+        $optionCache = Cache::rememberForever('option',function (){
             $options = $this->option->select(['option_name','option_value'])->get()->toArray();
             $option =[];
             if (is_array($options) && !empty($options)){
@@ -40,7 +40,7 @@ class OptionRepository
             }
             return $option;
         });
-        return $option;
+        return $optionCache;
     }
 
     /**

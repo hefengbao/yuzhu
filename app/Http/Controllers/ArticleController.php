@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Repositories\PostRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Support\Collection;
+use Auth;
 
 
 class ArticleController extends Controller
@@ -28,7 +29,9 @@ class ArticleController extends Controller
                 $comment->comment_author_avatar = $user->avatar;
             }
         }
-        $post->increment('view_count',1);
+        if (!Auth::check()){
+            $post->increment('view_count',1);
+        }
         $single = true;
         return view('single',compact('post','single','comments'));
     }
