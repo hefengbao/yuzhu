@@ -19,14 +19,13 @@ class PostRepository
     protected $tagRepository;
     protected $categoryRepository;
     protected $markdown;
-    protected $user_id;
+
     public function __construct(Post $post, TagRepository $tagRepository, Markdown $markdown, CategoryRepository $categoryRepository)
     {
         $this->post = $post;
         $this->tagRepository = $tagRepository;
         $this->markdown = $markdown;
         $this->categoryRepository = $categoryRepository;
-        $this->user_id = 1;
     }
 
     /**
@@ -35,12 +34,11 @@ class PostRepository
      * @return static
      */
     public function save($input){
-        $input['user_id']=$this->user_id;
+        $input['user_id']=Auth::user()->id;
         $input['category_id']=$input['post_category'];
         $input['post_type'] = 'post';
         $input['post_content_filter'] = $this->markdown->convertMarkdownToHtml($input['post_content']);
         $input['post_excerpt'] = trim($input['post_excerpt']) == '' ? makeExcerpt($input['post_content_filter']): trim($input['post_excerpt']);
-        //$input['published_at'] = date_format(date_create($input['published_at'].' '.Carbon::now()->toTimeString()),'Y-m-d H:i:s');
         $post = $this->post->create($input);
 
         $category = $this->categoryRepository->getCategoryById($input['category_id']);
@@ -69,7 +67,7 @@ class PostRepository
     public function update($id,$input){
         $post = $this->post->findOrFail($id);
 
-        $input['user_id']=$this->user_id;
+        $input['user_id']=Auth::user()->id;
         $input['category_id']=$input['post_category'];
         $input['post_type'] = 'post';
         $input['post_content_filter'] = $this->markdown->convertMarkdownToHtml($input['post_content']);

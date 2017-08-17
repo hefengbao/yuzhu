@@ -15,16 +15,14 @@ class PageRepository
 {
     protected $post;
     protected $markdown;
-    protected $user_id;
     public function __construct(Post $post, Markdown $markdown)
     {
         $this->post = $post;
         $this->markdown = $markdown;
-        $this->user_id = Auth::user()->id;
     }
 
     public function save($input){
-        $input['user_id']=$this->user_id;
+        $input['user_id']=Auth::user()->id;
         $input['category_id'] = 0;
         $input['post_status'] = 1;
         $input['post_type'] = 'page';
@@ -36,8 +34,7 @@ class PageRepository
 
     public function update($id,$input){
         $post = $this->post->findOrFail($id);
-
-        $input['user_id']=$this->user_id;
+        $input['user_id']=Auth::user()->id;
         $input['category_id'] = 0;
         $input['post_status'] = 1;
         $input['post_type'] = 'page';

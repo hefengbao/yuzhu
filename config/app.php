@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'Laravel',
+    'name' => 'One',
 
     /*
     |--------------------------------------------------------------------------
@@ -167,11 +167,6 @@ return [
          * Package Service Providers...
          */
         Laravel\Tinker\TinkerServiceProvider::class,
-        Intervention\Image\ImageServiceProvider::class,
-        HieuLe\Active\ActiveServiceProvider::class,
-        Mews\Purifier\PurifierServiceProvider::class,
-        Laracasts\Flash\FlashServiceProvider::class,
-        Zizaco\Entrust\EntrustServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -183,6 +178,12 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         App\Providers\ComposerServiceProvider::class,
+
+        Intervention\Image\ImageServiceProvider::class,
+        HieuLe\Active\ActiveServiceProvider::class,
+        Mews\Purifier\PurifierServiceProvider::class,
+        Laracasts\Flash\FlashServiceProvider::class,
+        Zizaco\Entrust\EntrustServiceProvider::class,
 
     ],
 

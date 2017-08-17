@@ -27,7 +27,7 @@ class CreatePostsTable extends Migration
             $table->char('post_type',10)->comment('文章类型');
             $table->integer('comment_count')->default(0)->comment('评论数');
             $table->integer('view_count')->default(0)->comment('浏览数');
-            $table->timestamp('published_at');
+            $table->timestamp('published_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
