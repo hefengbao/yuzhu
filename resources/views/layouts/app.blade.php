@@ -72,7 +72,7 @@
             <div class="row">
                 <div class="col-sm-10">
                     <i class="material-icons brand"></i>
-                    &copy;&nbsp;&nbsp;2017 @if(date('Y')>'2017' ) - {{ date('Y')  }} @endif&nbsp;&nbsp;Powered by <a href="https://github.com/hefengbao/one">One</a>&nbsp;@if($icp)
+                    &copy;&nbsp;&nbsp;2017 @if(date('Y')>'2017' ) - {{ date('Y')  }} @endif&nbsp;&nbsp;Powered by <a href="https://github.com/fenble/one">One</a>&nbsp;@if($icp)
                         |&nbsp;<a href="http://www.miitbeian.gov.cn" target="_blank">{{ $icp }}</a>
                     @endif
                 </div>
