@@ -26,6 +26,7 @@ class PageController extends Controller
 
     public function store(CreatePostRequest $request){
         $this->pageRepository->save($request->except('_token'));
+        return redirect('admin/page');
     }
 
     public function edit($id){
@@ -40,6 +41,7 @@ class PageController extends Controller
 
     public function update(UpdatePageRequest $request,$id){
          return $this->pageRepository->update($id, $request->except('_token'));
+        return redirect('admin/page');
     }
 
     public function destroy($id)

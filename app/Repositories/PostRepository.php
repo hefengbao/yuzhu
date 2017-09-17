@@ -94,7 +94,7 @@ class PostRepository
      * @return mixed
      */
     public function paginate(){
-        $posts = $this->post->select(Post::postInfo)->latest()->published()->paginate(10);
+        $posts = $this->post->select(Post::postInfo)->published()->latest('published_at')->paginate(10);
         return $posts;
     }
 
@@ -104,9 +104,9 @@ class PostRepository
      */
     public function adminPaginate(){
         if (Auth::user()->hasRole('admin')) {//管理员，获取所有文章
-            $posts = $this->post->select(Post::postInfo)->latest()->post()->paginate(10);
+            $posts = $this->post->select(Post::postInfo)->post()->latest('id')->paginate(10);
         }else{//普通用户，获取当前用户文章
-            $posts = $this->post->select(Post::postInfo)->latest()->post()->currentUser()->paginate(10);
+            $posts = $this->post->select(Post::postInfo)->post()->currentUser()->latest('id')->paginate(10);
         }
         return $posts;
     }
