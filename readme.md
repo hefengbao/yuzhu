@@ -1,5 +1,5 @@
 # One
-This is a blog using Laravel framework (Laravel 5.4)
+This is a blog using Laravel framework (Laravel 5.5.*)
 
 ## 安装部署
 1、克隆代码：
