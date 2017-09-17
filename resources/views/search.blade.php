@@ -5,10 +5,15 @@
 @section('title'){{$query}}-搜索结果 @parent @stop
 @section('content')
     <div class="search-results">
-        <div class="alert alert-dismissible alert-success">
-            <button type="button" class="close" data-dismiss="alert">×</button>
-            <i class="fa fa-search"></i> 关于<b> “{{ $query }}”</b> 的搜索结果, 共 {{ $posts->total() }} 条
-        </div>
+        <section class="blog-post">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="blog-post-content">
+                        <p><i class="fa fa-search"></i> 关于<b> “{{ $query }}”</b> 的搜索结果, 共 {{ $posts->total() }} 条</p>
+                    </div>
+                </div>
+            </div>
+        </section>
         @foreach($posts as $post)
             <section class="blog-post">
                 <div class="panel panel-default">
