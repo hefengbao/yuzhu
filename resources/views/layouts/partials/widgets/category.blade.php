@@ -5,8 +5,8 @@
             <ol class="categories list-unstyled">
                 @foreach($categorys as $category)
                 <li>
-                    <a class="label label-light @if(($category->id)/2==0) label-info @else label-warning @endif" href="{{ url('category') }}/{{ $category->category_slug }}">{{ $category->category_name}}</a>
-                    <span class="label label-light label-default pull-right">{{ $category->count }}</span>
+                    <a  href="{{ url('category') }}/{{ $category->category_slug }}">{{ $category->category_name}}</a>
+                    {{--<span class="label label-light label-default pull-right">{{ $category->count }}</span>--}}
                 </li>
                 @endforeach
             </ol>

@@ -50,7 +50,6 @@ class HomeController extends Controller
             // add item to the sitemap (url, date, priority, freq)
             $sitemap->add(URL::to('/'), 'Carbon::now()->timestamp', '1.0', 'daily');
             $sitemap->add(URL::to('archives'), Carbon::now()->timestamp, '1.0', 'daily');
-            $sitemap->add(URL::to('tags'), Carbon::now()->timestamp, '1.0', 'daily');
 
             $posts = Post::select('updated_at','post_slug')
                 ->published()

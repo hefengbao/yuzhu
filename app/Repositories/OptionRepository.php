@@ -105,14 +105,14 @@ class OptionRepository
                                 ->where('post_type','page')
                                 ->get();
             $html = '<li class="dd-item dd3-item" data-id="'.$menu_id.'">'.
-                '<div class="dd-handle dd3-handle"></div><div class="dd3-content"><span>'.$page[0]['attributes']['post_title'].'</span><span class="pull-right">'.
+                '<div class="dd-handle dd3-handle"></div><div class="dd3-content"><span>'.$page[0]['post_title'].'</span><span class="pull-right">'.
                 '<a href="javascript:;" class="delete">x</a></span></div>';
         }elseif ($flag == 'category'){
              $category = $this->category->select('category_name','category_slug')
                  ->where('id',$id)
                  ->get();
             $html = '<li class="dd-item dd3-item" data-id="'.$menu_id.'">'.
-                     '<div class="dd-handle dd3-handle"></div><div class="dd3-content"><span>'.$category[0]['attributes']['category_name'].'</span><span class="pull-right">'.
+                     '<div class="dd-handle dd3-handle"></div><div class="dd3-content"><span>'.$category[0]['category_name'].'</span><span class="pull-right">'.
                      '<a href="javascript:;" class="delete">x</a></span></div>';
 
 
@@ -171,12 +171,12 @@ class OptionRepository
                 ->where('id',$id)
                 ->where('post_type','page')
                 ->get();
-            $html = '<a href="'.route('page.show',$page[0]['attributes']['post_slug']).'"'.$class.'>'.$page[0]['attributes']['post_title'].$caret.'</a>';
+            $html = '<a href="'.route('page.show',$page[0]['post_slug']).'"'.$class.'>'.$page[0]['post_title'].$caret.'</a>';
         }elseif ($flag == 'category'){
             $category = $this->category->select('category_name','category_slug')
                 ->where('id',$id)
                 ->get();
-            $html = '<a href="'.route('category.show',$category[0]['attributes']['category_slug']).'"'.$class.'>'.$category[0]['attributes']['category_name'].$caret.'</a>';
+            $html = '<a href="'.route('category.show',$category[0]['category_slug']).'"'.$class.'>'.$category[0]['category_name'].$caret.'</a>';
 
 
         }

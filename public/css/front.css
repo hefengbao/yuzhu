@@ -1,3 +1,6 @@
+html{
+    font-family:'Microsoft Yahei', '微软雅黑',arial ;
+}
 pre{
     border: none;
     background-color: #f0f0f0;
@@ -194,3 +197,12 @@ img {
     border-right-width: 0;
     border-left-color: #ffffff;
     bottom: -10px; }
+
+.tag-margin{
+    margin: 2px;
+    display: inline-block;
+}
+
+.blog-post-content p {
+    color: #717171;
+}

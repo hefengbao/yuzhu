@@ -19,12 +19,14 @@
 @stop
 
 @section('comment')
-    <section class="blog-comments">
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <h2 class="blog-post-title">Comments</h2>
-                <div id="disqus_thread"></div>
+    @if($page->comment_status == 1)
+        <section class="blog-comments">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h2 class="blog-post-title">Comments</h2>
+                    <div id="disqus_thread"></div>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    @endif
 @stop

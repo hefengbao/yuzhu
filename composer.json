@@ -18,7 +18,8 @@
         "nicolaslopezj/searchable": "^1.9",
         "predis/predis": "^1.1",
         "suin/php-rss-writer": "^1.6",
-        "zizaco/entrust": "^1.8"
+        "zizaco/entrust": "^1.8",
+        "roumen/sitemap": "2.7.*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^2.3",

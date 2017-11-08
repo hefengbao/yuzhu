@@ -184,7 +184,6 @@ return [
         Mews\Purifier\PurifierServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
         Zizaco\Entrust\EntrustServiceProvider::class,
-
     ],
 
     /*
