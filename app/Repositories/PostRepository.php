@@ -145,7 +145,7 @@ class PostRepository
 
     public function archive(){
         $data = $this->post->select('post_title','post_slug','published_at')
-            ->where('deleted_at',"!=",null)
+            ->published()
             ->orderBy('published_at','desc')
             ->get();
         return $data;
