@@ -45,7 +45,6 @@ Route::group(['prefix'=>'admin','middleware'=>['web','auth']], function(){
         Route::post('option/clearcache','OptionController@clearAllCache')->name('option.clearcache');
         Route::get('user','UserController@index')->name('user.index');
     });
-    //Route::resource('user', 'UserController',['only'=>['index','update']]);
     Route::patch('user/{id}','UserController@update')->name('user.update');
     Route::get('user/profile/{id}','UserController@profile')->name('user.profile');
 

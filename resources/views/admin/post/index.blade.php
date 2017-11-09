@@ -20,7 +20,7 @@
                         <th>作者</th>
                         <th>分类目录</th>
                         <th>标签</th>
-                        <th>时间</th>
+                        <th>发布时间</th>
                         <th>操作</th>
                     </tr>
                 </thead>
@@ -32,7 +32,7 @@
                         <td>
                             {!! $tagPresenter->showTags($post->tags) !!}
                         </td>
-                        <td>{{ $post->created_at }}</td>
+                        <td>{{ $post->published_at }}</td>
                         <td>
                             <a class="btn btn-primary btn-sm" href="{{ route('article.index',$post->post_slug) }}" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i> 查看</a>
                             <a class="btn btn-success btn-sm" href="{{ route('post.edit',$post->id)  }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> 编辑</a>
