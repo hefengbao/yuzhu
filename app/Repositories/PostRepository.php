@@ -38,7 +38,7 @@ class PostRepository
         $input['category_id']=$input['post_category'];
         $input['post_type'] = 'post';
         $input['post_content_filter'] = $this->markdown->convertMarkdownToHtml($input['post_content']);
-        $input['post_excerpt'] = trim($input['post_excerpt']) == '' ? makeExcerpt($input['post_content_filter']): trim($input['post_excerpt']);
+        $input['post_excerpt'] = trim($input['post_excerpt']) == '' ? makeExcerpt($input['post_content_filter']): makeExcerpt(trim($input['post_excerpt']));
         $post = $this->post->create($input);
 
         $category = $this->categoryRepository->getCategoryById($input['category_id']);
@@ -71,7 +71,7 @@ class PostRepository
         $input['category_id']=$input['post_category'];
         $input['post_type'] = 'post';
         $input['post_content_filter'] = $this->markdown->convertMarkdownToHtml($input['post_content']);
-        $input['post_excerpt'] = trim($input['post_excerpt']) == '' ? makeExcerpt($input['post_content_filter']): trim($input['post_excerpt']);
+        $input['post_excerpt'] = trim($input['post_excerpt']) == '' ? makeExcerpt($input['post_content_filter']): makeExcerpt(trim($input['post_excerpt']));
 
         $tag_ids = [];
         if(array_has($input, 'tags')){

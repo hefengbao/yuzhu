@@ -15,7 +15,7 @@
                             <a href="{{ url('tag') }}/{{ $tag->tag_name }}"><span class="label label-light label-default">{{ $tag->tag_name }}</span></a>
                         @endforeach
                     @endif
-                    <p class="blog-post-date pull-right">{{ $post->published_at }}</p>
+                    <p class="blog-post-date pull-right"><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;{{ $post->published_at }}</p>
                 </div>
                 <div class="blog-post-content">
                     <a href="{{ url('/article') }}/{{ $post->post_slug }}"><h2 class="blog-post-title">{{ $post->post_title }}</h2></a>

@@ -8,6 +8,7 @@
     <meta name="keywords" content="@section('keywords'){{ $keywords }} @show">
     <meta name="author" content="@section('author'){{ url('/') }}@show">
     <link rel="icon" href="{{ url('/') }}/favicon.ico">
+    @yield('head')
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@section('title')@if($title!=''){{ $title }} @endif - @if($subtitle!=''){{ $subtitle }} @endif @show</title>

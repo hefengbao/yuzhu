@@ -7,7 +7,6 @@
 @section('content')
     <section class="blog-post">
         <div class="panel panel-default">
-            <img src="" class="img-responsive" />
             <div class="panel-body">
                 <div class="blog-post-content">
                     <h2 class="blog-post-title">{{ $page->post_title }}</h2>

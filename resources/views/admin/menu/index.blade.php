@@ -124,6 +124,32 @@
                                </div>
                            </div>
                        </div>
+                       <div class="panel box box-danger">
+                           <div class="box-header with-border">
+                               <h4 class="box-title">
+                                   <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" class="collapsed" aria-expanded="false">
+                                       自定义
+                                   </a>
+                               </h4>
+                           </div>
+                           <div id="collapseThree" class="panel-collapse collapse" aria-expanded="false">
+                               <div class="box-body">
+                                   <div class="form-group">
+                                       <label for="custom-name" class="control-label">名称 <sup>*</sup></label>
+                                       <input type="text" id="custom-name" placeholder="请输入名称">
+                                   </div>
+                                   <div class="form-group">
+                                       <label for="custom-url" class="control-label">链接 <sup>*</sup></label>
+                                       <input type="text" id="custom-url" placeholder="http(s)://">
+                                   </div>
+                               </div>
+                               <div class="box-footer">
+                                   <div class="box-footer">
+                                       <button class="btn btn-primary" id="btn-custom">添加到菜单</button>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
                    </div>
                </div>
         </div>
@@ -174,7 +200,18 @@
                     }
                 });
             });
-
+            $('#btn-custom').on('click',function () {
+                var name = $('#custom-name').val();
+                var url = $('#custom-url').val();
+                if(name == ''){
+                    alert('名称不能为空');
+                }else {
+                    var html = '<li class="dd-item dd3-item" data-id="'+name+'_'+url+'">'+
+                        '<div class="dd-handle dd3-handle"></div><div class="dd3-content"><span>'+name+'</span><span class="pull-right">' +
+                        '<a href="#" class="delete">x</a></span></div> </li>';
+                    $('#nestable > .dd-list').append(html);
+                }
+            })
             $("ol.dd-list").on('click','a.delete',function () {
                 $(this).parents('.dd-item').remove();
             });

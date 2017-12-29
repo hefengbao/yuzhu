@@ -68,7 +68,7 @@ img {
 .copy-right{
     background-color: #f0f0f0;
     padding: 15px;
-    border-radius: 10px 10px;
+    border-radius: 4px;
 }
 #favorite ul li{
     width: 200px;
@@ -199,7 +199,7 @@ img {
     bottom: -10px; }
 
 .tag-margin{
-    margin: 2px;
+    margin: 4px;
     display: inline-block;
 }
 

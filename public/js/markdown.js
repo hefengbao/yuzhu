@@ -5,6 +5,7 @@ var filename="http://";
 var progress = 0;
 var simplemde = new SimpleMDE({
     autofocus: false,
+    autoDownloadFontAwesome: false,
     autosave: {
         enabled: false,
         uniqueId: 'one_blog'

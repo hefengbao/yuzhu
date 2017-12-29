@@ -27,7 +27,7 @@ class PageRepository
         $input['post_status'] = 1;
         $input['post_type'] = 'page';
         $input['post_content_filter'] = $this->markdown->convertMarkdownToHtml($input['post_content']);
-        $input['post_excerpt'] = trim($input['post_excerpt']) == '' ? makeExcerpt($input['post_content_filter']): trim($input['post_excerpt']);
+        $input['post_excerpt'] = trim($input['post_excerpt']) == '' ? makeExcerpt($input['post_content_filter']): makeExcerpt(trim($input['post_excerpt']));
         $post = $this->post->create($input);
         return $post;
     }
@@ -39,7 +39,7 @@ class PageRepository
         $input['post_status'] = 1;
         $input['post_type'] = 'page';
         $input['post_content_filter'] = $this->markdown->convertMarkdownToHtml($input['post_content']);
-        $input['post_excerpt'] = trim($input['post_excerpt']) == '' ? makeExcerpt($input['post_content_filter']): trim($input['post_excerpt']);
+        $input['post_excerpt'] = trim($input['post_excerpt']) == '' ? makeExcerpt($input['post_content_filter']): makeExcerpt(trim($input['post_excerpt']));
 
         if($post->update($input)){
             return redirect()->route('page.index')->with('success','编辑成功');

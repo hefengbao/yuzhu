@@ -83,7 +83,7 @@ class OptionRepository
     public function _getMenu($menu){
         $html ='';
         $children ='';
-        $str = explode('_', $menu->id);
+        $str = explode('_', $menu->id,2);
         $html .= $this->_menu($str[0], $str[1],$menu->id);
         if (isset($menu->children)){
             $ol_start = '<ol class="dd-list">';
@@ -115,7 +115,10 @@ class OptionRepository
                      '<div class="dd-handle dd3-handle"></div><div class="dd3-content"><span>'.$category[0]['category_name'].'</span><span class="pull-right">'.
                      '<a href="javascript:;" class="delete">x</a></span></div>';
 
-
+        }else{
+            $html = '<li class="dd-item dd3-item" data-id="'.$menu_id.'">'.
+                '<div class="dd-handle dd3-handle"></div><div class="dd3-content"><span>'.$flag.'</span><span class="pull-right">'.
+                '<a href="javascript:;" class="delete">x</a></span></div>';
         }
 
         return $html;
@@ -140,7 +143,7 @@ class OptionRepository
     public function _getMainMenu($menu){
         $html ='<li ';
         $children ='';
-        $str = explode('_', $menu->id);
+        $str = explode('_', $menu->id,2);
         $hasChildren = false;
         if (isset($menu->children)){
             $hasChildren =true;
@@ -177,8 +180,8 @@ class OptionRepository
                 ->where('id',$id)
                 ->get();
             $html = '<a href="'.route('category.show',$category[0]['category_slug']).'"'.$class.'>'.$category[0]['category_name'].$caret.'</a>';
-
-
+        }else{
+            $html = '<a href="'.$id.'"'.$class.'>'.$flag.$caret.'</a>';
         }
 
         return $html;

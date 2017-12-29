@@ -106,7 +106,6 @@
             <ul class="sidebar-menu">
                 <li class="header">HEADER</li>
                 <!-- Optionally, you can add icons to the links -->
-
                 <li class="{{ active_class(if_route_pattern(["dashboard.index"]),'active') }}"><a href="{{ route('dashboard.index') }}"><i class="fa fa-dashboard"></i> <span>仪表盘</span></a></li>
                 @if(Auth::user()->can(['post.*'])||Auth::user()->can(['tag.*'])||Auth::user()->can(['category.*']))
                     <li class="treeview {{ active_class(if_route_pattern(["post.*","tag.*","category.*"]),'active') }}">

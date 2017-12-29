@@ -3,9 +3,13 @@
 @section('description'){{ $post->post_excerpt }} @stop
 @section('keywords'){{ $tagPresenter->showTags($post->tags) }}@stop
 @section('author'){{ $post->user->name }}@stop
+@section('head')
+<link rel="canonical" href="{{ url('/') }}/article/{{ $post->post_slug }}"/>
+@stop
 @section('title'){{ $post->post_title }} - @parent @stop
 @section('css')
-    <link href="https://cdn.bootcss.com/highlight.js/9.9.0/styles/default.min.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/highlight.js/9.9.0/styles/default.min.css" rel="stylesheet">
+<script src="//msite.baidu.com/sdk/c.js?appid=1583679988743509"></script>
 @stop
 @section('content')
     <section class="blog-post">
@@ -25,13 +29,14 @@
                     <h2 class="blog-post-title">{{ $post->post_title }}</h2>
                     {!! $post->post_content_filter !!}
                     <p class="copy-right">
+                        最后更新时间：{{ $post->updated_at }}<br>
                         转载请注明出处：<a href="{{ $post->post_slug }}">{{ route('article.index',$post->post_slug ) }}</a>
                     </p>
-                    <p class="bs-component btn-group-sm text-center">
+                    <div class="text-center">
                         @if($post->user->wechatpay || $post->user->alipay)
-                        <a href="javascript:;" class="btn btn-danger btn-fab" id="btn-favorite"><i class="material-icons">赏</i></a>
+                            <button type="button" class="btn btn-danger btn-raised" id="btn-favorite"><i class="fa fa-jpy" aria-hidden="true"></i> &nbsp;打赏&nbsp;</button>
                         @endif
-                    </p>
+                    </div>
                     <div class="text-center" id="favorite" hidden>
                         <p>“赏~”</p>
                         <ul class="list-unstyled">
@@ -49,6 +54,25 @@
                             @endif
                         </ul>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="blog-post-content">
+                    <script>cambrian.render('body')</script>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="blog-post-content">
+                    @if($pre)
+                        <p>上一篇：<a href="{{ route('article.index',$pre->post_slug) }}">{{ $pre->post_title }}</a></p>
+                    @endif
+                    @if($next)
+                        <p>下一篇：<a href="{{ route('article.index',$next->post_slug) }}">{{ $next->post_title }}</a></p>
+                    @endif
                 </div>
             </div>
         </div>
@@ -125,6 +149,16 @@
     @endif
 @stop
 @section('script')
+    <script type="application/ld+json">
+    {
+        "@context": "https://ziyuan.baidu.com/contexts/cambrian.jsonld",
+        "@id": "{{ url('/') }}/article/{{ $post->post_slug }}",
+        "appid": "1583679988743509",
+        "title": "{{ $post->post_title }}",
+        "description": "{{ $post->post_excerpt }}",
+        "pubDate": "{{ $post->published_at }}"
+    }
+</script>
     <script src="https://cdn.bootcss.com/highlight.js/9.9.0/highlight.min.js"></script>
     <script>
         hljs.initHighlightingOnLoad();
