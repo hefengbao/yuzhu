@@ -3,7 +3,7 @@
     <link href="//cdn.bootcss.com/simplemde/1.11.2/simplemde.min.css" rel="stylesheet">
 @stop
 @section('pageHeader')
-新建页面
+    新建页面
 @stop
 @section('content')
     <div class="row">
@@ -17,16 +17,19 @@
                     <div class="box-body">
                         <div class="form-group">
                             <label for="post_title" class="control-label">标题 <sup>*</sup></label>
-                            <input id="post_title" type="text" class="form-control" name="post_title" placeholder="标题" value="{{ old('post_title') }}" required>
+                            <input id="post_title" type="text" class="form-control" name="post_title" placeholder="标题"
+                                   value="{{ old('post_title') }}" required>
                         </div>
                         <div class="form-group">
                             <label for="post_slug" class="control-label">链接 <sup>*</sup></label>
-                            <input id="post_slug" type="text" class="form-control" name="post_slug" placeholder="链接" value="{{ old('post_slug') }}" required>
+                            <input id="post_slug" type="text" class="form-control" name="post_slug" placeholder="链接"
+                                   value="{{ old('post_slug') }}" required>
                         </div>
                         <div class="form-group">
                             <label for="post_content" class="control-label">内容 <sup>*</sup></label>
                             <div class="bao-editor" id="bao-editor">
-                                <textarea id="post_content" name="post_content" class="form-control" rows="40" placeholder="Enter ...">{{ old('post_content') }}</textarea>
+                                <textarea id="post_content" name="post_content" class="form-control" rows="40"
+                                          placeholder="Enter ...">{{ old('post_content') }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -38,7 +41,8 @@
                     <div class="box-body">
                         <div class="form-group">
                             <label for="post_excerpt" class="control-label">摘要</label>
-                            <textarea id="post_excerpt" name="post_excerpt" class="form-control" rows="5" placeholder="200字以内" >{{ old('post_excerpt') }}</textarea>
+                            <textarea id="post_excerpt" name="post_excerpt" class="form-control" rows="5"
+                                      placeholder="200字以内">{{ old('post_excerpt') }}</textarea>
                         </div>
                         <div class="form-group">
                             <label for="">开启评论</label>

@@ -9,7 +9,8 @@
                 @include('partials.errors')
             </div>
             <div class="box box-primary">
-                <form action="{{ route('user.update',$user->id) }}" class="form-horizontal" method="post" enctype="multipart/form-data">
+                <form action="{{ route('user.update',$user->id) }}" class="form-horizontal" method="post"
+                      enctype="multipart/form-data">
                     <div class="box-body">
                         <div class="form-group">
                             <input name="_method" type="hidden" value="PATCH">
@@ -25,31 +26,36 @@
                         <div class="form-group">
                             <label for="name" class="control-label col-md-2">用户名 <sup>*</sup></label>
                             <div class="col-md-10">
-                                <input type="text" id="username" name="name" class="form-control" value="{{ $user->name }}" required>
+                                <input type="text" id="username" name="name" class="form-control"
+                                       value="{{ $user->name }}" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="email" class="control-label col-md-2">邮箱 <sup>*</sup></label>
                             <div class="col-md-10">
-                                <input type="text" id="email" name="email" class="form-control" value="{{ $user->email }}" required>
+                                <input type="text" id="email" name="email" class="form-control"
+                                       value="{{ $user->email }}" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="website" class="control-label col-md-2">个人网站</label>
                             <div class="col-md-10">
-                                <input type="text" id="website" name="website" class="form-control" value="{{ $user->website }}">
+                                <input type="text" id="website" name="website" class="form-control"
+                                       value="{{ $user->website }}">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="github" class="control-label col-md-2">Github</label>
                             <div class="col-md-10">
-                                <input type="text" id="github" name="github" class="form-control" value="{{ $user->github }}">
+                                <input type="text" id="github" name="github" class="form-control"
+                                       value="{{ $user->github }}">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="weibo" class="control-label col-md-2">微博</label>
                             <div class="col-md-10">
-                                <input type="text" id="weibo" name="weibo" class="form-control" value="{{ $user->weibo }}">
+                                <input type="text" id="weibo" name="weibo" class="form-control"
+                                       value="{{ $user->weibo }}">
                             </div>
                         </div>
                         <div class="form-group">
@@ -88,13 +94,15 @@
                         <div class="form-group">
                             <label for="company" class="control-label col-md-2">公司</label>
                             <div class="col-md-10">
-                                <input type="text" id="company" name="company" class="form-control" value="{{ $user->company }}">
+                                <input type="text" id="company" name="company" class="form-control"
+                                       value="{{ $user->company }}">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="introduction" class="control-label col-md-2">个人简介</label>
                             <div class="col-md-10">
-                                <textarea name="introduction" id="introduction" rows="5" class="form-control">{{ $user->introduction }}</textarea>
+                                <textarea name="introduction" id="introduction" rows="5"
+                                          class="form-control">{{ $user->introduction }}</textarea>
                             </div>
                         </div>
                     </div>

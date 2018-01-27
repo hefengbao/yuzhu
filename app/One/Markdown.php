@@ -30,7 +30,7 @@ class Markdown
     public function convertMarkdownToHtml($markdown)
     {
         $convertedHtml = $this->markdownParser->setBreaksEnabled(true)->text($markdown);
-        $convertedHtml = Purifier::clean($convertedHtml,'post_content');
+        $convertedHtml = Purifier::clean($convertedHtml, 'post_content');
 
         return $convertedHtml;
     }

@@ -19,11 +19,13 @@ class UserRepository
         $this->user = $user;
     }
 
-    public function show($id){
-          return $this->user->findOrFail($id);
+    public function show($id)
+    {
+        return $this->user->findOrFail($id);
     }
 
-    public function getAll(){
+    public function getAll()
+    {
         return $this->user->paginate(10);
     }
 }

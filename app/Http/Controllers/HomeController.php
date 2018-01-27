@@ -14,10 +14,10 @@ class HomeController extends Controller
     protected $postRepository;
     protected $rssFeed;
 
-    public function __construct(PostRepository $postRepository,RssFeed $rssFeed)
+    public function __construct(PostRepository $postRepository, RssFeed $rssFeed)
     {
-       // $this->middleware('auth');
-        $this->postRepository  = $postRepository;
+        // $this->middleware('auth');
+        $this->postRepository = $postRepository;
         $this->rssFeed = $rssFeed;
     }
 
@@ -29,16 +29,17 @@ class HomeController extends Controller
     public function index()
     {
         $posts = $this->postRepository->paginate();
-        return view('home',compact('posts'));
+        return view('home', compact('posts'));
     }
 
     public function feed()
     {
         $rss = $this->rssFeed->getFeed();
-        return response($rss)->header('Content-Type','text/xml');
+        return response($rss)->header('Content-Type', 'text/xml');
     }
 
-    public function sitemap(){
+    public function sitemap()
+    {
         $sitemap = App::make("sitemap");
         // set cache key (string), duration in minutes (Carbon|Datetime|int), turn on/off (boolean)
         // by default cache is disabled
@@ -51,15 +52,14 @@ class HomeController extends Controller
             $sitemap->add(URL::to('/'), 'Carbon::now()->timestamp', '1.0', 'daily');
             $sitemap->add(URL::to('archives'), Carbon::now()->timestamp, '1.0', 'daily');
 
-            $posts = Post::select('updated_at','post_slug')
+            $posts = Post::select('updated_at', 'post_slug')
                 ->published()
                 ->orderBy('created_at', 'desc')
                 ->get();
 
             // add every post to the sitemap
-            foreach ($posts as $post)
-            {
-                $sitemap->add('article/'.$post->post_slug,$post->updated_at);
+            foreach ($posts as $post) {
+                $sitemap->add('article/' . $post->post_slug, $post->updated_at);
             }
         }
         // show your sitemap (options: 'xml' (default), 'html', 'txt', 'ror-rss', 'ror-rdf')

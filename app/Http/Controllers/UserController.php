@@ -16,25 +16,28 @@ class UserController extends Controller
         $this->userRepository = $userRepository;
     }
 
-    public function index(){
+    public function index()
+    {
         $users = $this->userRepository->getAll();
-        return view('admin.user.index',compact('users'));
+        return view('admin.user.index', compact('users'));
     }
 
-    public function profile($id){
+    public function profile($id)
+    {
         $user = $this->userRepository->show($id);
-        return view('admin.user.profile',compact('user'));
+        return view('admin.user.profile', compact('user'));
     }
 
 
-    public function update($id, UpdateUserRequest $request){
-        $user =User::findOrFail($id);
+    public function update($id, UpdateUserRequest $request)
+    {
+        $user = User::findOrFail($id);
         try {
             $request->update($user);
         } catch (ImageUploadException $exception) {
             return "图片上传失败：" + $exception->getMessage();
         }
 
-        return redirect(route('user.profile',$id));
+        return redirect(route('user.profile', $id));
     }
 }

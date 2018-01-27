@@ -15,7 +15,7 @@ class ComposerServiceProvider extends ServiceProvider
     public function boot()
     {
         //
-        view()->composer('*','App\Http\ViewComposers\OptionComposer');
+        view()->composer('*', 'App\Http\ViewComposers\OptionComposer');
         view()->composer('layouts.partials.widgets.hot_topic', 'App\Http\ViewComposers\HotTopicComposer');
         view()->composer('layouts.partials.nav', 'App\Http\ViewComposers\MenuComposer');
         view()->composer('layouts.partials.widgets.category', 'App\Http\ViewComposers\CategoryComposer');

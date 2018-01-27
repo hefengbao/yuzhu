@@ -11,11 +11,12 @@ class ArchiveController extends Controller
 
     public function __construct(PostRepository $postRepository)
     {
-           $this->postRepository = $postRepository;
+        $this->postRepository = $postRepository;
     }
 
-    public function index(){
-        $datas = $this->postRepository -> archive();
-        return view('archives',compact('datas'));
+    public function index()
+    {
+        $datas = $this->postRepository->archive();
+        return view('archives', compact('datas'));
     }
 }

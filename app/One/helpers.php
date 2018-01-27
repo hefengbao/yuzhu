@@ -6,7 +6,7 @@
  * Time: 17:00
  */
 
-if(!function_exists('makeExcerpt')){
+if (!function_exists('makeExcerpt')) {
     function makeExcerpt($html)
     {
         $excerpt = trim(preg_replace('/\s\s+/', ' ', strip_tags($html)));

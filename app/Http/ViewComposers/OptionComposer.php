@@ -13,15 +13,16 @@ use Illuminate\View\View;
 
 class OptionComposer
 {
-      protected $optionRepository;
+    protected $optionRepository;
 
-      public function __construct(OptionRepository $optionRepository)
-      {
-          $this->optionRepository = $optionRepository;
-      }
+    public function __construct(OptionRepository $optionRepository)
+    {
+        $this->optionRepository = $optionRepository;
+    }
 
-      public function compose(View $view){
-          $option =  $this->optionRepository->getAll();
-          $view->with($option);
-      }
+    public function compose(View $view)
+    {
+        $option = $this->optionRepository->getAll();
+        $view->with($option);
+    }
 }

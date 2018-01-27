@@ -18,18 +18,20 @@ use Suin\RSSWriter\Item;
 class RssFeed
 {
     protected $optionRepository;
+
     public function __construct(OptionRepository $optionRepository)
     {
         $this->optionRepository = $optionRepository;
     }
 
-    public function getFeed(){
-        if(Cache::has('rss-feed')){
+    public function getFeed()
+    {
+        if (Cache::has('rss-feed')) {
             return Cache::get('rss-feed');
         }
 
         $rss = $this->buildRssData();
-        Cache::add('rss-feed',$rss,120);
+        Cache::add('rss-feed', $rss, 120);
 
         return $rss;
     }
@@ -44,21 +46,21 @@ class RssFeed
             ->description($option['description'])
             ->url(url('/'))
             ->language('en')
-            ->copyright('Copyright (c)'. url('/'))
+            ->copyright('Copyright (c)' . url('/'))
             ->lastBuildDate($now->timestamp)
             ->appendTo($feed);
 
         $posts = Post::select(Post::postInfo)
             ->published()
-            ->orderBy('published_at','desc')
+            ->orderBy('published_at', 'desc')
             ->take(20)
             ->get();
 
-        foreach ($posts as $post){
+        foreach ($posts as $post) {
             $item = new Item();
             $item->title($post->post_title)
                 ->description($post->post_excerpt)
-                ->url(url('article/'.$post->post_slug))
+                ->url(url('article/' . $post->post_slug))
                 ->pubDate($post->published_at->timestamp)
                 ->appendTo($channel);
         }
@@ -72,9 +74,10 @@ class RssFeed
         );
         $feed = str_replace(
             '<channel>',
-            '<channel>'."\n".'    <atom:link href="'.url('/feed').'" rel="self" type="application/rss+xml" />',
+            '<channel>' . "\n" . '    <atom:link href="' . url('/feed') . '" rel="self" type="application/rss+xml" />',
             $feed
-        );return $feed;
+        );
+        return $feed;
     }
 
 }

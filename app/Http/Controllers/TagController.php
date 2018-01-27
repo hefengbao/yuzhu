@@ -19,20 +19,23 @@ class TagController extends Controller
         $this->tagRepository = $tagRepository;
     }
 
-    public function index(){
-        $tags =  $this->tagRepository->paginate();
-        return view('admin.tag.index',compact('tags'));
+    public function index()
+    {
+        $tags = $this->tagRepository->paginate();
+        return view('admin.tag.index', compact('tags'));
     }
 
-    public function store(CreateTagRequest $request){
+    public function store(CreateTagRequest $request)
+    {
         $this->tagRepository->save($request->except('_token'));
-        return redirect()->route('tag.index')->with('success','添加标签成功');
+        return redirect()->route('tag.index')->with('success', '添加标签成功');
     }
 
-    public function posts($name){
+    public function posts($name)
+    {
         $tag = $this->tagRepository->getTagbyName($name);
         $posts = $this->tagRepository->getPostGroupByTag($tag);
-        return view('tag',compact('posts','name'));
+        return view('tag', compact('posts', 'name'));
     }
 
 }

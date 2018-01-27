@@ -10,43 +10,50 @@ class PageController extends Controller
 {
     //
     protected $pageRepository;
+
     public function __construct(PageRepository $pageRepository)
     {
         $this->pageRepository = $pageRepository;
     }
 
-    public function index(){
+    public function index()
+    {
         $pages = $this->pageRepository->adminPaginate();
-        return view('admin.page.index',compact('pages'));
+        return view('admin.page.index', compact('pages'));
     }
 
-    public function create(){
+    public function create()
+    {
         return view('admin.page.create');
     }
 
-    public function store(CreatePostRequest $request){
+    public function store(CreatePostRequest $request)
+    {
         $this->pageRepository->save($request->except('_token'));
         return redirect('admin/page');
     }
 
-    public function edit($id){
+    public function edit($id)
+    {
         $page = $this->pageRepository->findById($id);
-        return view('admin.page.edit',compact('page'));
+        return view('admin.page.edit', compact('page'));
     }
 
-    public function show($slug){
+    public function show($slug)
+    {
         $page = $this->pageRepository->show($slug);
-        return view('page',compact('page'));
+        return view('page', compact('page'));
     }
 
-    public function update(UpdatePageRequest $request,$id){
-         return $this->pageRepository->update($id, $request->except('_token'));
+    public function update(UpdatePageRequest $request, $id)
+    {
+        return $this->pageRepository->update($id, $request->except('_token'));
         return redirect('admin/page');
     }
 
     public function destroy($id)
     {
         $this->pageRepository->delete($id);
-        return redirect()->back()->with('success','删除页面成功！');
+        return redirect()->back()->with('success', '删除页面成功！');
     }
 }

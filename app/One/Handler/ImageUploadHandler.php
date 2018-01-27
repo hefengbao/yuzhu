@@ -13,7 +13,7 @@ class ImageUploadHandler
      * @var UploadedFile $file
      */
     protected $file;
-    protected $allowed_extensions = ["png", "jpg", 'jpeg','gif'];
+    protected $allowed_extensions = ["png", "jpg", 'jpeg', 'gif'];
 
     /**
      * @param UploadedFile $file
@@ -37,7 +37,7 @@ class ImageUploadHandler
         $this->checkAllowedExtensionsOrFail();
 
         $local_image = $this->saveImageToLocal('post', 1440);
-        return ['filename' =>  $local_image];
+        return ['filename' => $local_image];
     }
 
     protected function checkAllowedExtensionsOrFail()
@@ -52,11 +52,11 @@ class ImageUploadHandler
     {
         $folderName = ($type == 'avatar')
             ? 'uploads/avatars'
-            : 'uploads/attachments/' . date("Ym", time()) .'/'.date("d", time()) .'/'.Auth::user()->id;
+            : 'uploads/attachments/' . date("Ym", time()) . '/' . date("d", time()) . '/' . Auth::user()->id;
 
         $destinationPath = public_path() . '/' . $folderName;
         $extension = $this->file->getClientOriginalExtension() ?: 'png';
-        $safeName  = $filename ? :str_random(10) . '.' . $extension;
+        $safeName = $filename ?: str_random(10) . '.' . $extension;
         $this->file->move($destinationPath, $safeName);
 
         if ($this->file->getClientOriginalExtension() != 'gif') {
@@ -67,6 +67,6 @@ class ImageUploadHandler
             });
             $img->save();
         }
-        return $folderName .'/'. $safeName;
+        return $folderName . '/' . $safeName;
     }
 }

@@ -8,10 +8,8 @@
     <meta name="keywords" content="@section('keywords'){{ $keywords }} @show">
     <meta name="author" content="@section('author'){{ url('/') }}@show">
     <link rel="icon" href="{{ url('/') }}/favicon.ico">
-    <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@section('title')@if($title!=''){{ $title }} @endif - @if($subtitle!=''){{ $subtitle }} @endif @show</title>
-    <!-- Loading animation -->
     <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
     <link href="//cdn.bootcss.com/normalize/5.0.0/normalize.min.css" rel="stylesheet">
     <link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -39,15 +37,18 @@
 </head>
 <body>
 <div class="navbar navbar-material-blog navbar-primary navbar-absolute-top">
-    <div class="navbar-image" style="background-image: url({{ asset('img/home-bg.jpg') }});background-position: center 40%;"></div>
+    <div class="navbar-image"
+         style="background-image: url({{ asset('img/home-bg.jpg') }});background-position: center 40%;"></div>
     <div class="navbar-wrapper container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target=".navbar-responsive-collapse">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ url('/') }}"><i class="material-icons">&#xE871;</i> @if($title!=''){{ $title }}@else One @endif</a>
+            <a class="navbar-brand" href="{{ url('/') }}"><i
+                        class="material-icons">&#xE871;</i> @if($title!=''){{ $title }}@else One @endif</a>
         </div>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
             @include('layouts.partials.nav')
@@ -55,7 +56,7 @@
     </div>
 </div>
 <div class="container blog-content">
-@yield('content')
+    @yield('content')
 </div><!-- /.container -->
 <footer class="blog-footer">
     <div id="links">
@@ -63,13 +64,14 @@
             <div class="row">
                 <div class="col-sm-10">
                     <i class="material-icons brand"></i>
-                    &copy;&nbsp;&nbsp;2017 @if(date('Y')>'2017' ) - {{ date('Y')  }} @endif&nbsp;&nbsp;Powered by <a href="https://github.com/fenble/one">One</a>
+                    &copy;&nbsp;&nbsp;2017 @if(date('Y')>'2017' ) - {{ date('Y')  }} @endif&nbsp;&nbsp;Powered by <a
+                            href="https://github.com/fenble/one">One</a>
                 </div>
                 <div class="col-md-2 text-right offset">
                     <ul class="list-inline">
                         <li><a href="{{ url('sitemap.xml') }}" target="_blank">网站地图</a></li>
                         @if($icp)
-                        <li><a href="http://www.miitbeian.gov.cn" target="_blank">{{ $icp }}</a></li>
+                            <li><a href="http://www.miitbeian.gov.cn" target="_blank">{{ $icp }}</a></li>
                         @endif
                     </ul>
                 </div>
@@ -85,7 +87,7 @@
 <script src="{{ asset('js/material-scrolltop.js') }}"></script>
 <script src="{{ asset('js/main.js') }}"></script>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $.material.init();
         $('body').materialScrollTop();
     });

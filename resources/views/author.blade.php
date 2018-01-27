@@ -14,10 +14,12 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="blog-post-meta">
-                        <a href="{{ route('category.show',$post->category->category_slug) }}"><span class="label label-light label-primary">{{ $post->category->category_name }}</span></a>
+                        <a href="{{ route('category.show',$post->category->category_slug) }}"><span
+                                    class="label label-light label-primary">{{ $post->category->category_name }}</span></a>
                         @if($post->tags)
                             @foreach($post->tags as $tag)
-                                <a href="{{ url('tag') }}/{{ $tag->tag_name }}"><span class="label label-light label-default">{{ $tag->tag_name }}</span></a>
+                                <a href="{{ url('tag') }}/{{ $tag->tag_name }}"><span
+                                            class="label label-light label-default">{{ $tag->tag_name }}</span></a>
                             @endforeach
                         @endif
                         <p class="blog-post-date pull-right">{{ $post->published_at }}</p>

@@ -6,8 +6,7 @@ use App\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateUserRequest extends FormRequest
-{
+class UpdateUserRequest extends FormRequest {
     public $allowed_fields = [
         'name',
         'email',
@@ -18,13 +17,13 @@ class UpdateUserRequest extends FormRequest
         'company',
         'introduction'
     ];
+
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize()
-    {
+    public function authorize() {
         return true;
     }
 
@@ -33,24 +32,22 @@ class UpdateUserRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             'name' => 'required|max:255',
-            'email'=> ['required',
-                    Rule::unique('users')->ignore($this->user()->id),
-                ],
+            'email' => ['required',
+                Rule::unique('users')->ignore($this->user()->id),
+            ],
         ];
     }
 
-    public function messages()
-    {
+    public function messages() {
         return [
-            'email.unique'=>'邮箱不能重复',
+            'email.unique' => '邮箱不能重复',
         ];
     }
 
-    public function update(User $user){
+    public function update(User $user) {
         $data = array_filter($this->only($this->allowed_fields));
         // 头像
         if ($file = $this->file('avatar')) {

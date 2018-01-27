@@ -21,7 +21,8 @@
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>
-                                    <a class="btn btn-primary btn-sm" href="{{ route('user.profile',$user->id) }}"><i class="fa fa-eye" aria-hidden="true"></i> 查看</a>
+                                    <a class="btn btn-primary btn-sm" href="{{ route('user.profile',$user->id) }}"><i
+                                                class="fa fa-eye" aria-hidden="true"></i> 查看</a>
                                 </td>
                             </tr>
                         @endforeach

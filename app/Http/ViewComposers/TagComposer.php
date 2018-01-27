@@ -23,10 +23,11 @@ class TagComposer
      * 标签云
      * @param View $view
      */
-    public function compose(View $view){
+    public function compose(View $view)
+    {
         $tags = $this->tagRepository->getAll();
 
-        $view->with('tags',$tags);
+        $view->with('tags', $tags);
     }
 
 }

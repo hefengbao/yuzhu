@@ -4,9 +4,10 @@
             <h4>热门文章</h4>
             <ol class="categories list-unstyled">
                 @foreach($hotTopics as $hotTopic)
-                <li>
-                    <a href="{{ url('/article') }}/{{ $hotTopic->post_slug }}" title="{{ $hotTopic->post_title }}">{{ $hotTopic->post_title }}</a>
-                </li>
+                    <li>
+                        <a href="{{ url('/article') }}/{{ $hotTopic->post_slug }}"
+                           title="{{ $hotTopic->post_title }}">{{ $hotTopic->post_title }}</a>
+                    </li>
                 @endforeach
             </ol>
         </div>

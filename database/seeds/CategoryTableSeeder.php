@@ -14,11 +14,11 @@ class CategoryTableSeeder extends Seeder
         //
         DB::table('categories')->insert([
             [
-                'id'=>1,
-                'category_name'=>'未分类',
-                'category_slug'=>'uncategorized',
-                'count'=>0,
-                'category_parent'=>0
+                'id' => 1,
+                'category_name' => '未分类',
+                'category_slug' => 'uncategorized',
+                'count' => 0,
+                'category_parent' => 0
             ]
         ]);
     }

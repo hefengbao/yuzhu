@@ -20,10 +20,11 @@ class CategoryComposer
         $this->categoryRepository = $categoryRepository;
     }
 
-    public function compose(View $view){
+    public function compose(View $view)
+    {
         $categorys = $this->categoryRepository->getAll();
 
-        $view->with('categorys',$categorys);
+        $view->with('categorys', $categorys);
     }
 
 }

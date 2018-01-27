@@ -15,16 +15,18 @@ use Illuminate\View\View;
 
 class MenuComposer
 {
-      protected $optionRepository;
-      protected $postRepository;
-      protected $categoryRepository;
-      public function __construct(OptionRepository $optionRepository)
-      {
-          $this->optionRepository = $optionRepository;
-      }
+    protected $optionRepository;
+    protected $postRepository;
+    protected $categoryRepository;
 
-      public function compose(View $view){
-          $menu =  $this->optionRepository->getMainMenu();
-          $view->with('menu',$menu);
-      }
+    public function __construct(OptionRepository $optionRepository)
+    {
+        $this->optionRepository = $optionRepository;
+    }
+
+    public function compose(View $view)
+    {
+        $menu = $this->optionRepository->getMainMenu();
+        $view->with('menu', $menu);
+    }
 }

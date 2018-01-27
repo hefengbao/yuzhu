@@ -10,10 +10,11 @@ class SearchController extends Controller
 {
     //
 
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         $query = Purifier::clean($request->input('q'), 'search_q');
         $posts = Post::search($query)->paginate(20);
-        return view('search',compact('posts','query'));
+        return view('search', compact('posts', 'query'));
     }
 
 }

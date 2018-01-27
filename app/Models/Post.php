@@ -13,9 +13,9 @@ class Post extends Model
 {
     use SoftDeletes;
 
-    protected $dates=['published_at'];
+    protected $dates = ['published_at'];
 
-    protected $fillable=[
+    protected $fillable = [
         'user_id',
         'post_title',
         'post_slug',
@@ -27,10 +27,10 @@ class Post extends Model
         'comment_status',
         'post_type',
         'published_at'
-    ] ;
+    ];
 
     use SearchableTrait;
-    protected $searchable=[
+    protected $searchable = [
         'columns' => [
             'posts.post_title' => 5,
             'posts.post_content_filter' => 2,
@@ -47,12 +47,14 @@ class Post extends Model
         'published_at',
         'created_at'
     ];
+
     /**
      * 文章与标签之间的多对多关系
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function tags(){
+    public function tags()
+    {
         return $this->belongsToMany(Tag::class);
     }
 
@@ -60,7 +62,8 @@ class Post extends Model
      * 文章与类别的一对一关系
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function category(){
+    public function category()
+    {
         return $this->belongsTo(Category::class);
     }
 
@@ -68,36 +71,43 @@ class Post extends Model
      * 文章与用户的一对多关系
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
      */
-    public function comments(){
+    public function comments()
+    {
         return $this->hasMany(Comment::class);
     }
 
-    public function scopePublished($query){
-        $query->where('published_at','<=',Carbon::now())
-              ->where('post_type','=','post')
-              ->where('post_status','=','1');
+    public function scopePublished($query)
+    {
+        $query->where('published_at', '<=', Carbon::now())
+            ->where('post_type', '=', 'post')
+            ->where('post_status', '=', '1');
     }
 
-    public function scopePage($query){
-        $query->where('post_type','=','page');
+    public function scopePage($query)
+    {
+        $query->where('post_type', '=', 'page');
     }
 
-    public function scopePost($query){
-        $query->where('post_type','=','post');
+    public function scopePost($query)
+    {
+        $query->where('post_type', '=', 'post');
     }
 
-    public function scopeCurrentUser($query){
-        $query->where('user_id','=',Auth::id());
+    public function scopeCurrentUser($query)
+    {
+        $query->where('user_id', '=', Auth::id());
     }
+
     public function setPublishedAtAttribute($value)
     {
-        $this->attributes['published_at'] = date_format(date_create($value.' '.Carbon::now()->toTimeString()),'Y-m-d H:i:s');
+        $this->attributes['published_at'] = date_format(date_create($value . ' ' . Carbon::now()->toTimeString()), 'Y-m-d H:i:s');
     }
 }

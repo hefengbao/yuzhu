@@ -14,13 +14,15 @@ use Illuminate\View\View;
 class HotTopicComposer
 {
     protected $postRepository;
+
     public function __construct(PostRepository $postRepository)
     {
         $this->postRepository = $postRepository;
     }
 
-    public function compose(View $view){
+    public function compose(View $view)
+    {
         $hotTopics = $this->postRepository->hotTopic();
-        $view->with('hotTopics',$hotTopics);
+        $view->with('hotTopics', $hotTopics);
     }
 }

@@ -16,6 +16,7 @@ class PostController extends Controller
     protected $tagRepository;
     protected $categoryRepository;
     protected $postRepository;
+
     public function __construct(PostRepository $postRepository, TagRepository $tagRepository, CategoryRepository $categoryRepository)
     {
         $this->postRepository = $postRepository;
@@ -32,7 +33,7 @@ class PostController extends Controller
     {
         //
         $posts = $this->postRepository->adminPaginate();
-        return view('admin.post.index',compact('posts'));
+        return view('admin.post.index', compact('posts'));
     }
 
     /**
@@ -46,13 +47,13 @@ class PostController extends Controller
         $tags = $this->tagRepository->getAll();
         $categories = $this->categoryRepository->getAll();
 
-        return view('admin.post.create',compact('tags','categories'));
+        return view('admin.post.create', compact('tags', 'categories'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(CreatePostRequest $request)
@@ -65,21 +66,21 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show()
     {
         //
         //$post = $this->postRepository->show();
-          return 'show1';
+        return 'show1';
         //return view('post.show',compact('post'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -89,14 +90,14 @@ class PostController extends Controller
         $categories = $this->categoryRepository->getAll();
         $post = $this->postRepository->findById($id);
 
-        return view('admin.post.edit',compact('post','tags','categories'));
+        return view('admin.post.edit', compact('post', 'tags', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(UpdatePageRequest $request, $id)
@@ -110,13 +111,13 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         $this->postRepository->delete($id);
-        return redirect()->back()->with('success','删除文章成功！');
+        return redirect()->back()->with('success', '删除文章成功！');
     }
 
     public function uploadImage(Request $request)

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Repositories\OptionRepository;
 use Illuminate\Http\Request;
 use Cache;
+
 class OptionController extends Controller
 {
     //
@@ -15,31 +16,36 @@ class OptionController extends Controller
         $this->optionRepository = $optionRepository;
     }
 
-    public function index(){
-       $option = $this->optionRepository->getAll();
-        return view('admin.option.index')->with('option',$option);
+    public function index()
+    {
+        $option = $this->optionRepository->getAll();
+        return view('admin.option.index')->with('option', $option);
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $save = $this->optionRepository->save($request->except(['_token']));
-        if ($save){
+        if ($save) {
             return redirect()->route('option.index');
         }
     }
 
-    public function menuStore(Request $request){
+    public function menuStore(Request $request)
+    {
         $data = $request->except('_token');
         return $this->optionRepository->save($data);
     }
 
-    public function cache(){
+    public function cache()
+    {
         return view('admin.option.cache');
     }
 
-    public function clearAllCache(){
-        if (Cache::flush()){
+    public function clearAllCache()
+    {
+        if (Cache::flush()) {
             return '清除缓存成功！';
-        }else{
+        } else {
             return '清除缓存失败！';
         }
     }
