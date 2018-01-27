@@ -147,6 +147,20 @@
                         </ul>
                     </li>
                 @endif
+                @if(Auth::user()->can('comment.*'))
+                    <li class="treeview {{ active_class(if_route_pattern(["comment.*"]),'active') }}">
+                        <a href="#"><i class="fa fa-comments-o" aria-hidden="true"></i> <span>评论</span>
+                            <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            @if(Auth::user()->can('comment.*'))
+                                <li class="{{ active_class(if_route_pattern(["comment.index"]),'active') }}"><a href="{{ url('admin/comment') }}"><i class="fa fa-circle-o" aria-hidden="true"></i>所有评论</a></li>
+                            @endif
+                        </ul>
+                    </li>
+                @endif
                 @if(Auth::user()->can('appearance.*'))
                     <li class="treeview {{ active_class(if_route_pattern(["appearance.*"]),'active') }}">
                         <a href="#"><i class="fa fa-paint-brush" aria-hidden="true"></i> <span>外观</span>

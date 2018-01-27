@@ -13,6 +13,7 @@
         </div>
         <div class="box-body">
             @include('partials.errors')
+            @include('partials.success')
             <table class="table table-bordered" id="posts-table">
                 <thead>
                     <tr>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateCommentRequest;
+use App\Models\Comment;
 use App\Repositories\CommentRepository;
 
 class CommentController extends Controller
@@ -14,7 +15,8 @@ class CommentController extends Controller
     }
 
     public function index(){
-        return view('admin.comment.index');
+        $comments = Comment::latest('created_at')->paginate(10);
+        return view('admin.comment.index',compact('comments'));
     }
 
     public function store(CreateCommentRequest $request ){
@@ -26,5 +28,11 @@ class CommentController extends Controller
             flash('回复失败.', 'danger');
         }
         return redirect()->back();
+    }
+
+    public function destroy($id){
+        $comment = Comment::findOrFail($id);
+        $comment->delete($id);
+        return redirect()->back()->with('success','删除评论成功！');
     }
 }

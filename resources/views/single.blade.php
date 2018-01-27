@@ -9,7 +9,6 @@
 @section('title'){{ $post->post_title }} - @parent @stop
 @section('css')
 <link href="https://cdn.bootcss.com/highlight.js/9.9.0/styles/default.min.css" rel="stylesheet">
-<script src="//msite.baidu.com/sdk/c.js?appid=1583679988743509"></script>
 @stop
 @section('content')
     <section class="blog-post">
@@ -54,13 +53,6 @@
                             @endif
                         </ul>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <div class="blog-post-content">
-                    <script>cambrian.render('body')</script>
                 </div>
             </div>
         </div>
@@ -149,16 +141,6 @@
     @endif
 @stop
 @section('script')
-    <script type="application/ld+json">
-    {
-        "@context": "https://ziyuan.baidu.com/contexts/cambrian.jsonld",
-        "@id": "{{ url('/') }}/article/{{ $post->post_slug }}",
-        "appid": "1583679988743509",
-        "title": "{{ $post->post_title }}",
-        "description": "{{ $post->post_excerpt }}",
-        "pubDate": "{{ $post->published_at }}"
-    }
-</script>
     <script src="https://cdn.bootcss.com/highlight.js/9.9.0/highlight.min.js"></script>
     <script>
         hljs.initHighlightingOnLoad();

@@ -116,7 +116,7 @@ class PostController extends Controller
     public function destroy($id)
     {
         $this->postRepository->delete($id);
-        return redirect()->back();
+        return redirect()->back()->with('success','删除文章成功！');
     }
 
     public function uploadImage(Request $request)

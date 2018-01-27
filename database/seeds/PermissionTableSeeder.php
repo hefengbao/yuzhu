@@ -133,5 +133,20 @@ class PermissionTableSeeder extends Seeder
             'created_at'=>Carbon::now(),
             'updated_at'=>Carbon::now(),
         ]);
+
+        $commentIndex = Permission::create([
+            'name' => 'comment.index',
+            'display_name' => '评论列表',
+            'description' => '评论列表',
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now(),
+        ]);
+        $commentDestroy = Permission::create([
+            'name' => 'comment.destroy',
+            'display_name' => '删除评论',
+            'description' => '删除评论',
+            'created_at'=>Carbon::now(),
+            'updated_at'=>Carbon::now(),
+        ]);
     }
 }

@@ -47,6 +47,6 @@ class PageController extends Controller
     public function destroy($id)
     {
         $this->pageRepository->delete($id);
-        return redirect()->back();
+        return redirect()->back()->with('success','删除页面成功！');
     }
 }

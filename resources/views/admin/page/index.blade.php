@@ -7,6 +7,7 @@
     <div class="box-header"><a href="{{ route('page.create') }}" class="btn btn-primary">新建页面</a></div>
     <div class="box-body">
         @include('partials.errors')
+        @include('partials.success')
         <table class="table table-bordered" id="pages-table">
             <thead>
             <tr>
