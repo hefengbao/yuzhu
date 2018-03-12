@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Carbon\Carbon;
-use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Nicolaslopezj\Searchable\SearchableTrait;

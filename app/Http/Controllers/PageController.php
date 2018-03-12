@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreatePostRequest;
-use App\Http\Requests\UpdatePageRequest;
+use App\Http\Requests\PostRequest;
 use App\Repositories\PageRepository;
 
 class PageController extends Controller
@@ -27,7 +26,7 @@ class PageController extends Controller
         return view('admin.page.create');
     }
 
-    public function store(CreatePostRequest $request)
+    public function store(PostRequest $request)
     {
         $this->pageRepository->save($request->except('_token'));
         return redirect('admin/page');
@@ -45,7 +44,7 @@ class PageController extends Controller
         return view('page', compact('page'));
     }
 
-    public function update(UpdatePageRequest $request, $id)
+    public function update(PostRequest $request, $id)
     {
         return $this->pageRepository->update($id, $request->except('_token'));
         return redirect('admin/page');

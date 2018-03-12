@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\UserRequest;
 use App\Repositories\UserRepository;
-use App\User;
+use App\Models\User;
 
 class UserController extends Controller
 {
@@ -29,7 +29,7 @@ class UserController extends Controller
     }
 
 
-    public function update($id, UpdateUserRequest $request)
+    public function update($id, UserRequest $request)
     {
         $user = User::findOrFail($id);
         try {

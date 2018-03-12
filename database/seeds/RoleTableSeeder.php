@@ -19,6 +19,7 @@ class RoleTableSeeder extends Seeder
     {
         //角色
         $admin = Role::create([
+            'id' => 1,
             'name' => 'admin',
             'display_name' => '管理员',
             'description' => '管理员',
@@ -27,6 +28,7 @@ class RoleTableSeeder extends Seeder
         ]);
 
         $user = Role::create([
+            'id' => 2,
             'name' => 'user',
             'display_name' => '用户',
             'description' => '普通用户',

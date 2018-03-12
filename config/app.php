@@ -64,7 +64,7 @@ return [
     |
     */
 
-    'timezone' => env('TIMEZONE') ? :'UTC',
+    'timezone' => env('TIMEZONE') ?: 'UTC',
 
     /*
     |--------------------------------------------------------------------------
@@ -77,7 +77,7 @@ return [
     |
     */
 
-    'locale' => env('LOCALE') ? :'en',
+    'locale' => env('LOCALE') ?: 'en',
 
     /*
     |--------------------------------------------------------------------------
@@ -178,12 +178,6 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         App\Providers\ComposerServiceProvider::class,
-
-        Intervention\Image\ImageServiceProvider::class,
-        HieuLe\Active\ActiveServiceProvider::class,
-        Mews\Purifier\PurifierServiceProvider::class,
-        Laracasts\Flash\FlashServiceProvider::class,
-        Zizaco\Entrust\EntrustServiceProvider::class,
     ],
 
     /*
@@ -240,7 +234,7 @@ return [
         'Purifier' => Mews\Purifier\Facades\Purifier::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Active' => HieuLe\Active\Facades\Active::class,
-        'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
+        'Entrust' => Zizaco\Entrust\EntrustFacade::class,
     ],
 
 ];

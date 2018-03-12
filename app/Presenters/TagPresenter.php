@@ -1,9 +1,4 @@
 <?php
-/**
- * Author: hefengbao
- * Date: 2016/11/3
- * Time: 16:40
- */
 
 namespace App\Presenters;
 

@@ -1,9 +1,4 @@
 <?php
-/**
- * Author: hefengbao <hefengbao88@gmail.com>
- * Date: 2017/3/6
- * Time: 11:57
- */
 
 namespace App\Repositories;
 

@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Models\Role;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
+
 class RegisterController extends Controller
 {
     /*
@@ -21,7 +22,7 @@ class RegisterController extends Controller
     |
     */
 
-    use RegistersUsers,EntrustUserTrait;
+    use RegistersUsers, EntrustUserTrait;
 
     /**
      * Where to redirect users after registration.
@@ -43,7 +44,7 @@ class RegisterController extends Controller
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
+     * @param  array $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
@@ -58,7 +59,7 @@ class RegisterController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
+     * @param  array $data
      * @return User
      */
     protected function create(array $data)
@@ -69,11 +70,11 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
         ]);
 
-        if ($user->id == 1){
-            $role_admin = Role::where('name','admin')->first();
+        if ($user->id == 1) {
+            $role_admin = Role::where('name', 'admin')->first();
             $user->attachRole($role_admin);
-        }else{
-            $role_user = Role::where('name','user')->first();
+        } else {
+            $role_user = Role::where('name', 'user')->first();
             $user->attachRole($role_user);
         }
 

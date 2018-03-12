@@ -16,7 +16,6 @@ class HomeController extends Controller
 
     public function __construct(PostRepository $postRepository, RssFeed $rssFeed)
     {
-        // $this->middleware('auth');
         $this->postRepository = $postRepository;
         $this->rssFeed = $rssFeed;
     }

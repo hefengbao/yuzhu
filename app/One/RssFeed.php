@@ -1,9 +1,4 @@
 <?php
-/**
- * Author: hefengbao
- * Date: 2017/1/11
- * Time: 11:22
- */
 
 namespace App\One;
 

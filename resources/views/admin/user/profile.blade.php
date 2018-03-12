@@ -19,7 +19,8 @@
                                 <input type="file" id="avatar" name="avatar">
                                 <p>图片格式为png、jpg、jpeg，下同</p>
                                 @if($user->avatar)
-                                    <img class="img_preview" src="{{ asset('uploads/avatars/'.$user->avatar) }}" alt="">
+                                    <img class="img_preview" src="{{ asset('storage/uploads/avatars/'.$user->avatar) }}"
+                                         alt="">
                                 @endif
                             </div>
                         </div>
@@ -63,7 +64,7 @@
                             <div class="col-md-10">
                                 <input type="file" id="wechat" name="wechat">
                                 @if($user->wechat)
-                                    <img class="img_preview" src="{{ asset($user->wechat) }}" alt="">
+                                    <img class="img_preview" src="{{ asset('storage/'.$user->wechat) }}" alt="">
                                 @endif
                             </div>
                         </div>
@@ -72,7 +73,7 @@
                             <div class="col-md-10">
                                 <input type="file" id="wechatpay" name="wechatpay">
                                 @if($user->wechatpay)
-                                    <img class="img_preview" src="{{ asset($user->wechatpay) }}" alt="">
+                                    <img class="img_preview" src="{{ asset('storage/'.$user->wechatpay) }}" alt="">
                                 @endif
                             </div>
                         </div>
@@ -81,7 +82,7 @@
                             <div class="col-md-10">
                                 <input type="file" id="alipay" name="alipay">
                                 @if($user->alipay)
-                                    <img class="img_preview" src="{{ asset($user->alipay) }}" alt="">
+                                    <img class="img_preview" src="{{ asset('storage/'.$user->alipay) }}" alt="">
                                 @endif
                             </div>
                         </div>

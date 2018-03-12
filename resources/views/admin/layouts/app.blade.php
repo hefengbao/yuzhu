@@ -55,23 +55,29 @@
             <!-- Navbar Right Menu -->
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ route('home.index') }}" target="_blank" title="查看站点"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+                    <li><a href="{{ route('home.index') }}" target="_blank" title="查看站点"><i class="fa fa-home"
+                                                                                            aria-hidden="true"></i></a>
+                    </li>
                     <!-- User Account Menu -->
                     <li class="dropdown user user-menu">
                         <!-- Menu Toggle Button -->
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <!-- The user image in the navbar-->
-                            <img src="{{ Auth::user()->avatar ? asset('uploads/avatars/'.Auth::user()->avatar) : asset('img/avatar.png') }}" class="user-image" alt="User Image">
+                            <img
+                                src="{{ Auth::user()->avatar ? asset('storage/uploads/avatars/'.Auth::user()->avatar) : asset('img/avatar.png') }}"
+                                class="user-image" alt="User Image">
                             <!-- hidden-xs hides the username on small devices so only the image appears. -->
                             <span class="hidden-xs">{{ Auth::user()->name }}</span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- The user image in the menu -->
                             <li class="user-header">
-                                <img src="{{ Auth::user()->avatar ? asset('uploads/avatars/'.Auth::user()->avatar) : asset('img/avatar.png') }}" class="img-circle" alt="User Image">
+                                <img
+                                    src="{{ Auth::user()->avatar ? asset('storage/uploads/avatars/'.Auth::user()->avatar) : asset('img/avatar.png') }}"
+                                    class="img-circle" alt="User Image">
                                 <p>
-                                    {{ Auth::user()->name }}
-                                    <!--角色-->
+                                {{ Auth::user()->name }}
+                                <!--角色-->
                                 </p>
                             </li>
                             <!-- Menu Body -->
@@ -86,7 +92,8 @@
                                 <div class="pull-right">
                                     <a href="{{ route('logout') }}" class="btn btn-default btn-flat" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">Sign out</a>
-                                    <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                                    <form id="logout-form" action="{{ url('/logout') }}" method="POST"
+                                          style="display: none;">
                                         {{ csrf_field() }}
                                     </form>
                                 </div>
@@ -106,7 +113,8 @@
             <ul class="sidebar-menu">
                 <li class="header">HEADER</li>
                 <!-- Optionally, you can add icons to the links -->
-                <li class="{{ active_class(if_route_pattern(["dashboard.index"]),'active') }}"><a href="{{ route('dashboard.index') }}"><i class="fa fa-dashboard"></i> <span>仪表盘</span></a></li>
+                <li class="{{ active_class(if_route_pattern(["dashboard.index"]),'active') }}"><a
+                        href="{{ route('dashboard.index') }}"><i class="fa fa-dashboard"></i> <span>仪表盘</span></a></li>
                 @if(Auth::user()->can(['post.*'])||Auth::user()->can(['tag.*'])||Auth::user()->can(['category.*']))
                     <li class="treeview {{ active_class(if_route_pattern(["post.*","tag.*","category.*"]),'active') }}">
                         <a href="#"><i class="fa fa-edit"></i> <span>文章</span>
@@ -116,16 +124,24 @@
                         </a>
                         <ul class="treeview-menu">
                             @if(Auth::user()->can('post.*'))
-                                <li class="{{ active_class(if_route_pattern(["post.index","post.edit"]),'active') }}"><a href="{{ url('admin/post') }}"><i class="fa fa-circle-o" aria-hidden="true"></i>所有文章</a></li>
+                                <li class="{{ active_class(if_route_pattern(["post.index","post.edit"]),'active') }}"><a
+                                        href="{{ url('admin/post') }}"><i class="fa fa-circle-o" aria-hidden="true"></i>所有文章</a>
+                                </li>
                             @endif
                             @if(Auth::user()->can('post.create'))
-                                <li class="{{ active_class(if_route_pattern(["post.create"]),'active') }}"><a href="{{ url('admin/post/create') }}"><i class="fa fa-circle-o" aria-hidden="true"></i>写文章</a></li>
+                                <li class="{{ active_class(if_route_pattern(["post.create"]),'active') }}"><a
+                                        href="{{ url('admin/post/create') }}"><i class="fa fa-circle-o"
+                                                                                 aria-hidden="true"></i>写文章</a></li>
                             @endif
                             @if(Auth::user()->can('category.*'))
-                                <li class="{{ active_class(if_route_pattern(["category.*"]),'active') }}"><a href="{{ url('admin/category') }}"><i class="fa fa-circle-o" aria-hidden="true"></i>分类目录</a></li>
+                                <li class="{{ active_class(if_route_pattern(["category.*"]),'active') }}"><a
+                                        href="{{ url('admin/category') }}"><i class="fa fa-circle-o"
+                                                                              aria-hidden="true"></i>分类目录</a></li>
                             @endif
                             @if(Auth::user()->can('tag.*'))
-                                <li class="{{ active_class(if_route_pattern(["tag.*"]),'active') }}"><a href="{{ url('admin/tag') }}"><i class="fa fa-circle-o" aria-hidden="true"></i>标签</a></li>
+                                <li class="{{ active_class(if_route_pattern(["tag.*"]),'active') }}"><a
+                                        href="{{ url('admin/tag') }}"><i class="fa fa-circle-o" aria-hidden="true"></i>标签</a>
+                                </li>
                             @endif
                         </ul>
                     </li>
@@ -139,10 +155,14 @@
                         </a>
                         <ul class="treeview-menu">
                             @if(Auth::user()->can('page.*'))
-                                <li class="{{ active_class(if_route_pattern(["page.index","page.edit"]),'active') }}"><a href="{{ url('admin/page') }}"><i class="fa fa-circle-o" aria-hidden="true"></i>所有页面</a></li>
+                                <li class="{{ active_class(if_route_pattern(["page.index","page.edit"]),'active') }}"><a
+                                        href="{{ url('admin/page') }}"><i class="fa fa-circle-o" aria-hidden="true"></i>所有页面</a>
+                                </li>
                             @endif
                             @if(Auth::user()->can('page.index'))
-                                <li class="{{ active_class(if_route_pattern(["page.create"]),'active') }}"><a href="{{ url('admin/page/create') }}"><i class="fa fa-circle-o" aria-hidden="true"></i>新建页面</a></li>
+                                <li class="{{ active_class(if_route_pattern(["page.create"]),'active') }}"><a
+                                        href="{{ url('admin/page/create') }}"><i class="fa fa-circle-o"
+                                                                                 aria-hidden="true"></i>新建页面</a></li>
                             @endif
                         </ul>
                     </li>
@@ -156,7 +176,9 @@
                         </a>
                         <ul class="treeview-menu">
                             @if(Auth::user()->can('comment.*'))
-                                <li class="{{ active_class(if_route_pattern(["comment.index"]),'active') }}"><a href="{{ url('admin/comment') }}"><i class="fa fa-circle-o" aria-hidden="true"></i>所有评论</a></li>
+                                <li class="{{ active_class(if_route_pattern(["comment.index"]),'active') }}"><a
+                                        href="{{ url('admin/comment') }}"><i class="fa fa-circle-o"
+                                                                             aria-hidden="true"></i>所有评论</a></li>
                             @endif
                         </ul>
                     </li>
@@ -170,7 +192,9 @@
                         </a>
                         <ul class="treeview-menu">
                             @if(Auth::user()->can('appearance.menu'))
-                                <li class="{{ active_class(if_route_pattern(["appearance.menu"]),'active') }}"><a href="{{ url('admin/appearance/menu') }}"><i class="fa fa-circle-o" aria-hidden="true"></i>菜单</a></li>
+                                <li class="{{ active_class(if_route_pattern(["appearance.menu"]),'active') }}"><a
+                                        href="{{ url('admin/appearance/menu') }}"><i class="fa fa-circle-o"
+                                                                                     aria-hidden="true"></i>菜单</a></li>
                             @endif
                         </ul>
                     </li>
@@ -184,10 +208,14 @@
                         </a>
                         <ul class="treeview-menu">
                             @if(Auth::user()->can('user.index'))
-                                <li class="{{ active_class(if_route_pattern(["user.index"]),'active') }}"><a href="{{ url('admin/user') }}"><i class="fa fa-circle-o" aria-hidden="true"></i>所有用户</a></li>
+                                <li class="{{ active_class(if_route_pattern(["user.index"]),'active') }}"><a
+                                        href="{{ url('admin/user') }}"><i class="fa fa-circle-o" aria-hidden="true"></i>所有用户</a>
+                                </li>
                             @endif
                             @if(Auth::user()->can('user.profile'))
-                                <li class="{{ active_class(if_route_pattern(["user.profile*"]),'active') }}"><a href="{{ url('admin/user/profile') }}/{{ Auth::id() }}"><i class="fa fa-circle-o" aria-hidden="true"></i>个人资料</a></li>
+                                <li class="{{ active_class(if_route_pattern(["user.profile*"]),'active') }}"><a
+                                        href="{{ url('admin/user/profile') }}/{{ Auth::id() }}"><i
+                                            class="fa fa-circle-o" aria-hidden="true"></i>个人资料</a></li>
                             @endif
                         </ul>
                     </li>
@@ -201,10 +229,14 @@
                         </a>
                         <ul class="treeview-menu">
                             @if(Auth::user()->can('option.index'))
-                                <li class="{{ active_class(if_route_pattern(["option.index"]),'active') }}"><a href="{{ url('admin/option') }}"><i class="fa fa-circle-o" aria-hidden="true"></i>基本</a></li>
+                                <li class="{{ active_class(if_route_pattern(["option.index"]),'active') }}"><a
+                                        href="{{ url('admin/option') }}"><i class="fa fa-circle-o"
+                                                                            aria-hidden="true"></i>基本</a></li>
                             @endif
                             @if(Auth::user()->can('option.cache'))
-                                <li class="{{ active_class(if_route_pattern(["option.cache"]),'active') }}"><a href="{{ route('option.cache') }}"><i class="fa fa-circle-o" aria-hidden="true"></i>缓存</a></li>
+                                <li class="{{ active_class(if_route_pattern(["option.cache"]),'active') }}"><a
+                                        href="{{ route('option.cache') }}"><i class="fa fa-circle-o"
+                                                                              aria-hidden="true"></i>缓存</a></li>
                             @endif
                         </ul>
                     </li>
@@ -240,7 +272,8 @@
             Version 1.0
         </div>
         <!-- Default to the left -->
-        <strong>Copyright &copy; 2017&nbsp;&nbsp;Powered by <a href="https://github.com/fenble/one">One</a>.</strong> All rights reserved.
+        <strong>Copyright &copy; 2017&nbsp;&nbsp;Powered by <a href="https://github.com/fenble/one">One</a>.</strong>
+        All rights reserved.
     </footer>
 
     <!-- Add the sidebar's background. This div must be placed

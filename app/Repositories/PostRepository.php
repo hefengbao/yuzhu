@@ -1,9 +1,4 @@
 <?php
-/**
- * Author: hefengbao
- * Date: 2016/10/28
- * Time: 14:55
- */
 
 namespace App\Repositories;
 
@@ -11,7 +6,6 @@ use App\Models\Post;
 use App\One\Markdown;
 use Cache;
 use Auth;
-use Carbon\Carbon;
 
 class PostRepository
 {

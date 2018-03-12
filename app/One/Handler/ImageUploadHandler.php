@@ -54,7 +54,7 @@ class ImageUploadHandler
             ? 'uploads/avatars'
             : 'uploads/attachments/' . date("Ym", time()) . '/' . date("d", time()) . '/' . Auth::user()->id;
 
-        $destinationPath = public_path() . '/' . $folderName;
+        $destinationPath = storage_path('app/public') . '/' . $folderName;
         $extension = $this->file->getClientOriginalExtension() ?: 'png';
         $safeName = $filename ?: str_random(10) . '.' . $extension;
         $this->file->move($destinationPath, $safeName);

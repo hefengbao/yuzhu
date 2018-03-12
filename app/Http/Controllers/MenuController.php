@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Option;
 use App\Repositories\CategoryRepository;
 use App\Repositories\OptionRepository;
 use App\Repositories\PageRepository;
-use Illuminate\Http\Request;
 
 class MenuController extends Controller
 {

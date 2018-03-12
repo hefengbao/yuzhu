@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateCategoryRequest;
+use App\Http\Requests\CategoryRequest;
 use App\Repositories\CategoryRepository;
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
 
 class CategoryController extends Controller
 {
@@ -32,7 +29,7 @@ class CategoryController extends Controller
         return view('category', compact('posts', 'name'));
     }
 
-    public function store(CreateCategoryRequest $request)
+    public function store(CategoryRequest $request)
     {
         $this->categoryRepository->save($request->except("_token"));
         return redirect()->route('category.index');

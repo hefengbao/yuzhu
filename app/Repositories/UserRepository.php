@@ -1,14 +1,9 @@
 <?php
-/**
- * Author: hefengbao
- * Date: 2016/11/21
- * Time: 11:59
- */
 
 namespace App\Repositories;
 
-use App\User;
-use Auth;
+
+use App\Models\User;
 
 class UserRepository
 {

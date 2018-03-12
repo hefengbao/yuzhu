@@ -16,7 +16,7 @@ class ArchiveController extends Controller
 
     public function index()
     {
-        $datas = $this->postRepository->archive();
-        return view('archives', compact('datas'));
+        $data = $this->postRepository->archive();
+        return view('archives', compact('data'));
     }
 }

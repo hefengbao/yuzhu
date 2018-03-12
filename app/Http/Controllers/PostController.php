@@ -3,12 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreatePostRequest;
-use App\Http\Requests\PostUpdateRequest;
+use App\Http\Requests\PostRequest;
 use App\Http\Requests\UpdatePageRequest;
 use App\Repositories\CategoryRepository;
 use App\Repositories\PostRepository;
 use Illuminate\Http\Request;
-use App\Http\Requests\PostCreateRequest;
 use App\Repositories\TagRepository;
 
 class PostController extends Controller
@@ -53,28 +52,14 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  PostRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreatePostRequest $request)
+    public function store(PostRequest $request)
     {
         $this->postRepository->save($request->all());
 
         return redirect('admin/post');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show()
-    {
-        //
-        //$post = $this->postRepository->show();
-        return 'show1';
-        //return view('post.show',compact('post'));
     }
 
     /**
@@ -96,11 +81,11 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @param PostRequest $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(UpdatePageRequest $request, $id)
+    public function update(PostRequest $request, $id)
     {
         //
         $input = $request->all();

@@ -2,23 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateCommentRequest;
+use App\Http\Requests\CommentRequest;
 use App\Models\Comment;
 use App\Repositories\CommentRepository;
 
-class CommentController extends Controller {
+class CommentController extends Controller
+{
     private $commentRepository;
 
-    public function __construct(CommentRepository $commentRepository) {
+    public function __construct(CommentRepository $commentRepository)
+    {
         $this->commentRepository = $commentRepository;
     }
 
-    public function index() {
+    public function index()
+    {
         $comments = Comment::latest('created_at')->paginate(10);
         return view('admin.comment.index', compact('comments'));
     }
 
-    public function store(CreateCommentRequest $request) {
+    public function store(CommentRequest $request)
+    {
         $data = $request->except('_token');
         $data['comment_author_ip'] = $request->getClientIp();
         if ($this->commentRepository->save($data)) {
@@ -29,7 +33,8 @@ class CommentController extends Controller {
         return redirect()->back();
     }
 
-    public function destroy($id) {
+    public function destroy($id)
+    {
         $comment = Comment::findOrFail($id);
         $comment->delete($id);
         return redirect()->back()->with('success', '删除评论成功！');

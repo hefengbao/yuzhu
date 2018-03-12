@@ -12,10 +12,10 @@
                 </div>
                 <div class="blog-post-content">
                     <ol class="list-unstyled">
-                        @foreach($datas as $data)
+                        @foreach($data as $item)
                             <li>
-                                {{ $data->published_at->toDateString()}}&nbsp;&nbsp; &raquo; &nbsp;&nbsp;<a
-                                        href="{{ url('/article') }}/{{ $data->post_slug }}"><span>{{ $data->post_title }}</span></a>
+                                {{ $item->published_at->toDateString()}}&nbsp;&nbsp; &raquo; &nbsp;&nbsp;<a
+                                        href="{{ url('/article') }}/{{ $item->post_slug }}"><span>{{ $item->post_title }}</span></a>
                             </li>
                         @endforeach
                     </ol>

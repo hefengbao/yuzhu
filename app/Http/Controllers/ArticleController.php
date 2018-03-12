@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Repositories\PostRepository;
 use App\Repositories\UserRepository;
-use Illuminate\Support\Collection;
 use Auth;
 
 
