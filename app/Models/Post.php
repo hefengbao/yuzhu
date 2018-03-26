@@ -47,6 +47,7 @@ class Post extends Model
         'created_at'
     ];
 
+
     /**
      * 文章与标签之间的多对多关系
      *

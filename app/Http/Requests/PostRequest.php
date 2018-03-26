@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class PostRequest extends FormRequest
 {
@@ -39,7 +40,9 @@ class PostRequest extends FormRequest
                 {
                     return [
                         'post_title' => 'required|max:100',
-                        'post_slug' => 'required|unique:posts|max:100',
+                        'post_slug' => ['required',
+                            'max:100',
+                            Rule::unique('posts')->ignore($this->id)],
                         'post_content' => 'required',
                     ];
                 }

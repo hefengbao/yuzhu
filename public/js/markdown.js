@@ -75,11 +75,7 @@ $('#fileupload').fileupload({
     maxFileSize: 1024*1024,
     done: function (e, data) {
         $("#msg_upload").text('图片上传成功');
-        var arr = APP_URL.split('/');
-        if (arr[arr.length-1] == "index.php"){
-            APP_URL = APP_URL.substr(0,APP_URL.length - 10);
-        }
-        $("#image_url").val(APP_URL +'/'+ data.result.filename);
+        $("#image_url").val(APP_URL+'/storage/'+ data.result.filename);
     },
     progressall: function (e, data) {
         progress = parseInt(data.loaded / data.total * 100, 10);

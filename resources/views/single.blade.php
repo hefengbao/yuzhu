@@ -30,7 +30,6 @@
                     <h2 class="blog-post-title">{{ $post->post_title }}</h2>
                     {!! $post->post_content_filter !!}
                     <p class="copy-right">
-                        最后更新时间：{{ $post->updated_at }}<br>
                         转载请注明出处：<a href="{{ $post->post_slug }}">{{ route('article.index',$post->post_slug ) }}</a>
                     </p>
                     <div class="text-center">
@@ -45,13 +44,13 @@
                         <ul class="list-unstyled">
                             @if($post->user->wechatpay)
                                 <li>
-                                    <img src='{{ asset($post->user->wechatpay) }}'>
+                                    <img src='{{ asset('storage/'.$post->user->wechatpay) }}'>
                                     <p>微信支付</p>
                                 </li>
                             @endif
                             @if($post->user->alipay)
                                 <li>
-                                    <img src='{{ asset($post->user->alipay) }}'>
+                                    <img src='{{ asset('storage/'.$post->user->alipay) }}'>
                                     <p>支付宝</p>
                                 </li>
                             @endif
@@ -87,7 +86,7 @@
                                 <li id="comment-{{ $comment->id }}" class="anchor">
                                     <article class="row">
                                         <div class="col-sm-2 text-center">
-                                            <img src="{{ $comment->comment_author_avatar ? asset('uploads/avatars').'/'.$comment->comment_author_avatar : asset('img/avatar.png') }}"
+                                            <img src="{{ $comment->comment_author_avatar ? asset('storage/uploads/avatars').'/'.$comment->comment_author_avatar : asset('img/avatar.png') }}"
                                                  alt="" class="avatar avatar-img-thumbnail-small">
                                         </div>
                                         <div class="col-sm-10">
