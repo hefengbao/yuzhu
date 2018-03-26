@@ -39,7 +39,7 @@ class PostRequest extends FormRequest
                 {
                     return [
                         'post_title' => 'required|max:100',
-                        'post_slug' => 'required',
+                        'post_slug' => 'required|unique:posts|max:100',
                         'post_content' => 'required',
                     ];
                 }
@@ -48,7 +48,7 @@ class PostRequest extends FormRequest
             default:
                 {
                     return [];
-                };
+                }
         }
     }
 
@@ -85,7 +85,7 @@ class PostRequest extends FormRequest
             default:
                 {
                     return [];
-                };
+                }
         }
     }
 }

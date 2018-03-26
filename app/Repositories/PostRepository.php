@@ -14,7 +14,8 @@ class PostRepository
     protected $categoryRepository;
     protected $markdown;
 
-    public function __construct(Post $post, TagRepository $tagRepository, Markdown $markdown, CategoryRepository $categoryRepository)
+    public function __construct(Post $post, TagRepository $tagRepository, Markdown $markdown,
+                                CategoryRepository $categoryRepository)
     {
         $this->post = $post;
         $this->tagRepository = $tagRepository;
@@ -23,9 +24,8 @@ class PostRepository
     }
 
     /**
-     * save article
      * @param $input
-     * @return static
+     * @return $this|\Illuminate\Database\Eloquent\Model
      */
     public function save($input)
     {
@@ -54,10 +54,9 @@ class PostRepository
     }
 
     /**
-     * update article
      * @param $id
      * @param $input
-     * @return $this|\Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
      */
     public function update($id, $input)
     {

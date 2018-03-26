@@ -76,7 +76,7 @@ class Post extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function comments()
     {
@@ -109,4 +109,12 @@ class Post extends Model
     {
         $this->attributes['published_at'] = date_format(date_create($value . ' ' . Carbon::now()->toTimeString()), 'Y-m-d H:i:s');
     }
+
+	/*public function setPostSlugAttribute($value)
+	{
+		$str="QWERTYUIOPASDFGHJKLZXCVBNM1234567890qwertyuiopasdfghjklzxcvbnm";
+		str_shuffle($str);
+		$suffix=substr(str_shuffle($str),26,10);
+		$this->attributes['post_slug'] = $value.'-'.$suffix;
+	}*/
 }
