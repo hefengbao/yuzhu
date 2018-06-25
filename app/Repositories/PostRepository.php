@@ -29,6 +29,8 @@ class PostRepository
      */
     public function save($input)
     {
+        $str="QWERTYUIOPASDFGHJKLZXCVBNM1234567890qwertyuiopasdfghjklzxcvbnm";
+        $input['post_slug'] = $input['post_slug']."-".substr(str_shuffle($str),5,8);
         $input['user_id'] = Auth::user()->id;
         $input['category_id'] = $input['post_category'];
         $input['post_type'] = 'post';

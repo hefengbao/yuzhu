@@ -24,6 +24,9 @@ class CommentRepository
             $reply = '<a href="#comment-' . $data['comment_parent'] . '">@' . $data['comment_parent_name'] . '</a> ';
         }
         $data['comment_content_filter'] = $this->markdown->convertMarkdownToHtml($reply . $data['comment_content']);
+        // 把链接替换为字符
+        $data['comment_content_filter'] = preg_replace("/<a[^>]*>(.*?)<\/a>/is", "$1", $data['comment_content_filter']);
+
         return $this->comment->create($data);
     }
 

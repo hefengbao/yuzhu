@@ -53,7 +53,7 @@ var simplemde = new SimpleMDE({
                     }
                 });
             },
-            className: "fa fa-picture-o",
+            className: "fa fa-picture-o"
         },
         "table",
         "|",
@@ -64,7 +64,7 @@ var simplemde = new SimpleMDE({
         "|",
         "guide"
     ],
-    tabSize: 4,
+    tabSize: 4
 });
 
 var url = APP_URL + "/admin/post/upload";
@@ -79,7 +79,7 @@ $('#fileupload').fileupload({
     },
     progressall: function (e, data) {
         progress = parseInt(data.loaded / data.total * 100, 10);
-        $('#progress .progress-bar').css(
+        $("#progress .progress-bar").css(
             'width',
             progress + '%'
         );
