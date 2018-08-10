@@ -34,10 +34,15 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         try {
             $request->update($user);
-        } catch (ImageUploadException $exception) {
-            return "图片上传失败：" + $exception->getMessage();
+        } catch (\Exception $exception) {
+            return "图片上传失败：" . $exception->getMessage();
         }
 
         return redirect(route('user.profile', $id));
+    }
+
+    public function show($id){
+        $user = $this->userRepository->show($id);
+        return view('user', compact('user'));
     }
 }

@@ -14,7 +14,7 @@
         <div class="box-body">
             @include('partials.errors')
             @include('partials.success')
-            <table class="table table-bordered" id="posts-table">
+            <table class="table table-bordered" id="posts-table" style="table-layout:fixed">
                 <thead>
                 <tr>
                     <th>标题</th>

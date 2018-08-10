@@ -138,6 +138,7 @@ class PostRepository
         $data = Cache::remember('hotTopic', 60 * 24, function () {
             return $this->post
                 ->select('post_title', 'post_slug')
+                ->where('post_type','post')
                 ->orderBy('view_count', 'desc')
                 ->limit(10)
                 ->get();

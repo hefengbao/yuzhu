@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateTagRequest;
+use App\Http\Requests\TagRequest;
 use App\Repositories\TagRepository;
 
 class TagController extends Controller
@@ -21,7 +22,7 @@ class TagController extends Controller
         return view('admin.tag.index', compact('tags'));
     }
 
-    public function store(CreateTagRequest $request)
+    public function store(TagRequest $request)
     {
         $this->tagRepository->save($request->except('_token'));
         return redirect()->route('tag.index')->with('success', '添加标签成功');
