@@ -59,8 +59,8 @@
     <div class="sidebar-module">
         <div class="panel panel-default">
             <div class="panel-body">
-                <h4>{{ $title }}</h4>
-                <p>{{ $subtitle }}</p>
+                <h4>@if(isset($title)) {{ $title }} @endif</h4>
+                <p>@if(isset($subtitle)) {{ $subtitle }} @endif </p>
             </div>
         </div>
     </div><!-- /.sidebar-module -->

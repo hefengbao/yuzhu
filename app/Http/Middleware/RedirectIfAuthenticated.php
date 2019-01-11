@@ -18,8 +18,7 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            //TODO  已登录时的跳转
-            return redirect('/admin');
+            return redirect('/home');
         }
 
         return $next($request);

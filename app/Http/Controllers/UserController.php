@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserRequest;
 use App\Repositories\UserRepository;
 use App\Models\User;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
@@ -18,12 +19,18 @@ class UserController extends Controller
 
     public function index()
     {
+        if(!Gate::allows('user.index')){
+            abort(401);
+        }
         $users = $this->userRepository->getAll();
         return view('admin.user.index', compact('users'));
     }
 
     public function profile($id)
     {
+        if(!Gate::allows('user.profile')){
+            abort(401);
+        }
         $user = $this->userRepository->show($id);
         return view('admin.user.profile', compact('user'));
     }

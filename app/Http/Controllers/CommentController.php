@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CommentRequest;
 use App\Models\Comment;
 use App\Repositories\CommentRepository;
+use Illuminate\Support\Facades\Gate;
 
 class CommentController extends Controller
 {
@@ -17,6 +18,9 @@ class CommentController extends Controller
 
     public function index()
     {
+        if(!Gate::allows('comment.index')){
+            abort(401);
+        }
         $comments = Comment::latest('created_at')->paginate(10);
         return view('admin.comment.index', compact('comments'));
     }
@@ -35,6 +39,9 @@ class CommentController extends Controller
 
     public function destroy($id)
     {
+        if(!Gate::allows('comment.destroy')){
+            abort(401);
+        }
         $comment = Comment::findOrFail($id);
         $comment->delete($id);
         return redirect()->back()->with('success', '删除评论成功！');

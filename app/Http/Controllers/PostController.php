@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreatePostRequest;
 use App\Http\Requests\PostRequest;
-use App\Http\Requests\UpdatePageRequest;
 use App\Repositories\CategoryRepository;
 use App\Repositories\PostRepository;
 use Illuminate\Http\Request;
 use App\Repositories\TagRepository;
+use Illuminate\Support\Facades\Gate;
 
 class PostController extends Controller
 {
@@ -30,7 +29,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        if(!Gate::allows('post.index')){
+            abort(401);
+        }
         $posts = $this->postRepository->adminPaginate();
         return view('admin.post.index', compact('posts'));
     }
@@ -42,7 +43,9 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        if(!Gate::allows('post.create')){
+            abort(401);
+        }
         $tags = $this->tagRepository->getAll();
         $categories = $this->categoryRepository->getAll();
 
@@ -70,7 +73,9 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        if(!Gate::allows('post.edit')){
+            abort(401);
+        }
         $tags = $this->tagRepository->getAll();
         $categories = $this->categoryRepository->getAll();
         $post = $this->postRepository->findById($id);
@@ -87,7 +92,9 @@ class PostController extends Controller
      */
     public function update(PostRequest $request, $id)
     {
-        //
+        if(!Gate::allows('post.edit')){
+            abort(401);
+        }
         $input = $request->all();
         $this->postRepository->update($id, $input);
         return redirect('admin/post');
@@ -101,6 +108,9 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
+        if(!Gate::allows('post.edit')){
+            abort(401);
+        }
         $this->postRepository->delete($id);
         return redirect()->back()->with('success', '删除文章成功！');
     }

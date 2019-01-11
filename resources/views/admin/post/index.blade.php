@@ -14,7 +14,7 @@
         <div class="box-body">
             @include('partials.errors')
             @include('partials.success')
-            <table class="table table-bordered" id="posts-table" style="table-layout:fixed">
+            <table class="table table-bordered table-responsive table-striped" id="posts-table" style="table-layout:fixed">
                 <thead>
                 <tr>
                     <th>标题</th>
@@ -36,15 +36,15 @@
                         <td>{{ $post->published_at }}</td>
                         <td>
                             <a class="btn btn-primary btn-sm" href="{{ route('article.index',$post->post_slug) }}"
-                               target="_blank"><i class="fa fa-eye" aria-hidden="true"></i> 查看</a>
-                            <a class="btn btn-success btn-sm" href="{{ route('post.edit',$post->id)  }}"><i
-                                        class="fa fa-pencil-square-o" aria-hidden="true"></i> 编辑</a>
+                               target="_blank" title="查看"><i class="fa fa-eye" aria-hidden="true"></i> </a>
+                            <a class="btn btn-success btn-sm" href="{{ route('post.edit',$post->id)  }}" title="编辑"><i
+                                        class="fa fa-pencil-square-o" aria-hidden="true"></i> </a>
                             <form action="{{ route('post.destroy', $post->id) }}" method="POST" style="display: inline;"
                                   onsubmit="if(confirm('Delete? Are you sure?')) { return true } else {return false };">
                                 <input type="hidden" name="_method" value="DELETE">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash"
-                                                                                       aria-hidden="true"></i> 删除
+                                <button type="submit" class="btn btn-sm btn-danger" title="删除"><i class="fa fa-trash"
+                                                                                       aria-hidden="true"></i>
                                 </button>
                             </form>
                         </td>

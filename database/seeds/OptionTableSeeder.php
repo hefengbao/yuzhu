@@ -37,7 +37,7 @@ class OptionTableSeeder extends Seeder
             [
                 'id' => 4,
                 'option_name' => 'description',
-                'option_value' => 'This is a simple',
+                'option_value' => 'This is a simple blog',
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_at' => \Carbon\Carbon::now(),
             ],

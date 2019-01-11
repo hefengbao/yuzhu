@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CategoryRequest;
 use App\Repositories\CategoryRepository;
+use Illuminate\Support\Facades\Gate;
 
 class CategoryController extends Controller
 {
@@ -17,6 +18,9 @@ class CategoryController extends Controller
 
     public function index()
     {
+        if(!Gate::allows('category.index')){
+            abort(401);
+        }
         $categories = $this->categoryRepository->paginate();
         return view('admin.category.index', compact('categories'));
     }

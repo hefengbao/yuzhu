@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Repositories\OptionRepository;
 use Illuminate\Http\Request;
 use Cache;
+use Illuminate\Support\Facades\Gate;
 
 class OptionController extends Controller
 {
@@ -18,6 +19,9 @@ class OptionController extends Controller
 
     public function index()
     {
+        if(!Gate::allows('option.index')){
+            abort(401);
+        }
         $option = $this->optionRepository->getAll();
         return view('admin.option.index')->with('option', $option);
     }

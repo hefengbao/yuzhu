@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateTagRequest;
 use App\Http\Requests\TagRequest;
 use App\Repositories\TagRepository;
+use Illuminate\Support\Facades\Gate;
 
 class TagController extends Controller
 {
@@ -18,6 +19,9 @@ class TagController extends Controller
 
     public function index()
     {
+        if(!Gate::allows('tag.index')){
+            abort(401);
+        }
         $tags = $this->tagRepository->paginate();
         return view('admin.tag.index', compact('tags'));
     }

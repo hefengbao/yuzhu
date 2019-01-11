@@ -1,15 +1,12 @@
 <?php
 
-use Illuminate\Database\Seeder;
-use App\Models\Role;
 use App\Models\Permission;
-use Zizaco\Entrust\Traits\EntrustRoleTrait;
+use App\Models\Role;
+use Illuminate\Database\Seeder;
 use Carbon\Carbon;
 
 class RoleTableSeeder extends Seeder
 {
-    use EntrustRoleTrait;
-
     /**
      * Run the database seeds.
      *
@@ -20,37 +17,29 @@ class RoleTableSeeder extends Seeder
         //角色
         $admin = Role::create([
             'id' => 1,
-            'name' => 'admin',
+            'name' => 'Admin',
             'display_name' => '管理员',
-            'description' => '管理员',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
 
         $user = Role::create([
             'id' => 2,
-            'name' => 'user',
+            'name' => 'User',
             'display_name' => '用户',
-            'description' => '普通用户',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
 
 
         //给角色赋予权限
-        $permissions = Permission::all();
-        foreach ($permissions as $permission) {
-            $admin->attachPermission($permission);
-        }
+        /*$permissions = Permission::all();
 
-        $userPermissions = Permission::where('name', 'post.index')
-            ->orWhere('name', 'post.create')
-            ->orWhere('name', 'post.destroy')
-            ->orWhere('name', 'post.edit')
-            ->orWhere('name', 'user.profile')
+        $admin->syncPermissions($permissions);*/
+
+        $userPermissions = Permission::whereIn('name', ['post.index','post.create','post.store',
+            'post.destroy','post.update','post.edit','user.profile'])
             ->get();
-        foreach ($userPermissions as $permission) {
-            $user->attachPermission($permission);
-        }
+        $user->syncPermissions($userPermissions);
     }
 }

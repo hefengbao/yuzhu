@@ -2,9 +2,8 @@
 
 namespace App\Models;
 
-use Zizaco\Entrust\EntrustPermission;
 
-class Permission extends EntrustPermission
+class Permission extends \Spatie\Permission\Models\Permission
 {
-    protected $fillable = ['name', 'display_name', 'description'];
+    //
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Repositories\CategoryRepository;
 use App\Repositories\OptionRepository;
 use App\Repositories\PageRepository;
+use Illuminate\Support\Facades\Gate;
 
 class MenuController extends Controller
 {

@@ -4,7 +4,7 @@
 @section('keywords'){{ $tagPresenter->showTags($post->tags) }}@stop
 @section('author'){{ $post->user->name }}@stop
 @section('head')
-    <link rel="canonical" href="{{ url('/') }}/article/{{ $post->post_slug }}"/>
+    <link rel="canonical" href="{{ route('article.index',$post->post_slug) }}"/>
 @stop
 @section('title'){{ $post->post_title }} - @parent @stop
 @section('css')
@@ -20,7 +20,7 @@
                                 class="label label-light label-primary">{{ $post->category->category_name }}</span></a>
                     @if($post->tags)
                         @foreach($post->tags as $tag)
-                            <a href="{{ url('tag') }}/{{ $tag->tag_name }}"><span
+                            <a href="{{ route('tag.post',$tag->tag_name) }}"><span
                                         class="label label-light label-default">{{ $tag->tag_name }}</span></a>
                         @endforeach
                     @endif
@@ -64,9 +64,13 @@
                 <div class="blog-post-content">
                     @if($pre)
                         <p>上一篇：<a href="{{ route('article.index',$pre->post_slug) }}">{{ $pre->post_title }}</a></p>
+                    @else
+                        <p>上一篇：没有上一篇</p>
                     @endif
                     @if($next)
                         <p>下一篇：<a href="{{ route('article.index',$next->post_slug) }}">{{ $next->post_title }}</a></p>
+                    @else
+                        <p>下一篇：没有下一篇</p>
                     @endif
                 </div>
             </div>

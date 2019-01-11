@@ -4,6 +4,18 @@
     {!! $menu !!}
 </ul>
 
+@if(Auth::check())
 <ul class="nav navbar-nav navbar-right">
-    <li><a href="{{ url('/feed') }}"><i class="fa fa-rss" aria-hidden="true"></i></a></li>
+    @role('Admin')
+    <li><a href="{{ route('dashboard.index') }}">管理后台</a></li>
+    @endrole
+    @role('User')
+    <li><a href="{{ route('dashboard.index') }}">博客管理</a></li>
+    @endrole
+    <li><a href="{{ route('logout') }}">退出</a></li>
 </ul>
+@else
+<ul class="nav navbar-nav navbar-right">
+    <li><a href="{{ route('dashboard.index') }}">登录</a></li>
+</ul>
+@endif
