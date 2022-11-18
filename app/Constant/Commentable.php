@@ -2,11 +2,8 @@
 
 namespace App\Constant;
 
-enum PostStatus: string
+enum Commentable: string
 {
-    case Publish = 'publish';
-    case Draft = 'draft';
-    case Future = 'future';
-    case Pending = 'pending';
-    case Trash = 'trash';
+    case Open = 'open';
+    case Closed = 'closed';
 }

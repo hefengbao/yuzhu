@@ -5,7 +5,7 @@ namespace App\Services;
 
 use App\Models\User;
 
-class UserRepository
+class UserService
 {
     protected $user;
 

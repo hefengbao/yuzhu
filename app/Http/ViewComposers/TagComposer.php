@@ -7,14 +7,14 @@
 
 namespace App\Http\ViewComposers;
 
-use App\Repositories\TagRepository;
+use App\Services\TagService;
 use Illuminate\View\View;
 
 class TagComposer
 {
     protected $tagRepository;
 
-    public function __construct(TagRepository $tagRepository)
+    public function __construct(TagService $tagRepository)
     {
         $this->tagRepository = $tagRepository;
     }

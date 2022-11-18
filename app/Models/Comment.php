@@ -3,21 +3,31 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Comment extends Model
 {
-    use SoftDeletes;
-    //
-    protected $fillable = ['post_id', 'comment_author', 'comment_author_email', 'comment_author_ip', 'comment_content', 'comment_content_filter', 'comment_parent', 'user_id'];
+    protected $fillable = ['body', 'guest_name', 'guest_email', 'ip', 'user_agent','status'];
 
-    public function user()
+    protected $with = ['author'];
+
+    public function author(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function post()
+    public function post(): BelongsTo
     {
         return $this->belongsTo(Post::class);
+    }
+
+    public function parent(): BelongsTo
+    {
+        return $this->belongsTo(Comment::class, 'parent_id');
+    }
+
+    public function scopeApproved($query)
+    {
+        return $query->where('status', 'approved');
     }
 }

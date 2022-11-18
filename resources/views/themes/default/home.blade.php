@@ -1,35 +1,66 @@
-@extends('layouts.app')
-@section('description')@parent @stop
-@section('keywords')@parent @stop
-@section('author')@parent @stop
-@section('title')@parent @stop
+@inject('options', 'App\Services\OptionService')
+@extends('themes.default.layout')
+@section('description')
+    {{ $options->autoload()['description'] }}
+@endsection
 @section('content')
-    @foreach($posts as $post)
-        <section class="blog-post">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <div class="blog-post-meta">
-                        <a href="{{ route('category.show',$post->category->category_slug) }}"><span
-                                    class="label label-light label-primary">{{ $post->category->category_name }}</span></a>
-                        @if($post->tags)
-                            @foreach($post->tags as $tag)
-                                <a href="{{ route('tag.post',$tag->tag_name) }}"><span
-                                            class="label label-light label-default">{{ $tag->tag_name }}</span></a>
-                            @endforeach
-                        @endif
-                        <p class="blog-post-date pull-right"><i class="fa fa-clock-o"
-                                                                aria-hidden="true"></i>&nbsp;{{ $post->published_at }}
-                        </p>
-                    </div>
-                    <div class="blog-post-content">
-                        <a href="{{ route("article.index",$post->post_slug) }}"><h2
-                                    class="blog-post-title">{{ $post->post_title }}</h2></a>
-                        <p>{{ $post->post_excerpt }}</p>
-                        <a class="btn btn-info" href="{{  route("article.index",$post->post_slug) }}">Read more</a>
+    <div class="row mb-2">
+        @foreach($tweets as $tweet)
+            <div class="col-md-6">
+                <div
+                    class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                    <div class="col p-4 d-flex flex-column position-static">
+                        <div class="mb-1 text-muted">
+                            {{ $tweet->author->name }}写于{{ $tweet->created_at->format('Y.m.d') }}
+                        </div>
+                        <p class="card-text mb-auto">{{ Str::limit($tweet->body) }}</p>
+                        <a href="{{ route('tweets.show', $tweet->id) }}" class="link-secondary text-sm">继续阅读 →</a>
                     </div>
                 </div>
             </div>
-        </section><!-- /.blog-post -->
-    @endforeach
-    {!! $posts->links() !!}
-@stop
+        @endforeach
+    </div>
+
+    <div class="row g-5">
+        <div class="col-md-8">
+            @foreach($articles as $article)
+                <p> {{ $article->created_at->format('Y.m.d') }}
+                    <a href="{{ route('articles.show', $article->id) }}" class="link-secondary">
+                        {{ $article->title }}
+                    </a>
+                </p>
+                {{--<article class="blog-post divider">
+                    <h4 class="blog-post-title mb-1">
+                        <a href="{{ route('articles.show', $article->id) }}" class="link-secondary">
+                            {{ $article->title }}
+                        </a>
+                    </h4>
+                    <p class="blog-post-meta">
+                        {{ $article->author->name }}写于{{ $article->created_at->diffForHumans() }}
+                        @if($article->categories->isNotEmpty())
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-tag" viewBox="0 0 16 16">
+                                <path
+                                    d="M6 4.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm-1 0a.5.5 0 1 0-1 0 .5.5 0 0 0 1 0z"/>
+                                <path
+                                    d="M2 1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 1 6.586V2a1 1 0 0 1 1-1zm0 5.586 7 7L13.586 9l-7-7H2v4.586z"/>
+                            </svg>{{ categories_to_str($article->categories, false) }}
+                        @endif
+                    </p>
+                </article>--}}
+            @endforeach
+        </div>
+
+        <div class="col-md-4">
+            <div class="position-sticky" style="top: 2rem;">
+                <div class="p-4">
+                    <ol class="list-unstyled">
+                        @foreach($pages as $page)
+                            <li><a href="{{ route('pages.show', $page->id) }}" target="_blank" class="link-secondary">{{ $page->title }}</a></li>
+                        @endforeach
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection

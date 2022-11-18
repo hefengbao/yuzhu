@@ -13,7 +13,8 @@ use Spatie\Sitemap\SitemapGenerator;
 
 class GenerateSitemap
 {
-    public function sitemap(){
+    public function sitemap()
+    {
         SitemapGenerator::create(config('app.url'))->writeToFile('sitemap.xml');
     }
 }

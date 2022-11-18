@@ -2,9 +2,9 @@
 
 namespace App\Constant;
 
-enum Role: string
+enum PostType: string
 {
-    case Administrator = 'administrator';
-    case Editor = 'editor';
-    case Author = 'author';
+    case Article = 'article';
+    case Page = 'page';
+    case Tweet = 'tweet';
 }

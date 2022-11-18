@@ -1,5 +1,8 @@
 <?php
 
+namespace Database\Seeders;
+
+use DB;
 use Illuminate\Database\Seeder;
 
 class CategoryTableSeeder extends Seeder
@@ -15,10 +18,10 @@ class CategoryTableSeeder extends Seeder
         DB::table('categories')->insert([
             [
                 'id' => 1,
-                'category_name' => '未分类',
-                'category_slug' => 'uncategorized',
-                'count' => 0,
-                'category_parent' => 0
+                'name' => '未分类',
+                'slug' => 'uncategorized',
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now(),
             ]
         ]);
     }

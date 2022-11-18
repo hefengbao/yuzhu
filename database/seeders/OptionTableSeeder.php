@@ -1,5 +1,9 @@
 <?php
 
+namespace Database\Seeders;
+
+use App\Constant\CommentStatus;
+use DB;
 use Illuminate\Database\Seeder;
 
 class OptionTableSeeder extends Seeder
@@ -15,43 +19,57 @@ class OptionTableSeeder extends Seeder
         DB::table('options')->insert([
             [
                 'id' => 1,
-                'option_name' => 'title',
-                'option_value' => 'One',
+                'name' => 'title',
+                'value' => 'One',
+                'autoload' => 'yes',
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_at' => \Carbon\Carbon::now(),
             ],
             [
                 'id' => 2,
-                'option_name' => 'subtitle',
-                'option_value' => 'This is a simple blog',
+                'name' => 'subtitle',
+                'value' => '一个简洁的博客、微博客',
+                'autoload' => 'yes',
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_at' => \Carbon\Carbon::now(),
             ],
             [
                 'id' => 3,
-                'option_name' => 'keywords',
-                'option_value' => '',
+                'name' => 'keywords',
+                'value' => 'one,blog,博客,微博客',
+                'autoload' => 'yes',
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_at' => \Carbon\Carbon::now(),
             ],
             [
                 'id' => 4,
-                'option_name' => 'description',
-                'option_value' => 'This is a simple blog',
+                'name' => 'description',
+                'value' => 'one 一个简洁的博客、微博客。',
+                'autoload' => 'yes',
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_at' => \Carbon\Carbon::now(),
             ],
             [
                 'id' => 5,
-                'option_name' => 'icp',
-                'option_value' => '',
+                'name' => 'icp',
+                'value' => '',
+                'autoload' => 'yes',
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_at' => \Carbon\Carbon::now(),
             ],
             [
                 'id' => 6,
-                'option_name' => 'close_register',
-                'option_value' => '0',
+                'name' => 'users_can_register',
+                'value' => '0',
+                'autoload' => 'yes',
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now(),
+            ],
+            [
+                'id' => 7,
+                'name' => 'default_comment_status',
+                'value' => CommentStatus::Approved->value,
+                'autoload' => 'yes',
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_at' => \Carbon\Carbon::now(),
             ]

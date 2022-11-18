@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Services;
 
 use App\Models\Post;
 use App\One\Markdown;
 use Auth;
 
-class PageRepository
+class PageService
 {
     protected $post;
     protected $markdown;
@@ -48,7 +48,7 @@ class PageRepository
 
     public function adminPaginate()
     {
-        return $this->post->select(Post::list)->latest()->page()->paginate(10);
+        return $this->post->select(Post::selectField)->latest()->page()->paginate(10);
     }
 
     public function show($slug)
@@ -64,7 +64,7 @@ class PageRepository
 
     public function getAll()
     {
-        return $this->post->select('id', 'post_title', 'post_slug')->where('post_type', 'page')->get();
+        return $this->post->where('type', 'page')->get();
     }
 
     public function delete($id)

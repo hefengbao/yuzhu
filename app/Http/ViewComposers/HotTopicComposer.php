@@ -8,14 +8,14 @@
 namespace App\Http\ViewComposers;
 
 
-use App\Repositories\PostRepository;
+use App\Services\PostService;
 use Illuminate\View\View;
 
 class HotTopicComposer
 {
     protected $postRepository;
 
-    public function __construct(PostRepository $postRepository)
+    public function __construct(PostService $postRepository)
     {
         $this->postRepository = $postRepository;
     }

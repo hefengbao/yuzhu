@@ -1,6 +1,6 @@
 <?php
 
-namespace AlAminFirdows\LaravelEditorJs\Facades;
+namespace App\One\EditorJs\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

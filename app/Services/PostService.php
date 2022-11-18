@@ -8,52 +8,20 @@ use Auth;
 use Cache;
 use function App\Repositories\array_has;
 
-class PostRepository
+class PostService
 {
     protected $post;
     protected $tagRepository;
     protected $categoryRepository;
     protected $markdown;
 
-    public function __construct(Post            $post, TagRepository $tagRepository, Markdown $markdown,
+    public function __construct(Post            $post, TagService $tagRepository, Markdown $markdown,
                                 CategoryService $categoryRepository)
     {
         $this->post = $post;
         $this->tagRepository = $tagRepository;
         $this->markdown = $markdown;
         $this->categoryRepository = $categoryRepository;
-    }
-
-    /**
-     * @param $input
-     * @return $this|\Illuminate\Database\Eloquent\Model
-     */
-    public function save($input)
-    {
-        $str="QWERTYUIOPASDFGHJKLZXCVBNM1234567890qwertyuiopasdfghjklzxcvbnm";
-        $input['post_slug'] = $input['post_slug']."-".substr(str_shuffle($str),5,8);
-        $input['user_id'] = Auth::user()->id;
-        $input['category_id'] = $input['post_category'];
-        $input['post_type'] = 'post';
-        $input['post_content_filter'] = $this->markdown->convertMarkdownToHtml($input['post_content']);
-        $input['post_excerpt'] = trim($input['post_excerpt']) == '' ? makeExcerpt($input['post_content_filter']) : makeExcerpt(trim($input['post_excerpt']));
-        $post = $this->post->create($input);
-
-        $category = $this->categoryRepository->getCategoryById($input['category_id']);
-        Cache::forget('categories');
-        $category->increment('count', 1);
-        $tag_ids = [];
-        if (array_has($input, 'tags')) {
-            $tags = $input['tags'];
-            if (!empty($tags)) {
-                foreach ($tags as $tag) {
-                    $tagInfo = $this->tagRepository->save(['tag_name' => $tag]);
-                    array_push($tag_ids, $tagInfo->id);
-                }
-            }
-        }
-        $post->tags()->attach($tag_ids);
-        return $post;
     }
 
     /**
@@ -88,13 +56,35 @@ class PostRepository
     }
 
     /**
-     * 首页显示
-     * @return mixed
+     * @param $input
+     * @return $this|\Illuminate\Database\Eloquent\Model
      */
-    public function paginate()
+    public function save($input)
     {
-        $posts = $this->post->select(Post::selectField)->published()->latest('published_at')->paginate(10);
-        return $posts;
+        $str = "QWERTYUIOPASDFGHJKLZXCVBNM1234567890qwertyuiopasdfghjklzxcvbnm";
+        $input['post_slug'] = $input['post_slug'] . "-" . substr(str_shuffle($str), 5, 8);
+        $input['user_id'] = Auth::user()->id;
+        $input['category_id'] = $input['post_category'];
+        $input['post_type'] = 'post';
+        $input['post_content_filter'] = $this->markdown->convertMarkdownToHtml($input['post_content']);
+        $input['post_excerpt'] = trim($input['post_excerpt']) == '' ? makeExcerpt($input['post_content_filter']) : makeExcerpt(trim($input['post_excerpt']));
+        $post = $this->post->create($input);
+
+        $category = $this->categoryRepository->getCategoryById($input['category_id']);
+        Cache::forget('categories');
+        $category->increment('count', 1);
+        $tag_ids = [];
+        if (array_has($input, 'tags')) {
+            $tags = $input['tags'];
+            if (!empty($tags)) {
+                foreach ($tags as $tag) {
+                    $tagInfo = $this->tagRepository->save(['tag_name' => $tag]);
+                    array_push($tag_ids, $tagInfo->id);
+                }
+            }
+        }
+        $post->tags()->attach($tag_ids);
+        return $post;
     }
 
     /**
@@ -108,6 +98,16 @@ class PostRepository
         } else {//普通用户，获取当前用户文章
             $posts = $this->post->select(Post::selectField)->post()->currentUser()->latest('id')->paginate(10);
         }
+        return $posts;
+    }
+
+    /**
+     * 首页显示
+     * @return mixed
+     */
+    public function paginate()
+    {
+        $posts = $this->post->select(Post::selectField)->published()->latest('published_at')->paginate(10);
         return $posts;
     }
 
@@ -139,7 +139,7 @@ class PostRepository
         $data = Cache::remember('hotTopic', 60 * 24, function () {
             return $this->post
                 ->select('post_title', 'post_slug')
-                ->where('post_type','post')
+                ->where('post_type', 'post')
                 ->orderBy('view_count', 'desc')
                 ->limit(10)
                 ->get();

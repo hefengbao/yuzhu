@@ -1,12 +1,12 @@
 @php
-$tag = 'ul';
-if('ordered' === $data['style']){
-$tag = 'ol';
-}
+    $tag = 'ul';
+    if('ordered' === $data['style']){
+    $tag = 'ol';
+    }
 @endphp
 
-<{{ $tag }}>
-    @foreach($data['items'] as $item)
-    <li>{{ $item }}</li>
-    @endforeach
+<{{ $tag }} class="editor-list">
+@foreach($data['items'] as $item)
+    <li>{!! $item !!}</li>
+@endforeach
 </{{ $tag }}>

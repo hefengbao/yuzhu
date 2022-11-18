@@ -1,11 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class CreateUsersTable extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -14,20 +13,14 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('avatar')->nullable();
+            $table->string('bio')->nullable();
             $table->string('password');
-            $table->string('avatar', 50)->nullable()->comment('头像');
-            $table->string('website', 50)->nullable()->comment('个人网站');
-            $table->string('github', 50)->nullable()->comment('Github');
-            $table->string('weibo', 50)->nullable()->comment('微博');
-            $table->string('wechat', 50)->nullable()->comment('微信二维码');
-            $table->string('wechatpay', 50)->nullable()->comment('微信支付二维码');
-            $table->string('alipay', 50)->nullable()->comment('支付宝二维码');
-            $table->string('city', 50)->nullable()->comment('城市');
-            $table->string('company', 50)->nullable()->comment('公司');
-            $table->string('introduction')->nullable()->comment('个人简介');
+            $table->enum('role', ['administrator', 'editor', 'author'])->default('author')->comment('角色');
+            $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
@@ -41,6 +34,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('users');
+        Schema::dropIfExists('users');
     }
-}
+};

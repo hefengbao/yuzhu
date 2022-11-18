@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\Comment;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -9,18 +10,22 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class PostCommented extends Mailable
+class PostCommented extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
+
+    protected Comment $comment;
+    protected string $title;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(string $title, Comment $comment)
     {
-        //
+        $this->title = $title;
+        $this->comment  =$comment;
     }
 
     /**
@@ -31,7 +36,7 @@ class PostCommented extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Post Commented',
+            subject: $this->subject,
         );
     }
 
@@ -43,7 +48,8 @@ class PostCommented extends Mailable
     public function content()
     {
         return new Content(
-            view: 'view.name',
+            view: 'emails.post_commented',
+            with: ['comment' => $this->comment]
         );
     }
 

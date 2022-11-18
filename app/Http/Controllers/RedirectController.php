@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 
 class RedirectController extends Controller
 {
-    public function index(Request $request){
-        dd($request);
+    public function index(Request $request)
+    {
+        \Log::info("Url", $request->all());
     }
 }

@@ -1,1 +1,1 @@
-<p>恭喜，邮件配置成功！</p>
+{!! \App\One\EditorJs\Facades\LaravelEditorJs::render($comment->body) !!}

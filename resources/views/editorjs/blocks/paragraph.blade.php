@@ -1,3 +1,3 @@
-<p>
-    {{ $data['text'] }}
+<p class="editor-paragraph">
+    {!! $data['text'] !!}
 </p>

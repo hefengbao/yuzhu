@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Services;
 
 use App\Models\Category;
 use App\Models\Post;
 use Cache;
 
-class CategoryRepository
+class CategoryService
 {
     protected $category;
 
@@ -22,11 +22,6 @@ class CategoryRepository
         });
     }
 
-    public function paginate()
-    {
-        return $this->category->paginate(20);
-    }
-
     public function getCategoryById($id)
     {
         return $this->category->findOrFail($id);
@@ -40,6 +35,11 @@ class CategoryRepository
     public function getPostGroupByCategory(Category $category)
     {
         return $category->posts()->select(Post::list)->paginate(10);
+    }
+
+    public function paginate()
+    {
+        return $this->category->paginate(20);
     }
 
     public function save($data)

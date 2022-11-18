@@ -1,12 +1,12 @@
 <?php
 
 return [
-    'config'    => [
+    'config' => [
         'tools' => [
             'paragraph' => [
-                'text'  => [
-                    'type'          => 'string',
-                    'allowedTags'   => 'i,b,a[href],code[class],mark[class]',
+                'text' => [
+                    'type' => 'string',
+                    'allowedTags' => 'i,b,a[href],code[class],mark[class]',
                 ],
             ],
             'header' => [
@@ -14,7 +14,10 @@ return [
                     'type' => 'string',
                     'allowedTags' => 'a[href],mark[class]',
                 ],
-                'level' => [1, 2, 3, 4, 5, 6],
+                'level' => [
+                    'type' => 'integer',
+                    'canBeOnly' => [1, 2, 3, 4, 5, 6]
+                ],
             ],
             'list' => [
                 'style' => [
@@ -31,6 +34,24 @@ return [
                     ],
                 ],
             ],
+            'checklist' => [
+                'items' => [
+                    'type' => 'array',
+                    'data' => [
+                        '-' => [
+                            'type' => 'array',
+                            'data' => [
+                                'text' => [
+                                    'type' => 'string'
+                                ],
+                                'checked' => [
+                                    'type' => 'boolean'
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
+            ],
             'linkTool' => [
                 'link' => 'string',
                 'meta' => [
@@ -41,14 +62,6 @@ return [
                         ],
                         'description' => [
                             'type' => 'string',
-                        ],
-                        'url' => [
-                            'type' => 'string',
-                            'required' => false,
-                        ],
-                        'domain' => [
-                            'type' => 'string',
-                            'required' => false,
                         ],
                         'image' => [
                             'type' => 'array',
@@ -129,6 +142,10 @@ return [
                     'allowedTags' => '*',
                 ],
             ],
+            'warning' => [
+                'title' => 'string',
+                'message' => 'string'
+            ]
         ],
     ],
 ];

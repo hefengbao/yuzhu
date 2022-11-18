@@ -8,14 +8,14 @@
 namespace App\Http\ViewComposers;
 
 
-use App\Repositories\CategoryRepository;
+use App\Services\CategoryService;
 use Illuminate\View\View;
 
 class CategoryComposer
 {
     protected $categoryRepository;
 
-    public function __construct(CategoryRepository $categoryRepository)
+    public function __construct(CategoryService $categoryRepository)
     {
         $this->categoryRepository = $categoryRepository;
     }

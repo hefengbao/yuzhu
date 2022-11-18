@@ -2,25 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\PostRepository;
+use App\Models\Post;
 
 class HomeController extends Controller
 {
-    protected $postRepository;
-
-    public function __construct(PostRepository $postRepository)
-    {
-        $this->postRepository = $postRepository;
-    }
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $posts = $this->postRepository->paginate();
-        return view('home', compact('posts'));
+        $tweets = Post::with(['author'])->tweet()->select(['id','slug', 'body', 'user_id', 'created_at'])
+            ->published()
+            ->orderByDesc('published_at')
+            ->limit(2)
+            ->get();
+        $articles = Post::with(['author', 'categories'])->article()->select(['id', 'slug', 'title', 'user_id', 'created_at'])
+            ->published()
+            ->orderByDesc('published_at')
+            ->limit(8)
+            ->get();
+
+        $pages = Post::page()->published()->select(['id', 'slug', 'title'])->orderByDesc('id')->get();
+
+        return view('themes.default.home', compact('articles', 'tweets', 'pages'));
     }
 }

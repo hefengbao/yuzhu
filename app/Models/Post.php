@@ -2,120 +2,94 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
+use App\Constant\PostStatus;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Nicolaslopezj\Searchable\SearchableTrait;
-use Auth;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Post extends Model
 {
-    use SoftDeletes;
-
-    protected $dates = ['published_at'];
-
-    protected $fillable = [
+    const selectField = [
+        'id',
+        'slug',
         'user_id',
-        'post_title',
-        'post_slug',
-        'post_content',
-        'post_content_filter',
-        'category_id',
-        'post_excerpt',
-        'post_status',
-        'comment_status',
-        'post_type',
+        'title',
+        'status',
+        'commentable',
+        'comment_count',
+        'pinned_at',
+        'created_at',
+        'updated_at'
+    ];
+    protected $fillable = [
+        'title',
+        'slug',
+        'body',
+        'excerpt',
+        'status',
+        'type',
+        'commentable',
+        'comment_count',
+        'pinned_at',
         'published_at'
     ];
 
-    use SearchableTrait;
-    protected $searchable = [
-        'columns' => [
-            'posts.post_title' => 5,
-            'posts.post_content_filter' => 2,
-        ],
+    protected $casts = [
+        'pinned_at' => 'datetime',
+        'published_at' => 'datetime'
     ];
 
-    const postInfo = [
-        'id',
-        'user_id',
-        'post_title',
-        'category_id',
-        'post_slug',
-        'post_excerpt',
-        'published_at',
-        'created_at'
-    ];
-
-
-    /**
-     * 文章与标签之间的多对多关系
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function tags()
+    public function tags(): BelongsToMany
     {
-        return $this->belongsToMany(Tag::class);
+        return $this->belongsToMany(Tag::class, 'post_tag');
     }
 
-    /**
-     * 文章与类别的一对一关系
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function category()
+    public function categories(): BelongsToMany
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsToMany(Category::class, 'category_post');
     }
 
-    /**
-     * 文章与用户的一对多关系
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function user()
+    public function author(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function comments()
+    public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
     }
 
+    public function meta(): HasMany
+    {
+        return $this->hasMany(Postmeta::class);
+    }
+
     public function scopePublished($query)
     {
-        $query->where('published_at', '<=', Carbon::now())
-            ->where('post_type', '=', 'post')
-            ->where('post_status', '=', '1');
+        return $query->where('status', PostStatus::Publish);
+    }
+
+    public function scopeArticle($query)
+    {
+        return $query->where('type', 'article');
     }
 
     public function scopePage($query)
     {
-        $query->where('post_type', '=', 'page');
+        return $query->where('type', 'page');
     }
 
-    public function scopePost($query)
+    public function scopeTweet($query)
     {
-        $query->where('post_type', '=', 'post');
+        return $query->where('type', 'tweet');
     }
 
-    public function scopeCurrentUser($query)
+    /*public function setPostSlugAttribute($value)
     {
-        $query->where('user_id', '=', Auth::id());
-    }
-
-    public function setPublishedAtAttribute($value)
-    {
-        $this->attributes['published_at'] = date_format(date_create($value . ' ' . Carbon::now()->toTimeString()), 'Y-m-d H:i:s');
-    }
-
-	/*public function setPostSlugAttribute($value)
-	{
-		$str="QWERTYUIOPASDFGHJKLZXCVBNM1234567890qwertyuiopasdfghjklzxcvbnm";
-		str_shuffle($str);
-		$suffix=substr(str_shuffle($str),26,10);
-		$this->attributes['post_slug'] = $value.'-'.$suffix;
-	}*/
+        $str="QWERTYUIOPASDFGHJKLZXCVBNM1234567890qwertyuiopasdfghjklzxcvbnm";
+        str_shuffle($str);
+        $suffix=substr(str_shuffle($str),26,10);
+        $this->attributes['post_slug'] = $value.'-'.$suffix;
+    }*/
 }

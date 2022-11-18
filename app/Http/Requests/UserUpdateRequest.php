@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UserRequest extends FormRequest
+class UserUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,7 +27,7 @@ class UserRequest extends FormRequest
     {
         // https://learnku.com/docs/laravel/9.x/validation/12219#314932
         // PUT|PATCH       admin/users/{user} ................. admin.users.update › Admin\UserController@update
-        // $this->route('user') 中的 user 指代的是 admin/users/{user} 中的 user
+        // $this->route('user') 中的 user 指代的是 admin/users/{user} 中的 user,实际获取的是 id
         $user = User::findOrFail($this->route('user'));
 
         return [

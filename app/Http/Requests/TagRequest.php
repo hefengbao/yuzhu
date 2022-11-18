@@ -24,54 +24,27 @@ class TagRequest extends FormRequest
     public function rules()
     {
         switch ($this->method()) {
-            // CREATE
             case 'POST':
-                {
-                    return [
-                        'tag_name' => 'required|unique'
-                    ];
-                }
-            // UPDATE
-            case 'PUT':
             case 'PATCH':
-                {
-                    return [
-
-                    ];
-                }
-            case 'GET':
-            case 'DELETE':
+            {
+                return [
+                    'name' => 'required|unique:tags',
+                    'slug' => 'nullable|unique:tags',
+                ];
+            }
             default:
-                {
-                    return [];
-                };
+            {
+                return [];
+            }
         }
     }
 
     public function messages()
     {
-        switch ($this->method()) {
-            // CREATE
-            case 'POST':
-                {
-                    return [
-
-                    ];
-                }
-            // UPDATE
-            case 'PUT':
-            case 'PATCH':
-                {
-                    return [
-
-                    ];
-                }
-            case 'GET':
-            case 'DELETE':
-            default:
-                {
-                    return [];
-                }
-        }
+        return [
+            'name.required' => '名称不能为空',
+            'name.unique' => '名称不能重复',
+            'slug.unique' => '别名不能重复',
+        ];
     }
 }

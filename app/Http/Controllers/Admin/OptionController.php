@@ -1,56 +1,38 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Repositories\OptionRepository;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\Option;
 use Cache;
-use Illuminate\Support\Facades\Gate;
+use Illuminate\Http\Request;
 
 class OptionController extends Controller
 {
-    //
-    protected $optionRepository;
-
-    public function __construct(OptionRepository $optionRepository)
-    {
-        $this->optionRepository = $optionRepository;
-    }
-
     public function index()
     {
-        if(!Gate::allows('option.index')){
-            abort(401);
+        if (!auth()->user()->isAdministrator()) {
+            abort(403);
         }
-        $option = $this->optionRepository->getAll();
-        return view('admin.option.index')->with('option', $option);
+
+        $options = $this->getOptions();
+
+        return view('admin.option.index', compact('options'));
+    }
+
+    private function getOptions(): array
+    {
+        return Option::get()->pluck('value', 'name')->toArray();
     }
 
     public function store(Request $request)
     {
-        $save = $this->optionRepository->save($request->except(['_token']));
-        if ($save) {
-            return redirect()->route('option.index');
+        foreach ($request->except('_token') as $item => $value) {
+            Option::updateOrCreate(['name' => $item], ['value' => $value]);
         }
-    }
 
-    public function menuStore(Request $request)
-    {
-        $data = $request->except('_token');
-        return $this->optionRepository->save($data);
-    }
+        Cache::forget('autoload_options');
 
-    public function cache()
-    {
-        return view('admin.option.cache');
-    }
-
-    public function clearAllCache()
-    {
-        if (Cache::flush()) {
-            return '清除缓存成功！';
-        } else {
-            return '清除缓存失败！';
-        }
+        return redirect()->back()->with('success', '保存成功');
     }
 }

@@ -7,7 +7,7 @@ use App\Models\Post;
 use App\Models\Tag;
 use Cache;
 
-class TagRepository
+class TagService
 {
     protected $tag;
 
@@ -21,11 +21,6 @@ class TagRepository
         return Cache::remember('tags', 30, function () {
             return $this->tag->all();
         });
-    }
-
-    public function paginate()
-    {
-        return $this->tag->paginate(20);
     }
 
     public function save($input)
@@ -42,5 +37,10 @@ class TagRepository
     public function getPostGroupByTag(Tag $tag)
     {
         return $tag->posts()->select(Post::list)->paginate(10);
+    }
+
+    public function paginate()
+    {
+        return $this->tag->paginate(20);
     }
 }

@@ -1,12 +1,15 @@
 <?php
 
-namespace AlAminFirdows\LaravelEditorJs;
+namespace App\One\EditorJs;
 
 use EditorJS\EditorJS;
 use EditorJS\EditorJSException;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Str;
 
+/**
+ * https://github.com/alaminfirdows/laravel-editorjs
+ */
 class LaravelEditorJs
 {
     /**
@@ -26,10 +29,10 @@ class LaravelEditorJs
 
             foreach ($editor->getBlocks() as $block) {
 
-                $viewName = "laravel_editorjs::blocks." . Str::snake($block['type'], '-');
+                $viewName = "editorjs.blocks." . Str::snake($block['type'], '-');
 
                 if (!View::exists($viewName)) {
-                    $viewName = 'laravel_editorjs::blocks.not-found';
+                    $viewName = 'editorjs.blocks.not-found';
                 }
 
                 $renderedBlocks[] = View::make($viewName, ['data' => $block['data']])->render();

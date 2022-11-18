@@ -8,9 +8,7 @@
 namespace App\Http\ViewComposers;
 
 
-use App\Repositories\CategoryRepository;
-use App\Repositories\OptionRepository;
-use App\Repositories\PostRepository;
+use App\Services\OptionService2;
 use Illuminate\View\View;
 
 class MenuComposer
@@ -19,7 +17,7 @@ class MenuComposer
     protected $postRepository;
     protected $categoryRepository;
 
-    public function __construct(OptionRepository $optionRepository)
+    public function __construct(OptionService2 $optionRepository)
     {
         $this->optionRepository = $optionRepository;
     }

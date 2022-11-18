@@ -2,71 +2,102 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Constant\PostStatus;
+use App\Constant\PostType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PostRequest;
-use App\Repositories\PageRepository;
-use Illuminate\Support\Facades\Gate;
+use App\Models\Post;
+use Dotenv\Util\Str;
+use Illuminate\Http\Request;
 
-class ArticleController extends Controller
+class PageController extends Controller
 {
-    //
-    protected $pageRepository;
-
-    public function __construct(PageRepository $pageRepository)
+    public function index(Request $request)
     {
-        $this->pageRepository = $pageRepository;
-    }
-
-    public function index()
-    {
-        if (!Gate::allows('page.index')) {
-            abort(401);
+        if (!auth()->user()->isAdministrator()) {
+            abort(403);
         }
-        $pages = $this->pageRepository->adminPaginate();
-        return view('admin.page.index', compact('pages'));
+
+        $query = Post::page();
+
+        $total = $query->clone()->count('id');
+        $publishTotal = $query->clone()->where('status', PostStatus::Publish->value)->count('id');
+        $trashTotal = $query->clone()->where('status', PostStatus::Trash->value)->count('id');
+        $draftTotal = $query->clone()->where('status', PostStatus::Draft->value)->count('id');
+
+        $pages = $query->when($request->input('status'), function ($q) use ($request) {
+            return $q->where('status', $request->input('status'));
+        })->orderByDesc('id')->paginate(15);
+
+        $metrics = [
+            'total' => $total,
+            'publish_total' => $publishTotal,
+            'draft_total' => $draftTotal,
+            'trash_total' => $trashTotal
+        ];
+
+        return view('admin.page.index', compact('pages', 'metrics'));
     }
 
     public function create()
     {
-        if (!Gate::allows('page.create')) {
-            abort(401);
+        if (!auth()->user()->isAdministrator()) {
+            abort(403);
         }
         return view('admin.page.create');
     }
 
     public function store(PostRequest $request)
     {
-        $this->pageRepository->save($request->except('_token'));
-        return redirect('admin/page');
+        $post = new Post();
+        $post->title = $request->input('title');
+        $post->slug = post_slug($post->title);
+        $post->body = $request->input('body');
+        $post->excerpt = $request->input('excerpt');
+        $post->type = PostType::Page->value;
+        $post->status = $request->input('status');
+        $post->author()->associate($request->user());
+        $post->save();
+
+        return redirect()->route('admin.pages.index')->with('success', '保存成功');
     }
 
     public function edit($id)
     {
-        if (!Gate::allows('page.edit')) {
-            abort(401);
+        if (!auth()->user()->isAdministrator()) {
+            abort(403);
         }
-        $page = $this->pageRepository->findById($id);
+        $page = Post::page()->findOrFail($id);
+
         return view('admin.page.edit', compact('page'));
-    }
-
-    public function show($slug)
-    {
-        $page = $this->pageRepository->show($slug);
-        return view('page', compact('page'));
-    }
-
-    public function update(PostRequest $request, $id)
-    {
-        $this->pageRepository->update($id, $request->except('_token'));
-        return redirect('admin/page');
     }
 
     public function destroy($id)
     {
-        if (!Gate::allows('page.destroy')) {
-            abort(401);
+        if (!auth()->user()->isAdministrator()) {
+            abort(403);
         }
-        $this->pageRepository->delete($id);
-        return redirect()->back()->with('success', '删除页面成功！');
+
+        $page = Post::page()->findOrFail($id);
+
+        $page->update([
+            'status' => PostStatus::Trash->value
+        ]);
+
+        return redirect()->back()->with('success', '已移至回收站');
+    }
+
+    public function update($id, PostRequest $request)
+    {
+        $page = Post::page()->findOrFail($id);
+
+        $page->update([
+            'title' => $request->input('title'),
+            'body' => $request->input('body'),
+            'excerpt' => $request->input('excerpt'),
+            'status' => $request->input('status')
+        ]);
+
+        return redirect()->route('admin.pages.index')->with('success', '更新成功');
     }
 }

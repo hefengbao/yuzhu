@@ -1,11 +1,11 @@
-<table class="table">
+<table class="editor-table table">
     @foreach($data['content'] as $row)
-    <tr>
-        @php $tag = ($loop->first && $data['withHeadings']) ? 'th' : 'td'; @endphp
+        <tr>
+            @php $tag = ($loop->first && $data['withHeadings']) ? 'th' : 'td'; @endphp
 
-        @foreach($row as $cell)
-        <{{ $tag }}> {{ $cell }} </{{ $tag }}>
+            @foreach($row as $cell)
+                <{{ $tag }}> {{ $cell }} </{{ $tag }}>
         @endforeach
-    </tr>
+        </tr>
     @endforeach
 </table>

@@ -26,26 +26,27 @@ class CategoryRequest extends FormRequest
         switch ($this->method()) {
             // CREATE
             case 'POST':
-                {
-                    return [
-                        'category_name' => 'required|unique:categories',
-                        'category_slug' => 'required|unique:categories'
-                    ];
-                }
-            // UPDATE
-            case 'PUT':
             case 'PATCH':
-                {
-                    return [
-
-                    ];
-                }
-            case 'GET':
-            case 'DELETE':
+            {
+                return [
+                    'name' => 'required|unique:categories',
+                    'slug' => 'required|unique:categories',
+                ];
+            }
             default:
-                {
-                    return [];
-                }
+            {
+                return [];
+            }
         }
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => '名称不能为空',
+            'name.unique' => '名称不能重复',
+            'slug.required' => '别名不能为空',
+            'slug.unique' => '别名不能重复',
+        ];
     }
 }

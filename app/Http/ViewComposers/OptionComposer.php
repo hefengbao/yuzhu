@@ -8,14 +8,14 @@
 namespace App\Http\ViewComposers;
 
 
-use App\Repositories\OptionRepository;
+use App\Services\OptionService2;
 use Illuminate\View\View;
 
 class OptionComposer
 {
     protected $optionRepository;
 
-    public function __construct(OptionRepository $optionRepository)
+    public function __construct(OptionService2 $optionRepository)
     {
         $this->optionRepository = $optionRepository;
     }

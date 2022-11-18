@@ -2,21 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\PostRepository;
+use App\Models\Post;
 
 class ArchiveController extends Controller
 {
-    //
-    protected $postRepository;
-
-    public function __construct(PostRepository $postRepository)
-    {
-        $this->postRepository = $postRepository;
-    }
-
     public function index()
     {
-        $data = $this->postRepository->archive();
-        return view('archives', compact('data'));
+        $posts = Post::published()->orderByDesc('id')->paginate(20);
+
+        return view('themes.default.archive.index', compact('posts'));
     }
 }

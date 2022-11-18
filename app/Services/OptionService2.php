@@ -8,7 +8,7 @@ use App\Models\Post;
 use Cache;
 use Illuminate\Support\Arr;
 
-class OptionService
+class OptionService2
 {
     protected $option;
     protected $category;
@@ -19,6 +19,24 @@ class OptionService
         $this->option = $option;
         $this->category = $category;
         $this->post = $post;
+    }
+
+    /**
+     * Save option
+     * @param $data
+     * @return bool
+     */
+    public function save($data)
+    {
+        Cache::forget('option');
+        if (!isset($data['close_register'])) {
+            $this->option->updateOrCreate(['option_name' => 'close_register'], ['option_name' => 'close_register', 'option_value' => 0]);
+        }
+        foreach ($data as $item => $value) {
+            $this->option->updateOrCreate(['option_name' => $item], ['option_name' => $item, 'option_value' => $value]);
+        }
+
+        return $this->getAll();
     }
 
     /**
@@ -39,24 +57,6 @@ class OptionService
             return $option;
         });
         return $optionCache;
-    }
-
-    /**
-     * Save option
-     * @param $data
-     * @return bool
-     */
-    public function save($data)
-    {
-        Cache::forget('option');
-        if (!isset($data['close_register'])) {
-            $this->option->updateOrCreate(['option_name' => 'close_register'], ['option_name' => 'close_register', 'option_value' => 0]);
-        }
-        foreach ($data as $item => $value) {
-            $this->option->updateOrCreate(['option_name' => $item], ['option_name' => $item, 'option_value' => $value]);
-        }
-
-        return $this->getAll();
     }
 
     public function getOptionByName($name)

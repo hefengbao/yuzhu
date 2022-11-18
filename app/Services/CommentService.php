@@ -6,7 +6,7 @@ namespace App\Services;
 use App\Models\Comment;
 use App\One\Markdown;
 
-class CommentServer
+class CommentService
 {
     private $comment;
     private $markdown;

@@ -1,13 +1,13 @@
 <?php
 
-namespace App\One\Handler;
+namespace App\One;
 
+use Auth;
 use Intervention\Image\Exception\ImageException;
 use Intervention\Image\Facades\Image;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Auth;
 
-class ImageUploadHandler
+class ImageUploader
 {
     /**
      * @var UploadedFile $file
@@ -29,15 +29,6 @@ class ImageUploadHandler
         $this->saveImageToLocal('avatar', 380, $avatar_name);
 
         return ['filename' => $avatar_name];
-    }
-
-    public function uploadImage($file)
-    {
-        $this->file = $file;
-        $this->checkAllowedExtensionsOrFail();
-
-        $local_image = $this->saveImageToLocal('post', 1440);
-        return ['filename' => $local_image];
     }
 
     protected function checkAllowedExtensionsOrFail()
@@ -68,5 +59,14 @@ class ImageUploadHandler
             $img->save();
         }
         return $folderName . '/' . $safeName;
+    }
+
+    public function uploadImage($file)
+    {
+        $this->file = $file;
+        $this->checkAllowedExtensionsOrFail();
+
+        $local_image = $this->saveImageToLocal('post', 1440);
+        return ['filename' => $local_image];
     }
 }

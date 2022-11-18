@@ -1,61 +1,72 @@
 @extends('admin.layouts.app')
-@section('pageHeader')
-基本配置
-@stop
+@section('header')
+    常规选项
+@endsection
 @section('content')
-<div class="row">
-    <div class="col-lg-12">
-        <div class="box box-primary">
-            <form action="{{ route('option.store') }}" class="form-horizontal" method="post">
-                <div class="box-body">
-                    <div class="form-group">
-                        <label for="title" class="control-label col-md-2">站点标题</label>
-                        <div class="col-md-10">
-                            <input type="text" id="title" name="title" class="form-control" value="{{ $option['title'] }}">
-                            <p>起个响亮的名字吧</p>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <form action="{{ route('admin.options.store') }}" class="form-horizontal" method="post">
+                    @csrf
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="title" class="control-label col-md-2">站点标题</label>
+                            <div class="col-md-10">
+                                <input type="text" id="title" name="title" class="form-control"
+                                       value="{{ $options['title'] }}" aria-describedby="titleHelp">
+                                <div id="titleHelp" class="form-text text-muted">起个有趣的名字吧</div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="subtitle" class="control-label col-md-2">站点副标题</label>
-                        <div class="col-md-10">
-                            <input type="text" id="subtitle" name="subtitle" class="form-control" value="{{ $option['subtitle'] }}">
-                            <p>用简洁的文字描述本站点</p>
+                        <div class="form-group">
+                            <label for="subtitle" class="control-label col-md-2">站点副标题</label>
+                            <div class="col-md-10">
+                                <input type="text" id="subtitle" name="subtitle" class="form-control"
+                                       value="{{ $options['subtitle'] }}" aria-describedby="subtitleHelp">
+                                <div id="subtitleHelp" class="form-text text-muted">用简洁的文字描述本站点</div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="keyword" class="control-label col-md-2">站点关键词</label>
-                        <div class="col-md-10">
-                            <input type="text" id="subtitle" name="keywords" class="form-control" value="{{ $option['keywords'] }}">
-                            <p>定义个性化的关键词</p>
+                        <div class="form-group">
+                            <label for="keyword" class="control-label col-md-2">站点关键词</label>
+                            <div class="col-md-10">
+                                <textarea id="subtitle" name="keywords" rows="2" class="form-control"
+                                          aria-describedby="keywordsHelp">{{ $options['keywords'] }}</textarea>
+                                <div id="keywordsHelp" class="form-text text-muted">
+                                    定义个性化的关键词,请用英文逗号（,）分割
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for=description"" class="control-label col-md-2">站点描述</label>
-                        <div class="col-md-10">
-                            <textarea name="description" id="description" rows="3" class="form-control">{{ $option['description'] }}</textarea>
-                            <p>对站点的详细描述，200字内</p>
+                        <div class="form-group">
+                            <label for=description"" class="control-label col-md-2">站点描述</label>
+                            <div class="col-md-10">
+                                <textarea name="description" id="description" rows="3" class="form-control"
+                                          aria-describedby="descriptionHelp">{{ $options['description'] }}</textarea>
+                                <div id="descriptionHelp" class="form-text text-muted">对站点的详细描述，200 字内</div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="icp" class="control-label col-md-2">ICP备案号</label>
-                        <div class="col-md-10">
-                            <input type="text" id="icp" name="icp" class="form-control" value="{{ $option['icp'] }}">
+                        <div class="form-group">
+                            <label for="icp" class="control-label col-md-2">ICP备案号</label>
+                            <div class="col-md-10">
+                                <input type="text" id="icp" name="icp" class="form-control"
+                                       value="{{ $options['icp'] }}" aria-describedby="icpHelp">
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="close_register" class="control-label col-md-2">注册功能</label>
-                        <div class="col-md-10">
-                            <input type="checkbox" id="close_register" name="close_register" value="1" {{ $option['close_register']==1 ? 'checked':'' }}> 关闭注册
+                        <div class="form-group">
+                            <label for="users_can_register" class="control-label col-md-2">注册功能</label>
+                            <div class="col-md-10">
+                                <select name="users_can_register" id="users_can_register" class="form-control"
+                                        aria-describedby="canRegisterHelp">
+                                    <option value="0" @selected($options['users_can_register'])>关闭</option>
+                                    <option value="1" @selected($options['users_can_register'])>开启</option>
+                                </select>
+                                <div id="canRegisterHelp" class="form-text text-muted">
+                                    如果开启，则意味着用户可注册并在本站点发布文章等。
+                                </div>
+                            </div>
                         </div>
-
+                        <button class="btn btn-primary">保存</button>
                     </div>
-                </div>
-                <div class="box-footer">
-                    {!! csrf_field() !!}
-                    <button class="btn btn-primary">保存</button>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
-</div>
-@stop
+@endsection

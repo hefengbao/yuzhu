@@ -1,8 +1,9 @@
 @section('script')
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"
+            integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script><!-- Header -->
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/simple-image@latest"></script><!-- Image -->
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/image@latest"></script><!-- Image -->
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/delimiter@latest"></script><!-- Delimiter -->
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script><!-- List -->
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/checklist@latest"></script><!-- Checklist -->
@@ -16,40 +17,19 @@
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/inline-code@latest"></script><!-- Inline Code -->
     <!-- Load Editor.js's Core -->
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js" integrity="sha512-42PE0rd+wZ2hNXftlM78BSehIGzezNeQuzihiBCvUEB3CVxHvsShF86wBWwQORNxNINlBPuq7rG4WWhNiTVHFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js"
+            integrity="sha512-42PE0rd+wZ2hNXftlM78BSehIGzezNeQuzihiBCvUEB3CVxHvsShF86wBWwQORNxNINlBPuq7rG4WWhNiTVHFg=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="{{ asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.js') }}"></script>
     <script type="text/javascript">
-        $(document).ready(function () {
-            $("#tags").select2({
-                tags: true
+
+        /*$(document).ready(function () {
+            $('#title').on('blur',function (){
+                $.get('?title='+$(this).val(), function (data,status){
+                    $('#slug').val(data)
+                })
             });
-
-            $("#publish").datetimepicker({
-                locale: 'zh_CN',
-                icons: { time: 'far fa-clock' }
-            });
-
-
-            let _publishSetting = $('#publish_setting')
-            let _publishedAt = $('#published_at')
-            @if($article && $article->status == 'future')
-            _publishSetting.show()
-            _publishedAt.prop("required", true);
-            @else
-            _publishSetting.hide()
-            _publishedAt.prop("required", false);
-            @endif
-
-            let _status = $('#status');
-            _status.on('change', function (){
-                if($(this).val() === 'future'){
-                    _publishSetting.show()
-                }else {
-                    _publishSetting.hide()
-                    $('#published_at').val(null)
-                }
-            })
-        });
+        });*/
 
         const editor = new EditorJS({
             holder: 'editor',
@@ -91,12 +71,12 @@
                 warning: Warning,
 
                 marker: {
-                    class:  Marker,
+                    class: Marker,
                     shortcut: 'CMD+SHIFT+M'
                 },
 
                 code: {
-                    class:  CodeTool,
+                    class: CodeTool,
                     shortcut: 'CMD+SHIFT+C'
                 },
 
@@ -115,7 +95,18 @@
                     shortcut: 'CMD+ALT+T'
                 },
 
-                image: SimpleImage,
+                image: {
+                    class: ImageTool,
+                    config: {
+                        endpoints: {
+                            byFile: '{{ route('admin.upload.image') }}', // Your backend file uploader endpoint
+                            byUrl: '', // Your endpoint that provides uploading by Url
+                        },
+                        additionalRequestData: {
+                            '_token': '{{ csrf_token() }}',
+                        }
+                    }
+                },
             },
             i18n: {
                 messages: {
@@ -217,8 +208,10 @@
                     },
                 }
             },
-            data: @if($article && $article->body) {!! $article->body !!}@else{}@endif,
-            onReady: () => {console.log('Editor.js is ready to work!')},
+            data: @if(old('body')){!! old('body') !!}@elseif(isset($page) && $page && $page->body) {!! $page->body !!}@else{{ json_encode([])  }}@endif,
+            onReady: () => {
+                console.log('Editor.js is ready to work!')
+            },
             onChange: (api, event) => {
                 //console.log('Now I know that Editor\'s content changed!', event)
                 editor.save().then((savedData) => {

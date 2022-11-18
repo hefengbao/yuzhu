@@ -1,42 +1,60 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\CreateTagRequest;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\TagRequest;
-use App\Repositories\TagRepository;
-use Illuminate\Support\Facades\Gate;
+use App\Models\Tag;
 
 class TagController extends Controller
 {
-    //
-    protected $tagRepository;
-
-    public function __construct(TagRepository $tagRepository)
-    {
-        $this->tagRepository = $tagRepository;
-    }
-
     public function index()
     {
-        if(!Gate::allows('tag.index')){
-            abort(401);
+        if (!auth()->user()->isAdministrator()) {
+            abort(403);
         }
-        $tags = $this->tagRepository->paginate();
+        $tags = Tag::orderByDesc('id')->get();
+
         return view('admin.tag.index', compact('tags'));
     }
 
     public function store(TagRequest $request)
     {
-        $this->tagRepository->save($request->except('_token'));
-        return redirect()->route('tag.index')->with('success', '添加标签成功');
+        Tag::create([
+            'name' => $request->input('name'),
+            'slug' => $request->input('slug') ?? $request->input('name')
+        ]);
+        return redirect()->route('admin.tags.index')->with('success', '添加标签成功');
     }
 
-    public function posts($name)
+    public function edit($id)
     {
-        $tag = $this->tagRepository->getTagbyName($name);
-        $posts = $this->tagRepository->getPostGroupByTag($tag);
-        return view('tag', compact('posts', 'name'));
+        $tag = Tag::findOrFail($id);
+
+        return view('admin.tag.edit', compact('tag'));
     }
 
+    public function update($id, TagRequest $request)
+    {
+        $tag = Tag::findOrFail($id);
+
+        $tag->update([
+            'name' => $request->input('name'),
+            'slug' => $request->input('slug')
+        ]);
+        return redirect()->route('admin.tags.index')->with('success', '更新标签成功');
+    }
+
+    public function destroy($id)
+    {
+        $tag = Tag::findOrFail($id);
+
+        \DB::transaction(function () use ($tag, $id) {
+            \DB::table('post_tag')->where('tag_id', $id)->delete();
+
+            $tag->delete();
+        }, 3);
+
+        return redirect()->route('admin.tags.index')->with('success', '删除标签成功');
+    }
 }

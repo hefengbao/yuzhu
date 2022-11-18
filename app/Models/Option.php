@@ -8,7 +8,8 @@ class Option extends Model
 {
     //
     protected $fillable = [
-        'option_name',
-        'option_value'
+        'name',
+        'value',
+        'autoload'
     ];
 }

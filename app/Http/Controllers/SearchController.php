@@ -2,19 +2,34 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
-use Illuminate\Http\Request;
-use Purifier;
+use App\Models\Category;
+use App\Models\Tag;
 
 class SearchController extends Controller
 {
-    //
-
-    public function index(Request $request)
+    public function index()
     {
-        $query = Purifier::clean($request->input('q'), 'search_q');
-        $posts = Post::search($query)->paginate(20);
-        return view('search', compact('posts', 'query'));
+        $tags = Tag::orderByDesc('id')->get();
+        $categories = Category::orderByDesc('id')->get();
+
+        return view('themes.default.search.index', compact('categories', 'tags'));
     }
 
+    public function categories($slug)
+    {
+        $category = Category::where('slug', $slug)->firstOrFail();
+
+        $posts = $category->posts()->with(['categories'])->paginate(20);
+
+        return view('themes.default.search.category', compact(['posts', 'category']));
+    }
+
+    public function tags($slug)
+    {
+        $tag = Tag::where('slug', $slug)->firstOrFail();
+
+        $posts = $tag->posts()->with(['tags'])->paginate(20);
+
+        return view('themes.default.search.tag', compact(['posts', 'tag']));
+    }
 }
