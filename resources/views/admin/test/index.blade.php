@@ -1,1 +1,0 @@
-@include('admin.layouts.partials.md-image-upload')

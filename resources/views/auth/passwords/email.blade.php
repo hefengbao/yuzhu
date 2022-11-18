@@ -1,43 +1,29 @@
-@extends('layouts.app_auth')
+@extends('auth.app')
 
 @section('content')
-<div class="container">
-    <div class="col-md-8 col-md-offset-2">
-        <div class="panel panel-default">
-            <div class="panel-heading">{{ __('Reset Password') }}</div>
-            <div class="panel-body">
-                @if (session('status'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
-                    </div>
-                @endif
+    <p class="login-box-msg">重置密码</p>
+    @if (session('status'))
+        <div class="alert alert-success" role="alert">
+            {{ session('status') }}
+        </div>
+    @endif
 
-                <form method="POST" action="{{ route('password.email') }}">
-                    @csrf
-
-                    <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                        <label for="name" class="col-md-4 control-label">{{ __('Name') }}</label>
-
-                        <div class="col-md-6">
-                            <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
-
-                            @if ($errors->has('name'))
-                                <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-6 col-md-offset-4">
-                            <button type="submit" class="btn btn-primary btn-raised">
-                                {{ __('Send Password Reset Link') }}
-                            </button>
-                        </div>
-                    </div>
-                </form>
+    <form method="POST" action="{{ route('password.email') }}">
+        @csrf
+        <div class="input-group mb-3">
+            <input type="email" name="email" class="form-control" placeholder="邮箱地址" required>
+            <div class="input-group-append">
+                <div class="input-group-text">
+                    <span class="fas fa-envelope"></span>
+                </div>
             </div>
         </div>
-    </div>
-</div>
+        <div class="row mb-0">
+            <div class="col-md-8">
+                <button type="submit" class="btn btn-primary">
+                    发送密码重置链接
+                </button>
+            </div>
+        </div>
+    </form>
 @endsection
