@@ -15,16 +15,30 @@ mysql 可替换 MariaDB 等 MySQL 衍生数据库，以及 Laravel 支持的 Sql
 
 创建一个名为 one 的用户（名字可以随意）
 ```shell
-useradd -m one
+sudo useradd -m one
 ```
 给予 sudo 权限
 ```shell
-usermod -aG wheel one
+sudo usermod -aG wheel one
 ```
+::: warning 注意
+出现错误 `usermod: group 'wheel' does not exist`
+
+在Ubuntu系统中仅需要修改 /etc/pam.d/su 文件，找到 # auth required pam_wheel.so 这一行，将行首的“#”去掉。
+
+`sudo addgroup wheel`
+:::
 为 one 用户创建密码
 ```shell
-passwd one
+sudo passwd one
 ```
+::: tips 提示
+修改用户的默认 shell:
+```shell
+sudo vim /etc/password
+one:x:1003:1003::/home/one:/bin/bash # 之前是 /bin/sh
+```
+:::
 登录到 one 账户
 ```shell
 su - one
@@ -41,7 +55,7 @@ create database if not exists one default character set utf8mb4 default collate 
 
 create user 'one'@'localhost' identified with caching_sha2_password by '密码';  # 密码自行定义
 
-grant all privileges on <one>.* to 'one'@'localhost';
+grant all privileges on one.* to 'one'@'localhost';
 
 flush privileges;
 
@@ -53,6 +67,9 @@ exit;
 ```
 git clone https://github.com/hefengbao/one.git
 ````
+::: tips 提示
+Ubuntu 系统，如果要把项目放在 `/var/www` 目录下，则可能出现权限问题，
+:::
 
 ### 安装扩展包：
 
@@ -119,7 +136,15 @@ php artisan one:init-admin
 可参考：
 ```bash
 server {
-    listen 80;
+     listen 80;
+     server_name one.test;
+     rewrite ^(.*)$ https://$host$1 permanent;
+     location / {
+        index index.html index.htm;
+     }
+}
+
+server {
     listen 443 ssl http2;
     server_name one.test;
     root "/var/www/one/public";
@@ -168,9 +193,17 @@ server {
 
     ssl_certificate     /etc/ssl/certs/one.test.crt;
     ssl_certificate_key /etc/ssl/certs/one.test.key;
+    ssl_session_timeout 5m;
+    #请按照以下协议配置
+    ssl_protocols TLSv1.2 TLSv1.3; 
+    #请按照以下套件配置，配置加密套件，写法遵循 openssl 标准。
+    ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE; 
+    ssl_prefer_server_ciphers on;
 }
 ```
-
+:::tips 提示
+Nginx 服务器 SSL 证书安装部署 https://cloud.tencent.com/document/product/400/35244
+:::
 ### horizon
 在 `/etc/supervisor/conf.d` 目录中添加 `one-horizon.conf` 文件，内容如下：
 ```shell
@@ -179,7 +212,7 @@ process_name=%(program_name)s
 command=php /var/www/one/artisan horizon
 autostart=true
 autorestart=true
-user=forge
+user=www-data
 redirect_stderr=true
 stdout_logfile=/var/www/one/storage/logs/horizon.log
 stopwaitsecs=3600
