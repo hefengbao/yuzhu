@@ -242,3 +242,7 @@ php artisan route:cache
 php artisan view:cache
 php artisan config:cache
 ```
+
+:::tips 提示
+安装成功后，登陆后台，修改个人资料，上传头像，这样做是为了生成 `upload` 目录，备份文件的时候只备份这个目录里的文件，初始状态这个目录不存在。
+:::
