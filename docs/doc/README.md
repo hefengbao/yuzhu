@@ -77,6 +77,10 @@ Ubuntu 系统，如果要把项目放在 `/var/www` 目录下，则可能出现�
 composer install --optimize-autoloader --no-dev
 ```
 
+```shell
+php artisan storage:link
+```
+
 ### 配置：
 
 ```
