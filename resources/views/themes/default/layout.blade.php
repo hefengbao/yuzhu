@@ -195,7 +195,7 @@ https://github.com/hefengbao/one
 </main>
 
 <footer class="blog-footer">
-    <p>Powered by <a href="https://hefengbao.github.com/one/" class="link-secondary">One</a></p>
+    <p>Powered by <a href="https://hefengbao.github.io/one/" class="link-secondary">One</a></p>
     @if($icp = $options->autoload()['icp'])
         <p><a href="https://beian.miit.gov.cn/" class="link-secondary" target="_blank">{{ $icp }}</a></p>
     @endif
