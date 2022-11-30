@@ -167,10 +167,8 @@ class ArticleController extends Controller
         if ($request->input('status') == PostStatus::Future->value && $request->input('published_at')) {
             $article->published_at = Carbon::createFromFormat('Y/m/d H:i', $request->input('publish_at'))
                 ->format('Y-m-d H:i:s');
-        }elseif ($request->input('status') == PostStatus::Draft->value)
+        }elseif ($request->input('status') == PostStatus::Draft->value){
             $article->published_at = null;
-        else{
-            $article->published_at = Carbon::now();
         }
 
         $article->save();
