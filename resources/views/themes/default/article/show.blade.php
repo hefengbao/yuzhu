@@ -20,7 +20,7 @@
                     <a class="link-secondary" href="{{ url()->current() }}#author">
                         {{ $article->author->name }}
                     </a>
-                    发布于 {{ $article->published_at->format('Y.m.d') }}@if($article->created_at != $article->updated_at), 最后更新于 {{ $article->updated_at->format('Y.m.d') }}@endif
+                    发布于 {{ $article->published_at->format('Y.m.d') }}@if($article->published_at < $article->updated_at), 最后更新于 {{ $article->updated_at->format('Y.m.d') }}@endif
                 </p>
                 {!! $articleBody !!}
                 @if($article->categories->isNotEmpty() || $article->tags->isNotEmpty())
