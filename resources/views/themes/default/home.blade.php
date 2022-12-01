@@ -56,7 +56,8 @@
                 <div class="p-4">
                     <ol class="list-unstyled">
                         @foreach($pages as $page)
-                            <li><a href="{{ route('pages.show', $page->slug) }}" target="_blank" class="link-secondary">{{ $page->title }}</a></li>
+                            <li><a href="{{ route('pages.show', $page->slug) }}" target="_blank"
+                                   class="link-secondary">{{ $page->title }}</a></li>
                         @endforeach
                     </ol>
                 </div>

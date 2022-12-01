@@ -3,7 +3,7 @@ One 一个简洁的博客、微博客系统。
 https://github.com/hefengbao/one
 -->
 @inject('options', 'App\Services\OptionService')
-<!doctype html>
+    <!doctype html>
 <html lang="zh">
 <head>
     <meta charset="utf-8">
@@ -11,7 +11,12 @@ https://github.com/hefengbao/one
     <meta name="description" content="@yield('description')">
     <meta name="author" content="@yield('author')">
     <meta name="keywords" content="{{ $options->autoload()['keywords'] }}">
-    <title>@yield('title') {{ $options->autoload()['title'] }} @if(if_route('home.index'))&#8211; {{ $options->autoload()['subtitle'] }}@endif</title>
+    <title>
+        @yield('title') {{ $options->autoload()['title'] }}
+        @if(if_route('home.index'))
+            &#8211; {{ $options->autoload()['subtitle'] }}
+        @endif
+    </title>
     <link rel="canonical" href="{{ url()->current() }}">
     <link rel="shortcut icon" href="{{ asset('favicons/favicon.ico') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.2/css/bootstrap.min.css"
@@ -26,7 +31,7 @@ https://github.com/hefengbao/one
             max-width: 960px;
         }
 
-        h1,h2,h3,h4,h5{
+        h1, h2, h3, h4, h5 {
             padding: 1rem 0 1rem 0;
         }
 
@@ -58,7 +63,7 @@ https://github.com/hefengbao/one
             height: 45px;
         }
 
-        .avatar-rounded{
+        .avatar-rounded {
             border-radius: 50%;
         }
 
@@ -146,11 +151,11 @@ https://github.com/hefengbao/one
             padding: 0 !important;
         }
 
-        .editor-paragraph>a{
-            color: #6c757d!important;
+        .editor-paragraph > a {
+            color: #6c757d !important;
         }
 
-        .crawler{
+        .crawler {
             display: none !important;
         }
     </style>

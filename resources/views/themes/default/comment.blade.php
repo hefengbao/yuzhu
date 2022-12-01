@@ -23,15 +23,19 @@
                                 <div class="mb-0">@if($comment->author)
                                         <span style="font-size: larger">{{ $comment->author->name }}</span>
                                         @if($comment->author->isAdministrator())
-                                            <span class="bg-secondary badge badge-info" style="font-size: 0.5rem">管理员</span>
+                                            <span class="bg-secondary badge badge-info"
+                                                  style="font-size: 0.5rem">管理员</span>
                                         @elseif($comment->author->isEditor())
-                                            <span class="bg-secondary badge badge-info" style="font-size: 0.5rem">编辑</span>
+                                            <span class="bg-secondary badge badge-info"
+                                                  style="font-size: 0.5rem">编辑</span>
                                         @else
-                                            <span class="bg-secondary badge badge-info" style="font-size: 0.5rem">作家</span>
+                                            <span class="bg-secondary badge badge-info"
+                                                  style="font-size: 0.5rem">作家</span>
                                         @endif
                                     @else
                                         {{ $comment->guest_name }}
-                                        <span class="bg-secondary badge badge-info" style="font-size: 0.5rem">游客</span>
+                                        <span class="bg-secondary badge badge-info"
+                                              style="font-size: 0.5rem">游客</span>
                                     @endif
                                 </div>
                                 <p class="text-muted mb-0"><small>{{ $comment->created_at->diffForHumans() }}</small>

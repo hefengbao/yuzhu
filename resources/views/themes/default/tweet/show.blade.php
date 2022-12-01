@@ -14,7 +14,12 @@
             <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                 <div class="col p-4 d-flex flex-column position-static">
                     <div class="mb-1 text-muted">
-                        <a class="link-secondary" href="{{ route('tweets.show', $tweet->id) }}#author">{{ $tweet->author->name }}</a> 发布于 {{ $tweet->created_at->format('Y.m.d') }}@if($tweet->created_at != $tweet->updated_at), 最后更新于 {{ $tweet->updated_at->format('Y.m.d') }}@endif
+                        <a class="link-secondary"
+                           href="{{ route('tweets.show', $tweet->id) }}#author"> {{ $tweet->author->name }}</a>
+                        发布于 {{ $tweet->published_at->format('Y.m.d') }}
+                        @if($tweet->published_at < $tweet->updated_at)
+                            ，最后更新于 {{ $tweet->updated_at->format('Y.m.d') }}
+                        @endif
                     </div>
                     <p class="card-text mb-auto">{{ $tweet->body }}</p>
                     <div class="mt-1">
@@ -36,7 +41,9 @@
             <div class="p-4 mb-3 bg-light rounded">
                 <div class="" style="display: flex">
                     <div class="avatar">
-                        <img class="avatar-rounded img-fluid" src="{{ $tweet->author->avatar ? Storage::disk('public')->url($tweet->author->avatar) : Avatar::create($tweet->author->name)->setBackground('#adb5bd')->toBase64() }}" alt="">
+                        <img class="avatar-rounded img-fluid"
+                             src="{{ $tweet->author->avatar ? Storage::disk('public')->url($tweet->author->avatar) : Avatar::create($tweet->author->name)->setBackground('#adb5bd')->toBase64() }}"
+                             alt="">
                     </div>
                     <div style="margin: 0 12px;">
                         <h4>{{ $tweet->author->name }}</h4>
