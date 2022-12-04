@@ -59,7 +59,7 @@ class InitAdminCommand extends Command
 
         event(new Registered($admin));
 
-        $this->info('一封验证邮件已发送到'.$email.',请登录邮箱确认！');
+        $this->info('一封验证邮件已发送到' . $email . ',请登录邮箱确认！');
 
         $this->info('始化管理员信息结束！');
 

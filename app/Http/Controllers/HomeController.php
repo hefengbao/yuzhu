@@ -8,7 +8,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $tweets = Post::with(['author'])->tweet()->select(['id','slug', 'body', 'user_id', 'created_at'])
+        $tweets = Post::with(['author'])->tweet()->select(['id', 'slug', 'body', 'user_id', 'created_at'])
             ->published()
             ->orderByDesc('published_at')
             ->limit(2)

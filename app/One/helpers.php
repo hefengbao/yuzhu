@@ -49,8 +49,9 @@ if (!function_exists('tags_to_str')) {
     }
 }
 
-if (!function_exists('post_slug')){
-    function post_slug($title){
-        return \Str::slug($title, '-','zh_CN').'-'.\Str::lower(\Str::random());
+if (!function_exists('post_slug')) {
+    function post_slug($title)
+    {
+        return \Str::slug($title, '-', 'zh_CN') . '-' . \Str::lower(\Str::random());
     }
 }

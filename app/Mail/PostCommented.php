@@ -25,7 +25,7 @@ class PostCommented extends Mailable implements ShouldQueue
     public function __construct(string $title, Comment $comment)
     {
         $this->title = $title;
-        $this->comment  =$comment;
+        $this->comment = $comment;
     }
 
     /**

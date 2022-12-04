@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use App\Constant\PostStatus;
 use App\Models\Post;
-use App\Models\Postmeta;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
@@ -34,10 +33,10 @@ class ArticlePublishCommand extends Command
 
         $articles = Post::article()
             ->where('status', PostStatus::Future->value)
-            ->where('published_at','<=', Carbon::now())
+            ->where('published_at', '<=', Carbon::now())
             ->get();
 
-        foreach ($articles as $article){
+        foreach ($articles as $article) {
             $article->status = PostStatus::Publish->value;
             $article->save();
         }

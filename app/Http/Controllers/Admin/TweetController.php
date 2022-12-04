@@ -67,7 +67,7 @@ class TweetController extends Controller
         $tweet->type = PostType::Tweet->value;
         $tweet->status = PostStatus::Publish->value;
         $tweet->body = $request->input('body');
-        $tweet->slug = post_slug(Str::substr($tweet->body,0,20));
+        $tweet->slug = post_slug(Str::substr($tweet->body, 0, 20));
         $tweet->commentable = $request->input('commentable') ?: Commentable::Open->value;
         $tweet->published_at = Carbon::now();
         $tweet->save();
