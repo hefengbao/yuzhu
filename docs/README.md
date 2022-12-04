@@ -8,7 +8,7 @@ actionLink: /doc/
 <video src="./images/1.mp4" height="451" width="936" controls autoplay></video>
 
 ::: tip 提示
-后续计划抽时间开发 Android 客户端，主要打算实现发微博、评论回复功能，敬请期待... 
+后续计划抽时间开发 Android 客户端，主要打算实现发微博、评论回复功能，敬请期待...
 :::
 
 ::: tip 提示

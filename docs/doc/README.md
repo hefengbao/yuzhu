@@ -1,4 +1,5 @@
 ## 环境要求
+
 建议服务器选用 Linux 操作系统。需要按装的软件有 php, nginx, mysql, redis, memcached, supervisor, git, composer。
 ::: tip Tips
 php 版本需要 8.1 及以上，需要的 php 扩展：bcmath,ctype,dom,fileinfo,json,mbstring,openssl,pcre,pdo,tokenizer,xml。
@@ -14,13 +15,17 @@ mysql 可替换 MariaDB 等 MySQL 衍生数据库，以及 Laravel 支持的 Sql
 :::
 
 创建一个名为 one 的用户（名字可以随意）
+
 ```shell
 sudo useradd -m one
 ```
+
 给予 sudo 权限
+
 ```shell
 sudo usermod -aG wheel one
 ```
+
 ::: warning 注意
 出现错误 `usermod: group 'wheel' does not exist`
 
@@ -29,17 +34,22 @@ sudo usermod -aG wheel one
 `sudo addgroup wheel`
 :::
 为 one 用户创建密码
+
 ```shell
 sudo passwd one
 ```
+
 ::: tips 提示
 修改用户的默认 shell:
+
 ```shell
 sudo vim /etc/password
 one:x:1003:1003::/home/one:/bin/bash # 之前是 /bin/sh
 ```
+
 :::
 登录到 one 账户
+
 ```shell
 su - one
 ```
@@ -67,6 +77,7 @@ exit;
 ```
 git clone https://github.com/hefengbao/one.git
 ````
+
 ::: tips 提示
 Ubuntu 系统，如果要把项目放在 `/var/www` 目录下，则可能出现权限问题，
 :::
@@ -116,11 +127,13 @@ MAIL_FROM_ADDRESS="hello@example.com"
 ```
 
 验证邮箱是否配置成功：
+
 ```shell
 php artisan one:check-email
 ```
 
 ### 生成数据表及数据填充:
+
 ```
 php artisan migrate --seed
 ```
@@ -132,12 +145,15 @@ chmod -R 775 storage/ bootstrap/
 ```
 
 ### 初始化管理员
+
 ```shell
 php artisan one:init-admin
 ```
 
 ### nginx 站点配置
+
 可参考：
+
 ```bash
 server {
      listen 80;
@@ -205,11 +221,15 @@ server {
     ssl_prefer_server_ciphers on;
 }
 ```
+
 :::tips 提示
 Nginx 服务器 SSL 证书安装部署 https://cloud.tencent.com/document/product/400/35244
 :::
+
 ### horizon
+
 在 `/etc/supervisor/conf.d` 目录中添加 `one-horizon.conf` 文件，内容如下：
+
 ```shell
 [program:one-horizon]
 process_name=%(program_name)s
@@ -241,6 +261,7 @@ crontab -u www-data -e
 ```
 
 ## 优化
+
 ```shell
 php artisan route:cache
 php artisan view:cache

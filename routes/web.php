@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,7 +24,7 @@ Route::get('search/tags/{slug}', [\App\Http\Controllers\SearchController::class,
 Route::post('post/{slug}/comments', [\App\Http\Controllers\CommentController::class, 'store'])->name('comments.store');
 Route::get('archives', [\App\Http\Controllers\ArchiveController::class, 'index'])->name('archives.index');
 
-Route::group(['prefix' => 'admin', 'middleware' => ['auth','verified'], 'as' => 'admin.'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified'], 'as' => 'admin.'], function () {
     Route::get('/', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard.index');
 
     Route::put('articles/{id}/pin', [\App\Http\Controllers\Admin\ArticleController::class, 'pin'])->name('articles.pin');
