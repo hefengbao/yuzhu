@@ -52,7 +52,7 @@ class PageController extends Controller
         $post = new Post();
         $post->title = $request->input('title');
         $post->slug = post_slug($post->title);
-        $post->body = $request->input('body');
+        $post->body = json_decode($request->input('body'));
         $post->excerpt = $request->input('excerpt');
         $post->type = PostType::Page->value;
         $post->status = $request->input('status');
@@ -93,7 +93,7 @@ class PageController extends Controller
 
         $page->update([
             'title' => $request->input('title'),
-            'body' => $request->input('body'),
+            'body' => json_decode($request->input('body')),
             'excerpt' => $request->input('excerpt'),
             'status' => $request->input('status')
         ]);

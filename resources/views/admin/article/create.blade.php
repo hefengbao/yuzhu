@@ -19,12 +19,6 @@
                     <input id="title" type="text" class="form-control" name="title" placeholder="标题"
                            value="{{ old('title') }}" required>
                 </div>
-<!--                <div class="form-group">
-                    <label for="slug" class="control-label">别名 <sup>*</sup></label>
-                    <input id="slug" type="text" class="form-control" name="slug" placeholder="正在请求生成别名,请稍等..."
-                           value="{{ old('slug') }}" aria-describedby="slugHelp" required>
-                    <div id="slugHelp" class="form-text text-muted">“别名”是在URL中使用的别称，它可以令URL更美观。通常使用小写，只能包含字母，数字和连字符（-）。这里会根据标题生成，稍后您可自行修改。</div>
-                </div>-->
                 <div class="form-group">
                     <label for="editor" class="control-label">内容 <sup>*</sup></label>
                     <div id="editor" style="border: #d2d6de solid 1px; padding: 10px"></div>
@@ -101,7 +95,7 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <button class="btn btn-primary" type="submit">提交</button>
+                        <button id="submit" class="btn btn-primary" type="submit" @disabled(old('body') == null)提交</button>
                     </div>
                 </div>
             </form>

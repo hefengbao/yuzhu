@@ -36,7 +36,7 @@
                         <tr>
                             <td>
                                 {{ $page->title }}<br>
-                                <a href="{{ route('admin.pages.edit', $page->slug) }}">
+                                <a href="{{ route('admin.pages.edit', $page->id) }}">
                                     <span class="text-muted text-sm">编辑</span>
                                 </a>
                                 @if($page->status != \App\Constant\PostStatus::Trash->value)

@@ -43,7 +43,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <button class="btn btn-primary" type="submit">提交</button>
+                        <button id="submit" class="btn btn-primary" type="submit" @disabled(old('body') == null)>提交</button>
                     </div>
                 </div>
             </form>

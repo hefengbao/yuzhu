@@ -41,7 +41,7 @@
                         <tr>
                             <td>
                                 {{ Str::limit($tweet->body, 50) }}<br>
-                                <a href="{{ route('admin.tweets.edit', $tweet->slug) }}">
+                                <a href="{{ route('admin.tweets.edit', $tweet->id) }}">
                                     <span class="text-muted text-sm">编辑</span>
                                 </a>
                                 @if($tweet->status != \App\Constant\PostStatus::Trash->value)

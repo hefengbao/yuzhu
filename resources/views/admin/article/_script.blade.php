@@ -172,7 +172,7 @@
                         "Quote": "引用",
                         "Code": "代码",
                         "Delimiter": "分割线",
-                        "Table": "列表",
+                        "Table": "表格",
                         "Link": "链接",
                         "Marker": "突出显示",
                         "Bold": "加粗",
@@ -238,17 +238,19 @@
                         "moveDown": {
                             "Move down": "向下移"
                         },
-                    },
+                    }
                 }
             },
-            data: @if(old('body')){!! old('body') !!}@elseif(isset($article) && $article && $article->body) {!! $article->body !!}@else{{ json_encode([]) }}@endif,
+            data: @if(old('body')){!! json_encode(old('body')) !!}@elseif(isset($article) && $article && $article->body) {!! json_encode($article->body) !!} @else{{ json_encode([]) }}@endif,
             onReady: () => {
                 console.log('Editor.js is ready to work!')
             },
             onChange: (api, event) => {
                 editor.save().then((savedData) => {
                     document.getElementById("body").value = JSON.stringify(savedData)
-                    console.log(savedData)
+                    if (savedData.blocks.length > 0){
+                        document.getElementById("submit").disabled = false
+                    }
                 }).catch((error) => {
                     console.error('Saving error', error);
                 });

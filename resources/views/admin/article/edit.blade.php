@@ -12,7 +12,7 @@
             <form action="{{ route('admin.articles.update', $article->id) }}" class="form" method="post">
                 @csrf
                 @method('PUT')
-                <input type="hidden" id="body" name="body" value="{{ $article->body }}">
+                <input type="hidden" id="body" name="body">
                 <div class="form-group">
                     <label for="title" class="control-label">标题 <sup>*</sup></label>
                     <input id="title" type="text" class="form-control" name="title" placeholder="标题"
@@ -97,7 +97,7 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <button class="btn btn-primary" type="submit">提交</button>
+                        <button id="submit" class="btn btn-primary" type="submit" @disabled(old('body') == null)>提交</button>
                     </div>
                 </div>
             </form>

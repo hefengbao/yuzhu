@@ -195,7 +195,7 @@
                         "Quote": "引用",
                         "Code": "代码",
                         "Delimiter": "分割线",
-                        "Table": "列表",
+                        "Table": "表格",
                         "Link": "链接",
                         "Marker": "突出显示",
                         "Bold": "加粗",
@@ -271,9 +271,9 @@
             onChange: (api, event) => {
                 editor.save().then((savedData) => {
                     document.getElementById("body").value = JSON.stringify(savedData)
-                    /*savedData.blocks.map()*/
-                    document.getElementById("submit").disabled = false
-                    console.log(savedData.blocks)
+                    if (savedData.blocks.length > 0){
+                        document.getElementById("submit").disabled = false
+                    }
                 }).catch((error) => {
                     console.error('Saving error', error);
                 });
@@ -291,20 +291,11 @@
                 + "</a>&nbsp;&nbsp;<small><a class='link-secondary' href='{{ url()->current() }}#respond' onclick='cancelReply()'>取消回复<small>"
 
             parent.value = commentId
-
-            /*docs.getElementById('cancel-comment-reply-link').addEventListener('click', function (){
-
-            })*/
         }
 
         function cancelReply() {
             parent.value = null
             replyTitle.innerHTML = '发表评论'
         }
-
-        /*docs.querySelector("a.reply-link").addEventListener('click', function (){
-            console.log('hh')
-
-        })*/
     </script>
 @endsection
