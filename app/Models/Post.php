@@ -36,6 +36,7 @@ class Post extends Model
     ];
 
     protected $casts = [
+        'body' => 'array',
         'pinned_at' => 'datetime',
         'published_at' => 'datetime'
     ];
