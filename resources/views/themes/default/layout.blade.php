@@ -161,8 +161,6 @@ https://github.com/hefengbao/one
         }
     </style>
     @yield('style')
-    <!-- Custom styles for this template -->
-    <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
 </head>
 <body>
 
