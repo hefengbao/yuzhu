@@ -17,7 +17,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         // 定时发布文章
-        $schedule->command('one:one:publish-article')->everyMinute();
+        $schedule->command('one:publish-article')->everyMinute();
 
         // 定时备份
         $schedule->command('backup:clean')->daily()->at('01:00');
