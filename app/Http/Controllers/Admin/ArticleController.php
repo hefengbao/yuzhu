@@ -169,6 +169,8 @@ class ArticleController extends Controller
                 ->format('Y-m-d H:i:s');
         } elseif ($request->input('status') == PostStatus::Draft->value) {
             $article->published_at = null;
+        } elseif ($request->input('status') == PostStatus::Publish->value && $article->published_at == null){
+            $article->published_at = Carbon::now();
         }
 
         $article->save();
