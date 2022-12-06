@@ -68,7 +68,7 @@ class ArticleController extends Controller
         $article->author()->associate($request->user());
         $article->title = $request->input('title');
         $article->slug = post_slug($article->title);
-        $article->body = json_decode($request->input('body'));
+        $article->body = $request->input('body');
         $article->excerpt = $request->input('excerpt');
         $article->status = $request->input('status') ?: PostStatus::Draft->value;
         $article->type = PostType::Article->value;
@@ -159,7 +159,7 @@ class ArticleController extends Controller
     {
         $article = Post::article()->findOrFail($id);
         $article->title = $request->input('title');
-        $article->body = json_decode($request->input('body'));
+        $article->body = $request->input('body');
         $article->excerpt = $request->input('excerpt');
         $article->status = $request->input('status') ?: PostStatus::Draft->value;
         $article->commentable = $request->input('commentable') ?: Commentable::Open->value;

@@ -19,7 +19,7 @@
                         ，最后更新于 {{ $page->updated_at->format('Y.m.d') }}
                     @endif
                 </p>
-                {!! App\One\EditorJs\Facades\LaravelEditorJs::render(json_encode($page->body)) !!}
+                {!! App\One\EditorJs\Facades\LaravelEditorJs::render($page->body) !!}
             </article>
         </div>
     </div>

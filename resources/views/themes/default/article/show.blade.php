@@ -1,5 +1,5 @@
 @php
-    $articleBody = App\One\EditorJs\Facades\LaravelEditorJs::render(json_encode($article->body))
+    $articleBody = App\One\EditorJs\Facades\LaravelEditorJs::render($article->body)
 @endphp
 @extends('themes.default.layout')
 @section('title')

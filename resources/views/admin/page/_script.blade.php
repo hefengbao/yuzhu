@@ -208,7 +208,7 @@
                     },
                 }
             },
-            data: @if(old('body')){!! old('body') !!}@elseif(isset($page) && $page && $page->body) {!! json_encode($page->body) !!}@else{{ json_encode([])  }}@endif,
+            data: @if(old('body'))JSON.parse({!! old('body') !!})@elseif(isset($page) && $page && $page->body) JSON.parse({!! json_encode($page->body) !!}) @else{{ json_encode([])  }}@endif,
             onReady: () => {
                 console.log('Editor.js is ready to work!')
             },
