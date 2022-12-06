@@ -14,9 +14,12 @@
             <article class="blog-post">
                 <h1 class="mb-1">{{ $page->title }}</h1>
                 <p class="text-muted fst-italic">
-                    {{ $page->author->name }} 发布于 {{ $page->published_at->format('Y.m.d') }}
-                    @if($page->published_at < $page->updated_at)
-                        ，最后更新于 {{ $page->updated_at->format('Y.m.d') }}
+                    {{ $page->author->name }}
+                    @if($page->published_at)
+                        发布于 {{ $page->published_at->format('Y.m.d') }}
+                        @if($page->published_at < $page->updated_at)
+                            ，最后更新于 {{ $page->updated_at->format('Y.m.d') }}
+                        @endif
                     @endif
                 </p>
                 {!! App\One\EditorJs\Facades\LaravelEditorJs::render($page->body) !!}
