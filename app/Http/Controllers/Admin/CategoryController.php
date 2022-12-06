@@ -23,7 +23,7 @@ class CategoryController extends Controller
         Category::create([
             'name' => $request->input('name'),
             'slug' => $request->input('slug'),
-            'parent_id' => $request->input('parent_id')
+            'parent_id' => $request->input('parent')
         ]);
 
         return redirect()->route('admin.categories.index')->with('success', '添加成功');

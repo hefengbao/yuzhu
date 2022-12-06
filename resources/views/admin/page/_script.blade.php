@@ -205,6 +205,9 @@
                         "moveDown": {
                             "Move down": "向下移"
                         },
+                        "clickToDelete": {
+                            "Click to delete": "点击删除"
+                        },
                     },
                 }
             },
