@@ -16,5 +16,3 @@ use Illuminate\Support\Facades\Route;
 /*Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });*/
-
-Route::get('admin/slug', [\App\Http\Controllers\Admin\SlugController::class, 'create'])->name('admin.slug.create');

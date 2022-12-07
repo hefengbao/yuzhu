@@ -3,12 +3,16 @@
 namespace App\Models;
 
 use App\Constant\PostStatus;
+use App\Constant\PostType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Routing\Route;
+use Spatie\Feed\Feedable;
+use Spatie\Feed\FeedItem;
 
-class Post extends Model
+class Post extends Model implements Feedable
 {
     const selectField = [
         'id',
@@ -85,11 +89,20 @@ class Post extends Model
         return $query->where('type', 'tweet');
     }
 
-    /*public function setPostSlugAttribute($value)
+    public function toFeedItem(): FeedItem
     {
-        $str="QWERTYUIOPASDFGHJKLZXCVBNM1234567890qwertyuiopasdfghjklzxcvbnm";
-        str_shuffle($str);
-        $suffix=substr(str_shuffle($str),26,10);
-        $this->attributes['post_slug'] = $value.'-'.$suffix;
-    }*/
+        return FeedItem::create([
+            'id' => $this->id,
+            'title' => $this->title,
+            'summary' => $this->excerpt ?? '',
+            'updated' => $this->updated_at,
+            'link' => \route('articles.show', $this->slug),
+            'authorName' => $this->author ? $this->author->name : '',
+        ]);
+    }
+
+    public static function getFeedItems()
+    {
+        return Post::with(['author'])->article()->published()->orderBy('published_at', 'desc')->get();
+    }
 }

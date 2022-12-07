@@ -52,3 +52,5 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified'], 'as' =>
 });
 
 Auth::routes(['verify' => true]);
+
+Route::feeds();
