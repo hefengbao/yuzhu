@@ -19,7 +19,7 @@ return [
             'url' => '/rss',
 
             'title' => env('APP_NAME', 'One'),
-            'description' => env('FEED_DESCRIPTION', 'One'),
+            'description' => env('FEED_DESCRIPTION', '欢迎订阅'),
             'language' => 'zh_CN',
 
             /*
