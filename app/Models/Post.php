@@ -95,7 +95,7 @@ class Post extends Model implements Feedable
     public function toFeedItem(): FeedItem
     {
         return FeedItem::create([
-            'id' => $this->id,
+            'id' => $this->slug,
             'title' => $this->title,
             'summary' => $this->excerpt ?? '',
             'updated' => $this->updated_at,
