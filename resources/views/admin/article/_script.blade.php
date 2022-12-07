@@ -67,7 +67,7 @@
                     class: Header,
                     config: {
                         placeholder: '请输入标题',
-                        levels: [2,3, 4, 5],
+                        levels: [2, 3, 4, 5],
                         defaultLevel: 2
                     },
                     shortcut: 'CMD+SHIFT+H'
@@ -241,14 +241,17 @@
                     }
                 }
             },
-            data: @if(old('body'))JSON.parse({!! json_encode(old('body')) !!})@elseif(isset($article) && $article && $article->body) JSON.parse({!! json_encode($article->body) !!}) @else{{ json_encode([]) }}@endif,
+            data: @if(old('body'))JSON.parse({!! json_encode(old('body')) !!})
+            @elseif(isset($article) && $article && $article->body) JSON
+            .parse({!! json_encode($article->body) !!})
+            @else{{ json_encode([]) }}@endif,
             onReady: () => {
                 console.log('Editor.js is ready to work!')
             },
             onChange: (api, event) => {
                 editor.save().then((savedData) => {
                     document.getElementById("body").value = JSON.stringify(savedData)
-                    if (savedData.blocks.length > 0){
+                    if (savedData.blocks.length > 0) {
                         document.getElementById("submit").disabled = false
                     }
                 }).catch((error) => {

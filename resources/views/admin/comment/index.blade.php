@@ -62,26 +62,29 @@
                             <td>
                                 {!! App\One\EditorJs\Facades\LaravelEditorJs::render($comment->body) !!}
                                 @if($comment->status == \App\Constant\CommentStatus::Pending->value)
-                                <a href="#" id="approve" data-id = "{{ $comment->id }}">
-                                    <span class="text-muted text-sm">批准</span>
-                                </a>
-                                <form class="d-none" id="form-approve-{{ $comment->id }}"
-                                      action="{{ route('admin.comments.approve', $comment->id) }}" method="post">
-                                    @csrf
-                                    @method('PATCH')
-                                </form>
+                                    <a href="#" id="approve" data-id="{{ $comment->id }}">
+                                        <span class="text-muted text-sm">批准</span>
+                                    </a>
+                                    <form class="d-none" id="form-approve-{{ $comment->id }}"
+                                          action="{{ route('admin.comments.approve', $comment->id) }}" method="post">
+                                        @csrf
+                                        @method('PATCH')
+                                    </form>
                                 @endif
                                 @if($comment->status == \App\Constant\CommentStatus::Approved->value)
                                     @if($post = $comment->post)
                                         @if($post->type == \App\Constant\PostType::Article->value)
-                                            <a href="{{ route('articles.show', $post->slug) }}#comment-{{ $comment->id }}" class="text-muted text-sm" target="_blank">回复</a>
+                                            <a href="{{ route('articles.show', $post->slug) }}#comment-{{ $comment->id }}"
+                                               class="text-muted text-sm" target="_blank">回复</a>
                                         @elseif($post->type == \App\Constant\PostType::Page->value)
-                                            <a href="{{ route('pages.show', $post->slug) }}#comment-{{ $comment->id }}" class="text-muted text-sm" target="_blank">回复</a>
+                                            <a href="{{ route('pages.show', $post->slug) }}#comment-{{ $comment->id }}"
+                                               class="text-muted text-sm" target="_blank">回复</a>
                                         @elseif($post->type == \App\Constant\PostType::Tweet->value)
-                                            <a href="{{ route('tweets.show', $post->slug) }}#comment-{{ $comment->id }}" class="text-muted text-sm" target="_blank">回复</a>
+                                            <a href="{{ route('tweets.show', $post->slug) }}#comment-{{ $comment->id }}"
+                                               class="text-muted text-sm" target="_blank">回复</a>
                                         @endif
                                     @endif
-                                    <a href="#" id="pending" data-id = "{{ $comment->id }}">
+                                    <a href="#" id="pending" data-id="{{ $comment->id }}">
                                         <span class="text-muted text-sm">驳回</span>
                                     </a>
                                     <form class="d-none" id="form-pending-{{ $comment->id }}"
@@ -91,42 +94,45 @@
                                     </form>
                                 @endif
                                 @if($comment->status == \App\Constant\CommentStatus::Spam->value || $comment->status == \App\Constant\CommentStatus::Trash->value)
-                                <a href="#" id="restore" data-id = "{{ $comment->id }}">
-                                    <span class="text-muted text-sm">还原</span>
-                                </a>
-                                <form class="d-none" id="form-restore-{{ $comment->id }}"
-                                      action="{{ route('admin.comments.restore', $comment->id) }}" method="post">
-                                    @csrf
-                                    @method('PATCH')
-                                </form>
+                                    <a href="#" id="restore" data-id="{{ $comment->id }}">
+                                        <span class="text-muted text-sm">还原</span>
+                                    </a>
+                                    <form class="d-none" id="form-restore-{{ $comment->id }}"
+                                          action="{{ route('admin.comments.restore', $comment->id) }}" method="post">
+                                        @csrf
+                                        @method('PATCH')
+                                    </form>
                                 @endif
                                 @if($comment->status == \App\Constant\CommentStatus::Approved->value || $comment->status == \App\Constant\CommentStatus::Pending->value)
-                                <a href="#" id="spam" data-id = "{{ $comment->id }}">
-                                    <span class="text-danger text-sm">标记为垃圾</span>
-                                </a>
-                                <form class="d-none" id="form-spam-{{ $comment->id }}"
-                                      action="{{ route('admin.comments.spam', $comment->id) }}" method="post">
-                                    @csrf
-                                    @method('PATCH')
-                                </form>
-                                <a href="#" id="trash" data-id = "{{ $comment->id }}">
-                                    <span class="text-danger text-sm">移至回收站</span>
-                                </a>
-                                <form class="d-none" id="form-trash-{{ $comment->id }}"
-                                      action="{{ route('admin.comments.trash', $comment->id) }}" method="post">
-                                    @csrf
-                                    @method('PATCH')
-                                </form>
+                                    <a href="#" id="spam" data-id="{{ $comment->id }}">
+                                        <span class="text-danger text-sm">标记为垃圾</span>
+                                    </a>
+                                    <form class="d-none" id="form-spam-{{ $comment->id }}"
+                                          action="{{ route('admin.comments.spam', $comment->id) }}" method="post">
+                                        @csrf
+                                        @method('PATCH')
+                                    </form>
+                                    <a href="#" id="trash" data-id="{{ $comment->id }}">
+                                        <span class="text-danger text-sm">移至回收站</span>
+                                    </a>
+                                    <form class="d-none" id="form-trash-{{ $comment->id }}"
+                                          action="{{ route('admin.comments.trash', $comment->id) }}" method="post">
+                                        @csrf
+                                        @method('PATCH')
+                                    </form>
                                 @endif
                             </td>
                             <td>
                                 @if($post = $comment->post)
                                     @if($post->type == \App\Constant\PostType::Article->value)
-                                        <a href="{{ route('articles.show', $post->slug) }}" title="{{ $post->title }}" target="_blank">查看文章</a>
+                                        <a href="{{ route('articles.show', $post->slug) }}" title="{{ $post->title }}"
+                                           target="_blank">查看文章</a>
                                     @elseif($post->type == \App\Constant\PostType::Page->value)
-                                        <a href="{{ route('pages.show', $post->slug) }}" title="{{ $post->title }}" target="_blank">查看页面</a>
+                                        <a href="{{ route('pages.show', $post->slug) }}" title="{{ $post->title }}"
+                                           target="_blank">查看页面</a>
                                     @elseif($post->type == \App\Constant\PostType::Tweet->value)
-                                        <a href="{{ route('tweets.show', $post->slug) }}" title="{{ Str::limit($post->body,20) }}" target="_blank">查看微博</a>
+                                        <a href="{{ route('tweets.show', $post->slug) }}"
+                                           title="{{ Str::limit($post->body,20) }}" target="_blank">查看微博</a>
                                     @endif
                                 @endif
                             </td>

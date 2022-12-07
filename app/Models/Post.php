@@ -3,12 +3,10 @@
 namespace App\Models;
 
 use App\Constant\PostStatus;
-use App\Constant\PostType;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Routing\Route;
 use Spatie\Feed\Feedable;
 use Spatie\Feed\FeedItem;
 
@@ -43,6 +41,11 @@ class Post extends Model implements Feedable
         'pinned_at' => 'datetime',
         'published_at' => 'datetime'
     ];
+
+    public static function getFeedItems()
+    {
+        return Post::with(['author'])->article()->published()->orderBy('published_at', 'desc')->get();
+    }
 
     public function tags(): BelongsToMany
     {
@@ -99,10 +102,5 @@ class Post extends Model implements Feedable
             'link' => \route('articles.show', $this->slug),
             'authorName' => $this->author ? $this->author->name : '',
         ]);
-    }
-
-    public static function getFeedItems()
-    {
-        return Post::with(['author'])->article()->published()->orderBy('published_at', 'desc')->get();
     }
 }

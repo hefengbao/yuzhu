@@ -61,7 +61,7 @@
                                 <a href="{{ route('admin.tweets.index') }}?author={{ $tweet->author->id }}">{{ $tweet->author->name }}</a>
                                 @else
                                     {{ $tweet->author->name }}
-                                @endroles
+                                    @endroles
                             </td>
                             <td class="text-sm">
                                 @if($tweet->tags->isNotEmpty())
@@ -72,7 +72,8 @@
                             </td>
                             <td class="text-sm">
                                 @if($tweet->comments_count)
-                                    <a href="{{ route('tweets.show', $tweet->id) }}#comments" target="_blank"><i class="fas fa-comments"></i> {{ $tweet->comments_count }}</a>
+                                    <a href="{{ route('tweets.show', $tweet->id) }}#comments" target="_blank"><i
+                                            class="fas fa-comments"></i> {{ $tweet->comments_count }}</a>
                                 @else
                                     —
                                 @endif

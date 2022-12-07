@@ -31,7 +31,8 @@
                 </div>
             </div>
             <div class="input-group mb-3">
-                <input name="password_confirmation" type="password" class="form-control" placeholder="确认密码" required>
+                <input name="password_confirmation" type="password" class="form-control" placeholder="确认密码"
+                       required>
                 <div class="input-group-append">
                     <div class="input-group-text">
                         <span class="fas fa-lock"></span>

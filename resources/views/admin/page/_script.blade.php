@@ -211,14 +211,17 @@
                     },
                 }
             },
-            data: @if(old('body'))JSON.parse({!! old('body') !!})@elseif(isset($page) && $page && $page->body) JSON.parse({!! json_encode($page->body) !!}) @else{{ json_encode([])  }}@endif,
+            data: @if(old('body'))JSON.parse({!! old('body') !!})
+            @elseif(isset($page) && $page && $page->body) JSON
+            .parse({!! json_encode($page->body) !!})
+            @else{{ json_encode([])  }}@endif,
             onReady: () => {
                 console.log('Editor.js is ready to work!')
             },
             onChange: (api, event) => {
                 editor.save().then((savedData) => {
                     document.getElementById("body").value = JSON.stringify(savedData)
-                    if (savedData.blocks.length > 0){
+                    if (savedData.blocks.length > 0) {
                         document.getElementById("submit").disabled = false
                     }
                 }).catch((error) => {

@@ -42,8 +42,8 @@
         <a href="{{ route('password.request') }}">忘记密码？</a>
     </p>
     @if($options->autoload()['users_can_register'])
-    <p class="mb-0">
-        <a href="{{ route('register') }}" class="text-center">注册账号</a>
-    </p>
+        <p class="mb-0">
+            <a href="{{ route('register') }}" class="text-center">注册账号</a>
+        </p>
     @endif
 @endsection

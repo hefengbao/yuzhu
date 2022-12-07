@@ -40,15 +40,15 @@
                                     <span class="text-muted text-sm">编辑</span>
                                 </a>
                                 @if($page->status != \App\Constant\PostStatus::Trash->value)
-                                &nbsp;|&nbsp;
-                                <a href="#" id="delete" data-id="{{ $page->id }}">
-                                    <span class="text-danger text-sm">移至回收站</span>
-                                </a>
-                                <form class="d-none" id="form-trash-{{ $page->id }}"
-                                      action="{{ route('admin.pages.destroy', $page->id) }}" method="post">
-                                    @csrf
-                                    @method('delete')
-                                </form>
+                                    &nbsp;|&nbsp;
+                                    <a href="#" id="delete" data-id="{{ $page->id }}">
+                                        <span class="text-danger text-sm">移至回收站</span>
+                                    </a>
+                                    <form class="d-none" id="form-trash-{{ $page->id }}"
+                                          action="{{ route('admin.pages.destroy', $page->id) }}" method="post">
+                                        @csrf
+                                        @method('delete')
+                                    </form>
                                 @endif
                             </td>
                             <td>

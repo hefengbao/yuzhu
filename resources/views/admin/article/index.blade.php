@@ -99,7 +99,7 @@
                                     {{ $article->author->name }}</a>
                                 @else
                                     {{ $article->author->name }}
-                                @endroles
+                                    @endroles
                             </td>
                             <td class="text-sm">
                                 @if($article->categories->isNotEmpty())
@@ -117,7 +117,8 @@
                             </td>
                             <td class="text-sm">
                                 @if($article->comments_count)
-                                    <a href="{{ route('articles.show', $article->id) }}#comments" target="_blank"><i class="fas fa-comments"></i> {{ $article->comments_count }}</a>
+                                    <a href="{{ route('articles.show', $article->id) }}#comments" target="_blank"><i
+                                            class="fas fa-comments"></i> {{ $article->comments_count }}</a>
                                 @else
                                     —
                                 @endif
