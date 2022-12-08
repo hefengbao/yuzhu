@@ -1,13 +1,7 @@
 @extends('themes.default.layout')
-@section('description')
-{{ $page->post_excerpt }}
-@endsection
-@section('author')
-{{ $page->author->name }}
-@endsection
-@section('title')
-{{ $page->title }}
-@endsection
+@section('description'){{ $page->post_excerpt }}@endsection
+@section('author'){{ $page->author->name }}@endsection
+@section('title'){{ $page->title }}@endsection
 @section('content')
     <div class="row g-5">
         <div class="col-md-12">

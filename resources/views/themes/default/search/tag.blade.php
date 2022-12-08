@@ -1,7 +1,5 @@
 @extends('themes.default.layout')
-@section('title')
-{{ $tag->name }} - @parent
-@endsection
+@section('title'){{ $tag->name }} - @parent@endsection
 @section('content')
     <div class="bg-light p-3 mb-1">
         <h4>标签：{{ $tag->name }}</h4>

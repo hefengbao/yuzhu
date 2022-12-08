@@ -1,10 +1,6 @@
 @extends('themes.default.layout')
-@section('description')
-{{ categories_to_str($categories, false) }}{{ tags_to_str($tags, false) }}
-@endsection
-@section('title')
-搜索 &#8211;
-@endsection
+@section('description'){{ categories_to_str($categories, false) }}{{ tags_to_str($tags, false) }}@endsection
+@section('title')搜索 &#8211;@endsection
 @section('content')
     <div class="mb-4">
         <h3>分类</h3>

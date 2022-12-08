@@ -1,7 +1,5 @@
 @extends('themes.default.layout')
-@section('title')
-归档 &#8211;
-@endsection
+@section('title')归档 &#8211;@endsection
 @section('content')
     <div class="row mb-2">
         @php
