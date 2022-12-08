@@ -12,6 +12,7 @@ https://github.com/hefengbao/one
     <meta name="description" content="@yield('description')">
     <meta name="author" content="@yield('author')">
     <meta name="keywords" content="{{ $options->autoload()['keywords'] }}">
+    @if($options->autoload()['site_verify_meta']) {!! $options->autoload()['site_verify_meta'] !!} @endif
     <title>
         @yield('title') {{ $options->autoload()['title'] }}
         @if(if_route('home.index'))
