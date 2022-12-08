@@ -1,12 +1,12 @@
 @extends('themes.default.layout')
 @section('title')
-    {{ Str::limit($tweet->body,20) }} &#8211;
+{{ Str::limit($tweet->body,20) }} &#8211;
 @endsection
 @section('author')
-    {{ $tweet->author->name ?? '' }}
+{{ $tweet->author->name ?? '' }}
 @endsection
 @section('description')
-    {{ Str::limit($tweet->body,50) }}
+{{ Str::limit($tweet->body,50) }}
 @endsection
 @section('content')
     <div class="row g-5">

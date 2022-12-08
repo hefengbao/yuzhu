@@ -12,12 +12,8 @@ https://github.com/hefengbao/one
     <meta name="description" content="@yield('description')">
     <meta name="author" content="@yield('author')">
     <meta name="keywords" content="{{ $options->autoload()['keywords'] }}">
-    @if($options->autoload()['site_verify_meta'])
-        {!! $options->autoload()['site_verify_meta'] !!}
-    @endif
-    <title>@yield('title'){{ $options->autoload()['title'] }}@if(if_route('home.index'))
-            &#8211; {{ $options->autoload()['subtitle'] }}
-        @endif</title>
+    @if($options->autoload()['site_verify_meta']){!! $options->autoload()['site_verify_meta'] !!}@endif
+    <title>@yield('title'){{ $options->autoload()['title'] }}@if(if_route('home.index'))&#8211; {{ $options->autoload()['subtitle'] }}@endif</title>
     <link rel="canonical" href="{{ url()->current() }}">
     <link rel="shortcut icon" href="{{ asset('favicons/favicon.ico') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.2/css/bootstrap.min.css"

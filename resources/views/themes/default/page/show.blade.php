@@ -1,12 +1,12 @@
 @extends('themes.default.layout')
 @section('description')
-    {{ $page->post_excerpt }}
+{{ $page->post_excerpt }}
 @endsection
 @section('author')
-    {{ $page->author->name }}
+{{ $page->author->name }}
 @endsection
 @section('title')
-    {{ $page->title }}
+{{ $page->title }}
 @endsection
 @section('content')
     <div class="row g-5">

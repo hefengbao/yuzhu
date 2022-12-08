@@ -3,13 +3,13 @@
 @endphp
 @extends('themes.default.layout')
 @section('title')
-    {{ $article->title }} &#8211;
+{{ $article->title }} &#8211;
 @endsection
 @section('author')
-    {{ $article->author->name ?? '' }}
+{{ $article->author->name ?? '' }}
 @endsection
 @section('description')
-    {{ $article->excerpt ?: Str::limit(trim(str_replace(' ','',str_replace(PHP_EOL, '', strip_tags($articleBody))))) }}
+{{ $article->excerpt ?: Str::limit(trim(str_replace(' ','',str_replace(PHP_EOL, '', strip_tags($articleBody))))) }}
 @endsection
 @section('content')
     <div class="row g-5">
@@ -80,14 +80,12 @@
         <div class="col-md-12">
             @if($prev)
                 <p>
-                    <a class="link-secondary"
-                       href="{{ route('articles.show', $prev->slug) }}">上一篇：{{ $prev->title }}</a>
+                    <a class="link-secondary" href="{{ route('articles.show', $prev->slug) }}">上一篇：{{ $prev->title }}</a>
                 </p>
             @endif
             @if($next)
                 <p>
-                    <a class="link-secondary"
-                       href="{{ route('articles.show', $next->slug) }}">下一篇：{{ $next->title }}</a>
+                    <a class="link-secondary" href="{{ route('articles.show', $next->slug) }}">下一篇：{{ $next->title }}</a>
                 </p>
             @endif
         </div>

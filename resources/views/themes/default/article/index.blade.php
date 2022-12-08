@@ -1,6 +1,6 @@
 @extends('themes.default.layout')
 @section('title')
-    文章 &#8211;
+文章 &#8211;
 @endsection
 @section('content')
     <div class="row mb-2">
