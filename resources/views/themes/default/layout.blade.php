@@ -2,9 +2,9 @@
 One 一个简洁的博客、微博客系统。
 https://github.com/hefengbao/one
 -->
-@inject('options', 'App\Services\OptionService')
-    <!doctype html>
+<!doctype html>
 <html lang="zh">
+@inject('options', 'App\Services\OptionService')
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
