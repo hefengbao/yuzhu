@@ -83,6 +83,13 @@ https://github.com/hefengbao/one
             padding: 0.5rem 1rem;
             background-color: #f6f6f6;
         }
+        .editor-warning .editor-warning_title{
+            margin-bottom: 0.5rem;
+        }
+        .editor-warning .editor-warning_message{
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
 
         .editor-image {
             text-align: center;
