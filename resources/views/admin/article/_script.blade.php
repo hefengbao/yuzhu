@@ -83,7 +83,10 @@
                     shortcut: 'CMD+SHIFT+O'
                 },
 
-                delimiter: Delimiter,
+                delimiter: {
+                    class: Delimiter,
+                    shortcut: 'CMD+SHIFT+D'
+                },
 
                 list: {
                     class: List,
@@ -93,10 +96,17 @@
 
                 checklist: {
                     class: Checklist,
-                    inlineToolbar: true,
+                    inlineToolbar: true
                 },
 
-                warning: Warning,
+                warning: {
+                    class: Warning,
+                    inlineToolbar: true,
+                    config: {
+                        titlePlaceholder: '标题',
+                        messagePlaceholder: '内容',
+                    },
+                },
 
                 marker: {
                     class: Marker,
@@ -117,7 +127,7 @@
                     class: LinkTool,
                     config: {
                         endpoint: '{{ route('admin.editorjs.fetchurl') }}'
-                    }
+                    },
                 },
 
                 embed: Embed,
@@ -138,7 +148,8 @@
                         additionalRequestData: {
                             '_token': '{{ csrf_token() }}',
                         }
-                    }
+                    },
+                    shortcut: 'CMD+SHIFT+I'
                 },
             },
             i18n: {
@@ -160,7 +171,7 @@
                                 "Add": "添加",
                                 "Filter": "过滤",
                                 "Nothing found": "没有找到"
-                            }
+                            },
                         }
                     },
                     "toolNames": {
@@ -177,13 +188,9 @@
                         "Marker": "突出显示",
                         "Bold": "加粗",
                         "Italic": "倾斜",
-                        "Image": "图片",
+                        "Image": "图片"
                     },
                     "tools": {
-                        "warning": {
-                            "Title": "标题",
-                            "Message": "消息",
-                        },
                         "link": {
                             "Add a link": "添加链接"
                         },
@@ -208,9 +215,13 @@
                         },
                         "header": {
                             "Header": "标题",
+                            "Heading 2": "二级标题",
+                            "Heading 3": "三级标题",
+                            "Heading 4": "四级标题",
+                            "Heading 5": "五级标题",
                         },
                         "paragraph": {
-                            "Enter something": "请输入"
+                            "Enter something": "请输入",
                         },
                         "list": {
                             "Ordered": "有序列表",
@@ -226,11 +237,16 @@
                             "Delete row": "删除行",
                             "With headings": "有标题",
                             "Without headings": "无标题",
+                        },
+                        "quote": {
+                            "Align Left": "左对齐",
+                            "Align Center": "居中对齐",
                         }
                     },
                     "blockTunes": {
                         "delete": {
-                            "Delete": "删除"
+                            "Delete": "删除",
+                            'Click to delete': "点击删除"
                         },
                         "moveUp": {
                             "Move up": "向上移"
@@ -238,6 +254,9 @@
                         "moveDown": {
                             "Move down": "向下移"
                         },
+                        "filter": {
+                            "Filter": "过滤"
+                        }
                     }
                 }
             },
