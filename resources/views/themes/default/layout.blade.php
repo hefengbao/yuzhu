@@ -89,6 +89,7 @@ https://github.com/hefengbao/one
         .editor-warning .editor-warning_message{
             margin-bottom: 0.5rem;
             font-size: 1rem;
+            font-style: italic;
         }
 
         .editor-image {
