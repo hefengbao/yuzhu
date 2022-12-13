@@ -82,7 +82,6 @@ https://github.com/hefengbao/one
         .editor-warning {
             padding: 0.5rem 1rem;
             background-color: #f6f6f6;
-            border-left: 0.33rem solid #ffa260;
         }
 
         .editor-image {
