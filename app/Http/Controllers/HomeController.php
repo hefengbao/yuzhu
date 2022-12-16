@@ -13,7 +13,7 @@ class HomeController extends Controller
             ->orderByDesc('published_at')
             ->limit(2)
             ->get();
-        $articles = Post::article()->select(['id', 'slug', 'title', 'updated_at'])
+        $articles = Post::article()->select(['id', 'slug', 'title', 'published_at'])
             ->published()
             ->orderByDesc('published_at')
             ->limit(8)
