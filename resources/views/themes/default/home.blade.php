@@ -23,7 +23,7 @@
     <div class="row g-5">
         <div class="col-md-8">
             @foreach($articles as $article)
-                <p> {{ $article->updated_at->format('Y.m.d') }}
+                <p> {{ $article->published_at->format('Y.m.d') }}
                     <a href="{{ route('articles.show', $article->slug) }}" class="link-secondary">
                         {{ $article->title }}
                     </a>
