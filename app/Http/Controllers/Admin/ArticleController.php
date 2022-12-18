@@ -165,7 +165,7 @@ class ArticleController extends Controller
         $article->commentable = $request->input('commentable') ?: Commentable::Open->value;
 
         if ($request->input('status') == PostStatus::Future->value && $request->input('published_at')) {
-            $article->published_at = Carbon::createFromFormat('Y/m/d H:i', $request->input('publish_at'))
+            $article->published_at = Carbon::createFromFormat('Y/m/d H:i', $request->input('published_at'))
                 ->format('Y-m-d H:i:s');
         } elseif ($request->input('status') == PostStatus::Draft->value) {
             $article->published_at = null;
