@@ -1,13 +1,11 @@
 @extends('admin.layouts.app')
-@section('title')
-    撰写文章 - @parent
-@endsection
-@section('css')
-    @include('admin.article._style')
-@endsection
-@section('header')
-    撰写文章
-@endsection
+
+@section('title')撰写文章 - @parent @endsection
+
+@include('admin.article._style')
+
+@section('header')撰写文章@endsection
+
 @section('content')
     <div class="card card-outline">
         <div class="card-body">
@@ -16,19 +14,17 @@
                 <input type="hidden" id="body" name="body">
                 <div class="form-group">
                     <label for="title" class="control-label">标题 <sup>*</sup></label>
-                    <input id="title" type="text" class="form-control" name="title" placeholder="标题"
-                           value="{{ old('title') }}" required>
+                    <input id="title" type="text" class="form-control" name="title" placeholder="标题" value="{{ old('title') }}" required>
                 </div>
                 <div class="form-group">
                     <label for="editor" class="control-label">内容 <sup>*</sup></label>
-                    <div id="editor" style="border: #d2d6de solid 1px; padding: 10px"></div>
+                    <textarea name="body" id="editor" rows="10" class="form-control"></textarea>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                         <label for="excerpt">摘要</label>
                         <div class="form-group">
-                            <textarea name="excerpt" id="excerpt" cols="30" rows="3" class="form-control"
-                                      placeholder="（可选）100 字以内"></textarea>
+                            <textarea name="excerpt" id="excerpt" cols="30" rows="3" class="form-control" placeholder="（可选）100 字以内"></textarea>
                         </div>
                     </div>
                 </div>
@@ -38,19 +34,13 @@
                         <div class="form-group">
                             @foreach($categories as $category)
                                 <div class="form-check icheck-blue">
-                                    <input class="form-check-input" type="checkbox" name="category[]"
-                                           id="checkbox{{ $category->id }}" value="{{ $category->id }}">
-                                    <label class="form-check-label" for="checkbox{{ $category->id }}">
-                                        {{ $category->name }}
-                                    </label>
+                                    <input class="form-check-input" type="checkbox" name="category[]" id="checkbox{{ $category->id }}" value="{{ $category->id }}">
+                                    <label class="form-check-label" for="checkbox{{ $category->id }}">{{ $category->name }}</label>
                                 </div>
                                 @foreach($category->child as $child)
                                     <div class="form-check icheck-blue">
-                                        &nbsp;&nbsp;<input class="form-check-input" type="checkbox" name="category[]"
-                                                           id="checkbox{{ $child->id }}" value="{{ $child->id }}">
-                                        <label class="form-check-label" for="checkbox{{ $child->id }}">
-                                            {{ $child->name }}
-                                        </label>
+                                        &nbsp;&nbsp;<input class="form-check-input" type="checkbox" name="category[]" id="checkbox{{ $child->id }}" value="{{ $child->id }}">
+                                        <label class="form-check-label" for="checkbox{{ $child->id }}">{{ $child->name }}</label>
                                     </div>
                                 @endforeach
                             @endforeach
@@ -78,11 +68,10 @@
                         </div>
                         <div class="form-group" id="publish_setting">
                             <div class="input-group date" id="publish" data-target-input="nearest">
-                                <input type="text" class="form-control datetimepicker-input" data-target="#publish"
-                                       name="published_at" id="published_at">
-                                <div class="input-group-append" data-target="#publish" data-toggle="datetimepicker">
+                                <input type="text" class="form-control flatpickr" data-target="#publish" name="published_at" id="published_at">
+<!--                                <div class="input-group-append" data-target="#publish" data-toggle="datetimepicker">
                                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                </div>
+                                </div>-->
                             </div>
                             <p class="text-muted">请设置发布时间。</p>
                         </div>
@@ -95,7 +84,7 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <button id="submit" class="btn btn-primary" type="submit" @disabled(old('body') == null)>提交
+                        <button id="submit" class="btn btn-primary" type="submit">提交
                         </button>
                     </div>
                 </div>
