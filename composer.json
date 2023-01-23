@@ -15,6 +15,7 @@
         "ext-pdo": "*",
         "codex-team/editor.js": "dev-master",
         "erusev/parsedown": "^1.7",
+        "graham-campbell/markdown": "^14.0",
         "guzzlehttp/guzzle": "^7.2",
         "hieu-le/active": "^9.0",
         "intervention/image": "^2.7",
