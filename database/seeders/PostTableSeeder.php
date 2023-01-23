@@ -25,10 +25,13 @@ class PostTableSeeder extends Seeder
                 'user_id' => 1,
                 'title' => '关于',
                 'body' => 'One 是一个简介的博客，微博客系统。
-对微博客的一点说明，有时想写点的什么但是又没有一个贴合的标题，可能因此又不想写了，于是做了一个小的模块，就像发微博那样，只写内容就可以了，展示的时候也是单独的一块。
+
+对微博客的一点说明，有时想写点的什么但是又没有一个贴合的标题，可能因此又不想写了，于是做了一个小的模块，就像发微博那样，只写内容就可以了。显示的时候也是单独的一块。
 
 Github: https://github.com/hefengbao/one
+
 微博：[@_好安静](https://www.weibo.com/u/1778629642)、[@Eyeswap](https://weibo.com/u/6698759239)、[@8ug_icu](https://weibo.com/u/7645900557)
+
 微信公众号：[Eyeswap](https://hefengbao.github.io/assets/images/eyeswap.jpg)',
                 'type' => PostType::Page->value,
                 'status' => PostStatus::Publish->value,
