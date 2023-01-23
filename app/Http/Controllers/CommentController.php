@@ -17,7 +17,7 @@ class CommentController extends Controller
         $post = Post::where('slug', $slug)->firstOrFail();
 
         $rules = [
-            'body' => ['required', 'json'],
+            'body' => ['required'],
         ];
 
         if (!$request->user()) {

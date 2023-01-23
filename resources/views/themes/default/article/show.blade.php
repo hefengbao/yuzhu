@@ -1,10 +1,7 @@
-@php
-    $articleBody = App\One\EditorJs\Facades\LaravelEditorJs::render($article->body)
-@endphp
 @extends('themes.default.layout')
 @section('title'){{ $article->title }} &#8211;@endsection
 @section('author'){{ $article->author->name ?? '' }}@endsection
-@section('description'){{ $article->excerpt ?: Str::limit(trim(str_replace(' ','',str_replace(PHP_EOL, '', strip_tags($articleBody))))) }}@endsection
+@section('description'){{ $article->excerpt ?: Str::limit(trim(str_replace(' ','',str_replace(PHP_EOL, '', strip_tags($article->body))))) }}@endsection
 @section('content')
     <div class="row g-5">
         <div class="col-md-12">
@@ -21,7 +18,7 @@
                         @endif
                     @endif
                 </p>
-                {!! $articleBody !!}
+                <div class="blog-post-body">{!! $article->body !!}</div>
                 @if($article->categories->isNotEmpty() || $article->tags->isNotEmpty())
                     <p>
                         @if($article->categories->isNotEmpty())

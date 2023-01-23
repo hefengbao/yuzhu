@@ -38,25 +38,20 @@
                         <div class="form-group">
                             <label for=description"" class="control-label col-md-2">站点描述</label>
                             <div class="col-md-10">
-                                <textarea name="description" id="description" rows="3" class="form-control" aria-describedby="descriptionHelp">
-                                    {{ $options['description'] }}
-                                </textarea>
+                                <textarea name="description" id="description" rows="3" class="form-control" aria-describedby="descriptionHelp">{{ $options['description'] }}</textarea>
                                 <div id="descriptionHelp" class="form-text text-muted">对站点的详细描述，200 字内</div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="icp" class="control-label col-md-2">ICP备案号</label>
                             <div class="col-md-10">
-                                <input type="text" id="icp" name="icp" class="form-control"
-                                       value="{{ $options['icp'] }}" aria-describedby="icpHelp">
+                                <input type="text" id="icp" name="icp" class="form-control" value="{{ $options['icp'] }}" aria-describedby="icpHelp">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="icp" class="control-label col-md-2">搜索引擎验证 Meta</label>
                             <div class="col-md-10">
-                                <textarea name="site_verify_meta" id="site_verify_meta" cols="30" rows="5" class="form-control" aria-describedby="siteVerifyMetaHelp">
-                                    {{ $options['site_verify_meta'] ?? '' }}
-                                </textarea>
+                                <textarea name="site_verify_meta" id="site_verify_meta" rows="5" class="form-control" aria-describedby="siteVerifyMetaHelp">{{ $options['site_verify_meta'] ?? '' }}</textarea>
                                 <div id="siteVerifyMetaHelp" class="form-text text-muted">在常用的搜索引擎验证提交验证网站，可以借助平台提供的工具做一些运营分析等。百度：https://ziyuan.baidu.com， 必应：https://www.bing.com/webmasters</div>
                             </div>
                         </div>

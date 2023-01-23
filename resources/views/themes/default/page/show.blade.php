@@ -16,7 +16,9 @@
                         @endif
                     @endif
                 </p>
-                {!! App\One\EditorJs\Facades\LaravelEditorJs::render($page->body) !!}
+                <div class="blog-post-body">
+                    {!! $page->body !!}
+                </div>
             </article>
         </div>
     </div>

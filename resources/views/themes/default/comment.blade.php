@@ -45,14 +45,14 @@
                         <div>
                             @if($comment->parent && $comment->parent->status == \App\Constant\CommentStatus::Approved->value)
                                 <div id="reply-to" class="bg-light p-2 mt-2">
-                                    <p><a class="link-secondary"
-                                          href="{{ url()->current() }}#comment-{{ $comment->parent->id }}">{{ '@' }}{{ $comment->parent->author ? $comment->parent->author->name : $comment->parent->guest_name }}</a>
+                                    <p>
+                                        <a class="link-secondary" href="{{ url()->current() }}#comment-{{ $comment->parent->id }}">{{ '@' }}{{ $comment->parent->author ? $comment->parent->author->name : $comment->parent->guest_name }}</a>
                                     </p>
-                                    {!! App\One\EditorJs\Facades\LaravelEditorJs::render($comment->parent->body) !!}
+                                    {!! \Illuminate\Support\Facades\App::make(\App\One\MarkdownToHtml::class)->convert($comment->parent->body) !!}
                                 </div>
                             @endif
-                            <div id="coment-body" class="mt-2">
-                                {!! App\One\EditorJs\Facades\LaravelEditorJs::render($comment->body) !!}
+                            <div id="comment-body" class="mt-2">
+                                {!! \Illuminate\Support\Facades\App::make(\App\One\MarkdownToHtml::class)->convert($comment->body) !!}
                             </div>
                             <a href="{{ url()->current() }}#respond" rel="nofollow" class="reply-link link-secondary"
                                data-postid="{{ $model->id }}"
@@ -98,8 +98,7 @@
         <input type="hidden" name="parent" id="parent">
         <div class="mb-3">
             <label for="editor" class="form-label">评论*</label>
-            <div id="editor" class="form-control"></div>
-            <input type="hidden" name="body" id="body" required>
+            <textarea id="editor" name="body" class="form-control">{{ old('body') }}</textarea>
         </div>
         @guest
             <div class="mb-3">
@@ -111,175 +110,12 @@
                 <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" required>
             </div>
         @endguest
-        <button id="submit" type="submit" class="btn btn-dark" @disabled(old('body') == null)>发表评论</button>
+        <button id="submit" type="submit" class="btn btn-dark">发表评论</button>
     </form>
 </div>
 @section('script')
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script><!-- Header -->
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/image@latest"></script><!-- Image -->
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/delimiter@latest"></script><!-- Delimiter -->
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script><!-- List -->
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/checklist@latest"></script><!-- Checklist -->
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/quote@latest"></script><!-- Quote -->
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/code@latest"></script><!-- Code -->
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@latest"></script><!-- Embed -->
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/table@latest"></script><!-- Table -->
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/link@latest"></script><!-- Link -->
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/warning@latest"></script><!-- Warning -->
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/marker@latest"></script><!-- Marker -->
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/inline-code@latest"></script><!-- Inline Code -->
-    <!-- Load Editor.js's Core -->
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
+    @include('themes.default.markdown_editor')
     <script type="text/javascript">
-        const editor = new EditorJS({
-            holder: 'editor',
-            placeholder: '开始撰写评论...',
-            minHeight: 100,
-            tools: {
-                list: {
-                    class: List,
-                    inlineToolbar: true,
-                    shortcut: 'CMD+SHIFT+L'
-                },
-                marker: {
-                    class: Marker,
-                    shortcut: 'CMD+SHIFT+M'
-                },
-
-                code: {
-                    class: CodeTool,
-                    shortcut: 'CMD+SHIFT+C'
-                },
-
-                inlineCode: {
-                    class: InlineCode,
-                    shortcut: 'CMD+SHIFT+C'
-                },
-
-                embed: Embed,
-
-                table: {
-                    class: Table,
-                    inlineToolbar: true,
-                    shortcut: 'CMD+ALT+T'
-                },
-            },
-            i18n: {
-                messages: {
-                    "ui": {
-                        "blockTunes": {
-                            "toggler": {
-                                "Click to tune": "点击转换",
-                                "or drag to move": "拖动调整"
-                            },
-                        },
-                        "inlineToolbar": {
-                            "converter": {
-                                "Convert to": "转换成"
-                            }
-                        },
-                        "toolbar": {
-                            "toolbox": {
-                                "Add": "添加",
-                                "Filter": "过滤",
-                                "Nothing found": "没有找到"
-                            }
-                        }
-                    },
-                    "toolNames": {
-                        "Text": "段落",
-                        "Heading": "标题",
-                        "List": "列表",
-                        "Warning": "警告",
-                        "Checklist": "清单",
-                        "Quote": "引用",
-                        "Code": "代码",
-                        "Delimiter": "分割线",
-                        "Table": "表格",
-                        "Link": "链接",
-                        "Marker": "突出显示",
-                        "Bold": "加粗",
-                        "Italic": "倾斜",
-                        "Image": "图片",
-                    },
-                    "tools": {
-                        "warning": {
-                            "Title": "标题",
-                            "Message": "消息",
-                        },
-                        "link": {
-                            "Add a link": "添加链接"
-                        },
-                        "stub": {
-                            'The block can not be displayed correctly.': '该模块不能放置在这里'
-                        },
-                        "image": {
-                            "Caption": "图片说明",
-                            "Select an Image": "选择图片",
-                            "With border": "添加边框",
-                            "Stretch image": "拉伸图像",
-                            "With background": "添加背景",
-                        },
-                        "code": {
-                            "Enter a code": "输入代码",
-                        },
-                        "linkTool": {
-                            "Link": "请输入链接地址",
-                            "Couldn't fetch the link data": "获取链接数据失败",
-                            "Couldn't get this link data, try the other one": "该链接不能访问，请修改",
-                            "Wrong response format from the server": "错误响应",
-                        },
-                        "header": {
-                            "Header": "标题",
-                        },
-                        "paragraph": {
-                            "Enter something": "请输入"
-                        },
-                        "list": {
-                            "Ordered": "有序列表",
-                            "Unordered": "无序列表",
-                        },
-                        "table": {
-                            "Heading": "标题",
-                            "Add column to left": "在左侧插入列",
-                            "Add column to right": "在右侧插入列",
-                            "Delete column": "删除列",
-                            "Add row above": "在上方插入行",
-                            "Add row below": "在下方插入行",
-                            "Delete row": "删除行",
-                            "With headings": "有标题",
-                            "Without headings": "无标题",
-                        }
-                    },
-                    "blockTunes": {
-                        "delete": {
-                            "Delete": "删除"
-                        },
-                        "moveUp": {
-                            "Move up": "向上移"
-                        },
-                        "moveDown": {
-                            "Move down": "向下移"
-                        },
-                    },
-                }
-            },
-            data: @if(old('body')){!! old('body') !!}@else{{ json_encode([])  }}@endif,
-            onReady: () => {
-                console.log('Editor.js is ready to work!')
-            },
-            onChange: (api, event) => {
-                editor.save().then((savedData) => {
-                    document.getElementById("body").value = JSON.stringify(savedData)
-                    if (savedData.blocks.length > 0) {
-                        document.getElementById("submit").disabled = false
-                    }
-                }).catch((error) => {
-                    console.error('Saving error', error);
-                });
-            }
-        });
-
         let replyTitle = document.getElementById('reply-title')
         let parent = document.getElementById('parent')
 

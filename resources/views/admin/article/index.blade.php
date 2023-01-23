@@ -1,10 +1,11 @@
 @extends('admin.layouts.app')
-@section('title')
-    文章列表 - @parent
-@endsection
+
+@section('title')文章列表 - @parent @endsection
+
 @section('header')
     文章列表 <a href="{{ route('admin.articles.create') }}" class="btn btn-outline-primary btn-sm">写文章</a>
 @endsection
+
 @section('content')
     <div class="row p-2">
         <div class="sub col-md-12">
@@ -145,6 +146,7 @@
         </div>
     </div>
 @endsection
+
 @section('script')
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>

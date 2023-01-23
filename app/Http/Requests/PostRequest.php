@@ -25,7 +25,7 @@ class PostRequest extends FormRequest
     {
         return [
             'title' => 'required',
-            'body' => 'required|json',
+            'body' => 'required',
         ];
     }
 }

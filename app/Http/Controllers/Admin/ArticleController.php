@@ -62,6 +62,15 @@ class ArticleController extends Controller
         return view('admin.article.index', compact('articles', 'metrics', 'user'));
     }
 
+    public function create()
+    {
+        $tags = Tag::orderByDesc('id')->get();
+
+        $categories = Category::with(['child'])->whereNull('parent_id')->orderByDesc('id')->get();
+
+        return view('admin.article.create_edit', compact('tags', 'categories'));
+    }
+
     public function store(PostRequest $request)
     {
         $article = new Post();
@@ -115,15 +124,6 @@ class ArticleController extends Controller
         return redirect()->route('admin.articles.index')->with('success', '保存成功');
     }
 
-    public function create()
-    {
-        $tags = Tag::orderByDesc('id')->get();
-
-        $categories = Category::with(['child'])->whereNull('parent_id')->orderByDesc('id')->get();
-
-        return view('admin.article.create', compact('tags', 'categories'));
-    }
-
     public function edit($id)
     {
         $article = Post::with(['tags', 'categories', 'meta'])->article()->findOrFail($id);
@@ -135,13 +135,11 @@ class ArticleController extends Controller
             abort(403);
         }
 
-        $tags = Tag::all();
+        $tags = Tag::orderByDesc('id')->get();
 
-        $categories = Category::with(['child' => function ($q) {
-            return $q->with(['child']);
-        }])->whereNull('parent_id')->get();
+        $categories = Category::with(['child'])->whereNull('parent_id')->orderByDesc('id')->get();
 
-        return view('admin.article.edit', compact('article', 'tags', 'categories'));
+        return view('admin.article.create_edit', compact('article', 'tags', 'categories'));
     }
 
     public function destroy($id)
@@ -165,8 +163,7 @@ class ArticleController extends Controller
         $article->commentable = $request->input('commentable') ?: Commentable::Open->value;
 
         if ($request->input('status') == PostStatus::Future->value && $request->input('published_at')) {
-            $article->published_at = Carbon::createFromFormat('Y/m/d H:i', $request->input('published_at'))
-                ->format('Y-m-d H:i:s');
+            $article->published_at = $request->input('published_at');
         } elseif ($request->input('status') == PostStatus::Draft->value) {
             $article->published_at = null;
         } elseif ($request->input('status') == PostStatus::Publish->value && $article->published_at == null) {

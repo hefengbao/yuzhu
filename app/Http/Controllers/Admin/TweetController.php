@@ -56,7 +56,7 @@ class TweetController extends Controller
     public function create()
     {
         $tags = Tag::orderByDesc('id')->get();
-        return view('admin.tweet.create', compact('tags'));
+        return view('admin.tweet.create_edit', compact('tags'));
     }
 
     public function store(TweetRequest $request)
@@ -94,7 +94,7 @@ class TweetController extends Controller
         $tweet = Post::with(['tags'])->findOrFail($id);
         $tags = Tag::orderByDesc('id')->get();
         $pre = url()->previous();
-        return view('admin.tweet.edit', compact('tweet', 'tags', 'pre'));
+        return view('admin.tweet.create_edit', compact('tweet', 'tags', 'pre'));
     }
 
     public function update($id, Request $request)

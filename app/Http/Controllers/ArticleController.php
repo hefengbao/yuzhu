@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use GrahamCampbell\Markdown\Facades\Markdown;
 
 
 class ArticleController extends Controller
@@ -30,6 +31,7 @@ class ArticleController extends Controller
             ->article()
             ->where('slug', $slug)
             ->firstOrFail();
+        $article->body = Markdown::convert($article->body)->getContent();
 
         $prev = Post::select(['id', 'title', 'slug'])->find($this->getPrevArticleId($article->id));
         $next = Post::select(['id', 'title', 'slug'])->find($this->getNextArticleId($article->id));

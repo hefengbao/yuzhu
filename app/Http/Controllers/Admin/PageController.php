@@ -43,7 +43,7 @@ class PageController extends Controller
         if (!auth()->user()->isAdministrator()) {
             abort(403);
         }
-        return view('admin.page.create');
+        return view('admin.page.create_edit');
     }
 
     public function store(PostRequest $request)
@@ -68,7 +68,7 @@ class PageController extends Controller
         }
         $page = Post::page()->findOrFail($id);
 
-        return view('admin.page.edit', compact('page'));
+        return view('admin.page.create_edit', compact('page'));
     }
 
     public function destroy($id)
