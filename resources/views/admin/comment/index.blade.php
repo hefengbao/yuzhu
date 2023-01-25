@@ -60,7 +60,7 @@
                                 {{ $comment->ip }}
                             </td>
                             <td>
-                                {!! App\One\EditorJs\Facades\LaravelEditorJs::render($comment->body) !!}
+                                {!! \Illuminate\Support\Facades\App::make(\App\One\MarkdownToHtml::class)->convert($comment->body) !!}
                                 @if($comment->status == \App\Constant\CommentStatus::Pending->value)
                                     <a href="#" id="approve" data-id="{{ $comment->id }}">
                                         <span class="text-muted text-sm">批准</span>
