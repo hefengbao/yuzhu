@@ -41,7 +41,7 @@ class UploadController extends Controller
 
         return response()->json([
             'data' => [
-                'filePath' => Storage::url($path)
+                'filePath' => 'storage/'.$path
             ]
         ]);
     }
