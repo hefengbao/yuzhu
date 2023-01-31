@@ -14,8 +14,8 @@ return new class extends Migration {
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->string('slug')->unique();
-            $table->bigInteger('user_id')->unsigned()->index()->comment('用户ID');
+            $table->string('slug');
+            $table->unsignedBigInteger('user_id')->index()->comment('用户ID');
             $table->string('title', 100)->nullable()->comment('标题');
             $table->string('excerpt', 255)->nullable()->comment('文章摘要');
             $table->longText('body')->comment('内容');
