@@ -72,6 +72,10 @@ Powered by https://github.com/hefengbao/one
             border-left: 0.5rem solid #bbbbbb;
         }
 
+        .blog-post-body img {
+            width: 100%;
+        }
+
         .crawler {
             display: none !important;
         }
