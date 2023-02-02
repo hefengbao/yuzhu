@@ -1,5 +1,5 @@
 @extends('themes.default.layout')
-@section('description'){{ $page->post_excerpt }}@endsection
+@section('description'){{ $page->excerpt }}@endsection
 @section('author'){{ $page->author->name }}@endsection
 @section('title'){{ $page->title }}@endsection
 @section('content')

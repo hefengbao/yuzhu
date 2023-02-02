@@ -3,12 +3,14 @@
 namespace App\Models;
 
 use App\Constant\PostStatus;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\Feed\Feedable;
 use Spatie\Feed\FeedItem;
+use Vinkla\Hashids\Facades\Hashids;
 
 class Post extends Model implements Feedable
 {
@@ -42,11 +44,12 @@ class Post extends Model implements Feedable
         'published_at' => 'datetime'
     ];
 
-    public static function getFeedItems()
+    public function slugId(): Attribute
     {
-        return Post::with(['author'])->article()->published()->orderBy('published_at', 'desc')->get();
+        return Attribute::make(
+            get: fn() => slug_id($this->slug, $this->id)
+        );
     }
-
     public function tags(): BelongsToMany
     {
         return $this->belongsToMany(Tag::class, 'post_tag');
@@ -92,15 +95,20 @@ class Post extends Model implements Feedable
         return $query->where('type', 'tweet');
     }
 
+    public static function getFeedItems()
+    {
+        return Post::with(['author'])->article()->published()->orderBy('published_at', 'desc')->get();
+    }
+
     public function toFeedItem(): FeedItem
     {
         return FeedItem::create([
-            'id' => $this->slug,
+            'id' => Hashids::connection('alternative')->encode($this->id),
             'title' => $this->title,
             'summary' => $this->excerpt ?? '',
             'updated' => $this->updated_at,
-            'link' => \route('articles.show', $this->slug),
-            'authorName' => $this->author ? $this->author->name : '',
+            'link' => \route('articles.show', $this->slug_id),
+            'authorName' => $this->author ? $this->author->name : url('/'),
         ]);
     }
 }

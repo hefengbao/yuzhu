@@ -157,6 +157,7 @@ class ArticleController extends Controller
     {
         $article = Post::article()->findOrFail($id);
         $article->title = $request->input('title');
+        $article->slug = $request->input('slug');
         $article->body = $request->input('body');
         $article->excerpt = $request->input('excerpt');
         $article->status = $request->input('status') ?: PostStatus::Draft->value;

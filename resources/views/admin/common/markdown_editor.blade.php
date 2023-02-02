@@ -1,8 +1,10 @@
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css">
-<script src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"></script>
+<link rel="stylesheet" href="{{ asset('libs/easymde/dist/easymde.min.css') }}">
+<script src="{{ asset('libs/easymde/dist/easymde.min.js') }}"></script>
 <script>
     let mde = new EasyMDE({
         element: document.getElementById("editor"),
+        spellChecker: false,
+        autoDownloadFontAwesome: false,
         unorderedListStyle: "-",
         status: ["upload-image","autosave", "lines", "words", "cursor"],
         uploadImage: true,

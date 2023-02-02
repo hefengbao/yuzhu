@@ -22,7 +22,6 @@ Route::get('search', [\App\Http\Controllers\SearchController::class, 'index'])->
 Route::get('search/categories/{slug}', [\App\Http\Controllers\SearchController::class, 'categories'])->name('search.categories');
 Route::get('search/tags/{slug}', [\App\Http\Controllers\SearchController::class, 'tags'])->name('search.tags');
 Route::post('post/{slug}/comments', [\App\Http\Controllers\CommentController::class, 'store'])->name('comments.store');
-Route::get('archives', [\App\Http\Controllers\ArchiveController::class, 'index'])->name('archives.index');
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified'], 'as' => 'admin.'], function () {
     Route::get('/', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard.index');

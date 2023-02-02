@@ -52,6 +52,29 @@ if (!function_exists('tags_to_str')) {
 if (!function_exists('post_slug')) {
     function post_slug($title)
     {
-        return \Str::slug($title, '-', 'zh_CN') . '-' . \Str::lower(\Str::random());
+        // TODO 翻译
+        return \Str::slug($title, '-', 'zh_CN');
+    }
+}
+
+if (!function_exists('slug_id')) {
+    function slug_id($slug,$id): string
+    {
+        return $slug.'-'.\Vinkla\Hashids\Facades\Hashids::connection('alternative')->encode($id);
+    }
+}
+
+if (!function_exists('extract_id')) {
+    function extract_id($str): int
+    {
+        $strs = explode('-',$str);
+
+        abort_if(count($strs) == 0,404, '您访问的页面不存在 /(ㄒoㄒ)/~~');
+
+        $ids = \Vinkla\Hashids\Facades\Hashids::connection('alternative')->decode($strs[count($strs)-1]);
+
+        abort_if(count($ids) == 0,404, '您访问的页面不存在 /(ㄒoㄒ)/~~');
+
+        return $ids[0];
     }
 }

@@ -7,9 +7,10 @@ use GrahamCampbell\Markdown\Facades\Markdown;
 
 class PageController extends Controller
 {
-    public function show($slug)
+    public function show($slugId)
     {
-        $page = Post::page()->where('slug', $slug)->firstOrFail();
+        $id = extract_id($slugId);
+        $page = Post::page()->findOrFail($id);
         $page->body = Markdown::convert($page->body)->getContent();
 
         return view('themes.default.page.show', compact('page'));

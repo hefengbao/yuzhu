@@ -92,6 +92,7 @@ class PageController extends Controller
 
         $page->update([
             'title' => $request->input('title'),
+            'slug' => $request->input('slug'),
             'body' => $request->input('body'),
             'excerpt' => $request->input('excerpt'),
             'status' => $request->input('status')

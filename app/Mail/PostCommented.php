@@ -36,7 +36,7 @@ class PostCommented extends Mailable implements ShouldQueue
     public function envelope()
     {
         return new Envelope(
-            subject: $this->subject,
+            subject: $this->title,
         );
     }
 

@@ -17,7 +17,7 @@
                     <article>
                         <div class="d-flex flex-row">
                             <img class="avatar-rounded img-fluid avatar"
-                                 src="{{ $comment->author && $comment->author->avatar ? Storage::disk('public')->url($article->author->avatar) : Avatar::create($article->author->name)->setBackground('#adb5bd')->toBase64() }}"
+                                 src="@if($comment->author) @if($comment->author->avatar) {{ Storage::disk('public')->url($comment->author->avatar)  }} @else {{ Avatar::create($comment->author->name)->setBackground('#adb5bd')->toBase64() }} @endif @else {{ Avatar::create($comment->guest_name)->setBackground('#adb5bd')->toBase64() }} @endif"
                                  alt="">
                             <div class="d-flex flex-column px-2">
                                 <div class="mb-0">@if($comment->author)
@@ -38,11 +38,10 @@
                                               style="font-size: 0.5rem">游客</span>
                                     @endif
                                 </div>
-                                <p class="text-muted mb-0"><small>{{ $comment->created_at->diffForHumans() }}</small>
-                                </p>
+                                <p class="text-muted mb-0"><small>{{ $comment->created_at->diffForHumans() }}</small></p>
                             </div>
                         </div>
-                        <div>
+                        <div style="margin-left: 3.5rem;">
                             @if($comment->parent && $comment->parent->status == \App\Constant\CommentStatus::Approved->value)
                                 <div id="reply-to" class="bg-light p-2 mt-2">
                                     <p>
@@ -93,7 +92,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
-    <form id="comment-form" action="{{ route('comments.store', $model->slug) }}" method="POST">
+    <form id="comment-form" action="{{ route('comments.store', $model->slug_id) }}" method="POST">
         @csrf
         <input type="hidden" name="parent" id="parent">
         <div class="mb-3">

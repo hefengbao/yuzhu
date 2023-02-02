@@ -54,7 +54,7 @@
                     @foreach($articles as $article)
                         <tr>
                             <td>
-                                <a href="{{ route('articles.show', $article->slug) }}" target="_blank">
+                                <a href="{{ route('articles.show', $article->slug_id) }}" target="_blank">
                                     {{ $article->title }}
                                 </a>
                                 <div class="row pl-2">

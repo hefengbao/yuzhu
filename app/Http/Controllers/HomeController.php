@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use Vinkla\Hashids\Facades\Hashids;
 
 class HomeController extends Controller
 {

@@ -5,8 +5,8 @@
 @endsection
 
 @section('css')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/icheck-bootstrap/3.0.1/icheck-bootstrap.min.css" integrity="sha512-8vq2g5nHE062j3xor4XxPeZiPjmRDh6wlufQlfC6pdQ/9urJkU07NM0tEREeymP++NczacJ/Q59ul+/K2eYvcg==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="{{ asset('libs/icheck-bootstrap/3.0.1/icheck-bootstrap.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('libs/flatpickr/dist/flatpickr.min.css') }}">
 @endsection
 
 @section('header')
@@ -103,6 +103,10 @@
                         <input id="title" type="text" class="form-control" name="title" placeholder="标题" value="{{ old('title', $article->title) }}" required>
                     </div>
                     <div class="form-group">
+                        <label for="slug" class="control-label">Slug <sup>*</sup></label>
+                        <input id="slug" type="text" class="form-control" name="slug" placeholder="Slug" value="{{ old('slug', $article->slug) }}" required>
+                    </div>
+                    <div class="form-group">
                         <label for="editor" class="control-label">内容 <sup>*</sup></label>
                         <textarea name="body" id="editor" class="form-control">{{ old('body', $article->body) }}</textarea>
                     </div>
@@ -182,8 +186,8 @@
 @section('script')
     @include('admin.common.markdown_editor')
     @include('admin.common.tags_select')
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/zh.js"></script>
+    <script src="{{ asset('libs/flatpickr/dist/flatpickr.js') }}"></script>
+    <script src="{{ asset('libs/flatpickr/dist/l10n/zh.js') }}"></script>
     <script>
         flatpickr("#published_at", {
             enableTime: true,

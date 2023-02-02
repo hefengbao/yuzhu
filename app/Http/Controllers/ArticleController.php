@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use GrahamCampbell\Markdown\Facades\Markdown;
+use function Symfony\Component\String\s;
 
 
 class ArticleController extends Controller
@@ -12,6 +13,7 @@ class ArticleController extends Controller
     {
         $articles = Post::article()
             ->published()
+            ->whereNull('pinned_at')
             ->orderByDesc('published_at')
             ->paginate(10);
 
@@ -25,12 +27,13 @@ class ArticleController extends Controller
         return view('themes.default.article.index', compact('articles', 'pinnedArticles'));
     }
 
-    public function show($slug)
+    public function show($slugId)
     {
+        $id = extract_id($slugId);
+
         $article = Post::with(['author', 'categories', 'tags'])
             ->article()
-            ->where('slug', $slug)
-            ->firstOrFail();
+            ->findOrFail($id);
         $article->body = Markdown::convert($article->body)->getContent();
 
         $prev = Post::select(['id', 'title', 'slug'])->find($this->getPrevArticleId($article->id));

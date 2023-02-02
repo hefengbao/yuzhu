@@ -11,10 +11,11 @@ use Validator;
 
 class CommentController extends Controller
 {
-    public function store($slug, Request $request)
+    public function store($slugId, Request $request)
     {
+        $id = extract_id($slugId);
 
-        $post = Post::where('slug', $slug)->firstOrFail();
+        $post = Post::findOrFail($id);
 
         $rules = [
             'body' => ['required'],
@@ -68,6 +69,6 @@ class CommentController extends Controller
         //通知
         RepliedNotification::dispatch($comment);
 
-        return redirect(url()->previous() . '#respond')->with('success', '评论添加成功');
+        return redirect(url()->previous() . '#comment-' . $comment->id)->with('success', '评论添加成功');
     }
 }

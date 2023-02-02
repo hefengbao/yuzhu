@@ -59,6 +59,10 @@
                         <input id="title" type="text" class="form-control" name="title" placeholder="标题" value="{{ $page->title }}" required>
                     </div>
                     <div class="form-group">
+                        <label for="slug" class="control-label">Slug <sup>*</sup></label>
+                        <input id="slug" type="text" class="form-control" name="slug" placeholder="Slug" value="{{ $page->slug }}" required>
+                    </div>
+                    <div class="form-group">
                         <label for="editor" class="control-label">内容 <sup>*</sup></label>
                         <textarea id="editor" name="body" class="form-control">{{ old('body', $page->body) }}</textarea>
                     </div>

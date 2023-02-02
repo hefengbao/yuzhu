@@ -44,8 +44,8 @@ return [
         ],
 
         'alternative' => [
-            'salt' => 'your-salt-string',
-            'length' => 'your-length-integer',
+            'salt' => 'one',
+            'length' => '10',
             // 'alphabet' => 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
         ],
 

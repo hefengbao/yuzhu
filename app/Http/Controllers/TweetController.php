@@ -17,9 +17,11 @@ class TweetController extends Controller
         return view('themes.default.tweet.index', compact('tweets'));
     }
 
-    public function show($slug)
+    public function show($slugId)
     {
-        $tweet = Post::with(['author', 'tags'])->tweet()->where('slug', $slug)->firstOrFail();
+        $id = extract_id($slugId);
+
+        $tweet = Post::with(['author', 'tags'])->tweet()->findOrFail($id);
 
         return view('themes.default.tweet.show', compact('tweet'));
     }

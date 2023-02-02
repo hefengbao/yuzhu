@@ -60,7 +60,7 @@
                              alt="">
                     </div>
                     <div style="margin: 0 12px;">
-                        <b>{{ $article->author->name }}</b>
+                        <p class="fs-2">{{ $article->author->name }}</p>
                         <p class="text-muted">{{ $article->author->bio ?: '暂无个人简介' }}</p>
                     </div>
                 </div>

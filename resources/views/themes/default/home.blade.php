@@ -13,7 +13,7 @@
                             {{ $tweet->author->name }}写于{{ $tweet->created_at->format('Y.m.d') }}
                         </div>
                         <p class="card-text mb-auto">{{ Str::limit($tweet->body) }}</p>
-                        <a href="{{ route('tweets.show', $tweet->slug) }}" class="link-secondary text-sm">继续阅读 →</a>
+                        <a href="{{ route('tweets.show', $tweet->slug_id) }}" class="link-secondary" target="_blank">继续阅读 →</a>
                     </div>
                 </div>
             </div>
@@ -23,8 +23,8 @@
     <div class="row g-5">
         <div class="col-md-8">
             @foreach($articles as $article)
-                <p> {{ $article->published_at->format('Y.m.d') }}
-                    <a href="{{ route('articles.show', $article->slug) }}" class="link-secondary">
+                <p><span class="fst-italic text-secondary">{{ $article->published_at->format('Y.m.d') }}&nbsp;&nbsp;</span>
+                    <a href="{{ route('articles.show', $article->slug_id) }}" class="link-dark" target="_blank">
                         {{ $article->title }}
                     </a>
                 </p>
@@ -37,7 +37,7 @@
                     <ol class="list-unstyled">
                         @foreach($pages as $page)
                             <li>
-                                <a href="{{ route('pages.show', $page->slug) }}" target="_blank" class="link-secondary">{{ $page->title }}</a>
+                                <a href="{{ route('pages.show', $page->slug_id) }}" target="_blank" class="link-dark">{{ $page->title }}</a>
                             </li>
                         @endforeach
                     </ol>

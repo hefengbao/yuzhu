@@ -12,10 +12,10 @@ Powered by https://github.com/hefengbao/one
     <meta name="author" content="@yield('author')">
     <meta name="keywords" content="{{ $options->autoload()['keywords'] }}">
     @if($options->autoload()['site_verify_meta']){!! $options->autoload()['site_verify_meta'] !!}@endif
-    <title>@yield('title'){{ $options->autoload()['title'] }}@if(if_route('home.index'))&#8211; {{ $options->autoload()['subtitle'] }}@endif</title>
+    <title>@yield('title') {{ $options->autoload()['title'] }}@if(if_route('home.index')) &#8211; {{ $options->autoload()['subtitle'] }}@endif</title>
     <link rel="canonical" href="{{ url()->current() }}">
     <link rel="shortcut icon" href="{{ asset('favicons/favicon.ico') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.2/css/bootstrap.min.css" integrity="sha512-CpIKUSyh9QX2+zSdfGP+eWLx23C8Dj9/XmHjZY2uDtfkdLGo0uY12jgcnkX9vXOgYajEKb/jiw67EYm+kBf+6g==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="{{ asset('libs/bootstrap/5.2.3/css/bootstrap.min.css') }}"/>
     <style>
         body {
             font-family: Microsoft YaHei, -apple-system, BlinkMacSystemFont, Helvetica Neue, PingFang SC, Source Han Sans SC, Noto Sans CJK SC, WenQuanYi Micro Hei, sans-serif;
@@ -53,8 +53,8 @@ Powered by https://github.com/hefengbao/one
         }
 
         .avatar {
-            width: 45px;
-            height: 45px;
+            width: 3rem;
+            height: 3rem;
         }
 
         .avatar-rounded {
@@ -95,7 +95,6 @@ Powered by https://github.com/hefengbao/one
                 <a class="me-3 py-2 text-dark text-decoration-none" href="/">首页</a>
                 <a class="me-3 py-2 text-dark text-decoration-none" href="{{ route('tweets.index') }}">微博</a>
                 <a class="me-3 py-2 text-dark text-decoration-none" href="{{ route('articles.index') }}">文章</a>
-                <a class="me-3 py-2 text-dark text-decoration-none" href="{{ route('archives.index') }}">归档</a>
                 <a class="me-3 py-2 text-dark text-decoration-none" href="{{ route('search.index') }}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                          class="bi bi-search" viewBox="0 0 16 16">

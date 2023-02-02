@@ -40,7 +40,7 @@
                              alt="">
                     </div>
                     <div style="margin: 0 12px;">
-                        <h4>{{ $tweet->author->name }}</h4>
+                        <p class="fs-2">{{ $tweet->author->name }}</p>
                         <p class="text-muted">{{ $tweet->author->bio ?: '暂无个人简介' }}</p>
                     </div>
                 </div>
