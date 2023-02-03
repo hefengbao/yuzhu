@@ -71,12 +71,12 @@
         <div class="col-md-12">
             @if($prev)
                 <p>
-                    <a class="link-secondary" href="{{ route('articles.show', $prev->slug) }}">上一篇：{{ $prev->title }}</a>
+                    <a class="link-secondary" href="{{ route('articles.show', $prev->slug_id) }}">上一篇：{{ $prev->title }}</a>
                 </p>
             @endif
             @if($next)
                 <p>
-                    <a class="link-secondary" href="{{ route('articles.show', $next->slug) }}">下一篇：{{ $next->title }}</a>
+                    <a class="link-secondary" href="{{ route('articles.show', $next->slug_id) }}">下一篇：{{ $next->title }}</a>
                 </p>
             @endif
         </div>
