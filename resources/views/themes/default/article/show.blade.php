@@ -1,4 +1,8 @@
 @extends('themes.default.layout')
+@section('og_date'){{ $article->updated_at }}@endsection
+@section('og_title'){{ $article->title }}@endsection
+@section('og_description'){{ $article->excerpt ?: Str::limit(trim(str_replace(' ','',str_replace(PHP_EOL, '', strip_tags($article->body))))) }}@endsection
+@section('og_author'){{ $article->author->name ?? '' }}@endsection
 @section('title'){{ $article->title }} &#8211;@endsection
 @section('author'){{ $article->author->name ?? '' }}@endsection
 @section('description'){{ $article->excerpt ?: Str::limit(trim(str_replace(' ','',str_replace(PHP_EOL, '', strip_tags($article->body))))) }}@endsection

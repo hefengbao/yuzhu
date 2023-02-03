@@ -11,6 +11,12 @@ Powered by https://github.com/hefengbao/one
     <meta name="description" content="@yield('description')">
     <meta name="author" content="@yield('author')">
     <meta name="keywords" content="{{ $options->autoload()['keywords'] }}">
+    <meta property="og:type" content="blog"/>
+    <meta property="og:image" content="@yield('og_image')"/>
+    <meta property="og:release_date" content="@yield('og_date')"/>
+    <meta property="og:title" content="@yield('og_title')"/>
+    <meta property="og:description" content="@yield('og_description')" />
+    <meta property="og:author" content="@yield('og_author')"/>
     @if($options->autoload()['site_verify_meta']){!! $options->autoload()['site_verify_meta'] !!}@endif
     <title>@yield('title') {{ $options->autoload()['title'] }}@if(if_route('home.index')) &#8211; {{ $options->autoload()['subtitle'] }}@endif</title>
     <link rel="canonical" href="{{ url()->current() }}">
