@@ -7,6 +7,7 @@ use App\Constant\PostStatus;
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
 use App\Models\Post;
+use Illuminate\Support\Facades\Storage;
 
 class DashboardController extends Controller
 {

@@ -261,6 +261,20 @@
                                 </li>
                             </ul>
                         </li>
+                        <li class="nav-item {{ active_class(if_route_pattern(["admin.tools.*"]), 'menu-open') }}">
+                            <a href="#" class="nav-link {{ active_class(if_route_pattern(["admin.tools.*"])) }}">
+                                <i class="nav-icon fas fa-tools" aria-hidden="true"></i>
+                                <p>工具<i class="right fas fa-angle-left"></i></p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.tools.backup_index') }}"
+                                       class="nav-link {{ active_class(if_route_pattern(["admin.tools.backup_index","admin.tools.backup_download","admin.tools.backup_delete"])) }}">
+                                        <i class="far fa-circle nav-icon"></i>数据备份
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
                         @endroles
                 </ul>
             </nav>

@@ -46,6 +46,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified'], 'as' =>
     Route::resource('users', \App\Http\Controllers\Admin\UserController::class)->except(['show', 'edit']);
     Route::patch('users/{id}/restore', [\App\Http\Controllers\Admin\UserController::class, 'restore'])->name('users.restore');
 
+    Route::get('tools/backup', [\App\Http\Controllers\Admin\ToolController::class, 'backup_index'])->name('tools.backup_index');
+    Route::get('tools/backup_download/{file}', [\App\Http\Controllers\Admin\ToolController::class, 'backup_download'])->name('tools.backup_download');
+    Route::delete('tools/backup_delete', [\App\Http\Controllers\Admin\ToolController::class, 'backup_delete'])->name('tools.backup_delete');
+    Route::post('tools/backup_run', [\App\Http\Controllers\Admin\ToolController::class, 'backup_run'])->name('tools.backup_run');
+
     Route::get('editorjs/fetch_url', [\App\Http\Controllers\Admin\EditorjsController::class, 'fetchUrl'])->name('editorjs.fetchurl');
     Route::post('upload/image', [\App\Http\Controllers\Admin\UploadController::class, 'image'])->name('upload.image');
 });
