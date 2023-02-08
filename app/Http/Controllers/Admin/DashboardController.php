@@ -58,7 +58,7 @@ class DashboardController extends Controller
         $data['metrics']['page_count'] = Post::page()
             ->where('status', '!=', PostStatus::Trash->value)
             ->count('id');
-        $data['metrics']['comment_count'] = Comment::where('status', CommentStatus::Trash->value)
+        $data['metrics']['comment_count'] = Comment::where('status','!=', CommentStatus::Trash->value)
             ->count('id');
 
         $data['trend']['posts'] = Post::latest('id')->where('status', PostStatus::Publish->value)->limit(5)->get();
