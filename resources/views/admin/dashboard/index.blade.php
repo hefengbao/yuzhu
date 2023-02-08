@@ -45,13 +45,13 @@
                                 <p>
                                     <span class="text-muted">{{ $post->created_at->format('m月d日 H时i分') }}</span>&nbsp;&nbsp;
                                     @if($post->type == \App\Constant\PostType::Article->value)
-                                        <a href="{{ route('articles.show', $post->id) }}"
+                                        <a href="{{ route('articles.show', $post->slug_id) }}"
                                            target="_blank">{{ $post->title }}</a>
                                     @elseif($post->type == \App\Constant\PostType::Tweet->value)
-                                        <a href="{{ route('tweets.show', $post->id) }}"
+                                        <a href="{{ route('tweets.show', $post->slug_id) }}"
                                            target="_blank">{{ Str::limit($post->body,40) }}</a>
                                     @elseif($post->type == \App\Constant\PostType::Page->value)
-                                        <a href="{{ route('pages.show', $post->id) }}"
+                                        <a href="{{ route('pages.show', $post->slug_id) }}"
                                            target="_blank">{{ $post->title }}</a>
                                     @endif
                                 </p>
@@ -68,13 +68,13 @@
                                 @else
                                     {{ $comment->guest_name }}
                                 @endif发表在《@if($comment->post->type == \App\Constant\PostType::Article->value)
-                                    <a href="{{ route('articles.show', $comment->post->id) }}#comment-{{ $comment->id }}"
+                                    <a href="{{ route('articles.show', $comment->post->slug_id) }}#comment-{{ $comment->id }}"
                                        target="_blank">{{ $comment->post->title }}</a>
                                 @elseif($comment->post->type == \App\Constant\PostType::Tweet->value)
-                                    <a href="{{ route('tweets.show', $comment->post->id) }}#comment-{{ $comment->id }}"
+                                    <a href="{{ route('tweets.show', $comment->post->slug_id) }}#comment-{{ $comment->id }}"
                                        target="_blank">{{ Str::limit($comment->post->body,40) }}</a>
                                 @elseif($comment->post->type == \App\Constant\PostType::Page->value)
-                                    <a href="{{ route('pages.show', $comment->post->id) }}#comment-{{ $comment->id }}"
+                                    <a href="{{ route('pages.show', $comment->post->slug_id) }}#comment-{{ $comment->id }}"
                                        target="_blank">{{ $comment->post->title }}</a>
                                 @endif
                                 》@if($comment->status ==\App\Constant\CommentStatus::Pending->value)

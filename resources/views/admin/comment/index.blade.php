@@ -125,13 +125,13 @@
                             <td>
                                 @if($post = $comment->post)
                                     @if($post->type == \App\Constant\PostType::Article->value)
-                                        <a href="{{ route('articles.show', $post->slug) }}" title="{{ $post->title }}"
+                                        <a href="{{ route('articles.show', $post->slug_id) }}" title="{{ $post->title }}"
                                            target="_blank">查看文章</a>
                                     @elseif($post->type == \App\Constant\PostType::Page->value)
-                                        <a href="{{ route('pages.show', $post->slug) }}" title="{{ $post->title }}"
+                                        <a href="{{ route('pages.show', $post->slug_id) }}" title="{{ $post->title }}"
                                            target="_blank">查看页面</a>
                                     @elseif($post->type == \App\Constant\PostType::Tweet->value)
-                                        <a href="{{ route('tweets.show', $post->slug) }}"
+                                        <a href="{{ route('tweets.show', $post->slug_id) }}"
                                            title="{{ Str::limit($post->body,20) }}" target="_blank">查看微博</a>
                                     @endif
                                 @endif
