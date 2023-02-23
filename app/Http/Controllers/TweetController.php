@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use GrahamCampbell\Markdown\Facades\Markdown;
 
 class TweetController extends Controller
 {
@@ -22,6 +23,7 @@ class TweetController extends Controller
         $id = extract_id($slugId);
 
         $tweet = Post::with(['author', 'tags'])->tweet()->findOrFail($id);
+        $tweet->body = Markdown::convert($tweet->body)->getContent();
 
         return view('themes.default.tweet.show', compact('tweet'));
     }

@@ -19,7 +19,7 @@
                             ，最后更新于 {{ $tweet->updated_at->format('Y.m.d') }}
                         @endif
                     </div>
-                    <p class="card-text mb-auto">{{ $tweet->body }}</p>
+                    <p class="card-text mb-auto">{!! $tweet->body !!}</p>
                     <div class="mt-1">
                         @foreach($tweet->tags as $tag)
                             <a href="{{ route('search.tags', $tag->slug) }}" class="link-secondary" target="_blank">
