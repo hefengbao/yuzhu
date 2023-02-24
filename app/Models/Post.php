@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Constant\PostStatus;
+use App\Constant\PostType;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -108,7 +109,11 @@ class Post extends Model implements Feedable
             'title' => $this->title ?? Str::limit($this->body,50),
             'summary' => $this->excerpt ?? Str::limit($this->body),
             'updated' => $this->updated_at,
-            'link' => \route('articles.show', $this->slug_id),
+            'link' => match($this->type){
+                PostType::Tweet->value  => \route('tweets.show', $this->slug_id),
+                PostType::Article->value => \route('articles.show', $this->slug_id),
+                PostType::Page->value => \route('pages.show', $this->slug_id),
+            },
             'authorName' => $this->author ? $this->author->name : url('/'),
         ]);
     }
