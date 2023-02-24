@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Str;
 use Spatie\Feed\Feedable;
 use Spatie\Feed\FeedItem;
 use Vinkla\Hashids\Facades\Hashids;
@@ -97,15 +98,15 @@ class Post extends Model implements Feedable
 
     public static function getFeedItems()
     {
-        return Post::with(['author'])->article()->published()->orderBy('published_at', 'desc')->get();
+        return Post::with(['author'])->published()->orderBy('published_at', 'desc')->get();
     }
 
     public function toFeedItem(): FeedItem
     {
         return FeedItem::create([
             'id' => Hashids::connection('alternative')->encode($this->id),
-            'title' => $this->title,
-            'summary' => $this->excerpt ?? '',
+            'title' => $this->title ?? Str::limit($this->body,50),
+            'summary' => $this->excerpt ?? Str::limit($this->body),
             'updated' => $this->updated_at,
             'link' => \route('articles.show', $this->slug_id),
             'authorName' => $this->author ? $this->author->name : url('/'),
