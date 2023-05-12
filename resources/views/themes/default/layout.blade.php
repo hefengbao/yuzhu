@@ -87,6 +87,7 @@ Powered by https://github.com/hefengbao/one
         }
     </style>
     @yield('style')
+    @if($options->autoload()['site_analytics']){!! $options->autoload()['site_analytics'] !!}@endif
 </head>
 <body>
 

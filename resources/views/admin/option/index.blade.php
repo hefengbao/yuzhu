@@ -52,7 +52,14 @@
                             <label for="icp" class="control-label col-md-2">搜索引擎验证 Meta</label>
                             <div class="col-md-10">
                                 <textarea name="site_verify_meta" id="site_verify_meta" rows="5" class="form-control" aria-describedby="siteVerifyMetaHelp">{{ $options['site_verify_meta'] ?? '' }}</textarea>
-                                <div id="siteVerifyMetaHelp" class="form-text text-muted">在常用的搜索引擎验证提交验证网站，可以借助平台提供的工具做一些运营分析等。百度：https://ziyuan.baidu.com， 必应：https://www.bing.com/webmasters</div>
+                                <div id="siteVerifyMetaHelp" class="form-text text-muted">在常用的搜索引擎验证提交验证网站，可以借助平台提供的工具做一些运营分析等。百度：https://ziyuan.baidu.com， 必应：https://www.bing.com/webmasters，谷歌：https://search.google.com/search-console</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="icp" class="control-label col-md-2">网站分析平台接入代码</label>
+                            <div class="col-md-10">
+                                <textarea name="site_analytics" id="site_analytics" rows="5" class="form-control" aria-describedby="siteAnalyticsHelp">{{ $options['site_analytics'] ?? '' }}</textarea>
+                                <div id="siteAnalyticsHelp" class="form-text text-muted">谷歌：https://analytics.google.com</div>
                             </div>
                         </div>
                         <div class="form-group">
