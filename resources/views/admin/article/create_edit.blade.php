@@ -25,6 +25,11 @@
                         <input id="title" type="text" class="form-control" name="title" placeholder="标题" value="{{ old('title') }}" required>
                     </div>
                     <div class="form-group">
+                        <label for="slug" class="control-label">Slug</label>
+                        <input id="slug" type="text" class="form-control" name="slug" placeholder="Slug（可选）" value="{{ old('slug') }}">
+                        <div id="slugHelp" class="form-text text-muted">用于生成 SEO 友好的 URL,建议只包含字母、数字、-，能翻译成有意义的英文最好不过，格式示例：first-blog。</div>
+                    </div>
+                    <div class="form-group">
                         <label for="editor" class="control-label">内容 <sup>*</sup></label>
                         <textarea name="body" id="editor" class="form-control"></textarea>
                     </div>
@@ -66,22 +71,21 @@
                             <div id="tagHelp" class="form-text text-muted">含义清晰明确的标签有助于您检索查找。</div>
                         </div>
                         <div class="col-md-4">
-                            <label for="status">状态</label>
                             <div class="form-group">
+                                <label for="status" class="form-label">状态</label>
                                 <select name="status" id="status" class="form-control">
+                                    <option value="draft">草稿</option>
                                     <option value="publish">发布</option>
                                     <option value="future">定时发布</option>
-                                    <option value="draft">草稿</option>
                                 </select>
                             </div>
-                            <div class="form-group" id="publish_setting">
-                                <div class="input-group date" id="publish" data-target-input="nearest">
-                                    <input type="text" class="form-control flatpickr" data-target="#publish" name="published_at" id="published_at">
-                                </div>
-                                <p class="text-muted">请设置发布时间。</p>
-                            </div>
-                            <label for="commentable">评论</label>
                             <div class="form-group">
+                                <label for="status" class="form-label">定时发布时间</label>
+                                <input type="datetime-local" min="{{ date('Y-m-d H:i') }}" name="published_at" id="published_at" class="form-control" aria-describedby="publishHelp">
+                                <div id="publishHelp" class="form-text text-muted">仅在状态为『定时发布』时生效。</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="commentable" class="form-label">评论</label>
                                 <select name="commentable" id="commentable" class="form-control">
                                     <option value="open">开启</option>
                                     <option value="closed">关闭</option>
@@ -112,8 +116,8 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <label for="excerpt">摘要</label>
                             <div class="form-group">
+                                <label for="excerpt" class="form-label">摘要</label>
                                 <textarea name="excerpt" id="excerpt" cols="30" rows="3" class="form-control" placeholder="（可选）100 字以内">{{ old('excerpt', $article->excerpt) }}</textarea>
                             </div>
                         </div>
@@ -148,25 +152,23 @@
                             <div id="tagHelp" class="form-text text-muted">含义清晰明确的标签有助于您检索查找。</div>
                         </div>
                         <div class="col-md-4">
-                            <label for="status">状态</label>
+                            @if($article->status !== 'publish')
                             <div class="form-group">
+                                <label for="status" class="form-label">状态</label>
                                 <select name="status" id="status" class="form-control">
-                                    <option value="publish" @if($article->status == 'publish') selected @endif>发布</option>
                                     <option value="future" @if($article->status == 'future') selected @endif>定时发布</option>
+                                    <option value="publish" @if($article->status == 'publish') selected @endif>发布</option>
                                     <option value="draft" @if($article->status == 'draft') selected @endif>草稿</option>
                                 </select>
                             </div>
-                            <div class="form-group" id="publish_setting">
-                                <div class="input-group date" id="publish" data-target-input="nearest">
-                                    <input type="text" class="form-control datetimepicker-input" data-target="#publish" name="published_at" id="published_at" value="@if($meta = $article->meta->where('meta_key','published_at')->first()){{ $meta->meta_value }}@endif">
-                                    <div class="input-group-append" data-target="#publish" data-toggle="datetimepicker">
-                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                    </div>
-                                </div>
-                                <p class="text-muted">请设置发布时间。</p>
-                            </div>
-                            <label for="commentable">评论</label>
                             <div class="form-group">
+                                <label for="status" class="form-label">定时发布时间</label>
+                                <input type="datetime-local" min="{{ date('Y-m-d H:i') }}" @if($article->published_at) @endifvalue="{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $article->published_at)->format('Y-m-d H:i') }}" @endif name="published_at" id="published_at" class="form-control" aria-describedby="publishHelp">
+                                <div id="publishHelp" class="form-text text-muted">仅在状态为『定时发布』时生效。</div>
+                            </div>
+                            @endif
+                            <div class="form-group">
+                                <label for="commentable" class="form-label">评论</label>
                                 <select name="commentable" id="commentable" class="form-control">
                                     <option value="open">开启</option>
                                     <option value="closed">关闭</option>
@@ -186,7 +188,7 @@
 @section('script')
     @include('admin.common.markdown_editor')
     @include('admin.common.tags_select')
-    <script src="{{ asset('libs/flatpickr/dist/flatpickr.js') }}"></script>
+<!--    <script src="{{ asset('libs/flatpickr/dist/flatpickr.js') }}"></script>
     <script src="{{ asset('libs/flatpickr/dist/l10n/zh.js') }}"></script>
     <script>
         flatpickr("#published_at", {
@@ -197,8 +199,8 @@
             minDate: "today",
             locale: "zh",
         });
-    </script>
-    <script type="text/javascript">
+    </script>-->
+<!--    <script type="text/javascript">
         $(document).ready(function () {
             let _publishSetting = $('#publish_setting')
             let _publishedAt = $('#published_at')
@@ -221,5 +223,5 @@
             })
 
         });
-    </script>
+    </script>-->
 @endsection

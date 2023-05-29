@@ -13,7 +13,7 @@ class InitAdminCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'one:init-administrator';
+    protected $signature = 'one:init-admin';
 
     /**
      * The console command description.

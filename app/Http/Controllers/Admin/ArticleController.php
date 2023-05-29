@@ -76,16 +76,16 @@ class ArticleController extends Controller
         $article = new Post();
         $article->author()->associate($request->user());
         $article->title = $request->input('title');
-        $article->slug = post_slug($article->title);
+        $article->slug =  $request->input('slug', post_slug($article->title));
         $article->body = $request->input('body');
         $article->excerpt = $request->input('excerpt');
-        $article->status = $request->input('status') ?: PostStatus::Draft->value;
         $article->type = PostType::Article->value;
-        $article->commentable = $request->input('commentable') ?: Commentable::Open->value;
+        $article->status = $request->input('status', PostStatus::Draft->value);
+        $article->commentable = $request->input('commentable', Commentable::Open->value);
 
-        if ($request->input('status') == PostStatus::Future->value && $request->input('published_at')) {
-            $article->published_at = Carbon::createFromFormat('Y/m/d H:i', $request->input('published_at'))
-                ->format('Y-m-d H:i:s');
+        if ($request->input('status') == PostStatus::Future->value) {
+            $article->published_at = $request->input('published_at') ?
+                Carbon::createFromFormat('Y-m-d H:i', $request->input('published_at')) : Carbon::now();
         } elseif ($request->input('status') == PostStatus::Draft->value)
             $article->published_at = null;
         else {
@@ -160,15 +160,21 @@ class ArticleController extends Controller
         $article->slug = $request->input('slug');
         $article->body = $request->input('body');
         $article->excerpt = $request->input('excerpt');
-        $article->status = $request->input('status') ?: PostStatus::Draft->value;
-        $article->commentable = $request->input('commentable') ?: Commentable::Open->value;
+        $article->commentable = $request->input('commentable', Commentable::Open->value);
 
-        if ($request->input('status') == PostStatus::Future->value && $request->input('published_at')) {
-            $article->published_at = $request->input('published_at');
-        } elseif ($request->input('status') == PostStatus::Draft->value) {
-            $article->published_at = null;
-        } elseif ($request->input('status') == PostStatus::Publish->value && $article->published_at == null) {
-            $article->published_at = Carbon::now();
+        if ( $article->status = $request->input('status')) {
+            $article->status = $request->input('status');
+        }
+
+        if ($article->status != PostStatus::Publish->value ){
+            if ($request->input('status') == PostStatus::Future->value) {
+                $article->published_at = $request->input('published_at') ?
+                    Carbon::createFromFormat('Y-m-d H:i', $request->input('published_at')) : Carbon::now();
+            } elseif ($request->input('status') == PostStatus::Draft->value) {
+                $article->published_at = null;
+            } elseif ($request->input('status') == PostStatus::Publish->value) {
+                $article->published_at = Carbon::now();
+            }
         }
 
         $article->save();
