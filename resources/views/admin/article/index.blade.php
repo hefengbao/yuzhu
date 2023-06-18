@@ -118,7 +118,7 @@
                             </td>
                             <td class="text-sm">
                                 @if($article->comments_count)
-                                    <a href="{{ route('articles.show', $article->id) }}#comments" target="_blank"><i
+                                    <a href="{{ route('articles.show', $article->slug_id) }}#comments" target="_blank"><i
                                             class="fas fa-comments"></i> {{ $article->comments_count }}</a>
                                 @else
                                     —
