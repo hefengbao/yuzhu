@@ -30,8 +30,16 @@ class UploadController extends Controller
 
         $path = $folder . Str::random(40) . '.' . $ext;
 
-        if ($ext == 'gif'){
-            $image->save(Storage::disk('public')->path($path));
+        if (strtolower($ext) == 'gif'){
+            $name = $file->store($folder ,[
+                'disk' => 'public'
+            ]);
+
+            return response()->json([
+                'data' => [
+                    'filePath' => 'storage/' . $name
+                ]
+            ]);
         }else{
             if ($width >= 1024 || $height >= 1024) {
                 $image->resize(1024, 1024, function ($constraint) {
