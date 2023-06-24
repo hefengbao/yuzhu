@@ -30,13 +30,17 @@ class UploadController extends Controller
 
         $path = $folder . Str::random(40) . '.' . $ext;
 
-        if ($width >= 1024 || $height > +1024) {
-            $image->resize(1024, 1024, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            })->save(Storage::disk('public')->path($path));
-        } else {
+        if ($ext == 'gif'){
             $image->save(Storage::disk('public')->path($path));
+        }else{
+            if ($width >= 1024 || $height >= 1024) {
+                $image->resize(1024, 1024, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                })->save(Storage::disk('public')->path($path));
+            } else {
+                $image->save(Storage::disk('public')->path($path));
+            }
         }
 
         return response()->json([
