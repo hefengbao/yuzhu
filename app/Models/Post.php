@@ -46,12 +46,18 @@ class Post extends Model implements Feedable
         'published_at' => 'datetime'
     ];
 
+    public static function getFeedItems()
+    {
+        return Post::with(['author'])->published()->orderBy('published_at', 'desc')->get();
+    }
+
     public function slugId(): Attribute
     {
         return Attribute::make(
             get: fn() => slug_id($this->slug, $this->id)
         );
     }
+
     public function tags(): BelongsToMany
     {
         return $this->belongsToMany(Tag::class, 'post_tag');
@@ -97,20 +103,15 @@ class Post extends Model implements Feedable
         return $query->where('type', 'tweet');
     }
 
-    public static function getFeedItems()
-    {
-        return Post::with(['author'])->published()->orderBy('published_at', 'desc')->get();
-    }
-
     public function toFeedItem(): FeedItem
     {
         return FeedItem::create([
             'id' => Hashids::connection('alternative')->encode($this->id),
-            'title' => $this->title ?? Str::limit($this->body,50),
+            'title' => $this->title ?? Str::limit($this->body, 50),
             'summary' => $this->excerpt ?? Str::limit($this->body),
             'updated' => $this->updated_at,
-            'link' => match($this->type){
-                PostType::Tweet->value  => \route('tweets.show', $this->slug_id),
+            'link' => match ($this->type) {
+                PostType::Tweet->value => \route('tweets.show', $this->slug_id),
                 PostType::Article->value => \route('articles.show', $this->slug_id),
                 PostType::Page->value => \route('pages.show', $this->slug_id),
             },

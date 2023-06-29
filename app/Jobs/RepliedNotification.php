@@ -67,12 +67,12 @@ class RepliedNotification implements ShouldQueue
                 \Mail::to($postAuthor)->send(new PostCommented('您的' . $this->title . '有新的评论', $this->comment));
             }
 
-            if ($parent){
-                if ($parent->user_id){
-                    if ($parent->author->email != $this->comment->guest_email){
+            if ($parent) {
+                if ($parent->user_id) {
+                    if ($parent->author->email != $this->comment->guest_email) {
                         \Mail::to($parent->author)->send(new PostCommented('您在' . $this->title . '下的评论有新的回复', $this->comment));
                     }
-                }else{
+                } else {
                     if ($parent->guest_email != $this->comment->guest_email) {
                         \Mail::to($parent->guest_email)->send(new PostCommented('您在' . $this->title . '下的评论有新的回复', $this->comment));
                     }

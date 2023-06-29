@@ -30,8 +30,8 @@ class UploadController extends Controller
 
         $path = $folder . Str::random(40) . '.' . $ext;
 
-        if (strtolower($ext) == 'gif'){
-            $name = $file->store($folder ,[
+        if (strtolower($ext) == 'gif') {
+            $name = $file->store($folder, [
                 'disk' => 'public'
             ]);
 
@@ -40,7 +40,7 @@ class UploadController extends Controller
                     'filePath' => 'storage/' . $name
                 ]
             ]);
-        }else{
+        } else {
             if ($width >= 1024 || $height >= 1024) {
                 $image->resize(1024, 1024, function ($constraint) {
                     $constraint->aspectRatio();
@@ -53,7 +53,7 @@ class UploadController extends Controller
 
         return response()->json([
             'data' => [
-                'filePath' => 'storage/'.$path
+                'filePath' => 'storage/' . $path
             ]
         ]);
     }

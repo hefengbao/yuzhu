@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use GrahamCampbell\Markdown\Facades\Markdown;
-use function Symfony\Component\String\s;
 
 
 class ArticleController extends Controller

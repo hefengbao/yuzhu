@@ -28,7 +28,7 @@ class OptionController extends Controller
     public function store(Request $request)
     {
         foreach ($request->except('_token') as $item => $value) {
-            Option::updateOrCreate(['name' => $item], ['value' => $value,'autoload' => 'yes']);
+            Option::updateOrCreate(['name' => $item], ['value' => $value, 'autoload' => 'yes']);
         }
 
         Cache::forget('autoload_options');

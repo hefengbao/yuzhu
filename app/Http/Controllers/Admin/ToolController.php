@@ -12,12 +12,12 @@ class ToolController extends Controller
 {
     public function backup_index()
     {
-        $files =  Storage::allFiles(config('app.name'));
-        $files =collect($files)->sortDesc()->map(function ($item){
+        $files = Storage::allFiles(config('app.name'));
+        $files = collect($files)->sortDesc()->map(function ($item) {
             $strs1 = explode('/', $item);
-            $strs2 = explode('-',$strs1[1]);
+            $strs2 = explode('-', $strs1[1]);
             return [
-                'datetime' =>Carbon::create(...$strs2)->format('Y-m-d H:i:s'),
+                'datetime' => Carbon::create(...$strs2)->format('Y-m-d H:i:s'),
                 'name' => $strs1[1],
             ];
         });
@@ -26,12 +26,12 @@ class ToolController extends Controller
 
     public function backup_download($file)
     {
-        return Storage::download(config('app.name') .'/'. $file);
+        return Storage::download(config('app.name') . '/' . $file);
     }
 
     public function backup_delete(Request $request)
     {
-        Storage::delete(config('app.name') .'/'. $request->input('file'));
+        Storage::delete(config('app.name') . '/' . $request->input('file'));
 
         return redirect()->route('admin.tools.backup_index');
     }

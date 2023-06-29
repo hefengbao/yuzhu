@@ -76,9 +76,9 @@ class ArticleController extends Controller
         $article = new Post();
         $article->author()->associate($request->user());
         $article->title = $request->input('title');
-        $article->slug =  $request->input('slug', post_slug($article->title));
+        $article->slug = $request->input('slug', post_slug($article->title));
         $article->body = $request->input('body');
-        $article->excerpt = $request->input('excerpt');
+        $article->excerpt = Str::substr($request->input('excerpt'), 0, 200);
         $article->type = PostType::Article->value;
         $article->status = $request->input('status', PostStatus::Draft->value);
         $article->commentable = $request->input('commentable', Commentable::Open->value);
@@ -86,7 +86,7 @@ class ArticleController extends Controller
         $article->published_at = match ($request->input('status')) {
             PostStatus::Publish->value => Carbon::now(),
             PostStatus::Future->value => $request->input('published_at')
-                ? Carbon::createFromFormat("Y-m-d H:i:s", $request->input('published_at').' '. date('H:i:s'))
+                ? Carbon::createFromFormat("Y-m-d H:i:s", $request->input('published_at') . ' ' . date('H:i:s'))
                 : Carbon::now(),
             default => null,
         };
@@ -158,16 +158,16 @@ class ArticleController extends Controller
         $article->title = $request->input('title');
         $article->slug = $request->input('slug');
         $article->body = $request->input('body');
-        $article->excerpt = $request->input('excerpt');
+        $article->excerpt = Str::substr($request->input('excerpt'), 0, 200);
         $article->commentable = $request->input('commentable', Commentable::Open->value);
 
-        if ($request->input('status')){
+        if ($request->input('status')) {
             $article->status = $request->input('status');
 
             $article->published_at = match ($request->input('status')) {
                 PostStatus::Publish->value => Carbon::now(),
                 PostStatus::Future->value => $request->input('published_at')
-                    ? Carbon::createFromFormat("Y-m-d H:i:s", $request->input('published_at').' '. date('H:i:s'))
+                    ? Carbon::createFromFormat("Y-m-d H:i:s", $request->input('published_at') . ' ' . date('H:i:s'))
                     : Carbon::now(),
                 default => null,
             };

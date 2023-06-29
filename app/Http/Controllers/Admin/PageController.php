@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\PostRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class PageController extends Controller
 {
@@ -52,7 +53,7 @@ class PageController extends Controller
         $post->title = $request->input('title');
         $post->slug = post_slug($post->title);
         $post->body = $request->input('body');
-        $post->excerpt = $request->input('excerpt');
+        $post->excerpt = Str::substr($request->input('excerpt'), 0, 200);
         $post->type = PostType::Page->value;
         $post->status = $request->input('status');
         $post->author()->associate($request->user());
@@ -94,7 +95,7 @@ class PageController extends Controller
             'title' => $request->input('title'),
             'slug' => $request->input('slug'),
             'body' => $request->input('body'),
-            'excerpt' => $request->input('excerpt'),
+            'excerpt' => Str::substr($request->input('excerpt'), 0, 200),
             'status' => $request->input('status')
         ]);
 
