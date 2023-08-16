@@ -11,6 +11,7 @@
         <div class="col-md-12">
             <article>
                 <h1 class="mb-1">{{ $article->title }}</h1>
+                <p style="display: none">{{ $article->excerpt ?: Str::limit(trim(str_replace(' ','',str_replace(PHP_EOL, '', strip_tags($article->body))))) }}</p>
                 <p class="text-muted fst-italic">
                     <a class="link-secondary" href="{{ url()->current() }}#author">
                         {{ $article->author->name }}

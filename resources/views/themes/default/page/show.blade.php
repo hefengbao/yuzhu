@@ -11,6 +11,7 @@
         <div class="col-md-12">
             <article class="blog-post">
                 <h1 class="mb-1">{{ $page->title }}</h1>
+                <p style="display: none">{{ $page->excerpt }}</p>
                 <p class="text-muted fst-italic">
                     {{ $page->author->name }}
                     @if($page->published_at)
