@@ -163,7 +163,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="status" class="form-label">定时发布时间</label>
-                                <input type="date" min="{{ date('Y-m-d') }}" @if($article->published_at) @endifvalue="{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $article->published_at)->format('Y-m-d') }}" @endif name="published_at" id="published_at" class="form-control" aria-describedby="publishHelp">
+                                <input type="date" min="{{ date('Y-m-d') }}" @if($article->published_at) value="{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $article->published_at)->format('Y-m-d') }}" @endif name="published_at" id="published_at" class="form-control" aria-describedby="publishHelp">
                                 <div id="publishHelp" class="form-text text-muted">仅在状态为『定时发布』时生效。</div>
                             </div>
                             @endif
