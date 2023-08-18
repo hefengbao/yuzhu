@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0fb8306e171d5b8602500fd44ff4bc37",
+    "content-hash": "c88b569a8ba158f1c82ba8cb856070be",
     "packages": [
         {
             "name": "brick/math",
@@ -1776,6 +1776,54 @@
                 "source": "https://github.com/laravel/horizon/tree/v5.19.1"
             },
             "time": "2023-08-09T13:18:44+00:00"
+        },
+        {
+            "name": "laravel/prompts",
+            "version": "dev-support-older-php",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/prompts.git",
+                "reference": "19d8b5e670cfc9c5a091d00715c46f58b8daa7de"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/prompts/zipball/19d8b5e670cfc9c5a091d00715c46f58b8daa7de",
+                "reference": "19d8b5e670cfc9c5a091d00715c46f58b8daa7de",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "illuminate/collections": "^8.0|^9.0|^10.0",
+                "php": "^7.3|^8.0",
+                "symfony/console": "^5.4|^6.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.5",
+                "pestphp/pest": "^1.0|^2.0",
+                "phpstan/phpstan": "^1.10",
+                "phpstan/phpstan-mockery": "^1.1"
+            },
+            "suggest": {
+                "ext-pcntl": "Required for the spinner to be animated."
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Laravel\\Prompts\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "support": {
+                "issues": "https://github.com/laravel/prompts/issues",
+                "source": "https://github.com/laravel/prompts/tree/support-older-php"
+            },
+            "time": "2023-07-28T11:23:07+00:00"
         },
         {
             "name": "laravel/sanctum",
