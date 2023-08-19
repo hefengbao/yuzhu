@@ -18,6 +18,9 @@
                 </div>
             </div>
         @endforeach
+            @if($tweets->count()==2)
+                <p><a href="{{ route('tweets.index') }}" class="link-dark">更多微博 →</a></p>
+            @endif
     </div>
 
     <div class="row g-5">
@@ -29,6 +32,9 @@
                     </a>
                 </p>
             @endforeach
+            @if($articles->count()==8)
+                <p><a href="{{ route('articles.index') }}" class="link-dark">更多文章 →</a></p>
+            @endif
         </div>
 
         <div class="col-md-4">
