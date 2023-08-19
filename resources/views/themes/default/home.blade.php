@@ -39,15 +39,13 @@
 
         <div class="col-md-4">
             <div class="position-sticky">
-                <div class="p-4">
-                    <ol class="list-unstyled">
-                        @foreach($pages as $page)
-                            <li>
-                                <a href="{{ route('pages.show', $page->slug_id) }}" target="_blank" class="link-dark">{{ $page->title }}</a>
-                            </li>
-                        @endforeach
-                    </ol>
-                </div>
+                <ol class="list-unstyled">
+                    @foreach($pages as $page)
+                        <li>
+                            <a href="{{ route('pages.show', $page->slug_id) }}" target="_blank" class="link-dark">{{ $page->title }}</a>
+                        </li>
+                    @endforeach
+                </ol>
             </div>
         </div>
     </div>
