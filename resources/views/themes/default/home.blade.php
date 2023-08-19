@@ -4,7 +4,7 @@
 {{ $options->autoload()['description'] }}
 @endsection
 @section('content')
-    <div class="row mb-2">
+    <div class="row">
         @foreach($tweets as $tweet)
             <div class="col-md-6">
                 <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
@@ -23,7 +23,7 @@
             @endif
     </div>
 
-    <div class="row g-5">
+    <div class="row mt-4">
         <div class="col-md-8">
             @foreach($articles as $article)
                 <p><span class="fst-italic text-secondary">{{ $article->published_at->format('Y.m.d') }}&nbsp;&nbsp;</span>
@@ -38,7 +38,7 @@
         </div>
 
         <div class="col-md-4">
-            <div class="position-sticky" style="top: 2rem;">
+            <div class="position-sticky">
                 <div class="p-4">
                     <ol class="list-unstyled">
                         @foreach($pages as $page)
