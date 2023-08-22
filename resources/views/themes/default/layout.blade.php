@@ -82,6 +82,7 @@ Powered by https://github.com/hefengbao/one
             display: block;
             margin-left: auto;
             margin-right: auto;
+            max-width: 100%;
         }
 
         .crawler {
