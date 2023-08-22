@@ -79,7 +79,9 @@ Powered by https://github.com/hefengbao/one
         }
 
         .blog-post-body img {
-            width: 100%;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .crawler {
