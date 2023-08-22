@@ -7,6 +7,7 @@
     <div class="row mt-2 mb-2">
         @foreach($posts as $post)
             <p>
+                <span class="fst-italic text-secondary">{{ $post->published_at->format('Y.m.d') }}&nbsp;&nbsp;</span>
                 @if($post->type == \App\Constant\PostType::Article->value)
                     <a href="{{ route('articles.show', $post->slug_id) }}" class="text-decoration-none link-secondary">{{ $post->title }}</a>
                 @elseif($post->type == \App\Constant\PostType::Tweet->value)

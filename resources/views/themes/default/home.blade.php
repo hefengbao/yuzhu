@@ -26,7 +26,8 @@
     <div class="row mt-4">
         <div class="col-md-8">
             @foreach($articles as $article)
-                <p><span class="fst-italic text-secondary">{{ $article->published_at->format('Y.m.d') }}&nbsp;&nbsp;</span>
+                <p>
+                    <span class="fst-italic text-secondary">{{ $article->published_at->format('Y.m.d') }}&nbsp;&nbsp;</span>
                     <a href="{{ route('articles.show', $article->slug_id) }}" class="link-dark" target="_blank">
                         {{ $article->title }}
                     </a>
