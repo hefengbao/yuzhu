@@ -15,7 +15,6 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
         // 定时发布文章
         $schedule->command('one:publish-article')->everyMinute();
 
@@ -25,6 +24,9 @@ class Kernel extends ConsoleKernel
 
         // 删除过期的密码重置令牌
         $schedule->command('auth:clear-resets')->daily()->at('02:00');
+
+        // 每日定时生成站点地图
+        $schedule->command('sitemap:generate')->daily();
     }
 
     /**
