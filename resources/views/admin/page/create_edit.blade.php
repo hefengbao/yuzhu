@@ -1,11 +1,11 @@
 @extends('admin.layouts.app')
 
 @section('title')
-    @if(!isset($page))撰写新页面@else编辑新页面@endif - @parent
+    @if(!isset($page))撰写页面@else编辑页面@endif - @parent
 @endsection
 
 @section('header')
-    @if(!isset($page))撰写新页面@else编辑新页面@endif
+    @if(!isset($page))撰写页面@else编辑页面@endif
 @endsection
 
 @section('content')

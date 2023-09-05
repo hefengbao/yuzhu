@@ -10,7 +10,7 @@
 @endsection
 
 @section('header')
-    @if(!isset($tweet))撰写文章@else编辑文章@endif
+    @if(!isset($article))撰写文章@else编辑文章@endif
 @endsection
 
 @section('content')
@@ -26,8 +26,8 @@
                     </div>
                     <div class="form-group">
                         <label for="slug" class="control-label">Slug</label>
-                        <input id="slug" type="text" class="form-control" name="slug" placeholder="Slug（可选）" value="{{ old('slug') }}">
-                        <div id="slugHelp" class="form-text text-muted">用于生成 SEO 友好的 URL,建议只包含字母、数字、-，能翻译成有意义的英文最好不过，格式示例：first-blog。</div>
+                        <input id="slug" type="text" class="form-control" name="slug" placeholder="Slug（可选）" value="{{ old('slug') }}" aria-describedby="slugHelp">
+                        <div id="slugHelp" class="form-text text-muted">用于生成 SEO 友好的 URL,建议只包含字母、数字、-，能翻译成有意义的英文最好不过，格式示例：first-blog。建议70个字符以内。</div>
                     </div>
                     <div class="form-group">
                         <label for="editor" class="control-label">内容 <sup>*</sup></label>
@@ -37,7 +37,8 @@
                         <div class="col-md-12">
                             <label for="excerpt">摘要</label>
                             <div class="form-group">
-                                <textarea name="excerpt" id="excerpt" cols="30" rows="3" class="form-control" placeholder="（可选）100 字以内"></textarea>
+                                <textarea name="excerpt" id="excerpt" cols="30" rows="3" class="form-control" placeholder="（可选）100 字以内" aria-describedby="excerptHelp"></textarea>
+                                <div id="excerptHelp" class="form-text text-muted">建议25~160个字符之间。</div>
                             </div>
                         </div>
                     </div>
