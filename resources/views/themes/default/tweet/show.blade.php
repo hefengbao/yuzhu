@@ -12,8 +12,7 @@
             <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                 <div class="col p-4 d-flex flex-column position-static">
                     <div class="mb-1 text-muted">
-                        <a class="link-secondary"
-                           href="{{ route('tweets.show', $tweet->id) }}#author"> {{ $tweet->author->name }}</a>
+                        <a class="link-secondary" href="{{ route('users.tweets', $tweet->user_id) }}" target="_blank"> {{ $tweet->author->name }}</a>
                         发布于 {{ $tweet->published_at->format('Y.m.d') }}
                         @if($tweet->published_at < $tweet->updated_at)
                             ，最后更新于 {{ $tweet->updated_at->format('Y.m.d') }}
@@ -44,7 +43,7 @@
                              alt="">
                     </div>
                     <div style="margin: 0 12px;">
-                        <p class="fs-2">{{ $tweet->author->name }}</p>
+                        <p class="fs-2"><a class="link-dark" href="{{ route('users.tweets', $tweet->user_id) }}" target="_blank">{{ $tweet->author->name }}</a></p>
                         <p class="text-muted">{{ $tweet->author->bio ?: '暂无个人简介' }}</p>
                     </div>
                 </div>

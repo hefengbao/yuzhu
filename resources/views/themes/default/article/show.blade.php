@@ -13,7 +13,7 @@
                 <h1 class="mb-1">{{ $article->title }}</h1>
                 <p style="display: none">{{ $article->excerpt ?: Str::limit(trim(str_replace(' ','',str_replace(PHP_EOL, '', strip_tags($article->body))))) }}</p>
                 <p class="text-muted fst-italic">
-                    <a class="link-secondary" href="{{ url()->current() }}#author">
+                    <a class="link-secondary" href="{{ route('users.articles', $article->user_id) }}" target="_blank">
                         {{ $article->author->name }}
                     </a>
                     @if($article->published_at)
@@ -65,7 +65,7 @@
                              alt="">
                     </div>
                     <div style="margin: 0 12px;">
-                        <p class="fs-2">{{ $article->author->name }}</p>
+                        <p class="fs-2"> <a class="link-dark" href="{{ route('users.articles', $article->user_id) }}" target="_blank">{{ $article->author->name }}</a></p>
                         <p class="text-muted">{{ $article->author->bio ?: '暂无个人简介' }}</p>
                     </div>
                 </div>
