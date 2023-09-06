@@ -5,7 +5,7 @@ var hzpy = require("./hanziPinyin").hzpy;
 var hzpyWithOutYin = require("./hanziPinyinWithoutYin").hzpy;
 var _ = require("lodash");
 
-function pinyin(word,splitStr) {
+function pinyin(word, splitStr) {
     splitStr = splitStr === undefined ? ' ' : splitStr;
     var str = '';
     var s;
@@ -17,8 +17,7 @@ function pinyin(word,splitStr) {
                 s++;
             }
             str += splitStr;
-        }
-        else {
+        } else {
             str += word.charAt(i);
         }
     }
@@ -26,7 +25,7 @@ function pinyin(word,splitStr) {
 }
 
 //无声调的拼音
-function pinyinWithOutYin(word,splitStr) {
+function pinyinWithOutYin(word, splitStr) {
     splitStr = splitStr === undefined ? ' ' : splitStr;
     var str = '';
     var s;
@@ -37,9 +36,8 @@ function pinyinWithOutYin(word,splitStr) {
                 str += hzpyWithOutYin.charAt(hzpyWithOutYin.indexOf(word.charAt(i)) + s);
                 s++;
             }
-            str +=splitStr;
-        }
-        else {
+            str += splitStr;
+        } else {
             str += word.charAt(i);
         }
     }
@@ -57,8 +55,7 @@ function isChineseWord(word, modle) {
     for (var i = 0; i < word.length; i++) {
         if (hzpy.indexOf(word.charAt(i)) != -1 && word.charCodeAt(i) > 200) {
             isChinese = true;
-        }
-        else {
+        } else {
             if (modle) {
                 return false;
             }
@@ -69,7 +66,7 @@ function isChineseWord(word, modle) {
 
 function sort(array, key) {
     return _.sortBy(array, [function (o) {
-        return pinyinWithOutYin(o[key],"");
+        return pinyinWithOutYin(o[key], "");
     }]);
 }
 

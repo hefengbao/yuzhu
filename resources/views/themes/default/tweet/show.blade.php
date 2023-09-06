@@ -1,7 +1,7 @@
 @extends('themes.default.layout')
 @section('og_date'){{ $tweet->updated_at }}@endsection
 @section('og_title'){{ $tweet->title }}@endsection
-@section('og_description'){{ Str::limit($tweet->body,40) }}@endsection
+@section('og_description'){{ $tweet->eexcerpt }}@endsection
 @section('og_author'){{ $tweet->author->name ?? '' }}@endsection
 @section('title'){{ Str::limit($tweet->body,40) }} &#8211;@endsection
 @section('author'){{ $tweet->author->name ?? '' }}@endsection

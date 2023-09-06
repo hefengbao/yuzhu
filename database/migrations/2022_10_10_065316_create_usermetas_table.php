@@ -15,8 +15,8 @@ return new class extends Migration {
         Schema::create('usermetas', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('meta_key');
-            $table->unsignedBigInteger('meta_value');
+            $table->string('meta_key');
+            $table->text('meta_value');
             $table->timestamps();
         });
     }

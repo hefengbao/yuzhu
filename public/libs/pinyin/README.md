@@ -1,14 +1,16 @@
 https://github.com/liu11hao11/pinyin_js
 
 # pinyin_js
+
 中文转拼音
 ##安装
+
 ```
 npm install
 ```
 
-
 ##汉字转化成带音节的拼音
+
 ```javascript
 var pinyin=require("pinyin_js");
 console.log(pinyin.pinyin("你好"," "));
@@ -16,6 +18,7 @@ console.log(pinyin.pinyin("你好"," "));
 ```
 
 ##汉字转化成不带音节的拼音
+
 ```javascript
 var pinyin=require("pinyin_js");
 console.log(pinyin.pinyinWithOutYin("你好"," "));
@@ -23,6 +26,7 @@ console.log(pinyin.pinyinWithOutYin("你好"," "));
 ```
 
 ##判断是否是汉字
+
 ```javascript
 var pinyin=require("pinyin_js");
 console.log(pinyin.isChineseWord("你好"));//true

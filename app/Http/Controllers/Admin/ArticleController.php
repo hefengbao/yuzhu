@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Constant\Commentable;
+use App\Constant\Editor;
 use App\Constant\PostStatus;
 use App\Constant\PostType;
 use App\Http\Controllers\Controller;
@@ -62,23 +63,14 @@ class ArticleController extends Controller
         return view('admin.article.index', compact('articles', 'metrics', 'user'));
     }
 
-    public function create()
-    {
-        $tags = Tag::orderByDesc('id')->get();
-
-        $categories = Category::with(['child'])->whereNull('parent_id')->orderByDesc('id')->get();
-
-        return view('admin.article.create_edit', compact('tags', 'categories'));
-    }
-
     public function store(PostRequest $request)
     {
         $article = new Post();
         $article->author()->associate($request->user());
         $article->title = $request->input('title');
-        $article->slug = $request->input('slug', post_slug($article->title));
+        $article->slug = $request->input('slug') ?? post_slug($request->input('title'));
         $article->body = $request->input('body');
-        $article->excerpt = Str::substr($request->input('excerpt'), 0, 200);
+        $article->excerpt = Str::substr($request->input('excerpt'), 0, 160);
         $article->type = PostType::Article->value;
         $article->status = $request->input('status', PostStatus::Draft->value);
         $article->commentable = $request->input('commentable', Commentable::Open->value);
@@ -92,6 +84,11 @@ class ArticleController extends Controller
         };
 
         $article->save();
+
+        $article->meta()->create([
+            'meta_key' => 'editor_type',
+            'meta_value' => $request->input('editor_type')
+        ]);
 
         if ($request->input('category')) {
             $categoryIds = [];
@@ -123,6 +120,19 @@ class ArticleController extends Controller
         return redirect()->route('admin.articles.index')->with('success', '保存成功');
     }
 
+    public function create()
+    {
+        $tags = Tag::orderByDesc('id')->get();
+
+        $categories = Category::with(['child'])->whereNull('parent_id')->orderByDesc('id')->get();
+
+        $meta = auth()->user()->meta->pluck('meta_value', 'meta_key')->all();
+
+        $editor = $meta['editor_type'] ?? Editor::Markdown->value;
+
+        return view('admin.article.create', compact('tags', 'categories', 'editor'));
+    }
+
     public function edit($id)
     {
         $article = Post::with(['tags', 'categories', 'meta'])->article()->findOrFail($id);
@@ -138,7 +148,11 @@ class ArticleController extends Controller
 
         $categories = Category::with(['child'])->whereNull('parent_id')->orderByDesc('id')->get();
 
-        return view('admin.article.create_edit', compact('article', 'tags', 'categories'));
+        $meta = auth()->user()->meta->pluck('meta_value', 'meta_key')->all();
+
+        $editor = $meta['editor_type'] ?? Editor::Editorjs->value;
+
+        return view('admin.article.edit', compact('article', 'tags', 'categories', 'editor'));
     }
 
     public function destroy($id)
@@ -154,11 +168,11 @@ class ArticleController extends Controller
 
     public function update($id, PostRequest $request)
     {
-        $article = Post::article()->findOrFail($id);
+        $article = Post::with(['meta'])->article()->findOrFail($id);
         $article->title = $request->input('title');
-        $article->slug = $request->input('slug');
+        $article->slug = $request->input('slug') ?? post_slug($request->input('title'));
         $article->body = $request->input('body');
-        $article->excerpt = Str::substr($request->input('excerpt'), 0, 200);
+        $article->excerpt = Str::substr($request->input('excerpt'), 0, 160);
         $article->commentable = $request->input('commentable', Commentable::Open->value);
 
         if ($request->input('status')) {
@@ -173,8 +187,16 @@ class ArticleController extends Controller
             };
         }
 
-
         $article->save();
+
+        $meta = $article->meta->pluck('meta_value', 'meta_key')->all();
+
+        if (!isset($meta['editor_type'])) {
+            $article->meta()->create([
+                'meta_key' => 'editor_type',
+                'meta_value' => $request->input('editor_type')
+            ]);
+        }
 
         if ($request->input('category')) {
             $categoryIds = [];

@@ -3,15 +3,28 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UploadImageRequest;
+use App\Services\UploadImageService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class EditorjsController extends Controller
 {
-    public function fetchUrl(Request $request)
+    public function upload_image(UploadImageRequest $request, UploadImageService $service)
+    {
+        return response()->json([
+            'success' => 1,
+            'file' => [
+                'url' => url(Storage::url($service->uploadAndManipulate($request->file('image'))))
+            ]
+        ]);
+    }
+
+    public function fetch_url(Request $request)
     {
         $url = $request->query('url');
 
-        $meta = $this->get_sitemeta($url);
+        $meta = $this->get_site_meta($url);
 
         if (count($meta)) {
             return response()->json([
@@ -33,9 +46,8 @@ class EditorjsController extends Controller
     }
 
     // https://blog.csdn.net/sloafer/article/details/88923717
-    private function get_sitemeta($url): array
+    private function get_site_meta($url): array
     {
-
         $data = file_get_contents($url);
 
         $meta = array();
