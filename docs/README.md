@@ -5,6 +5,7 @@ tagline: 一个简洁的博客、微博客系统。
 actionText: 快速上手 →
 actionLink: /doc/
 ---
+
 <video src="./images/1.mp4" height="451" width="936" controls autoplay></video>
 
 ::: tip 提示

@@ -4,7 +4,7 @@ if (!function_exists('make_excerpt')) {
     function make_excerpt($html): string
     {
         $excerpt = trim(preg_replace('/\s\s+/', ' ', strip_tags($html)));
-        return Str::limit($excerpt, 200);
+        return Str::limit($excerpt, 160);
     }
 }
 

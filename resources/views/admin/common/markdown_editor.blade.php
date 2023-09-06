@@ -8,7 +8,7 @@
         unorderedListStyle: "-",
         status: ["upload-image","autosave", "lines", "words", "cursor"],
         uploadImage: true,
-        imageUploadEndpoint: "{{ route('admin.upload.image') }}",
+        imageUploadEndpoint: "{{ route('admin.markdown.uploadimage') }}",
         imageCSRFToken: "{{ csrf_token() }}",
         imageCSRFName: "_token",
         toolbar: [

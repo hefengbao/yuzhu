@@ -1,6 +1,3 @@
-<!--
-Powered by https://github.com/hefengbao/one
--->
 <!doctype html>
 <html lang="zh">
 @inject('options', 'App\Services\OptionService')
@@ -83,6 +80,94 @@ Powered by https://github.com/hefengbao/one
             margin-left: auto;
             margin-right: auto;
             max-width: 100%;
+        }
+
+        .editor-code {
+            background-color: #f6f6f6;
+            padding: 1rem;
+        }
+
+        .editor-quote {
+            padding: 0.5rem 1rem;
+            background-color: #f6f6f6;
+            border-left: 0.33rem solid #bbbbbb;
+        }
+
+        .editor-quote :where(small) {
+            font-style: italic;
+        }
+
+        .editor-warning {
+            padding: 0.5rem 1rem;
+            background-color: #f6f6f6;
+            border-left: 0.33rem solid #ffa260;
+        }
+
+        .editor-image {
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        .editor-image img {
+            width: 100%;
+            height: auto;
+        }
+
+        .editor-image .editor-image-caption {
+            min-width: 20%;
+            max-width: 80%;
+            min-height: 40px;
+            display: inline-block;
+            padding: 10px;
+            margin: 0 auto;
+            border-bottom: 1px solid #bbbbbb;
+            font-size: 13px;
+            color: #999;
+        }
+
+        .editor-embed-link {
+            display: block;
+            background: #fff;
+            border: 1px solid rgba(201, 201, 204, 0.48);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, .1);
+            border-radius: 6px;
+            will-change: filter;
+            padding: 1rem;
+            animation: link-in 450ms 1 cubic-bezier(0.215, 0.61, 0.355, 1);
+            text-decoration: none;
+            margin-top: 0.5rem;
+        }
+
+        .editor-embed-link__title {
+            font-size: 17px;
+            font-weight: 600;
+            line-height: 1.5em;
+            margin: 0 0 10px 0;
+            color: #0a1520;
+        }
+
+        .editor-embed-link__description {
+            margin: 0 0 20px 0;
+            font-size: 15px;
+            line-height: 1.55em;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            color: #0a1520;
+        }
+
+        .editor-embed-link__domain {
+            display: block;
+            font-size: 15px;
+            line-height: 1em;
+            color: #888 !important;
+            border: 0 !important;
+            padding: 0 !important;
+        }
+
+        .editor-paragraph>a{
+            color: #6c757d!important;
         }
 
         .crawler {

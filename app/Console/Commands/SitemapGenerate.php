@@ -36,20 +36,20 @@ class SitemapGenerate extends Command
 
         $posts = Post::whereNotNull('published_at')->orderByDesc('id')->get();
 
-        foreach ($posts as $post){
-            $url = match ($post->type){
-                PostType::Tweet->value => '/tweets/'.$post->slug_id,
-                PostType::Article->value => '/articles/'.$post->slug_id,
-                PostType::Page->value => '/pages/'.$post->slug_id,
+        foreach ($posts as $post) {
+            $url = match ($post->type) {
+                PostType::Tweet->value => '/tweets/' . $post->slug_id,
+                PostType::Article->value => '/articles/' . $post->slug_id,
+                PostType::Page->value => '/pages/' . $post->slug_id,
             };
 
-            $priority = match ($post->type){
+            $priority = match ($post->type) {
                 PostType::Tweet->value => 0.1,
                 PostType::Article->value => 0.8,
                 PostType::Page->value => 0.6,
             };
 
-            $frequency = match ($post->type){
+            $frequency = match ($post->type) {
                 PostType::Tweet->value => Url::CHANGE_FREQUENCY_YEARLY,
                 PostType::Article->value => Url::CHANGE_FREQUENCY_WEEKLY,
                 PostType::Page->value => Url::CHANGE_FREQUENCY_MONTHLY,
@@ -69,12 +69,12 @@ class SitemapGenerate extends Command
                 ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
                 ->setPriority(0.4)
         )
-        ->add(
-            Url::create('/')
-                ->setLastModificationDate(Carbon::today())
-                ->setChangeFrequency(Url::CHANGE_FREQUENCY_DAILY)
-                ->setPriority(0.9)
-        );
+            ->add(
+                Url::create('/')
+                    ->setLastModificationDate(Carbon::today())
+                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_DAILY)
+                    ->setPriority(0.9)
+            );
 
         $creator->writeToFile(public_path('sitemap.xml'));
 

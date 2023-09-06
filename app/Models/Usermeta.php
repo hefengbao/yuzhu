@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Usermeta extends Model
 {
-    protected $fillable = ['mete_key', 'meta_value'];
+    protected $fillable = ['user_id', 'mete_key', 'meta_value'];
 }
