@@ -74,7 +74,7 @@
     </div>
 @endsection
 @section('script')
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset('libs/sweetalert2/sweetalert2.js') }}"></script>
     <script>
         $(document).ready(function () {
             $("a#delete").on('click', function (e, element) {
