@@ -148,9 +148,9 @@ class ArticleController extends Controller
 
         $categories = Category::with(['child'])->whereNull('parent_id')->orderByDesc('id')->get();
 
-        $meta = auth()->user()->meta->pluck('meta_value', 'meta_key')->all();
+        $meta = $article->meta->pluck('meta_value', 'meta_key')->all();
 
-        $editor = $meta['editor_type'] ?? Editor::Editorjs->value;
+        $editor = $meta['editor_type'] ?? Editor::Markdown->value;
 
         return view('admin.article.edit', compact('article', 'tags', 'categories', 'editor'));
     }
