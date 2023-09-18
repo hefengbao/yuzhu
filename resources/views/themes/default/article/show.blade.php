@@ -6,6 +6,7 @@
 @section('title'){{ $article->title }} &#8211;@endsection
 @section('author'){{ $article->author->name ?? '' }}@endsection
 @section('description'){{ $article->excerpt ?? '' }}@endsection
+@section('style')<link rel="stylesheet" href="{{ asset('libs/prism/prism.css') }}">@endsection
 @section('content')
     <div class="row g-5">
         <div class="col-md-12">
@@ -89,4 +90,7 @@
     @if($article->commentable = \App\Constant\Commentable::Open->value)
         @include('themes.default.comment', ['model' => $article])
     @endif
+@endsection
+@section('script')
+    <script src="{{ asset('libs/prism/prism.js') }}"></script>
 @endsection
