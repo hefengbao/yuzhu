@@ -65,7 +65,7 @@
         }
 
         .blog-post-body pre {
-            background-color: #f6f6f6;
+            background-color: #f5f2f0;
             padding: 1rem;
         }
 

@@ -1,6 +1,7 @@
 ## 环境要求
 
 建议服务器选用 Linux 操作系统。需要按装的软件有 php, nginx, mysql, redis, memcached, supervisor, git, composer。
+
 ::: tip Tips
 php 版本需要 8.1 及以上，需要的 php 扩展：bcmath,ctype,dom,fileinfo,json,mbstring,openssl,pcre,pdo,tokenizer,xml。
 
@@ -17,37 +18,21 @@ mysql 可替换 MariaDB 等 MySQL 衍生数据库，以及 Laravel 支持的 Sql
 创建一个名为 one 的用户（名字可以随意）
 
 ```shell
-sudo useradd -m one
+sudo useradd -d /home/one -s /bin/bash -m one
 ```
 
-给予 sudo 权限
+加入 `www-data` 用户组
 
 ```shell
-sudo usermod -aG wheel one
+sudo usermod -aG www-data web
 ```
 
-::: warning 注意
-出现错误 `usermod: group 'wheel' does not exist`
-
-在Ubuntu系统中仅需要修改 /etc/pam.d/su 文件，找到 # auth required pam_wheel.so 这一行，将行首的“#”去掉。
-
-`sudo addgroup wheel`
-:::
 为 one 用户创建密码
 
 ```shell
 sudo passwd one
 ```
 
-::: tips 提示
-修改用户的默认 shell:
-
-```shell
-sudo vim /etc/password
-one:x:1003:1003::/home/one:/bin/bash # 之前是 /bin/sh
-```
-
-:::
 登录到 one 账户
 
 ```shell

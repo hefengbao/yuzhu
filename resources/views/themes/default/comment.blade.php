@@ -112,25 +112,23 @@
         <button id="submit" type="submit" class="btn btn-dark">发表评论</button>
     </form>
 </div>
-@section('script')
-    @include('themes.default.markdown_editor')
-    <script type="text/javascript">
-        let replyTitle = document.getElementById('reply-title')
-        let parent = document.getElementById('parent')
+@include('themes.default.markdown_editor')
+<script type="text/javascript">
+    let replyTitle = document.getElementById('reply-title')
+    let parent = document.getElementById('parent')
 
-        function reply(commentId, commentAuthor) {
-            replyTitle.innerHTML = "回复<a class='link-secondary' href='{{ url()->current() }}#comment-"
-                + commentId
-                + "'>"
-                + commentAuthor
-                + "</a>&nbsp;&nbsp;<small><a class='link-secondary' href='{{ url()->current() }}#respond' onclick='cancelReply()'>取消回复<small>"
+    function reply(commentId, commentAuthor) {
+        replyTitle.innerHTML = "回复<a class='link-secondary' href='{{ url()->current() }}#comment-"
+            + commentId
+            + "'>"
+            + commentAuthor
+            + "</a>&nbsp;&nbsp;<small><a class='link-secondary' href='{{ url()->current() }}#respond' onclick='cancelReply()'>取消回复<small>"
 
-            parent.value = commentId
-        }
+        parent.value = commentId
+    }
 
-        function cancelReply() {
-            parent.value = null
-            replyTitle.innerHTML = '发表评论'
-        }
-    </script>
-@endsection
+    function cancelReply() {
+        parent.value = null
+        replyTitle.innerHTML = '发表评论'
+    }
+</script>
