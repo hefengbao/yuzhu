@@ -1,5 +1,9 @@
 <?php
 
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
+use Vinkla\Hashids\Facades\Hashids;
+
 if (!function_exists('make_excerpt')) {
     function make_excerpt($html): string
     {
@@ -53,25 +57,25 @@ if (!function_exists('post_slug')) {
     function post_slug($title)
     {
         // TODO 翻译
-        return \Str::slug($title, '-', 'zh_CN');
+        return Str::slug($title, '-', 'zh_CN');
     }
 }
 
 if (!function_exists('slug_id')) {
-    function slug_id($slug, $id): string
+    function slug_id(string $slug, int $id): string
     {
-        return $slug . '-' . \Vinkla\Hashids\Facades\Hashids::connection('alternative')->encode($id);
+        return $slug . '-' . Hashids::connection('one')->encode($id);
     }
 }
 
 if (!function_exists('extract_id')) {
     function extract_id($str): int
     {
-        $strs = explode('-', $str);
+        $arr = explode('-', $str);
 
-        abort_if(count($strs) == 0, 404, '您访问的页面不存在 /(ㄒoㄒ)/~~');
+        abort_if(count($arr) == 0, 404, '您访问的页面不存在 /(ㄒoㄒ)/~~');
 
-        $ids = \Vinkla\Hashids\Facades\Hashids::connection('alternative')->decode($strs[count($strs) - 1]);
+        $ids = Hashids::connection('one')->decode($arr[count($arr) - 1]);
 
         abort_if(count($ids) == 0, 404, '您访问的页面不存在 /(ㄒoㄒ)/~~');
 

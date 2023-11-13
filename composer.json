@@ -15,34 +15,33 @@
         "ext-pdo": "*",
         "codex-team/editor.js": "dev-master",
         "erusev/parsedown": "^1.7",
-        "graham-campbell/markdown": "^14.0",
+        "graham-campbell/markdown": "^15.0",
         "guzzlehttp/guzzle": "^7.2",
-        "hieu-le/active": "^9.0",
         "intervention/image": "^2.7",
-        "laravel/framework": "^9.19",
+        "laravel/framework": "^10.0",
         "laravel/horizon": "^5.10",
-        "laravel/prompts": "dev-support-older-php",
-        "laravel/sanctum": "^3.0",
-        "laravel/tinker": "^2.7",
-        "laravel/ui": "^4.0",
-        "laravolt/avatar": "^4.1",
+        "laravel/prompts": "^0.1",
+        "laravel/sanctum": "^3.2",
+        "laravel/tinker": "^2.8",
+        "laravel/ui": "^4.2",
+        "laravolt/avatar": "^5.0",
         "league/html-to-markdown": "^5.1",
-        "mews/purifier": "^3.3",
-        "spatie/laravel-backup": "^8.1",
-        "spatie/laravel-feed": "^4.2",
-        "spatie/laravel-sitemap": "^6.1",
-        "vinkla/hashids": "^10.0"
+        "mews/purifier": "^3.4",
+        "spatie/laravel-backup": "^8.4",
+        "spatie/laravel-feed": "^4.3",
+        "spatie/laravel-sitemap": "^7.0",
+        "vinkla/hashids": "^11.0"
     },
     "require-dev": {
-        "barryvdh/laravel-ide-helper": "^2.12",
         "fakerphp/faker": "^1.9.1",
         "laravel/pint": "^1.0",
-        "laravel/sail": "^1.0.1",
-        "laravel/telescope": "^4.9",
+        "laravel/sail": "^1.18",
         "mockery/mockery": "^1.4.4",
-        "nunomaduro/collision": "^6.1",
-        "phpunit/phpunit": "^9.5.10",
-        "spatie/laravel-ignition": "^1.0"
+        "nunomaduro/collision": "^7.0",
+        "phpunit/phpunit": "^10.0",
+        "spatie/laravel-ignition": "^2.0",
+        "barryvdh/laravel-ide-helper": "^2.13",
+        "laravel/telescope": "^4.17"
     },
     "autoload": {
         "psr-4": {
@@ -51,7 +50,8 @@
             "Database\\Seeders\\": "database/seeders/"
         },
         "files": [
-            "app/One/helpers.php"
+            "app/One/helpers.php",
+            "app/One/Active/helpers.php"
         ]
     },
     "autoload-dev": {
