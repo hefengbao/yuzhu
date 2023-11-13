@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Constant\Commentable;
 use App\Constant\PostStatus;
 use App\Constant\PostType;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -29,6 +30,7 @@ class Post extends Model implements Feedable
         'updated_at'
     ];
     protected $fillable = [
+        'user_id',
         'title',
         'slug',
         'body',
@@ -43,7 +45,12 @@ class Post extends Model implements Feedable
 
     protected $casts = [
         'pinned_at' => 'datetime',
-        'published_at' => 'datetime'
+        'published_at' => 'datetime',
+        'status' => PostStatus::class,
+        'type' => PostType::class,
+        'commentable' => Commentable::class,
+        'tags' => 'array',
+        'categories' => 'array',
     ];
 
     public static function getFeedItems()

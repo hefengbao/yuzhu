@@ -25,7 +25,7 @@ Route::post('post/{slug}/comments', [\App\Http\Controllers\CommentController::cl
 Route::get('users/{id}/articles', [\App\Http\Controllers\UserController::class, 'articles'])->name('users.articles');
 Route::get('users/{id}/tweets', [\App\Http\Controllers\UserController::class, 'tweets'])->name('users.tweets');
 
-Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified'], 'as' => 'admin.'], function () {
+/*Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified'], 'as' => 'admin.'], function () {
     Route::get('/', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard.index');
 
     Route::put('articles/{id}/pin', [\App\Http\Controllers\Admin\ArticleController::class, 'pin'])->name('articles.pin');
@@ -58,7 +58,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'verified'], 'as' =>
     Route::get('editorjs/fetch_url', [\App\Http\Controllers\Admin\EditorjsController::class, 'fetch_url'])->name('editorjs.fetchurl');
     Route::post('editorjs/upload_image', [\App\Http\Controllers\Admin\EditorjsController::class, 'upload_image'])->name('editorjs.uploadimage');
     Route::post('markdown/upload_image', [\App\Http\Controllers\Admin\MarkdownController::class, 'upload_image'])->name('markdown.uploadimage');
-});
+});*/
 
 Auth::routes(['verify' => true]);
 
