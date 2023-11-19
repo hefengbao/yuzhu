@@ -82,3 +82,13 @@ if (!function_exists('extract_id')) {
         return $ids[0];
     }
 }
+
+if (! function_exists('md_to_html')) {
+    /**
+     * Convert Markdown to HTML.
+     */
+    function md_to_html(string $markdown): string
+    {
+        return app(App\One\Markdown\Converter::class)->toHtml($markdown);
+    }
+}

@@ -1,9 +1,7 @@
 <?php
 
-namespace App\Providers;
+namespace App\One\Active;
 
-use App\One\Active\Active;
-use Illuminate\Foundation\Application;
 use Illuminate\Routing\Events\RouteMatched;
 use Illuminate\Support\ServiceProvider;
 

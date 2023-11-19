@@ -32,7 +32,8 @@
         "spatie/laravel-backup": "^8.4",
         "spatie/laravel-feed": "^4.3",
         "spatie/laravel-sitemap": "^7.0",
-        "vinkla/hashids": "^11.0"
+        "vinkla/hashids": "^11.0",
+        "ext-intl": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

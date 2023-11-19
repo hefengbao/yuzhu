@@ -197,7 +197,8 @@ return [
         App\Providers\HorizonServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        \App\Providers\ActiveServiceProvider::class,
+        App\One\Active\ActiveServiceProvider::class,
+        App\One\Markdown\MarkdownServiceProvider::class,
     ],
 
     /*
