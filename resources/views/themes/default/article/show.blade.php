@@ -25,10 +25,10 @@
                     @endif
                 </p>
                 <div class="blog-post-body">{!! $article->body !!}</div>
-                @if($article->categories->isNotEmpty() || $article->tags->isNotEmpty())
+                @if($article->categories2->isNotEmpty() || $article->tags->isNotEmpty())
                     <p>
-                        @if($article->categories->isNotEmpty())
-                            @foreach($article->categories as $category)
+                        @if($article->categories2->isNotEmpty())
+                            @foreach($article->categories2 as $category)
                                 <a class="link-secondary" href="{{ route('search.categories', $category->slug) }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                          class="bi bi-tag" viewBox="0 0 16 16">
@@ -41,8 +41,8 @@
                                 &nbsp;&nbsp;
                             @endforeach
                         @endif
-                        @if($article->tags->isNotEmpty())
-                            @foreach($article->tags as $tag)
+                        @if($article->tags2->isNotEmpty())
+                            @foreach($article->tags2 as $tag)
                                 <a class="link-secondary" href="{{ route('search.tags', $tag->slug) }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                          class="bi bi-hash" viewBox="0 0 16 16">

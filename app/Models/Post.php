@@ -70,7 +70,17 @@ class Post extends Model implements Feedable
         return $this->belongsToMany(Tag::class, 'post_tag');
     }
 
+    public function tags2(): BelongsToMany
+    {
+        return $this->belongsToMany(Tag::class, 'post_tag');
+    }
+
     public function categories(): BelongsToMany
+    {
+        return $this->belongsToMany(Category::class, 'category_post');
+    }
+
+    public function categories2(): BelongsToMany
     {
         return $this->belongsToMany(Category::class, 'category_post');
     }
@@ -88,6 +98,26 @@ class Post extends Model implements Feedable
     public function meta(): HasMany
     {
         return $this->hasMany(Postmeta::class);
+    }
+
+    public function isPage(): bool
+    {
+        return $this->type === PostType::Page;
+    }
+
+    public function isArticle(): bool
+    {
+        return $this->type === PostType::Article;
+    }
+
+    public function isPinned(): bool
+    {
+        return $this->pinned_at !== null;
+    }
+
+    public function isPublished(): bool
+    {
+        return $this->status === PostStatus::Publish;
     }
 
     public function scopePublished($query)

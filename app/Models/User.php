@@ -32,6 +32,7 @@ class User extends Authenticatable implements MustVerifyEmail,FilamentUser
 
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'role' => Role::class
     ];
 
     public function meta(): HasMany
@@ -41,17 +42,17 @@ class User extends Authenticatable implements MustVerifyEmail,FilamentUser
 
     public function isAdministrator(): bool
     {
-        return $this->role == Role::Administrator->value;
+        return $this->role == Role::Administrator;
     }
 
     public function isEditor(): bool
     {
-        return $this->role == Role::Editor->value;
+        return $this->role == Role::Editor;
     }
 
     public function isAuthor(): bool
     {
-        return $this->role == Role::Author->value;
+        return $this->role == Role::Author;
     }
 
     public function canAccessPanel(Panel $panel): bool

@@ -6,45 +6,45 @@ use App\Constant\PostStatus;
 use App\Constant\PostType;
 use App\Filament\Resources\Post\ArticleResource;
 use App\Models\Post;
+use App\Models\User;
 use Filament\Actions;
 use Filament\Resources\Components\Tab;
 use Filament\Resources\Pages\ListRecords;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\Log;
 
 class ListArticles extends ListRecords
 {
     protected static string $resource = ArticleResource::class;
 
-    protected function getHeaderActions(): array
-    {
-        return [
-            Actions\CreateAction::make(),
-        ];
-    }
-
-    protected function getRedirectUrl(): string
-    {
-        return $this->getResource()::getUrl('index');
-    }
-
     public function getTabs(): array
     {
-        Log::info(auth()->id());
+        /** @var User $auth */
+        $auth = auth()->user();
+
         return [
             '所有' => Tab::make()
                 ->badge(
                     Post::query()
-                        ->where('type',PostType::Article)
+                        ->where('type', PostType::Article)
+                        ->when(!$auth->isAdministrator(), function ($query){
+                            $query->where(function ($query){
+                                $query->where('user_id',auth()->id())
+                                    ->orWhere(function ($query){
+                                        $query->where('user_id', '!=', auth()->id())
+                                            ->where('status', PostStatus::Publish);
+                                    });
+                            });
+                        })
                         ->count()
                 )
                 ->badgeColor('info'),
             '我的' => Tab::make()
                 ->modifyQueryUsing(
                     fn(Builder $query) => $query->where('user_id', auth()->id())
-                )->badge(
+                )
+                ->badge(
                     Post::query()
-                        ->where('type',PostType::Article)
+                        ->where('type', PostType::Article)
                         ->where('user_id', auth()->id())
                         ->count()
                 )
@@ -54,7 +54,7 @@ class ListArticles extends ListRecords
                     fn(Builder $query) => $query->where('status', PostStatus::Publish)
                 )->badge(
                     Post::query()
-                        ->where('type',PostType::Article)
+                        ->where('type', PostType::Article)
                         ->where('status', PostStatus::Publish)
                         ->count()
                 )
@@ -64,21 +64,38 @@ class ListArticles extends ListRecords
                     fn(Builder $query) => $query->whereNotNull('pinned_at')
                 )->badge(
                     Post::query()
-                        ->where('type',PostType::Article)
+                        ->where('type', PostType::Article)
                         ->whereNotNull('pinned_at')
                         ->count()
                 )
                 ->badgeColor('primary'),
             '回收站' => Tab::make()
                 ->modifyQueryUsing(
-                    fn(Builder $query) => $query->$query->where('status', PostStatus::Trash)
+                    fn(Builder $query) => $query->where('status', PostStatus::Trash)
                 )->badge(
                     Post::query()
-                        ->where('type',PostType::Article)
+                        ->where('type', PostType::Article)
                         ->where('status', PostStatus::Trash)
+                        ->when(!$auth->isAdministrator(),function ($query) use ($auth){
+                            $query->where('user_id', $auth->id);
+                        })
                         ->count()
                 )
                 ->badgeColor('danger'),
         ];
+    }
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            Actions\CreateAction::make()
+                ->label('写文章')
+                ->icon('heroicon-o-pencil-square'),
+        ];
+    }
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
     }
 }

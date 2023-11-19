@@ -11,8 +11,6 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
 
 class TagResource extends Resource
@@ -20,7 +18,6 @@ class TagResource extends Resource
     protected static ?string $model = Tag::class;
     protected static ?string $modelLabel = "标签";
     protected static ?string $pluralModelLabel = "标签";
-    protected static ?string $navigationIcon = 'heroicon-o-tag';
     protected static ?string $navigationLabel = "标签";
     protected static ?int $navigationSort = 6;
     protected static ?string $navigationGroup = '写作';
@@ -36,7 +33,7 @@ class TagResource extends Resource
                     ->required()
                     ->live(onBlur: true)
                     ->afterStateUpdated(
-                        fn (string $operation, $state, Forms\Set $set) => $operation === 'create' ? $set('slug', Str::slug($state, language: \Locale::getDefault())) : null
+                        fn(string $operation, $state, Forms\Set $set) => $operation === 'create' ? $set('slug', Str::slug($state, language: \Locale::getDefault())) : null
                     ),
                 TextInput::make('slug')
                     ->label('Slug')
@@ -61,7 +58,7 @@ class TagResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    //Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

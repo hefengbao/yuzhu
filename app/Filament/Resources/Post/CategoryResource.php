@@ -11,8 +11,6 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
 
 class CategoryResource extends Resource
@@ -20,8 +18,6 @@ class CategoryResource extends Resource
     protected static ?string $model = Category::class;
     protected static ?string $modelLabel = "分类";
     protected static ?string $pluralModelLabel = "分类";
-
-    protected static ?string $navigationIcon = 'heroicon-o-hashtag';
     protected static ?string $navigationLabel = "分类";
     protected static ?int $navigationSort = 5;
     protected static ?string $navigationGroup = '写作';
@@ -38,7 +34,7 @@ class CategoryResource extends Resource
                     ->required()
                     ->live(onBlur: true)
                     ->afterStateUpdated(
-                        fn (string $operation, $state, Forms\Set $set) => $operation === 'create' ? $set('slug', Str::slug($state, language: \Locale::getDefault())) : null
+                        fn(string $operation, $state, Forms\Set $set) => $operation === 'create' ? $set('slug', Str::slug($state, language: \Locale::getDefault())) : null
                     ),
                 TextInput::make('slug')
                     ->label('Slug')
@@ -63,7 +59,7 @@ class CategoryResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    //Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }
