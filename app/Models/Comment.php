@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Comment extends Model
 {
-    protected $fillable = ['body', 'guest_name', 'guest_email', 'ip', 'user_agent', 'status'];
+    protected $fillable = ['user_id', 'body', 'guest_name', 'guest_email', 'ip', 'user_agent', 'status'];
 
     protected $with = ['author'];
 

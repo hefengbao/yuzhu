@@ -23,8 +23,6 @@ class ArticleResource extends Resource
     protected static ?string $model = Post::class;
     protected static ?string $modelLabel = "文章";
     protected static ?string $pluralModelLabel = "文章";
-
-    //protected static ?string $navigationIcon = 'heroicon-o-document-text';
     protected static ?string $navigationLabel = "文章";
     protected static ?int $navigationSort = 1;
     protected static ?string $navigationGroup = '写作';
@@ -142,7 +140,7 @@ class ArticleResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('title')
                     ->label('标题')
-                    ->formatStateUsing(fn(Post $post) => $post->pinned_at != null ? "[置顶] $post->title" : $post->title),
+                    ->prefix(fn(Post $post) => $post->pinned_at != null ? '📌' : ''),
                 Tables\Columns\TextColumn::make('author.name')
                     ->label('作者'),
                 Tables\Columns\TextColumn::make('categories.name')

@@ -18,7 +18,6 @@ class TagResource extends Resource
     protected static ?string $model = Tag::class;
     protected static ?string $modelLabel = "标签";
     protected static ?string $pluralModelLabel = "标签";
-    //protected static ?string $navigationIcon = 'heroicon-o-tag';
     protected static ?string $navigationLabel = "标签";
     protected static ?int $navigationSort = 6;
     protected static ?string $navigationGroup = '写作';

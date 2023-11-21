@@ -90,6 +90,21 @@ class Post extends Model implements Feedable
         return $this->hasMany(Postmeta::class);
     }
 
+    public function isPage(): bool
+    {
+        return $this->type === PostType::Page;
+    }
+
+    public function isArticle(): bool
+    {
+        return $this->type === PostType::Article;
+    }
+
+    public function hasPinned(): bool
+    {
+        return $this->pinned_at !== null;
+    }
+
     public function scopePublished($query)
     {
         return $query->where('status', PostStatus::Publish);

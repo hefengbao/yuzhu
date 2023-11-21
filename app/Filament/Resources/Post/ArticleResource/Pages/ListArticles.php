@@ -28,7 +28,8 @@ class ListArticles extends ListRecords
             '我的' => Tab::make()
                 ->modifyQueryUsing(
                     fn(Builder $query) => $query->where('user_id', auth()->id())
-                )->badge(
+                )
+                ->badge(
                     Post::query()
                         ->where('type', PostType::Article)
                         ->where('user_id', auth()->id())

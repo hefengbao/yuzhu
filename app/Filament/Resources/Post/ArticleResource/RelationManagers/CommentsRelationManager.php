@@ -25,7 +25,11 @@ class CommentsRelationManager extends RelationManager
             ->modelLabel('评论')
             ->pluralModelLabel('评论')
             ->headerActions([
-                Actions\CreateAction::make()
+                Actions\CreateAction::make()->mutateFormDataUsing(function (array $data): array {
+                    $data['ip'] = request()->ip();
+                    $data['user_id'] = auth()->id();
+                    return  $data;
+                })
             ]);
     }
 

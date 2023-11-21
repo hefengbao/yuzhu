@@ -19,6 +19,11 @@ class SiteResource extends Resource
     protected static ?string $navigationLabel = '站点';
     protected static ?string $navigationGroup = '设置';
 
+    public static function shouldRegisterNavigation(): bool
+    {
+        return auth()->user()->isAdministrator();
+    }
+
     public static function form(Form $form): Form
     {
         $optionServe = new OptionService();

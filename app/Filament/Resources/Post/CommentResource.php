@@ -19,7 +19,6 @@ class CommentResource extends Resource
     protected static ?string $model = Comment::class;
     protected static ?string $modelLabel = "评论";
     protected static ?string $pluralModelLabel = "评论";
-    //protected static ?string $navigationIcon = 'heroicon-o-chat-bubble-bottom-center-text';
     protected static ?string $navigationLabel = "评论";
     protected static ?int $navigationSort = 4;
     protected static ?string $navigationGroup = '写作';

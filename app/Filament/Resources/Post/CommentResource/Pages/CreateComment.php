@@ -11,14 +11,8 @@ class CreateComment extends CreateRecord
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
-
         $data['ip'] = request()->ip();
-
-        if (auth()) {
-            $data['user_id'] = auth()->id();
-            $data['guest_name'] = null;
-            $data['guest_email'] = null;
-        }
+        $data['user_id'] = auth()->id();
 
         return $data;
     }

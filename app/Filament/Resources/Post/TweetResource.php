@@ -22,7 +22,6 @@ class TweetResource extends Resource
     protected static ?string $model = Post::class;
     protected static ?string $modelLabel = "微博";
     protected static ?string $pluralModelLabel = "微博";
-    //protected static ?string $navigationIcon = 'heroicon-o-fire';
     protected static ?string $navigationLabel = "微博";
     protected static ?int $navigationSort = 2;
     protected static ?string $navigationGroup = '写作';
