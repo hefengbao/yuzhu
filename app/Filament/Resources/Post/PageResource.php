@@ -8,6 +8,7 @@ use App\Constant\PostType;
 use App\Filament\Resources\Post\PageResource\Pages;
 use App\Filament\Resources\Post\PageResource\RelationManagers;
 use App\Models\Post;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Infolists;
@@ -152,8 +153,14 @@ class PageResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
+        /** @var User $auth */
+        $auth = auth()->user();
+
         return parent::getEloquentQuery()
             ->where('type', PostType::Page)
+            ->when(!$auth->isAdministrator(), function ($query){
+                $query->where('status', PostStatus::Publish);
+            })
             ->orderByDesc('created_at');
     }
 }

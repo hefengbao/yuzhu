@@ -8,6 +8,7 @@ use App\Constant\PostType;
 use App\Filament\Resources\Post\ArticleResource\Pages;
 use App\Filament\Resources\Post\ArticleResource\RelationManagers;
 use App\Models\Post;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Infolists;
@@ -80,7 +81,7 @@ class ArticleResource extends Resource
                                             ->required()
                                             ->live(onBlur: true)
                                             ->afterStateUpdated(
-                                                fn(string $operation, $state, Forms\Set $set) => $set('slug', Str::slug($state, language: \Locale::getDefault()))
+                                                fn(string $operation, $state, Forms\Set $set) => $set('slug', Str::slug($state, language: \App::getLocale()))
                                             ),
                                         Forms\Components\TextInput::make('slug')
                                             ->label('Slug')
@@ -258,8 +259,20 @@ class ArticleResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
+        /** @var User $auth */
+        $auth = auth()->user();
+
         return parent::getEloquentQuery()
             ->where('type', PostType::Article)
+            ->when(!$auth->isAdministrator(), function ($query){
+                $query->where(function ($query){
+                    $query->where('user_id',auth()->id())
+                        ->orWhere(function ($query){
+                            $query->where('user_id', '!=', auth()->id())
+                                ->where('status', PostStatus::Publish);
+                        });
+                });
+            })
             ->orderByDesc('created_at');
     }
 }

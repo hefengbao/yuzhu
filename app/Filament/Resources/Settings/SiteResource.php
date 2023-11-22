@@ -18,6 +18,7 @@ class SiteResource extends Resource
     protected static ?string $modelLabel = '设置';
     protected static ?string $navigationLabel = '站点';
     protected static ?string $navigationGroup = '设置';
+    protected static ?int $navigationSort = 1;
 
     public static function shouldRegisterNavigation(): bool
     {

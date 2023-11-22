@@ -12,7 +12,9 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "ext-intl": "*",
         "ext-pdo": "*",
+        "calebporzio/sushi": "^2.4",
         "codex-team/editor.js": "dev-master",
         "erusev/parsedown": "^1.7",
         "filament/filament": "^3.0-stable",
@@ -32,8 +34,7 @@
         "spatie/laravel-backup": "^8.4",
         "spatie/laravel-feed": "^4.3",
         "spatie/laravel-sitemap": "^7.0",
-        "vinkla/hashids": "^11.0",
-        "ext-intl": "*"
+        "vinkla/hashids": "^11.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

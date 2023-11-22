@@ -6,6 +6,7 @@ use App\Constant\PostStatus;
 use App\Constant\PostType;
 use App\Filament\Resources\Post\ArticleResource;
 use App\Models\Post;
+use App\Models\User;
 use Filament\Actions;
 use Filament\Resources\Components\Tab;
 use Filament\Resources\Pages\ListRecords;
@@ -17,11 +18,23 @@ class ListArticles extends ListRecords
 
     public function getTabs(): array
     {
+        /** @var User $auth */
+        $auth = auth()->user();
+
         return [
             '所有' => Tab::make()
                 ->badge(
                     Post::query()
                         ->where('type', PostType::Article)
+                        ->when(!$auth->isAdministrator(), function ($query){
+                            $query->where(function ($query){
+                                $query->where('user_id',auth()->id())
+                                    ->orWhere(function ($query){
+                                        $query->where('user_id', '!=', auth()->id())
+                                            ->where('status', PostStatus::Publish);
+                                    });
+                            });
+                        })
                         ->count()
                 )
                 ->badgeColor('info'),
@@ -63,6 +76,9 @@ class ListArticles extends ListRecords
                     Post::query()
                         ->where('type', PostType::Article)
                         ->where('status', PostStatus::Trash)
+                        ->when(!$auth->isAdministrator(),function ($query) use ($auth){
+                            $query->where('user_id', $auth->id);
+                        })
                         ->count()
                 )
                 ->badgeColor('danger'),

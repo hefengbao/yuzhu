@@ -6,6 +6,7 @@ use App\Constant\Role;
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\User;
+use Carbon\Carbon;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -40,7 +41,7 @@ class UserResource extends Resource
                     ->hint('密码至少 8 位')
                     ->password()
                     ->minLength(8)
-                    ->required()
+                    ->required(fn(string $operation): bool => $operation === 'create')
                     ->columnSpanFull(),
                 Forms\Components\Select::make('role')
                     ->label('角色')
@@ -48,6 +49,7 @@ class UserResource extends Resource
                     ->options(Role::class)
                     ->default(Role::Author)
                     ->required()
+                    ->visible(auth()->user()->isAdministrator())
                     ->columnSpanFull(),
                 Forms\Components\Textarea::make('bio')
                     ->label('个人简介')
@@ -76,7 +78,9 @@ class UserResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\ImageColumn::make('avatar')
-                    ->label('头像'),
+                    ->label('头像')
+                    ->circular()
+                    ->grow(false),
                 Tables\Columns\TextColumn::make('name')
                     ->label('用户名'),
                 Tables\Columns\TextColumn::make('email')
@@ -86,10 +90,16 @@ class UserResource extends Resource
                     ->label('角色')
                     ->badge()
                     ->color(fn(Role $state): string => match ($state){
-                        Role::Administrator => 'danger',
+                        Role::Administrator => 'primary',
                         Role::Editor => 'info',
-                        Role::Author => 'success',
+                        Role::Author => 'gray',
                     }),
+                Tables\Columns\TextColumn::make('deleted_at')
+                    ->label('状态')
+                    ->badge()
+                    ->default('')
+                    ->formatStateUsing(fn($state): string => $state !== '' ? '禁用' : '有效')
+                    ->color(fn($state): string => $state !== '' ? 'danger' : 'success')
             ])
             ->filters([
                 //
@@ -118,7 +128,10 @@ class UserResource extends Resource
         $auth = auth()->user();
 
         if ($auth->isAdministrator()){
-            return parent::getEloquentQuery();
+            return parent::getEloquentQuery()
+                ->withoutGlobalScopes([
+                    SoftDeletingScope::class
+                ]);
         }else{
             return parent::getEloquentQuery()->where('id', $auth->id);
         }

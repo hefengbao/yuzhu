@@ -3,10 +3,12 @@
 namespace App\Filament\Resources\Post;
 
 use App\Constant\Commentable;
+use App\Constant\PostStatus;
 use App\Constant\PostType;
 use App\Filament\Resources\Post\TweetResource\Pages;
 use App\Filament\Resources\Post\TweetResource\RelationManagers;
 use App\Models\Post;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Infolists;
@@ -146,8 +148,20 @@ class TweetResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
+        /** @var User $auth */
+        $auth = auth()->user();
+
         return parent::getEloquentQuery()
             ->where('type', PostType::Tweet)
+            ->when(!$auth->isAdministrator(), function ($query){
+                $query->where(function ($query){
+                    $query->where('user_id',auth()->id())
+                        ->orWhere(function ($query){
+                            $query->where('user_id', '!=', auth()->id())
+                                ->where('status', PostStatus::Publish);
+                        });
+                });
+            })
             ->orderByDesc('created_at');
     }
 }

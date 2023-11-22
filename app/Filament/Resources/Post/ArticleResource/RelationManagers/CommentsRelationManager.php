@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Post\ArticleResource\RelationManagers;
 
 use App\Filament\Resources\Post\CommentResource;
+use App\Models\Post;
 use Filament\Forms\Form;
 use Filament\Infolists\Infolist;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -25,11 +26,13 @@ class CommentsRelationManager extends RelationManager
             ->modelLabel('评论')
             ->pluralModelLabel('评论')
             ->headerActions([
-                Actions\CreateAction::make()->mutateFormDataUsing(function (array $data): array {
-                    $data['ip'] = request()->ip();
-                    $data['user_id'] = auth()->id();
-                    return  $data;
-                })
+                Actions\CreateAction::make()
+                    ->visible(fn(): bool => $this->ownerRecord->isPublished())
+                    ->mutateFormDataUsing(function (array $data): array {
+                        $data['ip'] = request()->ip();
+                        $data['user_id'] = auth()->id();
+                        return  $data;
+                    })
             ]);
     }
 

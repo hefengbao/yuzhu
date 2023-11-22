@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Post\TweetResource\Pages;
 
 use App\Filament\Resources\Post\TweetResource;
 use Filament\Actions;
+use Filament\Actions\Action;
 use Filament\Resources\Pages\ViewRecord;
 
 class ViewTweet extends ViewRecord
@@ -13,7 +14,9 @@ class ViewTweet extends ViewRecord
     protected function getActions(): array
     {
         return [
-            Actions\EditAction::make()
+            Action::make('back')
+                ->label('返回')
+                ->url(url()->previous()),
         ];
     }
 }

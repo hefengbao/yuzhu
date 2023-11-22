@@ -52,7 +52,7 @@ class CreateSite extends CreateRecord
             );
         }
 
-        \Cache::forget("autoload_options");
+        \Cache::forget('autoload_options');
 
         return new \App\Models\Option();
     }

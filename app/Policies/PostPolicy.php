@@ -43,7 +43,7 @@ class PostPolicy
         if ($post->isPage()){
             return $user->isAdministrator();
         }
-        return $user->isAdministrator() || $user->isEditor() || $user->id === $post->id;
+        return $user->isAdministrator() || $user->isEditor() || $user->id === $post->user_id;
     }
 
     /**
@@ -68,18 +68,5 @@ class PostPolicy
     public function forceDelete(User $user, Post $post): bool
     {
         //
-    }
-
-    public function pinned(User $user, Post $post): bool
-    {
-        if ($post->isArticle()){
-            if (!$post->hasPinned() && ($user->isAdministrator() || $user->isEditor())){
-                return true;
-            }else{
-                return false;
-            }
-        }
-
-        return false;
     }
 }
