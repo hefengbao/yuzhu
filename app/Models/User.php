@@ -3,8 +3,6 @@
 namespace App\Models;
 
 use App\Constant\Role;
-use Filament\Models\Contracts\FilamentUser;
-use Filament\Panel;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -13,7 +11,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable implements MustVerifyEmail,FilamentUser
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
@@ -32,7 +30,6 @@ class User extends Authenticatable implements MustVerifyEmail,FilamentUser
 
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'role' => Role::class
     ];
 
     public function meta(): HasMany
@@ -42,21 +39,16 @@ class User extends Authenticatable implements MustVerifyEmail,FilamentUser
 
     public function isAdministrator(): bool
     {
-        return $this->role == Role::Administrator;
+        return $this->role == Role::Administrator->value;
     }
 
     public function isEditor(): bool
     {
-        return $this->role == Role::Editor;
+        return $this->role == Role::Editor->value;
     }
 
     public function isAuthor(): bool
     {
-        return $this->role == Role::Author;
-    }
-
-    public function canAccessPanel(Panel $panel): bool
-    {
-        return true;
+        return $this->role == Role::Author->value;
     }
 }
