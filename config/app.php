@@ -82,7 +82,7 @@ return [
     |
     */
 
-    'locale' => env('LOCALE','zh_CN'),
+    'locale' => 'en',
 
     /*
     |--------------------------------------------------------------------------
@@ -185,7 +185,6 @@ return [
         /*
          * Package Service Providers...
          */
-        App\Providers\Filament\AdminPanelProvider::class,
 
         /*
          * Application Service Providers...
@@ -197,8 +196,7 @@ return [
         App\Providers\HorizonServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        App\One\Active\ActiveServiceProvider::class,
-        App\One\Markdown\MarkdownServiceProvider::class,
+        \App\Providers\ActiveServiceProvider::class,
     ],
 
     /*
