@@ -12,4 +12,9 @@ class OptionService
             return Option::where('autoload', 'yes')->pluck('value', 'name')->all();
         });
     }
+
+    function options(): array
+    {
+        return Option::where('autoload', 'yes')->pluck('value', 'name')->all();
+    }
 }

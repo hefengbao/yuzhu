@@ -32,7 +32,7 @@ class ArticleController extends Controller
     {
         $id = extract_id($slugId);
 
-        $article = Post::with(['author', 'categories', 'tags', 'meta'])
+        $article = Post::with(['author', 'categories2', 'tags2', 'meta'])
             ->article()
             ->findOrFail($id);
 

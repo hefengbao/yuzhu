@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Constant\Commentable;
 use App\Constant\PostStatus;
 use App\Constant\PostType;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -29,6 +30,7 @@ class Post extends Model implements Feedable
         'updated_at'
     ];
     protected $fillable = [
+        'user_id',
         'title',
         'slug',
         'body',
@@ -43,7 +45,12 @@ class Post extends Model implements Feedable
 
     protected $casts = [
         'pinned_at' => 'datetime',
-        'published_at' => 'datetime'
+        'published_at' => 'datetime',
+        'status' => PostStatus::class,
+        'type' => PostType::class,
+        'commentable' => Commentable::class,
+        'tags' => 'array',
+        'categories' => 'array',
     ];
 
     public static function getFeedItems()
@@ -63,7 +70,17 @@ class Post extends Model implements Feedable
         return $this->belongsToMany(Tag::class, 'post_tag');
     }
 
+    public function tags2(): BelongsToMany
+    {
+        return $this->belongsToMany(Tag::class, 'post_tag');
+    }
+
     public function categories(): BelongsToMany
+    {
+        return $this->belongsToMany(Category::class, 'category_post');
+    }
+
+    public function categories2(): BelongsToMany
     {
         return $this->belongsToMany(Category::class, 'category_post');
     }
@@ -81,6 +98,26 @@ class Post extends Model implements Feedable
     public function meta(): HasMany
     {
         return $this->hasMany(Postmeta::class);
+    }
+
+    public function isPage(): bool
+    {
+        return $this->type === PostType::Page;
+    }
+
+    public function isArticle(): bool
+    {
+        return $this->type === PostType::Article;
+    }
+
+    public function isPinned(): bool
+    {
+        return $this->pinned_at !== null;
+    }
+
+    public function isPublished(): bool
+    {
+        return $this->status === PostStatus::Publish;
     }
 
     public function scopePublished($query)

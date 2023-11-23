@@ -14,10 +14,10 @@ return new class extends Migration {
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->string('slug');
             $table->unsignedBigInteger('user_id')->index()->comment('用户ID');
             $table->string('title', 100)->nullable()->comment('标题');
-            $table->string('excerpt', 255)->nullable()->comment('文章摘要');
+            $table->string('slug');
+            $table->string('excerpt', 160)->nullable()->comment('文章摘要');
             $table->longText('body')->comment('内容');
             $table->enum('type', ['page', 'article', 'tweet'])->default('article')->comment('类型');
             $table->enum('status', ['publish', 'draft', 'future', 'pending', 'trash'])->default('draft')->comment('状态');
