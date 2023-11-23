@@ -2,7 +2,7 @@
 
 ## 介绍
 
-[](./docs/images/1.gif)
+![](./docs/images/1.gif)
 
 文档：
 
