@@ -2,14 +2,19 @@
 
 namespace App\Models;
 
+use App\Constant\CommentStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Comment extends Model
 {
-    protected $fillable = ['body', 'guest_name', 'guest_email', 'ip', 'user_agent', 'status'];
+    protected $fillable = ['user_id', 'body', 'guest_name', 'guest_email', 'ip', 'user_agent', 'status'];
 
     protected $with = ['author'];
+
+    protected $casts = [
+        'status' => CommentStatus::class
+    ];
 
     public function author(): BelongsTo
     {

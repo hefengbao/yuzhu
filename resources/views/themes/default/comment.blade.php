@@ -73,7 +73,7 @@
     <h3 id="reply-title" class="comment-reply-title">发表评论</h3>
     <p>@auth
             <a class="link-secondary"
-               href="{{ route('admin.users.edit', auth()->id()) }}">已登录为{{ auth()->user()->name }}</a> <a
+               href="{{ route('filament.admin.resources.users.edit', auth()->id()) }}">已登录为{{ auth()->user()->name }}</a> <a
                 class="link-secondary" href="#">注销？</a>
         @endauth @guest
             您的电子邮箱地址不会被公开。

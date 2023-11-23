@@ -1,20 +1,24 @@
 {
     "name": "hefengbao/one",
     "type": "project",
-    "description": "一个简洁的博客、微博客。",
+    "description": "\u4e00\u4e2a\u7b80\u6d01\u7684\u535a\u5ba2\u3001\u5fae\u535a\u5ba2\u3002",
     "keywords": [
         "blog",
         "blogger",
         "tweet",
-        "博客",
-        "微博客"
+        "\u535a\u5ba2",
+        "\u5fae\u535a\u5ba2"
     ],
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "ext-intl": "*",
         "ext-pdo": "*",
+        "calebporzio/sushi": "^2.4",
         "codex-team/editor.js": "dev-master",
         "erusev/parsedown": "^1.7",
+        "filament/filament": "^3.0-stable",
+        "filament/spatie-laravel-tags-plugin": "^3.0",
         "graham-campbell/markdown": "^15.0",
         "guzzlehttp/guzzle": "^7.2",
         "intervention/image": "^2.7",
@@ -62,7 +66,8 @@
     "scripts": {
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover --ansi"
+            "@php artisan package:discover --ansi",
+            "@php artisan filament:upgrade"
         ],
         "post-update-cmd": [
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
