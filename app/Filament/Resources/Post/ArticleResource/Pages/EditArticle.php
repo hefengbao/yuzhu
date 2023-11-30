@@ -23,13 +23,15 @@ class EditArticle extends EditRecord
             $data['excerpt'] = Str::limit(str_replace(PHP_EOL, '', strip_tags(md_to_html($data['body']))), 160);
         }
 
-        $data['published_at'] = match ($data['status']) {
-            PostStatus::Publish => Carbon::now(),
-            PostStatus::Future => isset($data['published_at']) ?
-                Carbon::createFromFormat('Y-m-d H:i:s', $data['published_at'])->format('Y-m-d H:i:s') :
-                Carbon::now(),
-            default => null
-        };
+        if (isset($data['status'])){
+            $data['published_at'] = match ($data['status']) {
+                PostStatus::Publish => Carbon::now(),
+                PostStatus::Future => isset($data['published_at']) ?
+                    Carbon::createFromFormat('Y-m-d H:i:s', $data['published_at'])->format('Y-m-d H:i:s') :
+                    Carbon::now(),
+                default => null
+            };
+        }
 
         return $data;
     }

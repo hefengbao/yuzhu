@@ -95,10 +95,12 @@ class ArticleResource extends Resource
                                     ->default(PostStatus::Draft)
                                     ->required()
                                     ->live()
+                                    ->hidden(fn(?Post $record) => $record != null && $record->status === PostStatus::Publish)
                                     ->afterStateUpdated(fn(string $operation, $state, Forms\Set $set) => $state !== PostStatus::Future ? $set('published_at', null) : null),
                                 Forms\Components\DateTimePicker::make('published_at')
                                     ->label('发布时间')
                                     ->dehydrated()
+                                    ->hidden(fn(?Post $record) => $record != null && $record->status === PostStatus::Publish)
                                     ->disabled(fn(Forms\Get $get) => $get('status') !== PostStatus::Future),
                                 Forms\Components\Select::make('commentable')
                                     ->label('评论设置')
