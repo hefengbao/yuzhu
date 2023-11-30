@@ -21,11 +21,6 @@ class CreateSite extends CreateRecord
         return Action::make('cancel')->hidden();
     }
 
-    protected function getRedirectUrl(): string
-    {
-        return $this->getResource()::getUrl('create');
-    }
-
     protected function mutateFormDataBeforeCreate(array $data): array
     {
         $arr = [];
