@@ -12,7 +12,8 @@ use Filament\Tables\Table;
 class CommentsRelationManager extends RelationManager
 {
     protected static string $relationship = 'comments';
-    protected static ?string $title = "评论";
+
+    protected static ?string $title = '评论';
 
     public function form(Form $form): Form
     {
@@ -28,8 +29,9 @@ class CommentsRelationManager extends RelationManager
                 Actions\CreateAction::make()->mutateFormDataUsing(function (array $data): array {
                     $data['ip'] = request()->ip();
                     $data['user_id'] = auth()->id();
-                    return  $data;
-                })
+
+                    return $data;
+                }),
             ]);
     }
 

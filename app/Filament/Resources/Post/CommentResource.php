@@ -4,7 +4,6 @@ namespace App\Filament\Resources\Post;
 
 use App\Constant\CommentStatus;
 use App\Filament\Resources\Post\CommentResource\Pages;
-use App\Filament\Resources\Post\CommentResource\RelationManagers;
 use App\Models\Comment;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -17,10 +16,15 @@ use Filament\Tables\Table;
 class CommentResource extends Resource
 {
     protected static ?string $model = Comment::class;
-    protected static ?string $modelLabel = "评论";
-    protected static ?string $pluralModelLabel = "评论";
-    protected static ?string $navigationLabel = "评论";
+
+    protected static ?string $modelLabel = '评论';
+
+    protected static ?string $pluralModelLabel = '评论';
+
+    protected static ?string $navigationLabel = '评论';
+
     protected static ?int $navigationSort = 4;
+
     protected static ?string $navigationGroup = '写作';
 
     public static function form(Form $form): Form
@@ -36,7 +40,7 @@ class CommentResource extends Resource
                     ->options(CommentStatus::class)
                     ->default(CommentStatus::Approved)
                     ->required()
-                    ->columnSpanFull()
+                    ->columnSpanFull(),
             ]);
     }
 
@@ -76,22 +80,22 @@ class CommentResource extends Resource
                                 ->schema([
                                     Infolists\Components\TextEntry::make('author.name')
                                         ->label('用户名')
-                                        ->visible(fn(Comment $record) => $record->author() != null),
+                                        ->visible(fn (Comment $record) => $record->author() != null),
                                     Infolists\Components\TextEntry::make('author.email')
                                         ->label('邮箱')
-                                        ->visible(fn(Comment $record) => $record->author() != null),
+                                        ->visible(fn (Comment $record) => $record->author() != null),
                                     Infolists\Components\TextEntry::make('guest_name')
                                         ->label('用户名')
-                                        ->visible(fn(Comment $record) => $record->author() == null),
+                                        ->visible(fn (Comment $record) => $record->author() == null),
                                     Infolists\Components\TextEntry::make('guest_email')
                                         ->label('邮箱')
-                                        ->visible(fn(Comment $record) => $record->author() == null),
+                                        ->visible(fn (Comment $record) => $record->author() == null),
                                 ]),
                             Infolists\Components\Group::make()->schema([
                                 Infolists\Components\TextEntry::make('status')
                                     ->label('状态')
                                     ->badge()
-                                    ->color(fn(CommentStatus $state) => match ($state) {
+                                    ->color(fn (CommentStatus $state) => match ($state) {
                                         CommentStatus::Approved => 'info',
                                         CommentStatus::Pending => 'warning',
                                         CommentStatus::Spam => 'danger',
@@ -101,14 +105,14 @@ class CommentResource extends Resource
                                     ->label('发表时间')
                                     ->badge()
                                     ->dateTime()
-                                    ->color('info')
-                            ])
-                        ])
+                                    ->color('info'),
+                            ]),
+                        ]),
                 ]),
             Infolists\Components\Section::make('内容')->schema([
                 Infolists\Components\TextEntry::make('body')
                     ->hiddenLabel()
-                    ->markdown()
+                    ->markdown(),
             ]),
         ]);
     }

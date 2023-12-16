@@ -57,7 +57,7 @@ class ArticleController extends Controller
             'pin_total' => $pinTotal,
             'pending_total' => $pendingTotal,
             'draft_total' => $draftTotal,
-            'trash_total' => $trashTotal
+            'trash_total' => $trashTotal,
         ];
 
         return view('admin.article.index', compact('articles', 'metrics', 'user'));
@@ -78,7 +78,7 @@ class ArticleController extends Controller
         $article->published_at = match ($request->input('status')) {
             PostStatus::Publish->value => Carbon::now(),
             PostStatus::Future->value => $request->input('published_at')
-                ? Carbon::createFromFormat("Y-m-d H:i:s", $request->input('published_at') . ' ' . date('H:i:s'))
+                ? Carbon::createFromFormat('Y-m-d H:i:s', $request->input('published_at').' '.date('H:i:s'))
                 : Carbon::now(),
             default => null,
         };
@@ -87,7 +87,7 @@ class ArticleController extends Controller
 
         $article->meta()->create([
             'meta_key' => 'editor_type',
-            'meta_value' => $request->input('editor_type')
+            'meta_value' => $request->input('editor_type'),
         ]);
 
         if ($request->input('category')) {
@@ -108,9 +108,9 @@ class ArticleController extends Controller
             $tagIds = [];
             foreach ($request->input('tag') as $name) {
                 $tag = Tag::firstOrCreate([
-                    'name' => $name
+                    'name' => $name,
                 ], [
-                    'slug' => Str::slug($name, '-', 'zh_CN')
+                    'slug' => Str::slug($name, '-', 'zh_CN'),
                 ]);
                 $tagIds[] = $tag->id;
             }
@@ -160,7 +160,7 @@ class ArticleController extends Controller
         $article = Post::article()->findOrFail($id);
 
         $article->update([
-            'status' => PostStatus::Trash->value
+            'status' => PostStatus::Trash->value,
         ]);
 
         return redirect()->back()->with('success', '已移到回收站');
@@ -181,7 +181,7 @@ class ArticleController extends Controller
             $article->published_at = match ($request->input('status')) {
                 PostStatus::Publish->value => Carbon::now(),
                 PostStatus::Future->value => $request->input('published_at')
-                    ? Carbon::createFromFormat("Y-m-d H:i:s", $request->input('published_at') . ' ' . date('H:i:s'))
+                    ? Carbon::createFromFormat('Y-m-d H:i:s', $request->input('published_at').' '.date('H:i:s'))
                     : Carbon::now(),
                 default => null,
             };
@@ -191,10 +191,10 @@ class ArticleController extends Controller
 
         $meta = $article->meta->pluck('meta_value', 'meta_key')->all();
 
-        if (!isset($meta['editor_type'])) {
+        if (! isset($meta['editor_type'])) {
             $article->meta()->create([
                 'meta_key' => 'editor_type',
-                'meta_value' => $request->input('editor_type')
+                'meta_value' => $request->input('editor_type'),
             ]);
         }
 
@@ -216,9 +216,9 @@ class ArticleController extends Controller
             $tagIds = [];
             foreach ($request->input('tag') as $name) {
                 $tag = Tag::firstOrCreate([
-                    'name' => $name
+                    'name' => $name,
                 ], [
-                    'slug' => Str::slug($name, '-', 'zh_CN')
+                    'slug' => Str::slug($name, '-', 'zh_CN'),
                 ]);
                 $tagIds[] = $tag->id;
             }

@@ -4,7 +4,6 @@ namespace App\Policies;
 
 use App\Models\Post;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
 class PostPolicy
 {
@@ -29,9 +28,10 @@ class PostPolicy
      */
     public function create(User $user): bool
     {
-        if (request()->routeIs('filament.admin.resources.post.pages.create') || request()->routeIs('filament.admin.resources.post.pages.index') ){
+        if (request()->routeIs('filament.admin.resources.post.pages.create') || request()->routeIs('filament.admin.resources.post.pages.index')) {
             return $user->isAdministrator();
         }
+
         return true;
     }
 
@@ -40,9 +40,10 @@ class PostPolicy
      */
     public function update(User $user, Post $post): bool
     {
-        if ($post->isPage()){
+        if ($post->isPage()) {
             return $user->isAdministrator();
         }
+
         return $user->isAdministrator() || $user->isEditor() || $user->id === $post->user_id;
     }
 

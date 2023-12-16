@@ -7,14 +7,15 @@
 
 namespace App\Http\ViewComposers;
 
-
 use App\Services\OptionService2;
 use Illuminate\View\View;
 
 class MenuComposer
 {
     protected $optionRepository;
+
     protected $postRepository;
+
     protected $categoryRepository;
 
     public function __construct(OptionService2 $optionRepository)

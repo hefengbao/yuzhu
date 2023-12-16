@@ -24,7 +24,7 @@ class UploadImageRequest extends FormRequest
     public function rules()
     {
         return [
-            'image' => ['required', 'file', 'image']
+            'image' => ['required', 'file', 'image'],
         ];
     }
 }

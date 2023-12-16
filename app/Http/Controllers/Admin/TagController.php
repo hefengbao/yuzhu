@@ -10,7 +10,7 @@ class TagController extends Controller
 {
     public function index()
     {
-        if (!auth()->user()->isAdministrator()) {
+        if (! auth()->user()->isAdministrator()) {
             abort(403);
         }
         $tags = Tag::orderByDesc('id')->get();
@@ -22,8 +22,9 @@ class TagController extends Controller
     {
         Tag::create([
             'name' => $request->input('name'),
-            'slug' => $request->input('slug') ?? $request->input('name')
+            'slug' => $request->input('slug') ?? $request->input('name'),
         ]);
+
         return redirect()->route('admin.tags.index')->with('success', '添加标签成功');
     }
 
@@ -40,8 +41,9 @@ class TagController extends Controller
 
         $tag->update([
             'name' => $request->input('name'),
-            'slug' => $request->input('slug')
+            'slug' => $request->input('slug'),
         ]);
+
         return redirect()->route('admin.tags.index')->with('success', '更新标签成功');
     }
 

@@ -7,7 +7,6 @@
 
 namespace App\Http\ViewComposers;
 
-
 use App\Services\CategoryService;
 use Illuminate\View\View;
 
@@ -26,5 +25,4 @@ class CategoryComposer
 
         $view->with('categorys', $categorys);
     }
-
 }

@@ -10,6 +10,6 @@ class Option extends Model
     protected $fillable = [
         'name',
         'value',
-        'autoload'
+        'autoload',
     ];
 }

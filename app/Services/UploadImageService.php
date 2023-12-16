@@ -11,9 +11,9 @@ class UploadImageService
 {
     public function uploadAndManipulate(UploadedFile $file): string
     {
-        $folder = 'upload/images/' . date('Ym') . '/';
+        $folder = 'upload/images/'.date('Ym').'/';
 
-        if (!is_dir(Storage::disk('public')->path($folder))) {
+        if (! is_dir(Storage::disk('public')->path($folder))) {
             mkdir(Storage::disk('public')->path($folder), 0777, true);
         }
 
@@ -21,14 +21,14 @@ class UploadImageService
 
         if (strtolower($ext) == 'gif') {
             $path = $file->store($folder, [
-                'disk' => 'public'
+                'disk' => 'public',
             ]);
         } else {
             $image = Image::make($file);
             $width = $image->getWidth();
             $height = $image->getHeight();
 
-            $path = $folder . Str::random(40) . '.' . $ext;
+            $path = $folder.Str::random(40).'.'.$ext;
 
             if ($width >= 1024 || $height >= 1024) {
                 $image->resize(1024, 1024, function ($constraint) {

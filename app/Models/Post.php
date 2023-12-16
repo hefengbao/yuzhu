@@ -27,8 +27,9 @@ class Post extends Model implements Feedable
         'comment_count',
         'pinned_at',
         'created_at',
-        'updated_at'
+        'updated_at',
     ];
+
     protected $fillable = [
         'user_id',
         'title',
@@ -40,7 +41,7 @@ class Post extends Model implements Feedable
         'commentable',
         'comment_count',
         'pinned_at',
-        'published_at'
+        'published_at',
     ];
 
     protected $casts = [
@@ -61,7 +62,7 @@ class Post extends Model implements Feedable
     public function slugId(): Attribute
     {
         return Attribute::make(
-            get: fn() => slug_id($this->slug, $this->id)
+            get: fn () => slug_id($this->slug, $this->id)
         );
     }
 

@@ -7,7 +7,6 @@
 
 namespace App\Http\ViewComposers;
 
-
 use App\Services\OptionService2;
 use Illuminate\View\View;
 

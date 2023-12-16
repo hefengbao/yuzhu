@@ -10,7 +10,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        if (!auth()->user()->isAdministrator()) {
+        if (! auth()->user()->isAdministrator()) {
             abort(403);
         }
         $categories = Category::with(['child'])->whereNull('parent_id')->orderByDesc('id')->get();
@@ -23,7 +23,7 @@ class CategoryController extends Controller
         Category::create([
             'name' => $request->input('name'),
             'slug' => $request->input('slug'),
-            'parent_id' => $request->input('parent')
+            'parent_id' => $request->input('parent'),
         ]);
 
         return redirect()->route('admin.categories.index')->with('success', '添加成功');
@@ -31,7 +31,7 @@ class CategoryController extends Controller
 
     public function edit($id)
     {
-        if (!auth()->user()->isAdministrator()) {
+        if (! auth()->user()->isAdministrator()) {
             abort(403);
         }
         $categories = Category::whereNull('parent_id')->orderByDesc('id')->get();
@@ -43,7 +43,7 @@ class CategoryController extends Controller
 
     public function destroy($id)
     {
-        if (!auth()->user()->isAdministrator()) {
+        if (! auth()->user()->isAdministrator()) {
             abort(403);
         }
 
@@ -57,7 +57,7 @@ class CategoryController extends Controller
 
         \DB::transaction(function () use ($ids, $category) {
             \DB::table('category_post')->whereIn('category_id', $ids)->update([
-                'category_id' => 1
+                'category_id' => 1,
             ]);
 
             $category->delete();
@@ -68,7 +68,7 @@ class CategoryController extends Controller
 
     public function update($id, CategoryRequest $request)
     {
-        if (!auth()->user()->isAdministrator()) {
+        if (! auth()->user()->isAdministrator()) {
             abort(403);
         }
 
@@ -77,7 +77,7 @@ class CategoryController extends Controller
         $category->update([
             'name' => $request->input('name'),
             'slug' => $request->input('slug'),
-            'parent_id' => $request->input('parent')
+            'parent_id' => $request->input('parent'),
         ]);
 
         return redirect()->route('admin.categories.index')->with('success', '删除成功');

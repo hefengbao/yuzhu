@@ -11,7 +11,7 @@ class OptionController extends Controller
 {
     public function index()
     {
-        if (!auth()->user()->isAdministrator()) {
+        if (! auth()->user()->isAdministrator()) {
             abort(403);
         }
 

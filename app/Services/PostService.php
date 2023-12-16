@@ -6,17 +6,21 @@ use App\Models\Post;
 use App\One\Markdown;
 use Auth;
 use Cache;
+
 use function App\Repositories\array_has;
 
 class PostService
 {
     protected $post;
+
     protected $tagRepository;
+
     protected $categoryRepository;
+
     protected $markdown;
 
-    public function __construct(Post            $post, TagService $tagRepository, Markdown $markdown,
-                                CategoryService $categoryRepository)
+    public function __construct(Post $post, TagService $tagRepository, Markdown $markdown,
+        CategoryService $categoryRepository)
     {
         $this->post = $post;
         $this->tagRepository = $tagRepository;
@@ -25,8 +29,6 @@ class PostService
     }
 
     /**
-     * @param $id
-     * @param $input
      * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
      */
     public function update($id, $input)
@@ -42,7 +44,7 @@ class PostService
         $tag_ids = [];
         if (array_has($input, 'tags')) {
             $tags = $input['tags'];
-            if (!empty($tags)) {
+            if (! empty($tags)) {
                 foreach ($tags as $tag) {
                     $tagInfo = $this->tagRepository->save(['tag_name' => $tag]);
                     array_push($tag_ids, $tagInfo->id);
@@ -56,13 +58,12 @@ class PostService
     }
 
     /**
-     * @param $input
      * @return $this|\Illuminate\Database\Eloquent\Model
      */
     public function save($input)
     {
-        $str = "QWERTYUIOPASDFGHJKLZXCVBNM1234567890qwertyuiopasdfghjklzxcvbnm";
-        $input['post_slug'] = $input['post_slug'] . "-" . substr(str_shuffle($str), 5, 8);
+        $str = 'QWERTYUIOPASDFGHJKLZXCVBNM1234567890qwertyuiopasdfghjklzxcvbnm';
+        $input['post_slug'] = $input['post_slug'].'-'.substr(str_shuffle($str), 5, 8);
         $input['user_id'] = Auth::user()->id;
         $input['category_id'] = $input['post_category'];
         $input['post_type'] = 'post';
@@ -76,7 +77,7 @@ class PostService
         $tag_ids = [];
         if (array_has($input, 'tags')) {
             $tags = $input['tags'];
-            if (!empty($tags)) {
+            if (! empty($tags)) {
                 foreach ($tags as $tag) {
                     $tagInfo = $this->tagRepository->save(['tag_name' => $tag]);
                     array_push($tag_ids, $tagInfo->id);
@@ -84,11 +85,13 @@ class PostService
             }
         }
         $post->tags()->attach($tag_ids);
+
         return $post;
     }
 
     /**
      * 管理员界面显示
+     *
      * @return mixed
      */
     public function adminPaginate()
@@ -98,27 +101,31 @@ class PostService
         } else {//普通用户，获取当前用户文章
             $posts = $this->post->select(Post::selectField)->post()->currentUser()->latest('id')->paginate(10);
         }
+
         return $posts;
     }
 
     /**
      * 首页显示
+     *
      * @return mixed
      */
     public function paginate()
     {
         $posts = $this->post->select(Post::selectField)->published()->latest('published_at')->paginate(10);
+
         return $posts;
     }
 
     /**
      *根据slug获取文章
-     * @param $slug
+     *
      * @return \Illuminate\Database\Eloquent\Model|static
      */
     public function show($slug)
     {
         $post = $this->post->with(['user'])->where('post_slug', $slug)->firstOrFail();
+
         return $post;
     }
 
@@ -144,6 +151,7 @@ class PostService
                 ->limit(10)
                 ->get();
         });
+
         return $data;
     }
 
@@ -153,12 +161,14 @@ class PostService
             ->published()
             ->orderBy('published_at', 'desc')
             ->get();
+
         return $data;
     }
 
     public function delete($id)
     {
         $post = $this->post->findOrFail($id);
+
         return $post->delete();
     }
 }

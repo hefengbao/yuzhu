@@ -22,7 +22,7 @@ class CategoryTableSeeder extends Seeder
                 'slug' => 'uncategorized',
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_at' => \Carbon\Carbon::now(),
-            ]
+            ],
         ]);
     }
 }

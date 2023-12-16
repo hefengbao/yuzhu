@@ -21,7 +21,6 @@ class TagComposer
 
     /**
      * 标签云
-     * @param View $view
      */
     public function compose(View $view)
     {
@@ -29,5 +28,4 @@ class TagComposer
 
         $view->with('tags', $tags);
     }
-
 }

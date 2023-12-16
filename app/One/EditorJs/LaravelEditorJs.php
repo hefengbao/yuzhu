@@ -14,9 +14,6 @@ class LaravelEditorJs
 {
     /**
      * Render blocks
-     *
-     * @param string $data
-     * @return string
      */
     public function render(string $data): string
     {
@@ -29,9 +26,9 @@ class LaravelEditorJs
 
             foreach ($editor->getBlocks() as $block) {
 
-                $viewName = "editorjs.blocks." . Str::snake($block['type'], '-');
+                $viewName = 'editorjs.blocks.'.Str::snake($block['type'], '-');
 
-                if (!View::exists($viewName)) {
+                if (! View::exists($viewName)) {
                     $viewName = 'editorjs.blocks.not-found';
                 }
 

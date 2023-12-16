@@ -14,7 +14,7 @@ class PageController extends Controller
 {
     public function index(Request $request)
     {
-        if (!auth()->user()->isAdministrator()) {
+        if (! auth()->user()->isAdministrator()) {
             abort(403);
         }
 
@@ -33,7 +33,7 @@ class PageController extends Controller
             'total' => $total,
             'publish_total' => $publishTotal,
             'draft_total' => $draftTotal,
-            'trash_total' => $trashTotal
+            'trash_total' => $trashTotal,
         ];
 
         return view('admin.page.index', compact('pages', 'metrics'));
@@ -41,9 +41,10 @@ class PageController extends Controller
 
     public function create()
     {
-        if (!auth()->user()->isAdministrator()) {
+        if (! auth()->user()->isAdministrator()) {
             abort(403);
         }
+
         return view('admin.page.create_edit');
     }
 
@@ -64,7 +65,7 @@ class PageController extends Controller
 
     public function edit($id)
     {
-        if (!auth()->user()->isAdministrator()) {
+        if (! auth()->user()->isAdministrator()) {
             abort(403);
         }
         $page = Post::page()->findOrFail($id);
@@ -74,14 +75,14 @@ class PageController extends Controller
 
     public function destroy($id)
     {
-        if (!auth()->user()->isAdministrator()) {
+        if (! auth()->user()->isAdministrator()) {
             abort(403);
         }
 
         $page = Post::page()->findOrFail($id);
 
         $page->update([
-            'status' => PostStatus::Trash->value
+            'status' => PostStatus::Trash->value,
         ]);
 
         return redirect()->back()->with('success', '已移至回收站');
@@ -96,7 +97,7 @@ class PageController extends Controller
             'slug' => $request->input('slug'),
             'body' => $request->input('body'),
             'excerpt' => Str::substr($request->input('excerpt'), 0, 200),
-            'status' => $request->input('status')
+            'status' => $request->input('status'),
         ]);
 
         return redirect()->route('admin.pages.index')->with('success', '更新成功');

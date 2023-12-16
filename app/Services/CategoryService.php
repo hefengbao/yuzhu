@@ -45,6 +45,7 @@ class CategoryService
     public function save($data)
     {
         Cache::forget('categories');
+
         return $this->category->firstOrCreate($data);
     }
 }

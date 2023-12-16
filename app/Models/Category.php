@@ -13,7 +13,7 @@ class Category extends Model
 
     public function posts(): BelongsToMany
     {
-        return $this->belongsToMany(Post::class, 'category_post');
+        return $this->belongsToMany(Post::class, 'category_post')->whereNotNull('published_at');
     }
 
     public function child(): HasMany

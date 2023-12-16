@@ -9,6 +9,7 @@ use Purifier;
 class Markdown
 {
     protected $htmlParser;
+
     protected $markdownParser;
 
     public function __construct()

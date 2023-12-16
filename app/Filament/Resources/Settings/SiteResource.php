@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\Settings;
 
 use App\Filament\Resources\Settings\SiteResource\Pages;
-use App\Filament\Resources\Settings\SiteResource\RelationManagers;
 use App\Models\Option;
 use App\Services\OptionService;
 use Filament\Forms;
@@ -15,9 +14,13 @@ use Filament\Tables\Table;
 class SiteResource extends Resource
 {
     protected static ?string $model = Option::class;
+
     protected static ?string $modelLabel = '设置';
+
     protected static ?string $navigationLabel = '站点';
+
     protected static ?string $navigationGroup = '设置';
+
     protected static ?int $navigationSort = 1;
 
     public static function shouldRegisterNavigation(): bool
@@ -73,7 +76,7 @@ class SiteResource extends Resource
                     ->options([
                         0 => '关闭',
                         1 => '开启',
-                    ])
+                    ]),
             ]);
     }
 

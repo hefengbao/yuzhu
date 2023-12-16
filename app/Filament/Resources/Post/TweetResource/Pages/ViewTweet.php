@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\Post\TweetResource\Pages;
 
 use App\Filament\Resources\Post\TweetResource;
-use Filament\Actions;
 use Filament\Actions\Action;
 use Filament\Resources\Pages\ViewRecord;
 

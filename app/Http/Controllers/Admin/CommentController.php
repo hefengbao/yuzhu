@@ -32,6 +32,7 @@ class CommentController extends Controller
             if ($authUser->isAuthor() && $request->query('author') != $authUser->id) {
                 abort(403);
             }
+
             return $q->where('user_id', $request->query('author'));
         })->latest('id')
             ->paginate(15)
@@ -43,7 +44,7 @@ class CommentController extends Controller
             'approved_total' => $approvedTotal,
             'pending_total' => $pendingTotal,
             'spam_total' => $spamTotal,
-            'trash_total' => $trashTotal
+            'trash_total' => $trashTotal,
         ];
 
         return view('admin.comment.index', compact('comments', 'metrics', 'authUser'));

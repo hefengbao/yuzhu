@@ -14,6 +14,7 @@ class CreateSite extends CreateRecord
     protected static ?string $title = '站点设置';
 
     protected static ?string $breadcrumb = '站点设置';
+
     protected static bool $canCreateAnother = false;
 
     protected function getCancelFormAction(): Action
@@ -28,7 +29,7 @@ class CreateSite extends CreateRecord
         foreach ($data as $key => $value) {
             $arr[] = [
                 'name' => $key,
-                'value' => $value
+                'value' => $value,
             ];
         }
 
@@ -42,7 +43,7 @@ class CreateSite extends CreateRecord
                 ['name' => $item['name']],
                 [
                     'value' => $item['value'],
-                    'autoload' => 'yes'
+                    'autoload' => 'yes',
                 ]
             );
         }

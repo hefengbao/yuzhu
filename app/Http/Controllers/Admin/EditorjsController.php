@@ -15,8 +15,8 @@ class EditorjsController extends Controller
         return response()->json([
             'success' => 1,
             'file' => [
-                'url' => url(Storage::url($service->uploadAndManipulate($request->file('image'))))
-            ]
+                'url' => url(Storage::url($service->uploadAndManipulate($request->file('image')))),
+            ],
         ]);
     }
 
@@ -34,13 +34,13 @@ class EditorjsController extends Controller
                     'title' => $meta['title'] ?? '',
                     'description' => $meta['description'] ?? '',
                     'image' => [
-                        'url' => ''
-                    ]
-                ]
+                        'url' => '',
+                    ],
+                ],
             ]);
         } else {
             return response()->json([
-                'success' => 0
+                'success' => 0,
             ]);
         }
     }
@@ -50,15 +50,15 @@ class EditorjsController extends Controller
     {
         $data = file_get_contents($url);
 
-        $meta = array();
-        if (!empty($data)) {
-            #Title
+        $meta = [];
+        if (! empty($data)) {
+            //Title
             preg_match('/<TITLE>([\w\W]*?)<\/TITLE>/si', $data, $matches);
-            if (!empty($matches[1])) {
+            if (! empty($matches[1])) {
                 $meta['title'] = $matches[1];
             }
 
-            #Keywords
+            //Keywords
             preg_match('/<META\s+name="keywords"\s+content="([\w\W]*?)"/si', $data, $matches);
             if (empty($matches[1])) {
                 preg_match("/<META\s+name='keywords'\s+content='([\w\W]*?)'/si", $data, $matches);
@@ -69,11 +69,11 @@ class EditorjsController extends Controller
             if (empty($matches[1])) {
                 preg_match('/<META\s+http-equiv="keywords"\s+content="([\w\W]*?)"/si', $data, $matches);
             }
-            if (!empty($matches[1])) {
+            if (! empty($matches[1])) {
                 $meta['keywords'] = $matches[1];
             }
 
-            #Description
+            //Description
             preg_match('/<META\s+name="description"\s+content="([\w\W]*?)"/si', $data, $matches);
             if (empty($matches[1])) {
                 preg_match("/<META\s+name='description'\s+content='([\w\W]*?)'/si", $data, $matches);
@@ -84,7 +84,7 @@ class EditorjsController extends Controller
             if (empty($matches[1])) {
                 preg_match('/<META\s+http-equiv="description"\s+content="([\w\W]*?)"/si', $data, $matches);
             }
-            if (!empty($matches[1])) {
+            if (! empty($matches[1])) {
                 $meta['description'] = $matches[1];
             }
         }

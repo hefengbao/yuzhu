@@ -12,7 +12,7 @@ enum Role: string implements HasLabel
 
     public function getLabel(): ?string
     {
-        return match ($this){
+        return match ($this) {
             self::Administrator => '管理员',
             self::Editor => '编辑',
             self::Author => '作者',

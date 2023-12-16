@@ -14,7 +14,7 @@ class UserController extends Controller
 {
     public function index(Request $request)
     {
-        if (!auth()->user()->isAdministrator()) {
+        if (! auth()->user()->isAdministrator()) {
             abort(403);
         }
         $query = User::query();
@@ -35,7 +35,7 @@ class UserController extends Controller
             'administrator_total' => $administratorTotal,
             'editor_total' => $editorTotal,
             'author_total' => $authorTotal,
-            'trashed_total' => $trashed_total
+            'trashed_total' => $trashed_total,
         ];
 
         return view('admin.user.index', compact('users', 'metrics'));
@@ -43,9 +43,10 @@ class UserController extends Controller
 
     public function create()
     {
-        if (!auth()->user()->isAdministrator()) {
+        if (! auth()->user()->isAdministrator()) {
             abort(403);
         }
+
         return view('admin.user.create');
     }
 
@@ -53,10 +54,11 @@ class UserController extends Controller
     {
         /** @var User $authUser */
         $authUser = auth()->user();
-        if (!$authUser->isAdministrator() && $authUser->id != $id) {
+        if (! $authUser->isAdministrator() && $authUser->id != $id) {
             abort(403);
         }
         $user = User::findOrFail($id);
+
         return view('admin.user.edit', compact('user'));
     }
 
@@ -73,11 +75,11 @@ class UserController extends Controller
 
             $folder = 'upload/avatars/';
 
-            if (!is_dir(\Storage::disk('public')->path($folder))) {
+            if (! is_dir(\Storage::disk('public')->path($folder))) {
                 mkdir(Storage::disk('public')->path($folder), 0777, true);
             }
 
-            $path = $folder . Str::random(40) . '.' . $ext;
+            $path = $folder.Str::random(40).'.'.$ext;
 
             $image = \Image::make($file);
 
@@ -105,14 +107,14 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        if (!auth()->user()->isAdministrator()) {
+        if (! auth()->user()->isAdministrator()) {
             abort(403);
         }
 
         $this->validate($request, [
             'name' => ['required'],
             'email' => ['required', 'email:rfc,dns', 'unique:users'],
-            'password' => ['required', 'min:8']
+            'password' => ['required', 'min:8'],
         ]);
 
         $user = new User();
@@ -127,7 +129,7 @@ class UserController extends Controller
 
     public function destroy($id)
     {
-        if (!auth()->user()->isAdministrator()) {
+        if (! auth()->user()->isAdministrator()) {
             abort(403);
         }
         $user = User::findOrFail($id);
@@ -138,7 +140,7 @@ class UserController extends Controller
 
     public function restore($id)
     {
-        if (!auth()->user()->isAdministrator()) {
+        if (! auth()->user()->isAdministrator()) {
             abort(403);
         }
         $user = User::onlyTrashed()->findOrFail($id);

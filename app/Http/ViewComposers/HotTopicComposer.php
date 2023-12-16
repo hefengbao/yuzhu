@@ -7,7 +7,6 @@
 
 namespace App\Http\ViewComposers;
 
-
 use App\Services\PostService;
 use Illuminate\View\View;
 

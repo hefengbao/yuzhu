@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Console\Command;
+
 use function Laravel\Prompts\alert;
 use function Laravel\Prompts\error;
 use function Laravel\Prompts\password;
@@ -37,6 +38,7 @@ class InitAdminCommand extends Command
 
         if ($admin) {
             alert('已初始化管理员信息，请不要重复操作！');
+
             return Command::SUCCESS;
         }
 
@@ -63,7 +65,8 @@ class InitAdminCommand extends Command
         );
 
         if ($password != $confirm_password) {
-            error("确认密码不一致!");
+            error('确认密码不一致!');
+
             return Command::INVALID;
         }
 
@@ -78,7 +81,7 @@ class InitAdminCommand extends Command
 
         event(new Registered($admin));
 
-        info('一封验证邮件已发送到' . $email . ',请登录邮箱确认！');
+        info('一封验证邮件已发送到'.$email.',请登录邮箱确认！');
 
         info('始化管理员信息结束！');
 

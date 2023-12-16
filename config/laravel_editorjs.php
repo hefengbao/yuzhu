@@ -16,7 +16,7 @@ return [
                 ],
                 'level' => [
                     'type' => 'integer',
-                    'canBeOnly' => [1, 2, 3, 4, 5, 6]
+                    'canBeOnly' => [1, 2, 3, 4, 5, 6],
                 ],
             ],
             'list' => [
@@ -42,15 +42,15 @@ return [
                             'type' => 'array',
                             'data' => [
                                 'text' => [
-                                    'type' => 'string'
+                                    'type' => 'string',
                                 ],
                                 'checked' => [
-                                    'type' => 'boolean'
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
+                                    'type' => 'boolean',
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
             ],
             'linkTool' => [
                 'link' => 'string',
@@ -144,8 +144,8 @@ return [
             ],
             'warning' => [
                 'title' => 'string',
-                'message' => 'string'
-            ]
+                'message' => 'string',
+            ],
         ],
     ],
 ];

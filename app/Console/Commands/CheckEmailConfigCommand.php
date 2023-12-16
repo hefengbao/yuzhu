@@ -31,7 +31,8 @@ class CheckEmailConfigCommand extends Command
         $this->info('开始检测邮件是否配置正确，请按提示输入!');
         $email = $this->ask('请输入邮箱：');
         \Mail::to($email)->send(new CheckEmailConfigMail());
-        $this->info('一封邮件已发送到 ' . $email . ',请检查是否收到邮件。');
+        $this->info('一封邮件已发送到 '.$email.',请检查是否收到邮件。');
+
         return Command::SUCCESS;
     }
 }

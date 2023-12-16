@@ -25,7 +25,7 @@ class TweetRequest extends FormRequest
     {
         return [
             'body' => ['required'],
-            'tag' => ['nullable', 'array']
+            'tag' => ['nullable', 'array'],
         ];
     }
 }

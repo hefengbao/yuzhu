@@ -27,16 +27,16 @@ class CategoryRequest extends FormRequest
             // CREATE
             case 'POST':
             case 'PATCH':
-            {
+
                 return [
                     'name' => 'required|unique:categories',
                     'slug' => 'required|unique:categories',
                 ];
-            }
+
             default:
-            {
+
                 return [];
-            }
+
         }
     }
 

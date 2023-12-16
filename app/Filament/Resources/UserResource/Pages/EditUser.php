@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\UserResource\Pages;
 
 use App\Filament\Resources\UserResource;
-use App\Models\User;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 
@@ -26,11 +25,12 @@ class EditUser extends EditRecord
 
     protected function mutateFormDataBeforeSave(array $data): array
     {
-        if ($data['password']){
+        if ($data['password']) {
             $data['password'] = \Hash::make($data['password']);
-        }else{
+        } else {
             unset($data['password']);
         }
+
         return $data;
     }
 }

@@ -8,8 +8,6 @@
 
 namespace App\Traits;
 
-
 class CommentFilter
 {
-
 }

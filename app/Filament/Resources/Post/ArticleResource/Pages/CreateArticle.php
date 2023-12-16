@@ -7,6 +7,7 @@ use App\Constant\PostType;
 use App\Filament\Resources\Post\ArticleResource;
 use Carbon\Carbon;
 use Filament\Resources\Pages\CreateRecord;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class CreateArticle extends CreateRecord
@@ -15,10 +16,11 @@ class CreateArticle extends CreateRecord
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
+        Log::info(json_encode($data));
         $data['user_id'] = auth()->id();
         $data['type'] = PostType::Article;
 
-        if (!isset($data['excerpt'])) {
+        if (! isset($data['excerpt'])) {
             $data['excerpt'] = Str::limit(str_replace(PHP_EOL, '', strip_tags(md_to_html($data['body']))), 160);
         }
 
@@ -28,6 +30,12 @@ class CreateArticle extends CreateRecord
                 Carbon::createFromFormat('Y-m-d H:i:s', $data['published_at'])->format('Y-m-d H:i:s') :
                 Carbon::now(),
             default => null
+        };
+
+        match ($data['status']) {
+            PostStatus::Publish => Log::info('Publish'),
+            PostStatus::Future => Log::info('Future'),
+            default => Log::info('Default')
         };
 
         return $data;

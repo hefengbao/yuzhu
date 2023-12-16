@@ -15,6 +15,7 @@ class PostCommented extends Mailable implements ShouldQueue
     use Queueable, SerializesModels;
 
     protected Comment $comment;
+
     protected string $title;
 
     /**

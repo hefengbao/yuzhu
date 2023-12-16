@@ -26,16 +26,16 @@ class TagRequest extends FormRequest
         switch ($this->method()) {
             case 'POST':
             case 'PATCH':
-            {
+
                 return [
                     'name' => 'required|unique:tags',
                     'slug' => 'nullable|unique:tags',
                 ];
-            }
+
             default:
-            {
+
                 return [];
-            }
+
         }
     }
 

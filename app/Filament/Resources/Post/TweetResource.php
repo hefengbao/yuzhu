@@ -22,10 +22,15 @@ use Illuminate\Support\Str;
 class TweetResource extends Resource
 {
     protected static ?string $model = Post::class;
-    protected static ?string $modelLabel = "微博";
-    protected static ?string $pluralModelLabel = "微博";
-    protected static ?string $navigationLabel = "微博";
+
+    protected static ?string $modelLabel = '微博';
+
+    protected static ?string $pluralModelLabel = '微博';
+
+    protected static ?string $navigationLabel = '微博';
+
     protected static ?int $navigationSort = 2;
+
     protected static ?string $navigationGroup = '写作';
 
     public static function form(Form $form): Form
@@ -58,7 +63,7 @@ class TweetResource extends Resource
                             ->required()
                             ->live(onBlur: true)
                             ->afterStateUpdated(
-                                fn(string $operation, $state, Forms\Set $set) => $set('slug', Str::slug($state, language: \Locale::getDefault()))
+                                fn (string $operation, $state, Forms\Set $set) => $set('slug', Str::slug($state, language: \Locale::getDefault()))
                             ),
                         Forms\Components\TextInput::make('slug')
                             ->label('Slug')
@@ -81,7 +86,7 @@ class TweetResource extends Resource
                     ->label('作者'),
                 Tables\Columns\TextColumn::make('tags.name')
                     ->label('标签')
-                    ->badge()
+                    ->badge(),
             ])
             ->filters([
                 //
@@ -112,19 +117,19 @@ class TweetResource extends Resource
                                         ->label('发表时间')
                                         ->badge()
                                         ->dateTime()
-                                        ->color('info')
+                                        ->color('info'),
                                 ]),
                             Infolists\Components\Group::make()->schema([
                                 Infolists\Components\TextEntry::make('tags.name')
                                     ->label('标签')
                                     ->badge(),
-                            ])
-                        ])
+                            ]),
+                        ]),
                 ]),
             Infolists\Components\Section::make('内容')->schema([
                 Infolists\Components\TextEntry::make('body')
                     ->hiddenLabel()
-                    ->markdown()
+                    ->markdown(),
             ]),
         ]);
     }
@@ -132,7 +137,7 @@ class TweetResource extends Resource
     public static function getRelations(): array
     {
         return [
-            RelationManagers\CommentsRelationManager::make()
+            RelationManagers\CommentsRelationManager::make(),
         ];
     }
 
@@ -142,7 +147,7 @@ class TweetResource extends Resource
             'index' => Pages\ListTweets::route('/'),
             'create' => Pages\CreateTweet::route('/create'),
             'edit' => Pages\EditTweet::route('/{record}/edit'),
-            'view' => Pages\ViewTweet::route('/{record}')
+            'view' => Pages\ViewTweet::route('/{record}'),
         ];
     }
 
@@ -153,10 +158,10 @@ class TweetResource extends Resource
 
         return parent::getEloquentQuery()
             ->where('type', PostType::Tweet)
-            ->when(!$auth->isAdministrator(), function ($query){
-                $query->where(function ($query){
-                    $query->where('user_id',auth()->id())
-                        ->orWhere(function ($query){
+            ->when(! $auth->isAdministrator(), function ($query) {
+                $query->where(function ($query) {
+                    $query->where('user_id', auth()->id())
+                        ->orWhere(function ($query) {
                             $query->where('user_id', '!=', auth()->id())
                                 ->where('status', PostStatus::Publish);
                         });

@@ -21,10 +21,10 @@ class CommentController extends Controller
             'body' => ['required'],
         ];
 
-        if (!$request->user()) {
+        if (! $request->user()) {
             $rules = array_merge($rules, [
                 'name' => ['required'],
-                'email' => ['required', 'email:rfc,dns']
+                'email' => ['required', 'email:rfc,dns'],
             ]);
         }
 
@@ -36,7 +36,7 @@ class CommentController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect(url()->previous() . '#respond')
+            return redirect(url()->previous().'#respond')
                 ->withErrors($validator)
                 ->withInput();
         }
@@ -69,6 +69,6 @@ class CommentController extends Controller
         //通知
         RepliedNotification::dispatch($comment);
 
-        return redirect(url()->previous() . '#comment-' . $comment->id)->with('success', '评论添加成功');
+        return redirect(url()->previous().'#comment-'.$comment->id)->with('success', '评论添加成功');
     }
 }

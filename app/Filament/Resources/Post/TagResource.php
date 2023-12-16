@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\Post;
 
 use App\Filament\Resources\Post\TagResource\Pages;
-use App\Filament\Resources\Post\TagResource\RelationManagers;
 use App\Models\Tag;
 use Filament\Forms;
 use Filament\Forms\Components\TextInput;
@@ -16,10 +15,15 @@ use Illuminate\Support\Str;
 class TagResource extends Resource
 {
     protected static ?string $model = Tag::class;
-    protected static ?string $modelLabel = "标签";
-    protected static ?string $pluralModelLabel = "标签";
-    protected static ?string $navigationLabel = "标签";
+
+    protected static ?string $modelLabel = '标签';
+
+    protected static ?string $pluralModelLabel = '标签';
+
+    protected static ?string $navigationLabel = '标签';
+
     protected static ?int $navigationSort = 6;
+
     protected static ?string $navigationGroup = '写作';
 
     public static function form(Form $form): Form
@@ -33,7 +37,7 @@ class TagResource extends Resource
                     ->required()
                     ->live(onBlur: true)
                     ->afterStateUpdated(
-                        fn(string $operation, $state, Forms\Set $set) => $operation === 'create' ? $set('slug', Str::slug($state, language: \Locale::getDefault())) : null
+                        fn (string $operation, $state, Forms\Set $set) => $operation === 'create' ? $set('slug', Str::slug($state, language: \Locale::getDefault())) : null
                     ),
                 TextInput::make('slug')
                     ->label('Slug')

@@ -12,7 +12,8 @@ use Filament\Tables\Table;
 class CommentsRelationManager extends RelationManager
 {
     protected static string $relationship = 'comments';
-    protected static ?string $title = "评论";
+
+    protected static ?string $title = '评论';
 
     public function form(Form $form): Form
     {
@@ -25,7 +26,7 @@ class CommentsRelationManager extends RelationManager
             ->modelLabel('评论')
             ->pluralModelLabel('评论')
             ->headerActions([
-                Actions\CreateAction::make()
+                Actions\CreateAction::make(),
             ]);
     }
 

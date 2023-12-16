@@ -13,7 +13,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable implements MustVerifyEmail,FilamentUser
+class User extends Authenticatable implements FilamentUser, MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
@@ -22,7 +22,7 @@ class User extends Authenticatable implements MustVerifyEmail,FilamentUser
         'email',
         'password',
         'avatar',
-        'bio'
+        'bio',
     ];
 
     protected $hidden = [
@@ -32,7 +32,7 @@ class User extends Authenticatable implements MustVerifyEmail,FilamentUser
 
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'role' => Role::class
+        'role' => Role::class,
     ];
 
     public function meta(): HasMany

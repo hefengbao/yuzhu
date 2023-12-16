@@ -11,7 +11,9 @@ use Illuminate\Support\Arr;
 class OptionService2
 {
     protected $option;
+
     protected $category;
+
     protected $post;
 
     public function __construct(Option $option, Category $category, Post $post)
@@ -23,13 +25,13 @@ class OptionService2
 
     /**
      * Save option
-     * @param $data
+     *
      * @return bool
      */
     public function save($data)
     {
         Cache::forget('option');
-        if (!isset($data['close_register'])) {
+        if (! isset($data['close_register'])) {
             $this->option->updateOrCreate(['option_name' => 'close_register'], ['option_name' => 'close_register', 'option_value' => 0]);
         }
         foreach ($data as $item => $value) {
@@ -49,13 +51,15 @@ class OptionService2
         $optionCache = Cache::rememberForever('option', function () {
             $options = $this->option->select(['name', 'value'])->get()->toArray();
             $option = [];
-            if (is_array($options) && !empty($options)) {
+            if (is_array($options) && ! empty($options)) {
                 foreach ($options as $value) {
                     $option = Arr::add($option, $value['name'], $value['value']);
                 }
             }
+
             return $option;
         });
+
         return $optionCache;
     }
 
@@ -66,6 +70,7 @@ class OptionService2
 
     /**
      * 用于后台编辑时显示的菜单
+     *
      * @return string
      */
     public function getMenu()
@@ -79,6 +84,7 @@ class OptionService2
         foreach ($option_menu as $menu) {
             $html .= $this->_getMenu($menu);
         }
+
         return $html;
     }
 
@@ -93,11 +99,12 @@ class OptionService2
             $ol_end = '</ol>';
             $childrenTemp = '';
             foreach ($menu->children as $menu) {
-                $childrenTemp .= $this->_getMenu($menu) . '</li>';
+                $childrenTemp .= $this->_getMenu($menu).'</li>';
             }
-            $children .= $ol_start . $childrenTemp . $ol_end;
+            $children .= $ol_start.$childrenTemp.$ol_end;
         }
-        $html .= $children . '</li>';
+        $html .= $children.'</li>';
+
         return $html;
     }
 
@@ -109,20 +116,20 @@ class OptionService2
                 ->where('id', $id)
                 ->where('post_type', 'page')
                 ->get();
-            $html = '<li class="dd-item dd3-item" data-id="' . $menu_id . '">' .
-                '<div class="dd-handle dd3-handle"></div><div class="dd3-content"><span>' . $page[0]['post_title'] . '</span><span class="pull-right">' .
+            $html = '<li class="dd-item dd3-item" data-id="'.$menu_id.'">'.
+                '<div class="dd-handle dd3-handle"></div><div class="dd3-content"><span>'.$page[0]['post_title'].'</span><span class="pull-right">'.
                 '<a href="javascript:;" class="delete">x</a></span></div>';
         } elseif ($flag == 'category') {
             $category = $this->category->select('category_name', 'category_slug')
                 ->where('id', $id)
                 ->get();
-            $html = '<li class="dd-item dd3-item" data-id="' . $menu_id . '">' .
-                '<div class="dd-handle dd3-handle"></div><div class="dd3-content"><span>' . $category[0]['category_name'] . '</span><span class="pull-right">' .
+            $html = '<li class="dd-item dd3-item" data-id="'.$menu_id.'">'.
+                '<div class="dd-handle dd3-handle"></div><div class="dd3-content"><span>'.$category[0]['category_name'].'</span><span class="pull-right">'.
                 '<a href="javascript:;" class="delete">x</a></span></div>';
 
         } else {
-            $html = '<li class="dd-item dd3-item" data-id="' . $menu_id . '">' .
-                '<div class="dd-handle dd3-handle"></div><div class="dd3-content"><span>' . $flag . '</span><span class="pull-right">' .
+            $html = '<li class="dd-item dd3-item" data-id="'.$menu_id.'">'.
+                '<div class="dd-handle dd3-handle"></div><div class="dd3-content"><span>'.$flag.'</span><span class="pull-right">'.
                 '<a href="javascript:;" class="delete">x</a></span></div>';
         }
 
@@ -131,6 +138,7 @@ class OptionService2
 
     /**
      * 博客显示菜单
+     *
      * @return string
      */
     public function getMainMenu()
@@ -144,6 +152,7 @@ class OptionService2
         foreach ($option_menu as $menu) {
             $html .= $this->_getMainMenu($menu);
         }
+
         return $html;
     }
 
@@ -162,11 +171,12 @@ class OptionService2
             foreach ($menu->children as $menu) {
                 $childrenTemp .= $this->_getMainMenu($menu);
             }
-            $children .= $ul_start . $childrenTemp . $ul_end;
+            $children .= $ul_start.$childrenTemp.$ul_end;
         }
         $html .= ' >';
         $html .= $this->_mainMenu($str[0], $str[1], $hasChildren);
-        $html .= $children . '</li>';
+        $html .= $children.'</li>';
+
         return $html;
     }
 
@@ -184,14 +194,14 @@ class OptionService2
                 ->where('id', $id)
                 ->where('post_type', 'page')
                 ->get();
-            $html = '<a href="' . route('page.show', $page[0]['post_slug']) . '"' . $class . '>' . $page[0]['post_title'] . $caret . '</a>';
+            $html = '<a href="'.route('page.show', $page[0]['post_slug']).'"'.$class.'>'.$page[0]['post_title'].$caret.'</a>';
         } elseif ($flag == 'category') {
             $category = $this->category->select('category_name', 'category_slug')
                 ->where('id', $id)
                 ->get();
-            $html = '<a href="' . route('category.show', $category[0]['category_slug']) . '"' . $class . '>' . $category[0]['category_name'] . $caret . '</a>';
+            $html = '<a href="'.route('category.show', $category[0]['category_slug']).'"'.$class.'>'.$category[0]['category_name'].$caret.'</a>';
         } else {
-            $html = '<a href="' . $id . '"' . $class . '>' . $flag . $caret . '</a>';
+            $html = '<a href="'.$id.'"'.$class.'>'.$flag.$caret.'</a>';
         }
 
         return $html;

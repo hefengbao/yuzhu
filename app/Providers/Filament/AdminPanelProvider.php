@@ -6,11 +6,10 @@ use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Navigation\NavigationGroup;
-use Filament\Pages;
-use Filament\Widgets;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
+use Filament\Widgets;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -50,7 +49,7 @@ class AdminPanelProvider extends PanelProvider
                     ->label('用户')
                     ->icon('heroicon-o-users'),
                 NavigationGroup::make()
-                    ->label(fn(): string => __('one.Settings'))
+                    ->label(fn (): string => __('one.Settings'))
                     ->icon('heroicon-o-cog-8-tooth')
                     ->collapsed(),
             ])

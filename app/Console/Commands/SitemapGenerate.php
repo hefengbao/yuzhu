@@ -38,9 +38,9 @@ class SitemapGenerate extends Command
 
         foreach ($posts as $post) {
             $url = match ($post->type) {
-                PostType::Tweet->value => '/tweets/' . $post->slug_id,
-                PostType::Article->value => '/articles/' . $post->slug_id,
-                PostType::Page->value => '/pages/' . $post->slug_id,
+                PostType::Tweet->value => '/tweets/'.$post->slug_id,
+                PostType::Article->value => '/articles/'.$post->slug_id,
+                PostType::Page->value => '/pages/'.$post->slug_id,
             };
 
             $priority = match ($post->type) {

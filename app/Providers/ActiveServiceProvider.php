@@ -3,13 +3,11 @@
 namespace App\Providers;
 
 use App\One\Active\Active;
-use Illuminate\Foundation\Application;
 use Illuminate\Routing\Events\RouteMatched;
 use Illuminate\Support\ServiceProvider;
 
 class ActiveServiceProvider extends ServiceProvider
 {
-
     /**
      * Indicates if loading of the provider is deferred.
      *
@@ -45,5 +43,4 @@ class ActiveServiceProvider extends ServiceProvider
             }
         );
     }
-
 }

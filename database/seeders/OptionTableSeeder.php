@@ -80,7 +80,7 @@ class OptionTableSeeder extends Seeder
                 'autoload' => 'yes',
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_at' => \Carbon\Carbon::now(),
-            ]
+            ],
         ]);
     }
 }

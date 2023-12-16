@@ -13,7 +13,7 @@ class Comment extends Model
     protected $with = ['author'];
 
     protected $casts = [
-        'status' => CommentStatus::class
+        'status' => CommentStatus::class,
     ];
 
     public function author(): BelongsTo

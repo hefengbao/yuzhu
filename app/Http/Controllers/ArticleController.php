@@ -7,7 +7,6 @@ use App\Models\Post;
 use App\One\EditorJs\Facades\LaravelEditorJs;
 use GrahamCampbell\Markdown\Facades\Markdown;
 
-
 class ArticleController extends Controller
 {
     public function index()

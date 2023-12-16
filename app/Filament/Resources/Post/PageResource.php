@@ -22,10 +22,15 @@ use Illuminate\Support\Str;
 class PageResource extends Resource
 {
     protected static ?string $model = Post::class;
-    protected static ?string $modelLabel = "页面";
-    protected static ?string $pluralModelLabel = "页面";
-    protected static ?string $navigationLabel = "页面";
+
+    protected static ?string $modelLabel = '页面';
+
+    protected static ?string $pluralModelLabel = '页面';
+
+    protected static ?string $navigationLabel = '页面';
+
     protected static ?int $navigationSort = 3;
+
     protected static ?string $navigationGroup = '写作';
 
     public static function form(Form $form): Form
@@ -39,7 +44,7 @@ class PageResource extends Resource
                     ->required()
                     ->live(onBlur: true)
                     ->afterStateUpdated(
-                        fn(string $operation, $state, Forms\Set $set) => $operation === 'create' ? $set('slug', Str::slug($state, language: \Locale::getDefault())) : null
+                        fn (string $operation, $state, Forms\Set $set) => $operation === 'create' ? $set('slug', Str::slug($state, language: \Locale::getDefault())) : null
                     ),
                 Forms\Components\TextInput::make('slug')
                     ->label('Slug')
@@ -68,7 +73,7 @@ class PageResource extends Resource
                 Tables\Columns\TextColumn::make('status')
                     ->label('状态')
                     ->badge()
-                    ->color(fn(PostStatus $state): string => match ($state) {
+                    ->color(fn (PostStatus $state): string => match ($state) {
                         PostStatus::Draft => 'primary',
                         PostStatus::Future => 'info',
                         PostStatus::Publish => 'success',
@@ -109,7 +114,7 @@ class PageResource extends Resource
                                     Infolists\Components\TextEntry::make('commentable')
                                         ->label('是否开启评论')
                                         ->badge()
-                                        ->color(fn(Commentable $state): string => match ($state) {
+                                        ->color(fn (Commentable $state): string => match ($state) {
                                             Commentable::Open => 'success',
                                             Commentable::Closed => 'danger',
                                         }),
@@ -123,21 +128,21 @@ class PageResource extends Resource
                     ]),
                 Infolists\Components\Section::make('摘要')->schema([
                     Infolists\Components\TextEntry::make('excerpt')
-                        ->hiddenLabel()
+                        ->hiddenLabel(),
                 ]),
                 Infolists\Components\Section::make('内容')->schema([
                     Infolists\Components\TextEntry::make('body')
                         ->prose()
                         ->markdown()
-                        ->hiddenLabel()
-                ])->collapsible()
+                        ->hiddenLabel(),
+                ])->collapsible(),
             ]);
     }
 
     public static function getRelations(): array
     {
         return [
-            RelationManagers\CommentsRelationManager::make()
+            RelationManagers\CommentsRelationManager::make(),
         ];
     }
 
@@ -158,7 +163,7 @@ class PageResource extends Resource
 
         return parent::getEloquentQuery()
             ->where('type', PostType::Page)
-            ->when(!$auth->isAdministrator(), function ($query){
+            ->when(! $auth->isAdministrator(), function ($query) {
                 $query->where('status', PostStatus::Publish);
             })
             ->orderByDesc('created_at');

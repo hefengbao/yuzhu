@@ -2,13 +2,13 @@
 
 namespace App\Services;
 
-
 use App\Models\Comment;
 use App\One\Markdown;
 
 class CommentService
 {
     private $comment;
+
     private $markdown;
 
     public function __construct(Comment $comment, Markdown $markdown)
@@ -21,11 +21,11 @@ class CommentService
     {
         $reply = '';
         if (isset($data['comment_parent_name']) && $data['comment_parent_name'] && $data['comment_parent']) {
-            $reply = '<a href="#comment-' . $data['comment_parent'] . '">@' . $data['comment_parent_name'] . '</a> ';
+            $reply = '<a href="#comment-'.$data['comment_parent'].'">@'.$data['comment_parent_name'].'</a> ';
         }
-        $data['comment_content_filter'] = $this->markdown->convertMarkdownToHtml($reply . $data['comment_content']);
+        $data['comment_content_filter'] = $this->markdown->convertMarkdownToHtml($reply.$data['comment_content']);
         // 把链接替换为字符
-        $data['comment_content_filter'] = preg_replace("/<a[^>]*>(.*?)<\/a>/is", "$1", $data['comment_content_filter']);
+        $data['comment_content_filter'] = preg_replace("/<a[^>]*>(.*?)<\/a>/is", '$1', $data['comment_content_filter']);
 
         return $this->comment->create($data);
     }
@@ -36,6 +36,7 @@ class CommentService
             ->published()
             ->orderBy('created', 'asc')
             ->get();
+
         return $data;
     }
 }

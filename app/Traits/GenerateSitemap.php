@@ -8,7 +8,6 @@
 
 namespace App\Traits;
 
-
 use Spatie\Sitemap\SitemapGenerator;
 
 class GenerateSitemap

@@ -20,7 +20,7 @@ class UserSettingsController extends Controller
     {
         /** @var User $user */
         $user = auth()->user();
-        foreach ($request->except(['_token', '_method']) as $key =>$value){
+        foreach ($request->except(['_token', '_method']) as $key => $value) {
             Usermeta::updateOrInsert(
                 ['meta_key' => $key, 'user_id' => $user->id],
                 ['meta_value' => $value]

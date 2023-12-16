@@ -4,7 +4,6 @@ namespace App\Providers;
 
 use App\One\EditorJs\Facades\LaravelEditorJs;
 use Carbon\Carbon;
-use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 

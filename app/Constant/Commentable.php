@@ -11,7 +11,7 @@ enum Commentable: string implements HasLabel
 
     public function getLabel(): ?string
     {
-        return match ($this){
+        return match ($this) {
             self::Open => '开启',
             self::Closed => '关闭',
         };

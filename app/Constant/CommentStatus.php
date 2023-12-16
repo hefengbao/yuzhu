@@ -12,10 +12,10 @@ enum CommentStatus: string implements HasLabel
 
     public function getLabel(): ?string
     {
-        return match ($this){
-            self::Approved => "已批准",
-            self::Pending => "待审",
-            self::Spam => "垃圾评论",
+        return match ($this) {
+            self::Approved => '已批准',
+            self::Pending => '待审',
+            self::Spam => '垃圾评论',
         };
     }
 }

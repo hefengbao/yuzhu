@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'Settings' => '设置'
+    'Settings' => '设置',
 ];

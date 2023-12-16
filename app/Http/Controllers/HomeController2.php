@@ -22,6 +22,7 @@ class HomeController2 extends Controller
     public function index()
     {
         $posts = $this->postRepository->paginate();
+
         return view('home', compact('posts'));
     }
 
@@ -32,7 +33,7 @@ class HomeController2 extends Controller
             $tag = '';
             if ($post->tags) {
                 foreach ($post->tags as $tag) {
-                    $tag .= $tag->tag_name . ',';
+                    $tag .= $tag->tag_name.',';
                 }
             }
 
@@ -48,7 +49,7 @@ class HomeController2 extends Controller
             $str .= "permalink: $post->post_slug.\n";
             $str .= '---\n';
             $str .= $post->post_content;
-            file_put_contents(storage_path('export/' . date('Ymd', strtotime($post->created_at)) . '-' . implode('-', explode(' ', $post->post_title)) . '.txt'), $str, FILE_APPEND);
+            file_put_contents(storage_path('export/'.date('Ymd', strtotime($post->created_at)).'-'.implode('-', explode(' ', $post->post_title)).'.txt'), $str, FILE_APPEND);
         }
 
     }

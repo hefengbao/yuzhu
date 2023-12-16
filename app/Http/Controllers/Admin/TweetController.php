@@ -30,7 +30,7 @@ class TweetController extends Controller
 
         $total = $query->clone()->count('id');
 
-        if (!$authUser->isAuthor()) {
+        if (! $authUser->isAuthor()) {
             $myTotal = $query->clone()->where('user_id', $authUser->id)->count('id');
         }
 
@@ -47,7 +47,7 @@ class TweetController extends Controller
             'total' => $total,
             'my_total' => $myTotal ?? 0,
             'publish_total' => $publishTotal,
-            'trash_total' => $trashTotal
+            'trash_total' => $trashTotal,
         ];
 
         return view('admin.tweet.index', compact('tweets', 'metrics'));
@@ -56,6 +56,7 @@ class TweetController extends Controller
     public function create()
     {
         $tags = Tag::orderByDesc('id')->get();
+
         return view('admin.tweet.create_edit', compact('tags'));
     }
 
@@ -76,9 +77,9 @@ class TweetController extends Controller
             $tagIds = [];
             foreach ($request->input('tag') as $name) {
                 $tag = Tag::firstOrCreate([
-                    'name' => $name
+                    'name' => $name,
                 ], [
-                    'slug' => Str::slug($name, '-', 'zh_CN')
+                    'slug' => Str::slug($name, '-', 'zh_CN'),
                 ]);
 
                 $tagIds[] = $tag->id;
@@ -94,6 +95,7 @@ class TweetController extends Controller
         $tweet = Post::with(['tags'])->findOrFail($id);
         $tags = Tag::orderByDesc('id')->get();
         $pre = url()->previous();
+
         return view('admin.tweet.create_edit', compact('tweet', 'tags', 'pre'));
     }
 
@@ -109,9 +111,9 @@ class TweetController extends Controller
             $tagIds = [];
             foreach ($request->input('tag') as $name) {
                 $tag = Tag::firstOrCreate([
-                    'name' => $name
+                    'name' => $name,
                 ], [
-                    'slug' => Str::slug($name, '-', 'zh_CN')
+                    'slug' => Str::slug($name, '-', 'zh_CN'),
                 ]);
 
                 $tagIds[] = $tag->id;

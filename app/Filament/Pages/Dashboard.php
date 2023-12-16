@@ -8,7 +8,7 @@ class Dashboard extends \Filament\Pages\Dashboard
     {
         return [
             'md' => 2,
-            'xl' => 3
+            'xl' => 3,
         ];
     }
 }
