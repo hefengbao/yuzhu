@@ -81,6 +81,7 @@ class TweetResource extends Resource
                 Tables\Columns\TextColumn::make('body')
                     ->label('内容')
                     ->markdown()
+                    ->alignLeft()
                     ->wrap(),
                 Tables\Columns\TextColumn::make('author.name')
                     ->label('作者'),
