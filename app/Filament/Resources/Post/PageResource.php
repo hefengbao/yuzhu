@@ -87,6 +87,11 @@ class PageResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('visit')
+                    ->icon('heroicon-o-globe-alt')
+                    ->label('访问')
+                    ->color('info')
+                    ->action(fn(Post $record) => redirect()->route('pages.show', $record->slugId))
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
