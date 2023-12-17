@@ -20,8 +20,6 @@ class EditArticle extends EditRecord
 
     protected function mutateFormDataBeforeSave(array $data): array
     {
-        Log::info(json_encode($data));
-
         if (! isset($data['excerpt'])) {
             $data['excerpt'] = Str::limit(str_replace(PHP_EOL, '', strip_tags(md_to_html($data['body']))), 160);
         }

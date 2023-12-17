@@ -16,7 +16,6 @@ class CreateArticle extends CreateRecord
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
-        Log::info(json_encode($data));
         $data['user_id'] = auth()->id();
         $data['type'] = PostType::Article;
 
