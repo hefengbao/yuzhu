@@ -99,7 +99,7 @@ class TweetResource extends Resource
                     ->icon('heroicon-o-globe-alt')
                     ->label('访问')
                     ->color('info')
-                    ->action(fn(Post $record) => redirect()->route('tweets.show', $record->slugId))
+                    ->url(fn(Post $record) => route('tweets.show', $record->slugId))
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
