@@ -43,9 +43,9 @@ class RepliedNotification implements ShouldQueue
         $parent = $this->comment->parent;
 
         $this->title .= match ($post->type) {
-            PostType::Page->value => '页面《'.$post->title.'》',
-            PostType::Article->value => '文章《'.$post->title.'》',
-            PostType::Tweet->value => '微博《'.\Str::limit($post->body, 30).'》'
+            PostType::Page => '页面《'.$post->title.'》',
+            PostType::Article => '文章《'.$post->title.'》',
+            PostType::Tweet => '微博《'.\Str::limit($post->body, 30).'》'
         };
 
         if ($this->comment->user_id) { // 登录用户评论
