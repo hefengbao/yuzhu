@@ -1,5 +1,5 @@
 @php
-    $comments = $model->comments()->with(['parent','author'])->where('status', \App\Constant\CommentStatus::Approved->value)->orderBy('created_at')->get();
+    $comments = $model->comments()->with(['parent','author'])->where('status', \App\Constant\CommentStatus::Approved)->orderBy('id')->get();
 @endphp
 @section('style')
     <style rel="stylesheet">
@@ -42,7 +42,7 @@
                             </div>
                         </div>
                         <div style="margin-left: 3.5rem;">
-                            @if($comment->parent && $comment->parent->status == \App\Constant\CommentStatus::Approved->value)
+                            @if($comment->parent && $comment->parent->status == \App\Constant\CommentStatus::Approved)
                                 <div id="reply-to" class="bg-light p-2 mt-2">
                                     <p>
                                         <a class="link-secondary" href="{{ url()->current() }}#comment-{{ $comment->parent->id }}">{{ '@' }}{{ $comment->parent->author ? $comment->parent->author->name : $comment->parent->guest_name }}</a>
