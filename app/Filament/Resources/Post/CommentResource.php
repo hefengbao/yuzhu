@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Post;
 
 use App\Constant\CommentStatus;
 use App\Filament\Resources\Post\CommentResource\Pages;
+use App\Filament\Widgets\StatsOverview;
 use App\Models\Comment;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -12,6 +13,7 @@ use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class CommentResource extends Resource
 {
@@ -49,11 +51,22 @@ class CommentResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('author.name')
-                    ->label('作者'),
+                    ->label('作者')
+                    ->visible(fn (Comment $record) => $record->author() != null)
+                    ->description(''),
                 Tables\Columns\TextColumn::make('author.email')
-                    ->label('邮箱'),
+                    ->label('邮箱')
+                    ->visible(fn (Comment $record) => $record->author() != null),
+                Tables\Columns\TextColumn::make('guest_name')
+                    ->label('作者')
+                    ->description('游客')
+                    ->visible(fn (Comment $record) => $record->author() == null),
+                Tables\Columns\TextColumn::make('guest_email')
+                    ->label('邮箱')
+                    ->visible(fn (Comment $record) => $record->author() == null),
                 Tables\Columns\TextColumn::make('body')
-                    ->label('内容'),
+                    ->label('内容')
+                    ->description(fn(Comment $record): string => $record->parent != null ? $record->parent->body : ''),
             ])
             ->filters([
                 //
@@ -115,6 +128,11 @@ class CommentResource extends Resource
                     ->markdown(),
             ]),
         ]);
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->where('status','!=', CommentStatus::Spam);
     }
 
     public static function getRelations(): array
