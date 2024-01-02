@@ -174,7 +174,8 @@ class ArticleResource extends Resource
                         PostStatus::Publish => 'success',
                         PostStatus::Pending => 'warning',
                         default => 'danger'
-                    }),
+                    })
+                    ->description(fn (Post $post) => $post->status == PostStatus::Publish || $post->status == PostStatus::Future ? $post->published_at : ''),
             ])
             ->filters([
                 //
@@ -186,7 +187,7 @@ class ArticleResource extends Resource
                     ->icon('heroicon-o-globe-alt')
                     ->label('访问')
                     ->color('info')
-                    ->url(fn(Post $record) => route('articles.show', $record->slugId))
+                    ->url(fn (Post $record) => route('articles.show', $record->slugId)),
             ])
             ->bulkActions([
 
