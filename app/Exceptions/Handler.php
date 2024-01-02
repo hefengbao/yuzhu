@@ -47,7 +47,7 @@ class Handler extends ExceptionHandler
         });
 
         // 404 跳转到首页
-        $this->renderable(function (NotFoundHttpException $exception){
+        $this->renderable(function (NotFoundHttpException $exception) {
             return redirect('/');
         });
     }
