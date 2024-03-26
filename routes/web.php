@@ -50,6 +50,4 @@ Route::get('users/{id}/tweets', [\App\Http\Controllers\UserController::class, 't
     Route::post('markdown/upload_image', [\App\Http\Controllers\Admin\MarkdownController::class, 'upload_image'])->name('markdown.uploadimage');
 });*/
 
-//Auth::routes(['verify' => true]);
-
 Route::feeds();

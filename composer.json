@@ -13,6 +13,7 @@
     "require": {
         "php": "^8.2",
         "calebporzio/sushi": "^2.5",
+        "codex-team/editor.js": "^2.0",
         "erusev/parsedown": "^1.7",
         "filament/filament": "^3.2",
         "filament/spatie-laravel-tags-plugin": "^3.2",

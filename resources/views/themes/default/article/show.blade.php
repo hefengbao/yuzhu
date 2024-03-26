@@ -41,7 +41,7 @@
                     @endif
                 </p>
                 <div class="blog-post-body">{!! $article->body !!}</div>
-                @if($article->categories2->isNotEmpty() || $article->tags->isNotEmpty())
+                @if($article->categories2->isNotEmpty() || $article->tags2->isNotEmpty())
                     <p>
                         @if($article->categories2->isNotEmpty())
                             @foreach($article->categories2 as $category)
@@ -78,7 +78,7 @@
                 <div style="display: flex">
                     <div class="avatar">
                         <img class="avatar-rounded img-fluid"
-                             src="{{ $article->author->avatar ? Storage::disk('public')->url($article->author->avatar) : Avatar::create($article->author->name)->setBackground('#adb5bd')->toBase64() }}"
+                             src="{{ $article->author->avatar ? Storage::disk('public')->url($article->author->avatar) : 'https://ui-avatars.com/api/?length=1&rounded=true&name='.$article->author->name }}"
                              alt="">
                     </div>
                     <div style="margin: 0 12px;">

@@ -17,7 +17,7 @@
                     <article>
                         <div class="d-flex flex-row">
                             <img class="avatar-rounded img-fluid avatar"
-                                 src="@if($comment->author) @if($comment->author->avatar) {{ Storage::disk('public')->url($comment->author->avatar)  }} @else {{ Avatar::create($comment->author->name)->setBackground('#adb5bd')->toBase64() }} @endif @else {{ Avatar::create($comment->guest_name)->setBackground('#adb5bd')->toBase64() }} @endif"
+                                 src="@if($comment->author) @if($comment->author->avatar) {{ Storage::disk('public')->url($comment->author->avatar)  }} @else {{ 'https://ui-avatars.com/api/?length=1&rounded=true&name='.$comment->author->name }} @endif @else {{ 'https://ui-avatars.com/api/?length=1&rounded=true&name='.$comment->guest_name }} @endif"
                                  alt="">
                             <div class="d-flex flex-column px-2">
                                 <div class="mb-0">@if($comment->author)

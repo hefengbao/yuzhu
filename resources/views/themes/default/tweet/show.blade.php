@@ -54,7 +54,7 @@
                 <div class="" style="display: flex">
                     <div class="avatar">
                         <img class="avatar-rounded img-fluid"
-                             src="{{ $tweet->author->avatar ? Storage::disk('public')->url($tweet->author->avatar) : Avatar::create($tweet->author->name)->setBackground('#adb5bd')->toBase64() }}"
+                             src="{{ $tweet->author->avatar ? Storage::disk('public')->url($tweet->author->avatar) : 'https://ui-avatars.com/api/?length=1&rounded=true&name='.$tweet->author->name }}"
                              alt="">
                     </div>
                     <div style="margin: 0 12px;">
