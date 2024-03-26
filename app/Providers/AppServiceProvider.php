@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\One\EditorJs\Facades\LaravelEditorJs;
 use Carbon\Carbon;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
@@ -14,15 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        if ($this->app->isLocal()) {
-            $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
-            $this->app->register(\Laravel\Telescope\TelescopeServiceProvider::class);
-            $this->app->register(TelescopeServiceProvider::class);
-        }
-
-        $this->app->singleton('laravel-editorjs', static function ($app) {
-            return new LaravelEditorJs;
-        });
+        //
     }
 
     /**

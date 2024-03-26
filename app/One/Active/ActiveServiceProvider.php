@@ -14,7 +14,7 @@ class ActiveServiceProvider extends ServiceProvider
      */
     protected $defer = false;
 
-    public function boot()
+    public function boot(): void
     {
         // Update the instances each time a request is resolved and a route is matched
         $instance = app('active');
@@ -30,15 +30,13 @@ class ActiveServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->app->singleton(
             'active',
             function ($app) {
 
-                $instance = new Active($app['router']->getCurrentRequest());
-
-                return $instance;
+                return new Active($app['router']->getCurrentRequest());
             }
         );
     }

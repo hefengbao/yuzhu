@@ -1,51 +1,43 @@
 {
     "name": "hefengbao/one",
     "type": "project",
-    "description": "\u4e00\u4e2a\u7b80\u6d01\u7684\u535a\u5ba2\u3001\u5fae\u535a\u5ba2\u3002",
+    "description": "一个简洁的博客、微博客。",
     "keywords": [
         "blog",
         "blogger",
         "tweet",
-        "\u535a\u5ba2",
-        "\u5fae\u535a\u5ba2"
+        "博客",
+        "微博客"
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.1",
-        "ext-intl": "*",
-        "ext-pdo": "*",
-        "calebporzio/sushi": "^2.4",
-        "codex-team/editor.js": "dev-master",
+        "php": "^8.2",
+        "calebporzio/sushi": "^2.5",
         "erusev/parsedown": "^1.7",
-        "filament/filament": "^3.0-stable",
-        "filament/spatie-laravel-tags-plugin": "^3.0",
-        "graham-campbell/markdown": "^15.0",
-        "guzzlehttp/guzzle": "^7.2",
-        "intervention/image": "^2.7",
-        "laravel/framework": "^10.0",
-        "laravel/horizon": "^5.10",
-        "laravel/prompts": "^0.1",
-        "laravel/sanctum": "^3.2",
-        "laravel/tinker": "^2.8",
-        "laravel/ui": "^4.2",
-        "laravolt/avatar": "^5.0",
+        "filament/filament": "^3.2",
+        "filament/spatie-laravel-tags-plugin": "^3.2",
+        "graham-campbell/markdown": "^15.2",
+        "intervention/image": "^3.5",
+        "laravel/framework": "^11.0",
+        "laravel/horizon": "^5.23",
+        "laravel/prompts": "^0.1.16",
+        "laravel/sanctum": "^4.0",
+        "laravel/tinker": "^2.9",
         "league/html-to-markdown": "^5.1",
         "mews/purifier": "^3.4",
-        "spatie/laravel-backup": "^8.4",
-        "spatie/laravel-feed": "^4.3",
-        "spatie/laravel-sitemap": "^7.0",
-        "vinkla/hashids": "^11.0"
+        "spatie/laravel-backup": "^8.6",
+        "spatie/laravel-feed": "^4.4",
+        "spatie/laravel-sitemap": "^7.2",
+        "vinkla/hashids": "^12.0"
     },
     "require-dev": {
-        "fakerphp/faker": "^1.9.1",
-        "laravel/pint": "^1.0",
-        "laravel/sail": "^1.18",
-        "mockery/mockery": "^1.4.4",
-        "nunomaduro/collision": "^7.0",
-        "phpunit/phpunit": "^10.0",
-        "spatie/laravel-ignition": "^2.0",
-        "barryvdh/laravel-ide-helper": "^2.13",
-        "laravel/telescope": "^4.17"
+        "fakerphp/faker": "^1.23",
+        "laravel/pint": "^1.13",
+        "laravel/sail": "^1.26",
+        "mockery/mockery": "^1.6",
+        "nunomaduro/collision": "^8.0",
+        "phpunit/phpunit": "^10.5",
+        "spatie/laravel-ignition": "^2.4"
     },
     "autoload": {
         "psr-4": {
@@ -66,8 +58,7 @@
     "scripts": {
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover --ansi",
-            "@php artisan filament:upgrade"
+            "@php artisan package:discover --ansi"
         ],
         "post-update-cmd": [
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
@@ -76,15 +67,14 @@
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
         "post-create-project-cmd": [
-            "@php artisan key:generate --ansi"
+            "@php artisan key:generate --ansi",
+            "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
+            "@php artisan migrate --graceful --ansi"
         ]
     },
     "extra": {
         "laravel": {
-            "dont-discover": [
-                "barryvdh/laravel-ide-helper",
-                "laravel/telescope"
-            ]
+            "dont-discover": []
         }
     },
     "config": {
@@ -92,9 +82,10 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "allow-plugins": {
-            "pestphp/pest-plugin": true
+            "pestphp/pest-plugin": true,
+            "php-http/discovery": true
         }
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true
 }

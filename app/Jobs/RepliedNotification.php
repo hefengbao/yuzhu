@@ -21,8 +21,6 @@ class RepliedNotification implements ShouldQueue
 
     /**
      * Create a new job instance.
-     *
-     * @return void
      */
     public function __construct(Comment $comment)
     {
@@ -32,10 +30,8 @@ class RepliedNotification implements ShouldQueue
 
     /**
      * Execute the job.
-     *
-     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $post = $this->comment->post;
         $postAuthor = $post->author;
