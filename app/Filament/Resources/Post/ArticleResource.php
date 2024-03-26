@@ -86,7 +86,7 @@ class ArticleResource extends Resource
                                             ->required()
                                             ->live(onBlur: true)
                                             ->afterStateUpdated(
-                                                fn (string $operation, $state, Forms\Set $set) => $set('slug', Str::slug($state, language: \App::getLocale()))
+                                                fn (string $operation, $state, Forms\Set $set) => $set('slug', Str::slug($state, language: app()->getLocale()))
                                             ),
                                         Forms\Components\TextInput::make('slug')
                                             ->label('Slug')
