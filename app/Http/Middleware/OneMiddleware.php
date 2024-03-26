@@ -12,14 +12,14 @@ class OneMiddleware
     /**
      * Handle an incoming request.
      *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * @param \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response) $next
      */
     public function handle(Request $request, Closure $next): Response
     {
         if ($request->route()->uri() == 'register' && \Str::lower($request->method()) == 'post') {
             $options = (new OptionService())->autoload();
 
-            if (! $options['users_can_register']) {
+            if (!$options['users_can_register']) {
                 abort(403, '说不可以就是不可以 (￢︿̫̿￢☆)');
             }
         }

@@ -13,7 +13,7 @@ class MarkdownController extends Controller
     {
         return response()->json([
             'data' => [
-                'filePath' => 'storage/'.$service->uploadAndManipulate($request->file('image')),
+                'filePath' => 'storage/' . $service->uploadAndManipulate($request->file('image')),
             ],
         ]);
     }

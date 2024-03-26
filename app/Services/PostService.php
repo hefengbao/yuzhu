@@ -6,7 +6,6 @@ use App\Models\Post;
 use App\One\Markdown;
 use Auth;
 use Cache;
-
 use function App\Repositories\array_has;
 
 class PostService
@@ -19,8 +18,8 @@ class PostService
 
     protected $markdown;
 
-    public function __construct(Post $post, TagService $tagRepository, Markdown $markdown,
-        CategoryService $categoryRepository)
+    public function __construct(Post            $post, TagService $tagRepository, Markdown $markdown,
+                                CategoryService $categoryRepository)
     {
         $this->post = $post;
         $this->tagRepository = $tagRepository;
@@ -44,7 +43,7 @@ class PostService
         $tag_ids = [];
         if (array_has($input, 'tags')) {
             $tags = $input['tags'];
-            if (! empty($tags)) {
+            if (!empty($tags)) {
                 foreach ($tags as $tag) {
                     $tagInfo = $this->tagRepository->save(['tag_name' => $tag]);
                     array_push($tag_ids, $tagInfo->id);
@@ -63,7 +62,7 @@ class PostService
     public function save($input)
     {
         $str = 'QWERTYUIOPASDFGHJKLZXCVBNM1234567890qwertyuiopasdfghjklzxcvbnm';
-        $input['post_slug'] = $input['post_slug'].'-'.substr(str_shuffle($str), 5, 8);
+        $input['post_slug'] = $input['post_slug'] . '-' . substr(str_shuffle($str), 5, 8);
         $input['user_id'] = Auth::user()->id;
         $input['category_id'] = $input['post_category'];
         $input['post_type'] = 'post';
@@ -77,7 +76,7 @@ class PostService
         $tag_ids = [];
         if (array_has($input, 'tags')) {
             $tags = $input['tags'];
-            if (! empty($tags)) {
+            if (!empty($tags)) {
                 foreach ($tags as $tag) {
                     $tagInfo = $this->tagRepository->save(['tag_name' => $tag]);
                     array_push($tag_ids, $tagInfo->id);

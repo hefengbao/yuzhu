@@ -28,12 +28,12 @@ class ToolController extends Controller
 
     public function backup_download($file)
     {
-        return Storage::download(config('app.name').'/'.$file);
+        return Storage::download(config('app.name') . '/' . $file);
     }
 
     public function backup_delete(Request $request)
     {
-        Storage::delete(config('app.name').'/'.$request->input('file'));
+        Storage::delete(config('app.name') . '/' . $request->input('file'));
 
         return redirect()->route('admin.tools.backup_index');
     }

@@ -5,7 +5,6 @@ namespace App\Console\Commands;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Console\Command;
-
 use function Laravel\Prompts\alert;
 use function Laravel\Prompts\error;
 use function Laravel\Prompts\password;
@@ -81,7 +80,7 @@ class InitAdminCommand extends Command
 
         event(new Registered($admin));
 
-        info('一封验证邮件已发送到'.$email.',请登录邮箱确认！');
+        info('一封验证邮件已发送到' . $email . ',请登录邮箱确认！');
 
         info('始化管理员信息结束！');
 

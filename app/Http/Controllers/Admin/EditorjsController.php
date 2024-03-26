@@ -51,10 +51,10 @@ class EditorjsController extends Controller
         $data = file_get_contents($url);
 
         $meta = [];
-        if (! empty($data)) {
+        if (!empty($data)) {
             //Title
             preg_match('/<TITLE>([\w\W]*?)<\/TITLE>/si', $data, $matches);
-            if (! empty($matches[1])) {
+            if (!empty($matches[1])) {
                 $meta['title'] = $matches[1];
             }
 
@@ -69,7 +69,7 @@ class EditorjsController extends Controller
             if (empty($matches[1])) {
                 preg_match('/<META\s+http-equiv="keywords"\s+content="([\w\W]*?)"/si', $data, $matches);
             }
-            if (! empty($matches[1])) {
+            if (!empty($matches[1])) {
                 $meta['keywords'] = $matches[1];
             }
 
@@ -84,7 +84,7 @@ class EditorjsController extends Controller
             if (empty($matches[1])) {
                 preg_match('/<META\s+http-equiv="description"\s+content="([\w\W]*?)"/si', $data, $matches);
             }
-            if (! empty($matches[1])) {
+            if (!empty($matches[1])) {
                 $meta['description'] = $matches[1];
             }
         }

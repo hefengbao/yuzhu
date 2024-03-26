@@ -1,5 +1,7 @@
 @extends('themes.default.layout')
-@section('title')微博 &#8211;@endsection
+@section('title')
+    微博 &#8211;
+@endsection
 @section('content')
     <div class="row mb-2">
         <div class="col-md-12">
@@ -26,7 +28,8 @@
             <h3>{{ $key }}</h3>
             @foreach($group as $tweet)
                 <div class="col-md-6">
-                    <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                    <div
+                        class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                         <div class="col p-4 d-flex flex-column position-static">
                             <div class="mb-1 text-muted">
                                 {{ $user->name }} 发布于 {{ $tweet->created_at->format('m.d') }}

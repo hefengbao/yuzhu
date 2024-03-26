@@ -30,7 +30,7 @@ class TweetController extends Controller
 
         $total = $query->clone()->count('id');
 
-        if (! $authUser->isAuthor()) {
+        if (!$authUser->isAuthor()) {
             $myTotal = $query->clone()->where('user_id', $authUser->id)->count('id');
         }
 

@@ -1,12 +1,28 @@
 @extends('themes.default.layout')
-@section('og_date'){{ $article->updated_at }}@endsection
-@section('og_title'){{ $article->title }}@endsection
-@section('og_description'){{ $article->excerpt ?? '' }}@endsection
-@section('og_author'){{ $article->author->name ?? '' }}@endsection
-@section('title'){{ $article->title }} &#8211;@endsection
-@section('author'){{ $article->author->name ?? '' }}@endsection
-@section('description'){{ $article->excerpt ?? '' }}@endsection
-@section('style')<link rel="stylesheet" href="{{ asset('libs/prism/prism.css') }}">@endsection
+@section('og_date')
+    {{ $article->updated_at }}
+@endsection
+@section('og_title')
+    {{ $article->title }}
+@endsection
+@section('og_description')
+    {{ $article->excerpt ?? '' }}
+@endsection
+@section('og_author')
+    {{ $article->author->name ?? '' }}
+@endsection
+@section('title')
+    {{ $article->title }} &#8211;
+@endsection
+@section('author')
+    {{ $article->author->name ?? '' }}
+@endsection
+@section('description')
+    {{ $article->excerpt ?? '' }}
+@endsection
+@section('style')
+    <link rel="stylesheet" href="{{ asset('libs/prism/prism.css') }}">
+@endsection
 @section('content')
     <div class="row g-5">
         <div class="col-md-12">
@@ -66,7 +82,8 @@
                              alt="">
                     </div>
                     <div style="margin: 0 12px;">
-                        <p class="fs-2"> <a class="link-dark" href="{{ route('users.articles', $article->user_id) }}" target="_blank">{{ $article->author->name }}</a></p>
+                        <p class="fs-2"><a class="link-dark" href="{{ route('users.articles', $article->user_id) }}"
+                                           target="_blank">{{ $article->author->name }}</a></p>
                         <p class="text-muted">{{ $article->author->bio ?: '暂无个人简介' }}</p>
                     </div>
                 </div>
@@ -77,12 +94,14 @@
         <div class="col-md-12">
             @if($prev)
                 <p>
-                    <a class="link-secondary" href="{{ route('articles.show', $prev->slug_id) }}">上一篇：{{ $prev->title }}</a>
+                    <a class="link-secondary"
+                       href="{{ route('articles.show', $prev->slug_id) }}">上一篇：{{ $prev->title }}</a>
                 </p>
             @endif
             @if($next)
                 <p>
-                    <a class="link-secondary" href="{{ route('articles.show', $next->slug_id) }}">下一篇：{{ $next->title }}</a>
+                    <a class="link-secondary"
+                       href="{{ route('articles.show', $next->slug_id) }}">下一篇：{{ $next->title }}</a>
                 </p>
             @endif
         </div>

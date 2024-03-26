@@ -10,7 +10,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        if (! auth()->user()->isAdministrator()) {
+        if (!auth()->user()->isAdministrator()) {
             abort(403);
         }
         $categories = Category::with(['child'])->whereNull('parent_id')->orderByDesc('id')->get();
@@ -31,7 +31,7 @@ class CategoryController extends Controller
 
     public function edit($id)
     {
-        if (! auth()->user()->isAdministrator()) {
+        if (!auth()->user()->isAdministrator()) {
             abort(403);
         }
         $categories = Category::whereNull('parent_id')->orderByDesc('id')->get();
@@ -43,7 +43,7 @@ class CategoryController extends Controller
 
     public function destroy($id)
     {
-        if (! auth()->user()->isAdministrator()) {
+        if (!auth()->user()->isAdministrator()) {
             abort(403);
         }
 
@@ -68,7 +68,7 @@ class CategoryController extends Controller
 
     public function update($id, CategoryRequest $request)
     {
-        if (! auth()->user()->isAdministrator()) {
+        if (!auth()->user()->isAdministrator()) {
             abort(403);
         }
 

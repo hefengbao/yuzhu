@@ -67,7 +67,7 @@ class Active
     /**
      * Active constructor.
      *
-     * @param  Request  $request current request instance
+     * @param Request $request current request instance
      */
     public function __construct($request)
     {
@@ -77,8 +77,8 @@ class Active
     /**
      * Update the route and request instances
      *
-     * @param  Route  $route
-     * @param  Request  $request
+     * @param Route $route
+     * @param Request $request
      */
     public function updateInstances($route, $request)
     {
@@ -100,8 +100,8 @@ class Active
     /**
      * Get the active class if the condition is not falsy
      *
-     * @param  string  $activeClass
-     * @param  string  $inactiveClass
+     * @param string $activeClass
+     * @param string $inactiveClass
      * @return string
      */
     public function getClassIf($condition, $activeClass = 'active', $inactiveClass = '')
@@ -112,16 +112,16 @@ class Active
     /**
      * Check if the URI of the current request matches one of the specific URIs
      *
-     * @param  array|string  $uris
+     * @param array|string $uris
      * @return bool
      */
     public function checkUri($uris)
     {
-        if (! $this->request) {
+        if (!$this->request) {
             return false;
         }
 
-        foreach ((array) $uris as $uri) {
+        foreach ((array)$uris as $uri) {
             if ($this->uri == $uri) {
                 return true;
             }
@@ -133,16 +133,16 @@ class Active
     /**
      * Check if the current URI matches one of specific patterns (using `Str::is`)
      *
-     * @param  array|string  $patterns
+     * @param array|string $patterns
      * @return bool
      */
     public function checkUriPattern($patterns)
     {
-        if (! $this->request) {
+        if (!$this->request) {
             return false;
         }
 
-        foreach ((array) $patterns as $p) {
+        foreach ((array)$patterns as $p) {
             if (Str::is($p, $this->uri)) {
                 return true;
             }
@@ -158,13 +158,13 @@ class Active
      * + the value of $value is not `false` and the current value of the $key key in the querystring is an array that
      * contains the $value
      *
-     * @param  string  $key
-     * @param  mixed  $value
+     * @param string $key
+     * @param mixed $value
      * @return bool
      */
     public function checkQuery($key, $value)
     {
-        if (! $this->request) {
+        if (!$this->request) {
             return false;
         }
 
@@ -174,7 +174,7 @@ class Active
         // OR it exists with any value
         // OR its value is an array that contains the specific value
         if (($queryValue == $value) || ($queryValue !== null && $value === false) || (is_array($queryValue) && in_array($value,
-            $queryValue))
+                    $queryValue))
         ) {
             return true;
         }
@@ -185,18 +185,18 @@ class Active
     /**
      * Check if the name of the current route matches one of specific values
      *
-     * @param  array|string  $routeNames
+     * @param array|string $routeNames
      * @return bool
      */
     public function checkRoute($routeNames)
     {
-        if (! $this->route) {
+        if (!$this->route) {
             return false;
         }
 
         $routeName = $this->route->getName();
 
-        if (in_array($routeName, (array) $routeNames)) {
+        if (in_array($routeName, (array)$routeNames)) {
             return true;
         }
 
@@ -206,12 +206,12 @@ class Active
     /**
      * Check the current route name with one or some patterns
      *
-     * @param  array|string  $patterns
+     * @param array|string $patterns
      * @return bool
      */
     public function checkRoutePattern($patterns)
     {
-        if (! $this->route) {
+        if (!$this->route) {
             return false;
         }
 
@@ -221,7 +221,7 @@ class Active
             return in_array(null, $patterns);
         }
 
-        foreach ((array) $patterns as $p) {
+        foreach ((array)$patterns as $p) {
             if (Str::is($p, $routeName)) {
                 return true;
             }
@@ -238,7 +238,7 @@ class Active
      */
     public function checkRouteParam($param, $value)
     {
-        if (! $this->route) {
+        if (!$this->route) {
             return false;
         }
 
@@ -256,16 +256,16 @@ class Active
     /**
      * Return 'active' class if current route action match one of provided action names
      *
-     * @param  array|string  $actions
+     * @param array|string $actions
      * @return bool
      */
     public function checkAction($actions)
     {
-        if (! $this->action) {
+        if (!$this->action) {
             return false;
         }
 
-        if (in_array($this->action, (array) $actions)) {
+        if (in_array($this->action, (array)$actions)) {
             return true;
         }
 
@@ -275,16 +275,16 @@ class Active
     /**
      * Check if the current controller class matches one of specific values
      *
-     * @param  array|string  $controllers
+     * @param array|string $controllers
      * @return bool
      */
     public function checkController($controllers)
     {
-        if (! $this->controller) {
+        if (!$this->controller) {
             return false;
         }
 
-        if (in_array($this->controller, (array) $controllers)) {
+        if (in_array($this->controller, (array)$controllers)) {
             return true;
         }
 

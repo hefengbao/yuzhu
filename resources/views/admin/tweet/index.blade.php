@@ -40,7 +40,8 @@
                     @foreach($tweets as $tweet)
                         <tr>
                             <td>
-                                <a href="{{ route('tweets.show', $tweet->slug_id) }}" target="_blank">{{ Str::limit($tweet->body, 50) }}<br></a>
+                                <a href="{{ route('tweets.show', $tweet->slug_id) }}"
+                                   target="_blank">{{ Str::limit($tweet->body, 50) }}<br></a>
                                 <a href="{{ route('admin.tweets.edit', $tweet->id) }}">
                                     <span class="text-muted text-sm">编辑</span>
                                 </a>

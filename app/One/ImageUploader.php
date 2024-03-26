@@ -17,8 +17,8 @@ class ImageUploader
     protected $allowed_extensions = ['png', 'jpg', 'jpeg', 'gif'];
 
     /**
-     * @param  UploadedFile  $file
-     * @param  User  $user
+     * @param UploadedFile $file
+     * @param User $user
      * @return array
      */
     public function uploadAvatar($file)
@@ -26,7 +26,7 @@ class ImageUploader
         $this->file = $file;
         $this->checkAllowedExtensionsOrFail();
 
-        $avatar_name = Auth::user()->id.'_'.time().'.'.$file->getClientOriginalExtension() ?: 'png';
+        $avatar_name = Auth::user()->id . '_' . time() . '.' . $file->getClientOriginalExtension() ?: 'png';
         $this->saveImageToLocal('avatar', 380, $avatar_name);
 
         return ['filename' => $avatar_name];
@@ -35,8 +35,8 @@ class ImageUploader
     protected function checkAllowedExtensionsOrFail()
     {
         $extension = strtolower($this->file->getClientOriginalExtension());
-        if ($extension && ! in_array($extension, $this->allowed_extensions)) {
-            throw new ImageException('You can only upload image with extensions: '.implode($this->allowed_extensions, ','));
+        if ($extension && !in_array($extension, $this->allowed_extensions)) {
+            throw new ImageException('You can only upload image with extensions: ' . implode($this->allowed_extensions, ','));
         }
     }
 
@@ -44,15 +44,15 @@ class ImageUploader
     {
         $folderName = ($type == 'avatar')
             ? 'uploads/avatars'
-            : 'uploads/attachments/'.date('Ym', time()).'/'.date('d', time()).'/'.Auth::user()->id;
+            : 'uploads/attachments/' . date('Ym', time()) . '/' . date('d', time()) . '/' . Auth::user()->id;
 
-        $destinationPath = storage_path('app/public').'/'.$folderName;
+        $destinationPath = storage_path('app/public') . '/' . $folderName;
         $extension = $this->file->getClientOriginalExtension() ?: 'png';
-        $safeName = $filename ?: str_random(10).'.'.$extension;
+        $safeName = $filename ?: str_random(10) . '.' . $extension;
         $this->file->move($destinationPath, $safeName);
 
         if ($this->file->getClientOriginalExtension() != 'gif') {
-            $img = Image::make($destinationPath.'/'.$safeName);
+            $img = Image::make($destinationPath . '/' . $safeName);
             $img->resize($resize, null, function ($constraint) {
                 $constraint->aspectRatio();
                 $constraint->upsize();
@@ -60,7 +60,7 @@ class ImageUploader
             $img->save();
         }
 
-        return $folderName.'/'.$safeName;
+        return $folderName . '/' . $safeName;
     }
 
     public function uploadImage($file)

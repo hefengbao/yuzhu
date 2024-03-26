@@ -27,7 +27,7 @@ class CommentsRelationManager extends RelationManager
             ->pluralModelLabel('评论')
             ->headerActions([
                 Actions\CreateAction::make()
-                    ->visible(fn (): bool => $this->ownerRecord->isPublished())
+                    ->visible(fn(): bool => $this->ownerRecord->isPublished())
                     ->mutateFormDataUsing(function (array $data): array {
                         $data['ip'] = request()->ip();
                         $data['user_id'] = auth()->id();

@@ -19,7 +19,7 @@ class CreateArticle extends CreateRecord
         $data['user_id'] = auth()->id();
         $data['type'] = PostType::Article;
 
-        if (! isset($data['excerpt'])) {
+        if (!isset($data['excerpt'])) {
             $data['excerpt'] = Str::limit(str_replace(PHP_EOL, '', strip_tags(md_to_html($data['body']))), 160);
         }
 

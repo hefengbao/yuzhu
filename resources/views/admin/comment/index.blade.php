@@ -125,7 +125,8 @@
                             <td>
                                 @if($post = $comment->post)
                                     @if($post->type == \App\Constant\PostType::Article->value)
-                                        <a href="{{ route('articles.show', $post->slug_id) }}" title="{{ $post->title }}"
+                                        <a href="{{ route('articles.show', $post->slug_id) }}"
+                                           title="{{ $post->title }}"
                                            target="_blank">查看文章</a>
                                     @elseif($post->type == \App\Constant\PostType::Page->value)
                                         <a href="{{ route('pages.show', $post->slug_id) }}" title="{{ $post->title }}"

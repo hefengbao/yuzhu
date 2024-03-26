@@ -37,7 +37,7 @@ class CategoryResource extends Resource
                     ->required()
                     ->live(onBlur: true)
                     ->afterStateUpdated(
-                        fn (string $operation, $state, Forms\Set $set) => $operation === 'create' ? $set('slug', Str::slug($state, language: \Locale::getDefault())) : null
+                        fn(string $operation, $state, Forms\Set $set) => $operation === 'create' ? $set('slug', Str::slug($state, language: \Locale::getDefault())) : null
                     ),
                 TextInput::make('slug')
                     ->label('Slug')

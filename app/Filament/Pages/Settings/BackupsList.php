@@ -54,7 +54,7 @@ class BackupsList extends Page implements HasTable
                     ->color('gray')
                     ->icon('heroicon-o-arrow-down-tray')
                     ->action(function (Backup $record) {
-                        return Storage::download(config('app.name').'/'.$record->name);
+                        return Storage::download(config('app.name') . '/' . $record->name);
                     }),
                 Tables\Actions\Action::make('del')
                     ->label('删除')
@@ -62,7 +62,7 @@ class BackupsList extends Page implements HasTable
                     ->icon('heroicon-o-trash')
                     ->requiresConfirmation()
                     ->action(function (Backup $record) {
-                        Storage::delete(config('app.name').'/'.$record->name);
+                        Storage::delete(config('app.name') . '/' . $record->name);
                     }),
             ]);
     }

@@ -63,7 +63,7 @@ class TweetResource extends Resource
                             ->required()
                             ->live(onBlur: true)
                             ->afterStateUpdated(
-                                fn (string $operation, $state, Forms\Set $set) => $set('slug', Str::slug($state, language: \Locale::getDefault()))
+                                fn(string $operation, $state, Forms\Set $set) => $set('slug', Str::slug($state, language: \Locale::getDefault()))
                             ),
                         Forms\Components\TextInput::make('slug')
                             ->label('Slug')
@@ -80,7 +80,6 @@ class TweetResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('body')
                     ->label('内容')
-
                     ->alignLeft()
                     ->wrap(),
                 Tables\Columns\TextColumn::make('author.name')
@@ -99,7 +98,7 @@ class TweetResource extends Resource
                     ->icon('heroicon-o-globe-alt')
                     ->label('访问')
                     ->color('info')
-                    ->url(fn (Post $record) => route('tweets.show', $record->slugId)),
+                    ->url(fn(Post $record) => route('tweets.show', $record->slugId)),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -164,7 +163,7 @@ class TweetResource extends Resource
 
         return parent::getEloquentQuery()
             ->where('type', PostType::Tweet)
-            ->when(! $auth->isAdministrator(), function ($query) {
+            ->when(!$auth->isAdministrator(), function ($query) {
                 $query->where(function ($query) {
                     $query->where('user_id', auth()->id())
                         ->orWhere(function ($query) {

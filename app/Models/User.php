@@ -30,20 +30,6 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-            'role' => Role::class,
-        ];
-    }
-
     public function meta(): HasMany
     {
         return $this->hasMany(Usermeta::class);
@@ -67,5 +53,19 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
     public function canAccessPanel(Panel $panel): bool
     {
         return true;
+    }
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+            'role' => Role::class,
+        ];
     }
 }

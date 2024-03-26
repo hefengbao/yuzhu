@@ -1,11 +1,19 @@
 @extends('admin.layouts.app')
 
 @section('title')
-    @if(!isset($tweet))撰写微博@else编辑微博@endif - @parent
+    @if(!isset($tweet))
+        撰写微博
+    @else
+        编辑微博
+    @endif - @parent
 @endsection
 
 @section('header')
-    @if(!isset($tweet))撰写微博@else编辑微博@endif
+    @if(!isset($tweet))
+        撰写微博
+    @else
+        编辑微博
+    @endif
 @endsection
 
 @section('content')
@@ -52,7 +60,8 @@
                     <input type="hidden" id="body" name="body">
                     <div class="form-group">
                         <label for="body" class="control-label">内容 <sup>*</sup></label>
-                        <textarea id="body" class="form-control" name="body" rows="5" required>{{ $tweet->body }}</textarea>
+                        <textarea id="body" class="form-control" name="body" rows="5"
+                                  required>{{ $tweet->body }}</textarea>
                     </div>
                     <div class="row">
                         <div class="col-md-8">
@@ -70,7 +79,8 @@
                             <label for="commentable">评论</label>
                             <div class="form-group">
                                 <select name="commentable" id="commentable" class="form-control">
-                                    <option value="open" @if($tweet->commentable == 'open') selected @endif>开启</option>
+                                    <option value="open" @if($tweet->commentable == 'open') selected @endif>开启
+                                    </option>
                                     <option value="closed" @if($tweet->commentable == 'closed') selected @endif>关闭
                                     </option>
                                 </select>

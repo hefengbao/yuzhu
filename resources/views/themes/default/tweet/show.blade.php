@@ -1,18 +1,33 @@
 @extends('themes.default.layout')
-@section('og_date'){{ $tweet->updated_at }}@endsection
-@section('og_title'){{ $tweet->title }}@endsection
-@section('og_description'){{ $tweet->eexcerpt }}@endsection
-@section('og_author'){{ $tweet->author->name ?? '' }}@endsection
-@section('title'){{ Str::limit($tweet->body,40) }} &#8211;@endsection
-@section('author'){{ $tweet->author->name ?? '' }}@endsection
-@section('description'){{ Str::limit($tweet->body,50) }}@endsection
+@section('og_date')
+    {{ $tweet->updated_at }}
+@endsection
+@section('og_title')
+    {{ $tweet->title }}
+@endsection
+@section('og_description')
+    {{ $tweet->eexcerpt }}
+@endsection
+@section('og_author')
+    {{ $tweet->author->name ?? '' }}
+@endsection
+@section('title')
+    {{ Str::limit($tweet->body,40) }} &#8211;
+@endsection
+@section('author')
+    {{ $tweet->author->name ?? '' }}
+@endsection
+@section('description')
+    {{ Str::limit($tweet->body,50) }}
+@endsection
 @section('content')
     <div class="row g-5">
         <div class="col-md-12">
             <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                 <div class="col p-4 d-flex flex-column position-static">
                     <div class="mb-1 text-muted">
-                        <a class="link-secondary" href="{{ route('users.tweets', $tweet->user_id) }}" target="_blank"> {{ $tweet->author->name }}</a>
+                        <a class="link-secondary" href="{{ route('users.tweets', $tweet->user_id) }}"
+                           target="_blank"> {{ $tweet->author->name }}</a>
                         发布于 {{ $tweet->published_at->format('Y.m.d') }}
                         @if($tweet->published_at < $tweet->updated_at)
                             ，最后更新于 {{ $tweet->updated_at->format('Y.m.d') }}
@@ -43,7 +58,8 @@
                              alt="">
                     </div>
                     <div style="margin: 0 12px;">
-                        <p class="fs-2"><a class="link-dark" href="{{ route('users.tweets', $tweet->user_id) }}" target="_blank">{{ $tweet->author->name }}</a></p>
+                        <p class="fs-2"><a class="link-dark" href="{{ route('users.tweets', $tweet->user_id) }}"
+                                           target="_blank">{{ $tweet->author->name }}</a></p>
                         <p class="text-muted">{{ $tweet->author->bio ?: '暂无个人简介' }}</p>
                     </div>
                 </div>

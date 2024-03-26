@@ -1,6 +1,8 @@
 @extends('admin.layouts.app')
 
-@section('title')文章列表 - @parent @endsection
+@section('title')
+    文章列表 - @parent
+@endsection
 
 @section('header')
     文章列表 <a href="{{ route('admin.articles.create') }}" class="btn btn-outline-primary btn-sm">写文章</a>
@@ -118,7 +120,8 @@
                             </td>
                             <td class="text-sm">
                                 @if($article->comments_count)
-                                    <a href="{{ route('articles.show', $article->slug_id) }}#comments" target="_blank"><i
+                                    <a href="{{ route('articles.show', $article->slug_id) }}#comments"
+                                       target="_blank"><i
                                             class="fas fa-comments"></i> {{ $article->comments_count }}</a>
                                 @else
                                     —

@@ -35,7 +35,8 @@
                     @foreach($pages as $page)
                         <tr>
                             <td>
-                                <a href="{{ route('pages.show', $page->slug_id) }}" target="_blank">{{ $page->title }}<br></a>
+                                <a href="{{ route('pages.show', $page->slug_id) }}" target="_blank">{{ $page->title }}
+                                    <br></a>
                                 <a href="{{ route('admin.pages.edit', $page->id) }}">
                                     <span class="text-muted text-sm">编辑</span>
                                 </a>

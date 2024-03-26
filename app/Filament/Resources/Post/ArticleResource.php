@@ -48,7 +48,7 @@ class ArticleResource extends Resource
                                     ->required()
                                     ->live(onBlur: true)
                                     ->afterStateUpdated(
-                                        fn (string $operation, $state, Forms\Set $set) => $operation === 'create' ? $set('slug', Str::slug($state, language: \Locale::getDefault())) : null
+                                        fn(string $operation, $state, Forms\Set $set) => $operation === 'create' ? $set('slug', Str::slug($state, language: \Locale::getDefault())) : null
                                     ),
                                 Forms\Components\TextInput::make('slug')
                                     ->label('Slug')
@@ -59,14 +59,14 @@ class ArticleResource extends Resource
                                     ->label('内容')
                                     ->placeholder('开始写作...')
                                     ->columnSpanFull()
-                                    ->fileAttachmentsDirectory('upload/images/'.date('Ymd'))
+                                    ->fileAttachmentsDirectory('upload/images/' . date('Ymd'))
                                     ->required(),
                                 Forms\Components\CheckboxList::make('categories')
                                     ->label('分类')
                                     ->relationship(
                                         name: 'categories',
                                         titleAttribute: 'name',
-                                        modifyQueryUsing: fn (Builder $query) => $query->orderByDesc('id'),
+                                        modifyQueryUsing: fn(Builder $query) => $query->orderByDesc('id'),
                                     )
                                     ->required()
                                     ->columns(2)
@@ -86,7 +86,7 @@ class ArticleResource extends Resource
                                             ->required()
                                             ->live(onBlur: true)
                                             ->afterStateUpdated(
-                                                fn (string $operation, $state, Forms\Set $set) => $set('slug', Str::slug($state, language: app()->getLocale()))
+                                                fn(string $operation, $state, Forms\Set $set) => $set('slug', Str::slug($state, language: app()->getLocale()))
                                             ),
                                         Forms\Components\TextInput::make('slug')
                                             ->label('Slug')
@@ -97,17 +97,17 @@ class ArticleResource extends Resource
                                 Forms\Components\Select::make('status')
                                     ->label('状态')
                                     ->options(PostStatus::class)
-                                    ->default(fn (?Post $record) => $record != null ? $record->status : PostStatus::Draft)
+                                    ->default(fn(?Post $record) => $record != null ? $record->status : PostStatus::Draft)
                                     ->selectablePlaceholder(false)
                                     ->required()
                                     ->live()
-                                    ->hidden(fn (?Post $record) => $record != null && $record->status === PostStatus::Publish)
-                                    ->afterStateUpdated(fn (string $operation, $state, Forms\Set $set) => $state !== ($operation === 'create' ? PostStatus::Future : PostStatus::Future->value) ? $set('published_at', null) : null), // TODO PostStatus::Future->value
+                                    ->hidden(fn(?Post $record) => $record != null && $record->status === PostStatus::Publish)
+                                    ->afterStateUpdated(fn(string $operation, $state, Forms\Set $set) => $state !== ($operation === 'create' ? PostStatus::Future : PostStatus::Future->value) ? $set('published_at', null) : null), // TODO PostStatus::Future->value
                                 Forms\Components\DateTimePicker::make('published_at')
                                     ->label('发布时间')
                                     ->dehydrated()
-                                    ->hidden(fn (?Post $record) => $record != null && $record->status === PostStatus::Publish)
-                                    ->disabled(fn (string $operation, Forms\Get $get) => $get('status') != ($operation === 'create' ? PostStatus::Future : PostStatus::Future->value)),
+                                    ->hidden(fn(?Post $record) => $record != null && $record->status === PostStatus::Publish)
+                                    ->disabled(fn(string $operation, Forms\Get $get) => $get('status') != ($operation === 'create' ? PostStatus::Future : PostStatus::Future->value)),
                                 Forms\Components\Select::make('commentable')
                                     ->label('评论设置')
                                     ->options(Commentable::class)
@@ -122,20 +122,20 @@ class ArticleResource extends Resource
                                 ->maxLength(160),
                         ]),
                     ])
-                    ->columnSpan(['lg' => fn (?Post $record) => $record === null ? 3 : 2]),
+                    ->columnSpan(['lg' => fn(?Post $record) => $record === null ? 3 : 2]),
 
                 Forms\Components\Section::make()
                     ->schema([
                         Forms\Components\Placeholder::make('created_at')
                             ->label('创建时间')
-                            ->content(fn (Post $record): ?string => $record->created_at?->diffForHumans()),
+                            ->content(fn(Post $record): ?string => $record->created_at?->diffForHumans()),
 
                         Forms\Components\Placeholder::make('updated_at')
                             ->label('最后修改时间')
-                            ->content(fn (Post $record): ?string => $record->updated_at?->diffForHumans()),
+                            ->content(fn(Post $record): ?string => $record->updated_at?->diffForHumans()),
                     ])
                     ->columnSpan(['lg' => 1])
-                    ->hidden(fn (?Post $record) => $record === null),
+                    ->hidden(fn(?Post $record) => $record === null),
             ])
             ->columns([
                 'sm' => 3,
@@ -149,7 +149,7 @@ class ArticleResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('title')
                     ->label('标题')
-                    ->prefix(fn (Post $post) => $post->pinned_at != null ? '📌' : ''),
+                    ->prefix(fn(Post $post) => $post->pinned_at != null ? '📌' : ''),
                 Tables\Columns\TextColumn::make('author.name')
                     ->label('作者'),
                 Tables\Columns\TextColumn::make('categories.name')
@@ -168,14 +168,14 @@ class ArticleResource extends Resource
                 Tables\Columns\TextColumn::make('status')
                     ->label('状态')
                     ->badge()
-                    ->color(fn (PostStatus $state): string => match ($state) {
+                    ->color(fn(PostStatus $state): string => match ($state) {
                         PostStatus::Draft => 'primary',
                         PostStatus::Future => 'info',
                         PostStatus::Publish => 'success',
                         PostStatus::Pending => 'warning',
                         default => 'danger'
                     })
-                    ->description(fn (Post $post) => $post->status == PostStatus::Publish || $post->status == PostStatus::Future ? $post->published_at : ''),
+                    ->description(fn(Post $post) => $post->status == PostStatus::Publish || $post->status == PostStatus::Future ? $post->published_at : ''),
             ])
             ->filters([
                 //
@@ -187,7 +187,7 @@ class ArticleResource extends Resource
                     ->icon('heroicon-o-globe-alt')
                     ->label('访问')
                     ->color('info')
-                    ->url(fn (Post $record) => route('articles.show', $record->slugId)),
+                    ->url(fn(Post $record) => route('articles.show', $record->slugId)),
             ])
             ->bulkActions([
 
@@ -216,7 +216,7 @@ class ArticleResource extends Resource
                                     Infolists\Components\TextEntry::make('status')
                                         ->label('状态')
                                         ->badge()
-                                        ->color(fn (PostStatus $state): string => match ($state) {
+                                        ->color(fn(PostStatus $state): string => match ($state) {
                                             PostStatus::Draft => 'primary',
                                             PostStatus::Future => 'info',
                                             PostStatus::Publish => 'success',
@@ -228,7 +228,7 @@ class ArticleResource extends Resource
                                         ->badge()
                                         ->dateTime()
                                         ->color('info')
-                                        ->visible(fn (Post $record) => $record->status === PostStatus::Publish || $record->status === PostStatus::Future),
+                                        ->visible(fn(Post $record) => $record->status === PostStatus::Publish || $record->status === PostStatus::Future),
                                     Infolists\Components\TextEntry::make('categories.name')
                                         ->label('分类')
                                         ->badge()
@@ -278,7 +278,7 @@ class ArticleResource extends Resource
 
         return parent::getEloquentQuery()
             ->where('type', PostType::Article)
-            ->when(! $auth->isAdministrator(), function ($query) {
+            ->when(!$auth->isAdministrator(), function ($query) {
                 $query->where(function ($query) {
                     $query->where('user_id', auth()->id())
                         ->orWhere(function ($query) {

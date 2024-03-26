@@ -62,7 +62,7 @@ class Post extends Model implements Feedable
     public function slugId(): Attribute
     {
         return Attribute::make(
-            get: fn () => slug_id($this->slug, $this->id)
+            get: fn() => slug_id($this->slug, $this->id)
         );
     }
 

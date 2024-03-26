@@ -43,7 +43,7 @@ class UserResource extends Resource
                     ->hint('密码至少 8 位')
                     ->password()
                     ->minLength(8)
-                    ->required(fn (string $operation): bool => $operation === 'create')
+                    ->required(fn(string $operation): bool => $operation === 'create')
                     ->columnSpanFull(),
                 Forms\Components\Select::make('role')
                     ->label('角色')
@@ -67,7 +67,7 @@ class UserResource extends Resource
                         '1:1',
                     ])
                     ->imageCropAspectRatio('1:1')
-                    ->directory('upload/avatars/'.date('Ymd'))
+                    ->directory('upload/avatars/' . date('Ymd'))
                     ->columnSpanFull(),
             ]);
     }
@@ -87,11 +87,11 @@ class UserResource extends Resource
                     ->label('用户名'),
                 Tables\Columns\TextColumn::make('email')
                     ->label('邮箱')
-                    ->suffix(fn (User $record): string => $record->email_verified_at !== null ? '✅' : ''),
+                    ->suffix(fn(User $record): string => $record->email_verified_at !== null ? '✅' : ''),
                 Tables\Columns\TextColumn::make('role')
                     ->label('角色')
                     ->badge()
-                    ->color(fn (Role $state): string => match ($state) {
+                    ->color(fn(Role $state): string => match ($state) {
                         Role::Administrator => 'primary',
                         Role::Editor => 'info',
                         Role::Author => 'gray',
@@ -100,15 +100,15 @@ class UserResource extends Resource
                     ->label('状态')
                     ->badge()
                     ->default('')
-                    ->formatStateUsing(fn ($state): string => $state !== '' ? '禁用' : '有效')
-                    ->color(fn ($state): string => $state !== '' ? 'danger' : 'success'),
+                    ->formatStateUsing(fn($state): string => $state !== '' ? '禁用' : '有效')
+                    ->color(fn($state): string => $state !== '' ? 'danger' : 'success'),
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make()
-                    ->visible(fn (User $record): bool => $auth->isAdministrator() || $record->id === $auth->id),
+                    ->visible(fn(User $record): bool => $auth->isAdministrator() || $record->id === $auth->id),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

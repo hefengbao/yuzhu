@@ -51,13 +51,13 @@ class CommentResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('author.name')
                     ->label('作者')
-                    ->description(fn (Comment $record) => $record->author?->email),
+                    ->description(fn(Comment $record) => $record->author?->email),
                 Tables\Columns\TextColumn::make('guest_name')
                     ->label('游客')
-                    ->description(fn (Comment $record) => $record->guest_email),
+                    ->description(fn(Comment $record) => $record->guest_email),
                 Tables\Columns\TextColumn::make('body')
                     ->label('内容')
-                    ->description(fn (?Comment $record): string => $record?->parent != null ? $record->parent->body : ''),
+                    ->description(fn(?Comment $record): string => $record?->parent != null ? $record->parent->body : ''),
             ])
             ->filters([
                 //
@@ -84,22 +84,22 @@ class CommentResource extends Resource
                                 ->schema([
                                     Infolists\Components\TextEntry::make('author.name')
                                         ->label('用户名')
-                                        ->visible(fn (Comment $record) => $record->author != null),
+                                        ->visible(fn(Comment $record) => $record->author != null),
                                     Infolists\Components\TextEntry::make('author.email')
                                         ->label('邮箱')
-                                        ->visible(fn (Comment $record) => $record->author != null),
+                                        ->visible(fn(Comment $record) => $record->author != null),
                                     Infolists\Components\TextEntry::make('guest_name')
                                         ->label('用户名')
-                                        ->visible(fn (Comment $record) => $record->author == null),
+                                        ->visible(fn(Comment $record) => $record->author == null),
                                     Infolists\Components\TextEntry::make('guest_email')
                                         ->label('邮箱')
-                                        ->visible(fn (Comment $record) => $record->author == null),
+                                        ->visible(fn(Comment $record) => $record->author == null),
                                 ]),
                             Infolists\Components\Group::make()->schema([
                                 Infolists\Components\TextEntry::make('status')
                                     ->label('状态')
                                     ->badge()
-                                    ->color(fn (CommentStatus $state) => match ($state) {
+                                    ->color(fn(CommentStatus $state) => match ($state) {
                                         CommentStatus::Approved => 'info',
                                         CommentStatus::Pending => 'warning',
                                         CommentStatus::Spam => 'danger',

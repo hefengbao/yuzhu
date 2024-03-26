@@ -44,7 +44,7 @@ class PageResource extends Resource
                     ->required()
                     ->live(onBlur: true)
                     ->afterStateUpdated(
-                        fn (string $operation, $state, Forms\Set $set) => $operation === 'create' ? $set('slug', Str::slug($state, language: \Locale::getDefault())) : null
+                        fn(string $operation, $state, Forms\Set $set) => $operation === 'create' ? $set('slug', Str::slug($state, language: \Locale::getDefault())) : null
                     ),
                 Forms\Components\TextInput::make('slug')
                     ->label('Slug')
@@ -73,7 +73,7 @@ class PageResource extends Resource
                 Tables\Columns\TextColumn::make('status')
                     ->label('状态')
                     ->badge()
-                    ->color(fn (PostStatus $state): string => match ($state) {
+                    ->color(fn(PostStatus $state): string => match ($state) {
                         PostStatus::Draft => 'primary',
                         PostStatus::Future => 'info',
                         PostStatus::Publish => 'success',
@@ -91,7 +91,7 @@ class PageResource extends Resource
                     ->icon('heroicon-o-globe-alt')
                     ->label('访问')
                     ->color('info')
-                    ->url(fn (Post $record) => route('pages.show', $record->slugId)),
+                    ->url(fn(Post $record) => route('pages.show', $record->slugId)),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -119,7 +119,7 @@ class PageResource extends Resource
                                     Infolists\Components\TextEntry::make('commentable')
                                         ->label('是否开启评论')
                                         ->badge()
-                                        ->color(fn (Commentable $state): string => match ($state) {
+                                        ->color(fn(Commentable $state): string => match ($state) {
                                             Commentable::Open => 'success',
                                             Commentable::Closed => 'danger',
                                         }),
@@ -168,7 +168,7 @@ class PageResource extends Resource
 
         return parent::getEloquentQuery()
             ->where('type', PostType::Page)
-            ->when(! $auth->isAdministrator(), function ($query) {
+            ->when(!$auth->isAdministrator(), function ($query) {
                 $query->where('status', PostStatus::Publish);
             })
             ->orderByDesc('created_at');

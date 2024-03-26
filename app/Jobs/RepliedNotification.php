@@ -39,39 +39,39 @@ class RepliedNotification implements ShouldQueue
         $parent = $this->comment->parent;
 
         $this->title .= match ($post->type) {
-            PostType::Page => '页面《'.$post->title.'》',
-            PostType::Article => '文章《'.$post->title.'》',
-            PostType::Tweet => '微博《'.\Str::limit($post->body, 30).'》'
+            PostType::Page => '页面《' . $post->title . '》',
+            PostType::Article => '文章《' . $post->title . '》',
+            PostType::Tweet => '微博《' . \Str::limit($post->body, 30) . '》'
         };
 
         if ($this->comment->user_id) { // 登录用户评论
             if ($postAuthor->id != $this->comment->user_id) {
-                \Mail::to($postAuthor)->send(new PostCommented('您的'.$this->title.'有新的评论', $this->comment));
+                \Mail::to($postAuthor)->send(new PostCommented('您的' . $this->title . '有新的评论', $this->comment));
             }
 
             if ($parent) {
                 if ($parent->user_id) {
                     if ($parent->user_id != $this->comment->user_id) {
-                        \Mail::to($parent->author)->send(new PostCommented('您在'.$this->title.'下的评论有新的回复', $this->comment));
+                        \Mail::to($parent->author)->send(new PostCommented('您在' . $this->title . '下的评论有新的回复', $this->comment));
                     }
                 } else {
-                    \Mail::to($parent->guest_email)->send(new PostCommented('您在'.$this->title.'下的评论有新的回复', $this->comment));
+                    \Mail::to($parent->guest_email)->send(new PostCommented('您在' . $this->title . '下的评论有新的回复', $this->comment));
                 }
             }
         } else {// 游客评论
             if ($postAuthor->email != $this->comment->guest_mail) {
                 // 通知 post author
-                \Mail::to($postAuthor)->send(new PostCommented('您的'.$this->title.'有新的评论', $this->comment));
+                \Mail::to($postAuthor)->send(new PostCommented('您的' . $this->title . '有新的评论', $this->comment));
             }
 
             if ($parent) {
                 if ($parent->user_id) {
                     if ($parent->author->email != $this->comment->guest_email) {
-                        \Mail::to($parent->author)->send(new PostCommented('您在'.$this->title.'下的评论有新的回复', $this->comment));
+                        \Mail::to($parent->author)->send(new PostCommented('您在' . $this->title . '下的评论有新的回复', $this->comment));
                     }
                 } else {
                     if ($parent->guest_email != $this->comment->guest_email) {
-                        \Mail::to($parent->guest_email)->send(new PostCommented('您在'.$this->title.'下的评论有新的回复', $this->comment));
+                        \Mail::to($parent->guest_email)->send(new PostCommented('您在' . $this->title . '下的评论有新的回复', $this->comment));
                     }
                 }
             }

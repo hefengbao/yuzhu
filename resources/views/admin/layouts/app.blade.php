@@ -5,7 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="{{ asset('favicons/favicon.ico') }}">
-    <title>@section('title')One 管理后台@show</title>
+    <title>@section('title')
+            One 管理后台
+        @show</title>
     <!-- Bootstrap -->
     <link rel="stylesheet" href="{{ asset('libs/bootstrap/4.6.2/css/bootstrap.min.css') }}"/>
     <!-- Font Awesome -->
@@ -210,7 +212,8 @@
                     @endroles
                     @roles(['administrator'])
                     <li class="nav-item {{ active_class(if_route_pattern(["admin.users.*",'admin.user.*']), 'menu-open') }}">
-                        <a href="#" class="nav-link {{ active_class(if_route_pattern(["admin.users.*",'admin.user.*'])) }}">
+                        <a href="#"
+                           class="nav-link {{ active_class(if_route_pattern(["admin.users.*",'admin.user.*'])) }}">
                             <i class="nav-icon fas fa-user" aria-hidden="true"></i>
                             <p>用户<i class="right fas fa-angle-left"></i></p>
                         </a>
@@ -242,58 +245,59 @@
                         </ul>
                     </li>
                     @else
-                    <li class="nav-item {{ active_class(if_route_pattern(["admin.users.*",'admin.user.*']), 'menu-open') }}">
-                        <a href="#" class="nav-link {{ active_class(if_route_pattern(["admin.users.*",'admin.user.*'])) }}">
-                            <i class="nav-icon fas fa-user" aria-hidden="true"></i>
-                            <p>用户<i class="right fas fa-angle-left"></i></p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{ route('admin.users.edit', auth()->id()) }}"
-                                   class="nav-link {{ active_class(if_route_pattern(["admin.users.edit"])) }}">
-                                    <i class="nav-icon fas fa-user"></i>
-                                    <p>个人资料</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('admin.user.settings.index') }}"
-                                   class="nav-link {{ active_class(if_route_pattern(["admin.user.settings.index"])) }}">
-                                    <i class="far fa-circle nav-icon"></i>个人设置
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    @endroles
-                    @roles(['administrator'])
-                    <li class="nav-item {{ active_class(if_route_pattern(["admin.options.*"]), 'menu-open') }}">
-                        <a href="#" class="nav-link {{ active_class(if_route_pattern(["admin.options.*"])) }}">
-                            <i class="nav-icon fas fa-cog" aria-hidden="true"></i>
-                            <p>设置<i class="right fas fa-angle-left"></i></p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{ route('admin.options.index') }}"
-                                   class="nav-link {{ active_class(if_route_pattern(["admin.options.index"])) }}">
-                                    <i class="far fa-circle nav-icon"></i>常规
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="nav-item {{ active_class(if_route_pattern(["admin.tools.*"]), 'menu-open') }}">
-                        <a href="#" class="nav-link {{ active_class(if_route_pattern(["admin.tools.*"])) }}">
-                            <i class="nav-icon fas fa-tools" aria-hidden="true"></i>
-                            <p>工具<i class="right fas fa-angle-left"></i></p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{ route('admin.tools.backup_index') }}"
-                                   class="nav-link {{ active_class(if_route_pattern(["admin.tools.backup_index","admin.tools.backup_download","admin.tools.backup_delete"])) }}">
-                                    <i class="far fa-circle nav-icon"></i>数据备份
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    @endroles
+                        <li class="nav-item {{ active_class(if_route_pattern(["admin.users.*",'admin.user.*']), 'menu-open') }}">
+                            <a href="#"
+                               class="nav-link {{ active_class(if_route_pattern(["admin.users.*",'admin.user.*'])) }}">
+                                <i class="nav-icon fas fa-user" aria-hidden="true"></i>
+                                <p>用户<i class="right fas fa-angle-left"></i></p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.users.edit', auth()->id()) }}"
+                                       class="nav-link {{ active_class(if_route_pattern(["admin.users.edit"])) }}">
+                                        <i class="nav-icon fas fa-user"></i>
+                                        <p>个人资料</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.user.settings.index') }}"
+                                       class="nav-link {{ active_class(if_route_pattern(["admin.user.settings.index"])) }}">
+                                        <i class="far fa-circle nav-icon"></i>个人设置
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        @endroles
+                        @roles(['administrator'])
+                        <li class="nav-item {{ active_class(if_route_pattern(["admin.options.*"]), 'menu-open') }}">
+                            <a href="#" class="nav-link {{ active_class(if_route_pattern(["admin.options.*"])) }}">
+                                <i class="nav-icon fas fa-cog" aria-hidden="true"></i>
+                                <p>设置<i class="right fas fa-angle-left"></i></p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.options.index') }}"
+                                       class="nav-link {{ active_class(if_route_pattern(["admin.options.index"])) }}">
+                                        <i class="far fa-circle nav-icon"></i>常规
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item {{ active_class(if_route_pattern(["admin.tools.*"]), 'menu-open') }}">
+                            <a href="#" class="nav-link {{ active_class(if_route_pattern(["admin.tools.*"])) }}">
+                                <i class="nav-icon fas fa-tools" aria-hidden="true"></i>
+                                <p>工具<i class="right fas fa-angle-left"></i></p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.tools.backup_index') }}"
+                                       class="nav-link {{ active_class(if_route_pattern(["admin.tools.backup_index","admin.tools.backup_download","admin.tools.backup_delete"])) }}">
+                                        <i class="far fa-circle nav-icon"></i>数据备份
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        @endroles
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->

@@ -19,7 +19,7 @@ class MarkdownServiceProvider extends ServiceProvider
                     'username' => [
                         'prefix' => '@',
                         'pattern' => '[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}(?!\w)',
-                        'generator' => config('app.url').'/user/%s', //TODO custom user url
+                        'generator' => config('app.url') . '/user/%s', //TODO custom user url
                     ],
                 ],
             ]);

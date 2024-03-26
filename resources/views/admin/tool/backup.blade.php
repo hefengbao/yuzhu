@@ -12,7 +12,8 @@
                 <div class="card-header">
                     <form class="form" action="{{ route('admin.tools.backup_run') }}" method="post">
                         @csrf
-                        <button class="btn btn-sm btn-primary" type="submit">立即运行备份</button> <span class="text-sm text-secondary">备份数据大概要花费一点时间，请不要重复操作...</span>
+                        <button class="btn btn-sm btn-primary" type="submit">立即运行备份</button>
+                        <span class="text-sm text-secondary">备份数据大概要花费一点时间，请不要重复操作...</span>
                     </form>
                 </div>
                 <div class="card-body">
@@ -29,7 +30,8 @@
                                 <td>{{ $file['datetime'] }}</td>
                                 <td>{{ $file['name'] }}</td>
                                 <td>
-                                    <a class="btn btn-primary btn-sm" href="{{ route('admin.tools.backup_download',$file['name']) }}">下载</a>
+                                    <a class="btn btn-primary btn-sm"
+                                       href="{{ route('admin.tools.backup_download',$file['name']) }}">下载</a>
                                     <a class="btn btn-danger btn-sm" href="#" id="delete" data-id="{{ $key }}">删除</a>
                                     <form class="form" id="form-delete-{{ $key }}"
                                           action="{{ route('admin.tools.backup_delete') }}" method="post">

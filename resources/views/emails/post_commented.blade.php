@@ -1,6 +1,6 @@
 <p>
     @php
-    $post = $comment->post;
+        $post = $comment->post;
     @endphp
     <a href="@if($post->type == \App\Constant\PostType::Article->value)
     {{ route('articles.show',$post->slug_id) }}#comment-{{$comment->id}}

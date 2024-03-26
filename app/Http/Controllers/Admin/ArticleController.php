@@ -78,7 +78,7 @@ class ArticleController extends Controller
         $article->published_at = match ($request->input('status')) {
             PostStatus::Publish->value => Carbon::now(),
             PostStatus::Future->value => $request->input('published_at')
-                ? Carbon::createFromFormat('Y-m-d H:i:s', $request->input('published_at').' '.date('H:i:s'))
+                ? Carbon::createFromFormat('Y-m-d H:i:s', $request->input('published_at') . ' ' . date('H:i:s'))
                 : Carbon::now(),
             default => null,
         };
@@ -181,7 +181,7 @@ class ArticleController extends Controller
             $article->published_at = match ($request->input('status')) {
                 PostStatus::Publish->value => Carbon::now(),
                 PostStatus::Future->value => $request->input('published_at')
-                    ? Carbon::createFromFormat('Y-m-d H:i:s', $request->input('published_at').' '.date('H:i:s'))
+                    ? Carbon::createFromFormat('Y-m-d H:i:s', $request->input('published_at') . ' ' . date('H:i:s'))
                     : Carbon::now(),
                 default => null,
             };
@@ -191,7 +191,7 @@ class ArticleController extends Controller
 
         $meta = $article->meta->pluck('meta_value', 'meta_key')->all();
 
-        if (! isset($meta['editor_type'])) {
+        if (!isset($meta['editor_type'])) {
             $article->meta()->create([
                 'meta_key' => 'editor_type',
                 'meta_value' => $request->input('editor_type'),

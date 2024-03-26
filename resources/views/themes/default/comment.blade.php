@@ -38,14 +38,16 @@
                                               style="font-size: 0.5rem">游客</span>
                                     @endif
                                 </div>
-                                <p class="text-muted mb-0"><small>{{ $comment->created_at->diffForHumans() }}</small></p>
+                                <p class="text-muted mb-0"><small>{{ $comment->created_at->diffForHumans() }}</small>
+                                </p>
                             </div>
                         </div>
                         <div style="margin-left: 3.5rem;">
                             @if($comment->parent && $comment->parent->status == \App\Constant\CommentStatus::Approved)
                                 <div id="reply-to" class="bg-light p-2 mt-2">
                                     <p>
-                                        <a class="link-secondary" href="{{ url()->current() }}#comment-{{ $comment->parent->id }}">{{ '@' }}{{ $comment->parent->author ? $comment->parent->author->name : $comment->parent->guest_name }}</a>
+                                        <a class="link-secondary"
+                                           href="{{ url()->current() }}#comment-{{ $comment->parent->id }}">{{ '@' }}{{ $comment->parent->author ? $comment->parent->author->name : $comment->parent->guest_name }}</a>
                                     </p>
                                     {!! \Illuminate\Support\Facades\App::make(\App\One\MarkdownToHtml::class)->convert($comment->parent->body) !!}
                                 </div>
@@ -73,7 +75,8 @@
     <h3 id="reply-title" class="comment-reply-title">发表评论</h3>
     <p>@auth
             <a class="link-secondary"
-               href="{{ route('filament.admin.resources.users.edit', auth()->id()) }}">已登录为{{ auth()->user()->name }}</a> <a
+               href="{{ route('filament.admin.resources.users.edit', auth()->id()) }}">已登录为{{ auth()->user()->name }}</a>
+            <a
                 class="link-secondary" href="#">注销？</a>
         @endauth @guest
             您的电子邮箱地址不会被公开。

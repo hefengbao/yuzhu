@@ -14,7 +14,7 @@ class PageController extends Controller
 {
     public function index(Request $request)
     {
-        if (! auth()->user()->isAdministrator()) {
+        if (!auth()->user()->isAdministrator()) {
             abort(403);
         }
 
@@ -41,7 +41,7 @@ class PageController extends Controller
 
     public function create()
     {
-        if (! auth()->user()->isAdministrator()) {
+        if (!auth()->user()->isAdministrator()) {
             abort(403);
         }
 
@@ -65,7 +65,7 @@ class PageController extends Controller
 
     public function edit($id)
     {
-        if (! auth()->user()->isAdministrator()) {
+        if (!auth()->user()->isAdministrator()) {
             abort(403);
         }
         $page = Post::page()->findOrFail($id);
@@ -75,7 +75,7 @@ class PageController extends Controller
 
     public function destroy($id)
     {
-        if (! auth()->user()->isAdministrator()) {
+        if (!auth()->user()->isAdministrator()) {
             abort(403);
         }
 

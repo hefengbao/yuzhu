@@ -6,7 +6,7 @@
         spellChecker: false,
         autoDownloadFontAwesome: false,
         unorderedListStyle: "-",
-        status: ["upload-image","autosave", "lines", "words", "cursor"],
+        status: ["upload-image", "autosave", "lines", "words", "cursor"],
         uploadImage: true,
         imageUploadEndpoint: "{{ route('admin.markdown.uploadimage') }}",
         imageCSRFToken: "{{ csrf_token() }}",

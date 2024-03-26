@@ -12,10 +12,14 @@
     <meta property="og:image" content="@yield('og_image')"/>
     <meta property="og:release_date" content="@yield('og_date')"/>
     <meta property="og:title" content="@yield('og_title')"/>
-    <meta property="og:description" content="@yield('og_description')" />
+    <meta property="og:description" content="@yield('og_description')"/>
     <meta property="og:author" content="@yield('og_author')"/>
-    @if($options->autoload()['site_verify_meta']){!! $options->autoload()['site_verify_meta'] !!}@endif
-    <title>@yield('title') {{ $options->autoload()['title'] }}@if(if_route('home.index')) &#8211; {{ $options->autoload()['subtitle'] }}@endif</title>
+    @if($options->autoload()['site_verify_meta'])
+        {!! $options->autoload()['site_verify_meta'] !!}
+    @endif
+    <title>@yield('title') {{ $options->autoload()['title'] }}@if(if_route('home.index'))
+            &#8211; {{ $options->autoload()['subtitle'] }}
+        @endif</title>
     <link rel="canonical" href="{{ url()->current() }}">
     <link rel="shortcut icon" href="{{ asset('favicons/favicon.ico') }}">
     <link rel="stylesheet" href="{{ asset('libs/bootstrap/5.2.3/css/bootstrap.min.css') }}"/>
@@ -166,8 +170,8 @@
             padding: 0 !important;
         }
 
-        .editor-paragraph>a{
-            color: #6c757d!important;
+        .editor-paragraph > a {
+            color: #6c757d !important;
         }
 
         .crawler {
@@ -175,7 +179,9 @@
         }
     </style>
     @yield('style')
-    @if(isset($options->autoload()['site_analytics'])){!! $options->autoload()['site_analytics'] !!}@endif
+    @if(isset($options->autoload()['site_analytics']))
+        {!! $options->autoload()['site_analytics'] !!}
+    @endif
 </head>
 <body>
 
@@ -201,8 +207,10 @@
                     <img width="16" height="16" src="{{ asset('image/rss.svg') }}" alt="">
                 </a>
                 <a class="py-2 text-dark text-decoration-none" href="{{ url('/sitemap.xml') }}">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-diagram-3" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M6 3.5A1.5 1.5 0 0 1 7.5 2h1A1.5 1.5 0 0 1 10 3.5v1A1.5 1.5 0 0 1 8.5 6v1H14a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0V8h-5v.5a.5.5 0 0 1-1 0V8h-5v.5a.5.5 0 0 1-1 0v-1A.5.5 0 0 1 2 7h5.5V6A1.5 1.5 0 0 1 6 4.5v-1zM8.5 5a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1zM0 11.5A1.5 1.5 0 0 1 1.5 10h1A1.5 1.5 0 0 1 4 11.5v1A1.5 1.5 0 0 1 2.5 14h-1A1.5 1.5 0 0 1 0 12.5v-1zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zm4.5.5A1.5 1.5 0 0 1 7.5 10h1a1.5 1.5 0 0 1 1.5 1.5v1A1.5 1.5 0 0 1 8.5 14h-1A1.5 1.5 0 0 1 6 12.5v-1zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zm4.5.5a1.5 1.5 0 0 1 1.5-1.5h1a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1-1.5 1.5h-1a1.5 1.5 0 0 1-1.5-1.5v-1zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1z"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-diagram-3" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                              d="M6 3.5A1.5 1.5 0 0 1 7.5 2h1A1.5 1.5 0 0 1 10 3.5v1A1.5 1.5 0 0 1 8.5 6v1H14a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0V8h-5v.5a.5.5 0 0 1-1 0V8h-5v.5a.5.5 0 0 1-1 0v-1A.5.5 0 0 1 2 7h5.5V6A1.5 1.5 0 0 1 6 4.5v-1zM8.5 5a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1zM0 11.5A1.5 1.5 0 0 1 1.5 10h1A1.5 1.5 0 0 1 4 11.5v1A1.5 1.5 0 0 1 2.5 14h-1A1.5 1.5 0 0 1 0 12.5v-1zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zm4.5.5A1.5 1.5 0 0 1 7.5 10h1a1.5 1.5 0 0 1 1.5 1.5v1A1.5 1.5 0 0 1 8.5 14h-1A1.5 1.5 0 0 1 6 12.5v-1zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zm4.5.5a1.5 1.5 0 0 1 1.5-1.5h1a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1-1.5 1.5h-1a1.5 1.5 0 0 1-1.5-1.5v-1zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1z"/>
                     </svg>
                 </a>
             </nav>

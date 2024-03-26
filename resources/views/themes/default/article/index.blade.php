@@ -7,14 +7,14 @@
         @if($pinnedArticles->isNotEmpty())
             <h3>[置顶]</h3>
             <div class="mb-2 mt-2">
-            @foreach($pinnedArticles as $article)
-                <p>
-                    <span class="fst-italic text-secondary">{{ $article->published_at->format('Y.m.d') }}&nbsp;&nbsp;</span>
-                    <a href="{{ route('articles.show', $article->slug_id) }}" class="link-dark" target="_blank">
-                        {{ $article->title }}
-                    </a>
-                </p>
-            @endforeach
+                @foreach($pinnedArticles as $article)
+                    <p>
+                        <span class="fst-italic text-secondary">{{ $article->published_at->format('Y.m.d') }}&nbsp;&nbsp;</span>
+                        <a href="{{ route('articles.show', $article->slug_id) }}" class="link-dark" target="_blank">
+                            {{ $article->title }}
+                        </a>
+                    </p>
+                @endforeach
             </div>
         @endif
         @php
@@ -27,7 +27,8 @@
             <div class="mb-2 mt-2">
                 @foreach($group as $article)
                     <p>
-                        <span class="fst-italic text-secondary">{{ $article->published_at->format('m.d') }}&nbsp;&nbsp;</span>
+                        <span
+                            class="fst-italic text-secondary">{{ $article->published_at->format('m.d') }}&nbsp;&nbsp;</span>
                         <a href="{{ route('articles.show', $article->slug_id) }}" class="link-dark" target="_blank">
                             {{ $article->title }}
                         </a>
