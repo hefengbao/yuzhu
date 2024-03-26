@@ -30,9 +30,9 @@ class PostTableSeeder extends Seeder
 
 Github: https://github.com/hefengbao/one
 
-微博：[@_好安静](https://www.weibo.com/u/1778629642)、[@Eyeswap](https://weibo.com/u/6698759239)、[@8ug_icu](https://weibo.com/u/7645900557)
+微博：[@8ug_icu](https://weibo.com/u/7645900557)
 
-微信公众号：[Eyeswap](https://hefengbao.github.io/assets/images/eyeswap.jpg)',
+微信公众号：[NowInLife](https://hefengbao.github.io/assets/images/NowInLife.png)',
                 'type' => PostType::Page->value,
                 'status' => PostStatus::Publish->value,
                 'published_at' => Carbon::now(),
