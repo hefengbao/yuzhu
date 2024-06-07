@@ -5,11 +5,13 @@ namespace App\Models;
 use App\Constant\Commentable;
 use App\Constant\PostStatus;
 use App\Constant\PostType;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use Spatie\Feed\Feedable;
 use Spatie\Feed\FeedItem;
@@ -118,12 +120,13 @@ class Post extends Model implements Feedable
 
     public function isPublished(): bool
     {
-        return $this->status === PostStatus::Publish;
+        return $this->status === PostStatus::Published;
     }
 
     public function scopePublished($query)
     {
-        return $query->where('status', PostStatus::Publish);
+        return $query->where('status', PostStatus::Published)
+            ->where('published_at','<=', Carbon::now()->format('Y-m-d H:i:s'));
     }
 
     public function scopeArticle($query)

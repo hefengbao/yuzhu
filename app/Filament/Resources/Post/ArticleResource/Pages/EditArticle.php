@@ -24,24 +24,6 @@ class EditArticle extends EditRecord
             $data['excerpt'] = Str::limit(str_replace(PHP_EOL, '', strip_tags(md_to_html($data['body']))), 160);
         }
 
-        if (isset($data['status'])) {
-            $data['published_at'] = match ($data['status']) { //TODO 临时方案，正确转换类型时需修改
-                PostStatus::Publish->value => Carbon::now(),
-                PostStatus::Future->value => isset($data['published_at']) ?
-                    Carbon::createFromFormat('Y-m-d H:i:s', $data['published_at'])->format('Y-m-d H:i:s') :
-                    Carbon::now(),
-                default => null
-            };
-
-            match ($data['status']) {
-                PostStatus::Publish->value => Log::info('Publish'),
-                PostStatus::Future->value => Log::info('Future'),
-                default => Log::info('Default')
-            };
-        }
-
-        Log::info(json_encode($data, true));
-
         return $data;
     }
 }

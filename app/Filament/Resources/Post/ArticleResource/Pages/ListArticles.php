@@ -26,12 +26,12 @@ class ListArticles extends ListRecords
                 ->badge(
                     Post::query()
                         ->where('type', PostType::Article)
-                        ->when(!$auth->isAdministrator(), function ($query) {
-                            $query->where(function ($query) {
+                        ->when(!$auth->isAdministrator(), function (Builder $query) {
+                            $query->where(function (Builder $query) {
                                 $query->where('user_id', auth()->id())
-                                    ->orWhere(function ($query) {
+                                    ->orWhere(function (Builder $query) {
                                         $query->where('user_id', '!=', auth()->id())
-                                            ->where('status', PostStatus::Publish);
+                                            ->where('status', PostStatus::Published);
                                     });
                             });
                         })
@@ -49,13 +49,13 @@ class ListArticles extends ListRecords
                         ->count()
                 )
                 ->badgeColor('info'),
-            '已发布' => Tab::make()
+            '发布' => Tab::make()
                 ->modifyQueryUsing(
-                    fn(Builder $query) => $query->where('status', PostStatus::Publish)
+                    fn(Builder $query) => $query->where('status', PostStatus::Published)
                 )->badge(
                     Post::query()
                         ->where('type', PostType::Article)
-                        ->where('status', PostStatus::Publish)
+                        ->where('status', PostStatus::Published)
                         ->count()
                 )
                 ->badgeColor('info'),
@@ -69,13 +69,13 @@ class ListArticles extends ListRecords
                         ->count()
                 )
                 ->badgeColor('primary'),
-            '回收站' => Tab::make()
+            '驳回' => Tab::make()
                 ->modifyQueryUsing(
-                    fn(Builder $query) => $query->where('status', PostStatus::Trash)
+                    fn(Builder $query) => $query->where('status', PostStatus::Rejected)
                 )->badge(
                     Post::query()
                         ->where('type', PostType::Article)
-                        ->where('status', PostStatus::Trash)
+                        ->where('status', PostStatus::Rejected)
                         ->when(!$auth->isAdministrator(), function ($query) use ($auth) {
                             $query->where('user_id', $auth->id);
                         })

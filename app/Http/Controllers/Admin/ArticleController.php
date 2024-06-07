@@ -76,7 +76,7 @@ class ArticleController extends Controller
         $article->commentable = $request->input('commentable', Commentable::Open->value);
 
         $article->published_at = match ($request->input('status')) {
-            PostStatus::Publish->value => Carbon::now(),
+            PostStatus::Published->value => Carbon::now(),
             PostStatus::Future->value => $request->input('published_at')
                 ? Carbon::createFromFormat('Y-m-d H:i:s', $request->input('published_at') . ' ' . date('H:i:s'))
                 : Carbon::now(),
@@ -179,7 +179,7 @@ class ArticleController extends Controller
             $article->status = $request->input('status');
 
             $article->published_at = match ($request->input('status')) {
-                PostStatus::Publish->value => Carbon::now(),
+                PostStatus::Published->value => Carbon::now(),
                 PostStatus::Future->value => $request->input('published_at')
                     ? Carbon::createFromFormat('Y-m-d H:i:s', $request->input('published_at') . ' ' . date('H:i:s'))
                     : Carbon::now(),

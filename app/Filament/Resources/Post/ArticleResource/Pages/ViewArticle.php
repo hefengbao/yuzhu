@@ -21,26 +21,22 @@ class ViewArticle extends ViewRecord
         $auth = auth()->user();
 
         return [
-            Action::make('back')
-                ->label('返回')
-                ->url(url()->previous()),
             Action::make('pinned')
                 ->label('置顶')
                 ->color('success')
                 ->requiresConfirmation()
                 ->action(fn(Post $record) => $record->update(['pinned_at' => Carbon::now()]))
-                ->visible(fn(Post $record): bool => ($auth->isAdministrator() || $auth->isEditor()) && $record->status === PostStatus::Publish && !$record->isPinned()),
+                ->visible(fn(Post $record): bool => ($auth->isAdministrator() || $auth->isEditor()) && $record->status === PostStatus::Published && !$record->isPinned()),
             Action::make('取消置顶')
                 ->color('danger')
                 ->requiresConfirmation()
                 ->action(fn(Post $record) => $record->update(['pinned_at' => null]))
                 ->visible(fn(Post $record): bool => ($auth->isAdministrator() || $auth->isEditor()) && $record->isPinned()),
-            Action::make('移到回收站')
+            Action::make('驳回')
                 ->color('danger')
                 ->requiresConfirmation()
-                ->action(fn(Post $record) => $record->update(['status' => PostStatus::Trash]))
-                ->visible(fn(Post $record): bool => $record->status !== PostStatus::Trash && !$record->isPinned()),
-            DeleteAction::make()->visible(fn(Post $record): bool => ($auth->isAdministrator() || $auth->isEditor() || $record->user_id == $auth->id) && $record->status === PostStatus::Trash),
+                ->action(fn(Post $record) => $record->update(['status' => PostStatus::Rejected]))
+                ->visible(fn(Post $record): bool => $record->status !== PostStatus::Rejected && !$record->isPinned()),
         ];
     }
 }

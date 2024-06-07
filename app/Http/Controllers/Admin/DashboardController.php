@@ -60,7 +60,7 @@ class DashboardController extends Controller
         $data['metrics']['comment_count'] = Comment::where('status', '!=', CommentStatus::Spam->value)
             ->count('id');
 
-        $data['trend']['posts'] = Post::latest('id')->where('status', PostStatus::Publish->value)->limit(5)->get();
+        $data['trend']['posts'] = Post::latest('id')->where('status', PostStatus::Published->value)->limit(5)->get();
         $data['trend']['comments'] = Comment::with(['post', 'author'])
             ->where('status', '!=', CommentStatus::Spam->value)
             ->latest('id')->limit(5)->get();

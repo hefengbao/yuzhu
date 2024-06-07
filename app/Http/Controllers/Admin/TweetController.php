@@ -66,7 +66,7 @@ class TweetController extends Controller
         $tweet = new Post();
         $tweet->author()->associate($auth);
         $tweet->type = PostType::Tweet->value;
-        $tweet->status = PostStatus::Publish->value;
+        $tweet->status = PostStatus::Published->value;
         $tweet->body = $request->input('body');
         $tweet->slug = Str::random();
         $tweet->commentable = $request->input('commentable') ?: Commentable::Open->value;

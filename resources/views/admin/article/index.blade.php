@@ -63,7 +63,7 @@
                                     <a href="{{ route('admin.articles.edit', $article->id) }}">
                                         <span class="text-muted text-sm">编辑</span>
                                     </a>
-                                    @if($article->status == \App\Constant\PostStatus::Publish->value)
+                                    @if($article->status == \App\Constant\PostStatus::Published->value)
                                         @roles(['administrator','editor'])
                                         &nbsp;|&nbsp;
                                         <a href="#" id="pin" data-id="{{ $article->id }}">
@@ -122,19 +122,19 @@
                                 @if($article->comments_count)
                                     <a href="{{ route('articles.show', $article->slug_id) }}#comments"
                                        target="_blank"><i
-                                            class="fas fa-comments"></i> {{ $article->comments_count }}</a>
+                                                class="fas fa-comments"></i> {{ $article->comments_count }}</a>
                                 @else
                                     —
                                 @endif
                             </td>
                             <td class="text-sm">
-                                @if($article->status == \App\Constant\PostStatus::Publish->value)
+                                @if($article->status == \App\Constant\PostStatus::Published->value)
                                     已发布<br>{{ $article->published_at }}
                                 @elseif($article->status == \App\Constant\PostStatus::Draft->value)
                                     草稿,最后修改<br>{{ $article->updated_at }}
                                 @elseif($article->status == \App\Constant\PostStatus::Future->value)
                                     定时发布<br>{{ $article->published_at }}
-                                @elseif($article->status == \App\Constant\PostStatus::Pending->value)
+                                @elseif($article->status == \App\Constant\PostStatus::Rejected->value)
                                     待审,最后修改<br>{{ $article->updated_at }}
                                 @elseif($article->status == \App\Constant\PostStatus::Trash->value)
                                     回收站,最后修改<br>{{ $article->updated_at }}

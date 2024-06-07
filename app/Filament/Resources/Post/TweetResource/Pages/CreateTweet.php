@@ -20,7 +20,7 @@ class CreateTweet extends CreateRecord
         $data['excerpt'] = Str::limit(str_replace(PHP_EOL, '', strip_tags(md_to_html($data['body']))), 160);
         $data['slug'] = Str::random();
         $data['type'] = PostType::Tweet->value;
-        $data['status'] = PostStatus::Publish->value;
+        $data['status'] = PostStatus::Published->value;
         $data['published_at'] = Carbon::now();
 
         return $data;

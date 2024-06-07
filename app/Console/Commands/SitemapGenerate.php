@@ -34,7 +34,10 @@ class SitemapGenerate extends Command
     {
         $creator = Sitemap::create();
 
-        $posts = Post::whereNotNull('published_at')->orderByDesc('id')->get();
+        $posts = Post::whereNotNull('published_at')
+            ->where('published_at','<=', Carbon::now()->format('Y-m-d H:i:s'))
+            ->orderByDesc('id')
+            ->get();
 
         foreach ($posts as $post) {
             $url = match ($post->type) {

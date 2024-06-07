@@ -53,13 +53,13 @@
                                 @endif
                             </td>
                             <td>
-                                @if($page->status == \App\Constant\PostStatus::Publish->value)
+                                @if($page->status == \App\Constant\PostStatus::Published->value)
                                     已发布<br>{{ $page->published_at }}
                                 @elseif($page->status == \App\Constant\PostStatus::Draft->value)
                                     草稿,最后修改<br>{{ $page->updated_at }}
                                 @elseif($page->status == \App\Constant\PostStatus::Future->value)
                                     定时发布<br>{{ $page->published_at }}
-                                @elseif($page->status == \App\Constant\PostStatus::Pending->value)
+                                @elseif($page->status == \App\Constant\PostStatus::Rejected->value)
                                     待审核,最后修<br>{{ $page->updated_at }}
                                 @elseif($page->status == \App\Constant\PostStatus::Trash->value)
                                     回收站,最后修<br>{{ $page->updated_at }}

@@ -34,7 +34,7 @@ Github: https://github.com/hefengbao/one
 
 微信公众号：[NowInLife](https://hefengbao.github.io/assets/images/NowInLife.png)',
                 'type' => PostType::Page->value,
-                'status' => PostStatus::Publish->value,
+                'status' => PostStatus::Published->value,
                 'published_at' => Carbon::now(),
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_at' => \Carbon\Carbon::now(),
@@ -62,7 +62,7 @@ Github: https://github.com/hefengbao/one
 ## 说明
 参考 Wordpress 写的 😄， 站长可自行修改。',
                 'type' => PostType::Page->value,
-                'status' => PostStatus::Publish->value,
+                'status' => PostStatus::Published->value,
                 'published_at' => Carbon::now(),
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_at' => \Carbon\Carbon::now(),
@@ -74,7 +74,7 @@ Github: https://github.com/hefengbao/one
                 'title' => '示例文章',
                 'body' => '这世界我来了！',
                 'type' => PostType::Article->value,
-                'status' => PostStatus::Publish->value,
+                'status' => PostStatus::Published->value,
                 'published_at' => Carbon::now(),
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_at' => \Carbon\Carbon::now(),

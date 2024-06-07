@@ -74,19 +74,19 @@
                             <td class="text-sm">
                                 @if($tweet->comments_count)
                                     <a href="{{ route('tweets.show', $tweet->id) }}#comments" target="_blank"><i
-                                            class="fas fa-comments"></i> {{ $tweet->comments_count }}</a>
+                                                class="fas fa-comments"></i> {{ $tweet->comments_count }}</a>
                                 @else
                                     —
                                 @endif
                             </td>
                             <td class="text-sm">
-                                @if($tweet->status == \App\Constant\PostStatus::Publish->value)
+                                @if($tweet->status == \App\Constant\PostStatus::Published->value)
                                     已发布<br>{{ $tweet->published_at }}
                                 @elseif($tweet->status == \App\Constant\PostStatus::Draft->value)
                                     草稿,最后修改<br>{{ $tweet->meta->updated_at }}
                                 @elseif($tweet->status == \App\Constant\PostStatus::Future->value)
                                     定时发布<br>{{ $tweet->meta->published_at }}
-                                @elseif($tweet->status == \App\Constant\PostStatus::Pending->value)
+                                @elseif($tweet->status == \App\Constant\PostStatus::Rejected->value)
                                     待审核,最后修改<br>{{ $tweet->updated_at }}
                                 @elseif($tweet->status == \App\Constant\PostStatus::Trash->value)
                                     回收站,最后修改<br>{{ $tweet->updated_at }}

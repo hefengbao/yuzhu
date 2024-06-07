@@ -23,8 +23,8 @@ class CreateArticle extends CreateRecord
             $data['excerpt'] = Str::limit(str_replace(PHP_EOL, '', strip_tags(md_to_html($data['body']))), 160);
         }
 
-        $data['published_at'] = match ($data['status']) {
-            PostStatus::Publish => Carbon::now(),
+        /*$data['published_at'] = match ($data['status']) {
+            PostStatus::Published => Carbon::now(),
             PostStatus::Future => isset($data['published_at']) ?
                 Carbon::createFromFormat('Y-m-d H:i:s', $data['published_at'])->format('Y-m-d H:i:s') :
                 Carbon::now(),
@@ -32,10 +32,10 @@ class CreateArticle extends CreateRecord
         };
 
         match ($data['status']) {
-            PostStatus::Publish => Log::info('Publish'),
+            PostStatus::Published => Log::info('Publish'),
             PostStatus::Future => Log::info('Future'),
             default => Log::info('Default')
-        };
+        };*/
 
         return $data;
     }

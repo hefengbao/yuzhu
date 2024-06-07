@@ -72,14 +72,7 @@ class PageResource extends Resource
                     ->label('标题'),
                 Tables\Columns\TextColumn::make('status')
                     ->label('状态')
-                    ->badge()
-                    ->color(fn(PostStatus $state): string => match ($state) {
-                        PostStatus::Draft => 'primary',
-                        PostStatus::Future => 'info',
-                        PostStatus::Publish => 'success',
-                        PostStatus::Pending => 'warning',
-                        default => 'danger'
-                    }),
+                    ->badge(),
             ])
             ->filters([
                 //
@@ -169,7 +162,7 @@ class PageResource extends Resource
         return parent::getEloquentQuery()
             ->where('type', PostType::Page)
             ->when(!$auth->isAdministrator(), function ($query) {
-                $query->where('status', PostStatus::Publish);
+                $query->where('status', PostStatus::Published);
             })
             ->orderByDesc('created_at');
     }

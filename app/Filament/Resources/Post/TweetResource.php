@@ -168,7 +168,7 @@ class TweetResource extends Resource
                     $query->where('user_id', auth()->id())
                         ->orWhere(function ($query) {
                             $query->where('user_id', '!=', auth()->id())
-                                ->where('status', PostStatus::Publish);
+                                ->where('status', PostStatus::Published);
                         });
                 });
             })

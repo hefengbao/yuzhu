@@ -21,7 +21,7 @@ class PageController extends Controller
         $query = Post::page();
 
         $total = $query->clone()->count('id');
-        $publishTotal = $query->clone()->where('status', PostStatus::Publish->value)->count('id');
+        $publishTotal = $query->clone()->where('status', PostStatus::Published->value)->count('id');
         $trashTotal = $query->clone()->where('status', PostStatus::Trash->value)->count('id');
         $draftTotal = $query->clone()->where('status', PostStatus::Draft->value)->count('id');
 

@@ -9,6 +9,7 @@ use App\Filament\Resources\Post\ArticleResource\Pages;
 use App\Filament\Resources\Post\ArticleResource\RelationManagers;
 use App\Models\Post;
 use App\Models\User;
+use Carbon\Carbon;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Infolists;
@@ -39,7 +40,7 @@ class ArticleResource extends Resource
             ->schema([
                 Forms\Components\Group::make()
                     ->schema([
-                        Forms\Components\Section::make()
+                        Forms\Components\Section::make('写作')
                             ->schema([
                                 Forms\Components\TextInput::make('title')
                                     ->label('标题')
@@ -69,7 +70,11 @@ class ArticleResource extends Resource
                                         modifyQueryUsing: fn(Builder $query) => $query->orderByDesc('id'),
                                     )
                                     ->required()
-                                    ->columns(2)
+                                    ->columns([
+                                        'sm' => 2,
+                                        'md' => 3,
+                                        'lg' => 4,
+                                    ])
                                     ->gridDirection('row'),
                                 Forms\Components\Select::make('tags')
                                     ->label('标签')
@@ -94,52 +99,38 @@ class ArticleResource extends Resource
                                             ->dehydrated()
                                             ->required(),
                                     ]),
-                                Forms\Components\Select::make('status')
-                                    ->label('状态')
-                                    ->options(PostStatus::class)
-                                    ->default(fn(?Post $record) => $record != null ? $record->status : PostStatus::Draft)
-                                    ->selectablePlaceholder(false)
-                                    ->required()
-                                    ->live()
-                                    ->hidden(fn(?Post $record) => $record != null && $record->status === PostStatus::Publish)
-                                    ->afterStateUpdated(fn(string $operation, $state, Forms\Set $set) => $state !== ($operation === 'create' ? PostStatus::Future : PostStatus::Future->value) ? $set('published_at', null) : null), // TODO PostStatus::Future->value
-                                Forms\Components\DateTimePicker::make('published_at')
-                                    ->label('发布时间')
-                                    ->dehydrated()
-                                    ->hidden(fn(?Post $record) => $record != null && $record->status === PostStatus::Publish)
-                                    ->disabled(fn(string $operation, Forms\Get $get) => $get('status') != ($operation === 'create' ? PostStatus::Future : PostStatus::Future->value)),
-                                Forms\Components\Select::make('commentable')
-                                    ->label('评论设置')
-                                    ->options(Commentable::class)
-                                    ->default(Commentable::Open)
-                                    ->required(),
-                            ])
-                            ->columns(2),
+                            ]),
 
                         Forms\Components\Section::make('SEO')->schema([
                             Forms\Components\Textarea::make('excerpt')
                                 ->label('文章摘要')
                                 ->maxLength(160),
                         ]),
-                    ])
-                    ->columnSpan(['lg' => fn(?Post $record) => $record === null ? 3 : 2]),
 
-                Forms\Components\Section::make()
-                    ->schema([
-                        Forms\Components\Placeholder::make('created_at')
-                            ->label('创建时间')
-                            ->content(fn(Post $record): ?string => $record->created_at?->diffForHumans()),
-
-                        Forms\Components\Placeholder::make('updated_at')
-                            ->label('最后修改时间')
-                            ->content(fn(Post $record): ?string => $record->updated_at?->diffForHumans()),
-                    ])
-                    ->columnSpan(['lg' => 1])
-                    ->hidden(fn(?Post $record) => $record === null),
-            ])
-            ->columns([
-                'sm' => 3,
-                'lg' => null,
+                        Forms\Components\Section::make('设置')->schema([
+                            Forms\Components\Select::make('status')
+                                ->label('状态')
+                                ->options(PostStatus::class)
+                                ->disableOptionWhen(fn (string $value): bool => PostStatus::parse($value) === PostStatus::Rejected)
+                                ->default(fn(?Post $record) => $record != null ? $record->status : PostStatus::Draft)
+                                ->selectablePlaceholder(false)
+                                ->required()
+                                ->live()
+                                ->hidden(fn(?Post $record) => $record != null && $record->status !== PostStatus::Draft)
+                                ->afterStateUpdated(fn($state, Forms\Set $set) => PostStatus::parse($state) === PostStatus::Published ? $set('published_at', Carbon::now()->format('Y-m-d H:i:s')) : null),
+                            Forms\Components\DateTimePicker::make('published_at')
+                                ->label('发布时间')
+                                ->dehydrated()
+                                ->hidden(fn(?Post $record) => $record != null && $record->status !== PostStatus::Draft)
+                                ->disabled(fn(Forms\Get $get) => PostStatus::parse($get('status')) == PostStatus::Draft),
+                            Forms\Components\Select::make('commentable')
+                                ->label('评论设置')
+                                ->options(Commentable::class)
+                                ->default(Commentable::Open)
+                                ->selectablePlaceholder(false)
+                                ->required(),
+                        ])->columns()
+                    ])->columnSpanFull(),
             ]);
     }
 
@@ -149,7 +140,7 @@ class ArticleResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('title')
                     ->label('标题')
-                    ->prefix(fn(Post $post) => $post->pinned_at != null ? '📌' : ''),
+                    ->prefix(fn(Post $post) => $post->pinned_at != null ? '[置顶]' : ''),
                 Tables\Columns\TextColumn::make('author.name')
                     ->label('作者'),
                 Tables\Columns\TextColumn::make('categories.name')
@@ -168,14 +159,7 @@ class ArticleResource extends Resource
                 Tables\Columns\TextColumn::make('status')
                     ->label('状态')
                     ->badge()
-                    ->color(fn(PostStatus $state): string => match ($state) {
-                        PostStatus::Draft => 'primary',
-                        PostStatus::Future => 'info',
-                        PostStatus::Publish => 'success',
-                        PostStatus::Pending => 'warning',
-                        default => 'danger'
-                    })
-                    ->description(fn(Post $post) => $post->status == PostStatus::Publish || $post->status == PostStatus::Future ? $post->published_at : ''),
+                    ->description(fn(Post $post) => $post->status == PostStatus::Published ? $post->published_at : ''),
             ])
             ->filters([
                 //
@@ -215,20 +199,13 @@ class ArticleResource extends Resource
                                 Infolists\Components\Group::make([
                                     Infolists\Components\TextEntry::make('status')
                                         ->label('状态')
-                                        ->badge()
-                                        ->color(fn(PostStatus $state): string => match ($state) {
-                                            PostStatus::Draft => 'primary',
-                                            PostStatus::Future => 'info',
-                                            PostStatus::Publish => 'success',
-                                            PostStatus::Pending => 'warning',
-                                            default => 'danger'
-                                        }),
+                                        ->badge(),
                                     Infolists\Components\TextEntry::make('published_at')
                                         ->label('发布时间')
                                         ->badge()
                                         ->dateTime()
                                         ->color('info')
-                                        ->visible(fn(Post $record) => $record->status === PostStatus::Publish || $record->status === PostStatus::Future),
+                                        ->visible(fn(Post $record) => $record->status === PostStatus::Published),
                                     Infolists\Components\TextEntry::make('categories.name')
                                         ->label('分类')
                                         ->badge()
@@ -283,7 +260,7 @@ class ArticleResource extends Resource
                     $query->where('user_id', auth()->id())
                         ->orWhere(function ($query) {
                             $query->where('user_id', '!=', auth()->id())
-                                ->where('status', PostStatus::Publish);
+                                ->where('status', PostStatus::Published);
                         });
                 });
             })

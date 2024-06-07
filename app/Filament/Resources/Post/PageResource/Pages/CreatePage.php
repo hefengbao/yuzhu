@@ -19,7 +19,7 @@ class CreatePage extends CreateRecord
         $data['ip'] = request()->ip();
         $data['excerpt'] = Str::limit(str_replace(PHP_EOL, '', strip_tags(md_to_html($data['body']))), 160);
         $data['type'] = PostType::Page->value;
-        $data['status'] = PostStatus::Publish->value;
+        $data['status'] = PostStatus::Published->value;
         $data['published_at'] = Carbon::now();
 
         return $data;
