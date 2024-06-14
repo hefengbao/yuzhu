@@ -10,21 +10,24 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: '首页', link: '/' },
-      { text: '指南', link: '/guide/', activeMatch: '/world/*' }
+      { text: '指南', link: '/guide/what-is-one', activeMatch: '/guide/*' },
     ],
 
-    sidebar: [
-      {
-        text: 'Examples',
-        items: [
-          { text: 'Markdown Examples', link: '/markdown-examples' },
-          { text: 'Runtime API Examples', link: '/api-examples' }
-        ]
-      }
-    ],
+    sidebar: {
+      '/guide/': [
+        {
+          text: '简介',
+          items: [
+            { text: '什么是 One？', link: '/guide/what-is-one' },
+            { text: '快速开始', link: '/guide/getting-started' },
+            { text: '部署', link: '/guide/deploy' },
+          ]
+        }
+      ]
+    },
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
+      { icon: 'github', link: 'https://github.com/hefengbao/one' }
     ]
   }
 })

@@ -8,11 +8,14 @@ hero:
   tagline: "文档在手，快速搭建"
   actions:
     - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
+      text: "什么是 One？"
+      link: /guide/what-is-one
     - theme: alt
-      text: API Examples
-      link: /api-examples
+      text: 快速开始
+      link: /guide/getting-started
+    - theme: alt
+      text: Github
+      link: https://github.com/hefengbao/one
 
 features:
   - title: Feature A
