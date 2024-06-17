@@ -34,28 +34,27 @@ class SitemapGenerate extends Command
     {
         $creator = Sitemap::create();
 
-        $posts = Post::whereNotNull('published_at')
-            ->where('published_at','<=', Carbon::now()->format('Y-m-d H:i:s'))
+        $posts = Post::published()
             ->orderByDesc('id')
             ->get();
 
         foreach ($posts as $post) {
             $url = match ($post->type) {
-                PostType::Tweet->value => '/tweets/' . $post->slug_id,
-                PostType::Article->value => '/articles/' . $post->slug_id,
-                PostType::Page->value => '/pages/' . $post->slug_id,
+                PostType::Tweet => '/tweets/' . $post->slug_id,
+                PostType::Article => '/articles/' . $post->slug_id,
+                PostType::Page => '/pages/' . $post->slug_id,
             };
 
             $priority = match ($post->type) {
-                PostType::Tweet->value => 0.1,
-                PostType::Article->value => 0.8,
-                PostType::Page->value => 0.6,
+                PostType::Tweet => 0.1,
+                PostType::Article => 0.8,
+                PostType::Page => 0.6,
             };
 
             $frequency = match ($post->type) {
-                PostType::Tweet->value => Url::CHANGE_FREQUENCY_YEARLY,
-                PostType::Article->value => Url::CHANGE_FREQUENCY_WEEKLY,
-                PostType::Page->value => Url::CHANGE_FREQUENCY_MONTHLY,
+                PostType::Tweet => Url::CHANGE_FREQUENCY_YEARLY,
+                PostType::Article => Url::CHANGE_FREQUENCY_WEEKLY,
+                PostType::Page => Url::CHANGE_FREQUENCY_MONTHLY,
             };
 
             $creator->add(
