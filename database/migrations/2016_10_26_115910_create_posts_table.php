@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->unsignedBigInteger('user_id')->index()->comment('用户ID');
             $table->string('title', 100)->nullable()->comment('标题');
             $table->string('slug');
-            $table->string('excerpt', 160)->nullable()->comment('文章摘要');
+            $table->string('excerpt')->nullable()->comment('文章摘要');
             $table->longText('body')->comment('内容');
             $table->enum('type', ['page', 'article', 'tweet'])->default('article')->comment('类型');
             $table->enum('status', ['published', 'draft', 'rejected'])->default('draft')->comment('状态');
