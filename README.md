@@ -1,26 +1,21 @@
-# One
+# 玉竹
 
 ## 介绍
 
-![](./docs/images/1.gif)
+『玉竹』一个简洁的博客、微博客系统。
 
-文档：
+
+## 文档
 
 [https://hefengbao.github.io/one/](https://hefengbao.github.io/one/)   
 
-Blog:
+## 示例
 
 [https://www.8ug.icu](https://www.8ug.icu)
 
-## 其他
+## 名称来源
 
-Feed:
-
-https://github.com/spatie/laravel-feed
-
-代码高亮： 
-
-https://prismjs.com/
+『玉竹』一味中药药材名。
 
 ## License
 
