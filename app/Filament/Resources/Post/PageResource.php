@@ -33,6 +33,11 @@ class PageResource extends Resource
 
     protected static ?string $navigationGroup = '写作';
 
+    public static function shouldRegisterNavigation(): bool
+    {
+        return auth()->user()->isAdministrator();
+    }
+
     public static function form(Form $form): Form
     {
         return $form

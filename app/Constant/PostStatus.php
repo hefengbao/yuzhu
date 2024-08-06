@@ -5,11 +5,24 @@ namespace App\Constant;
 use Filament\Support\Contracts\HasColor;
 use Filament\Support\Contracts\HasLabel;
 
-enum PostStatus: string implements HasLabel,HasColor
+enum PostStatus: string implements HasLabel, HasColor
 {
     case Published = 'published';
     case Draft = 'draft';
     case Rejected = 'rejected';
+
+    /**
+     * 临时方案
+     * https://github.com/filamentphp/filament/issues/10206
+     */
+    public static function parse(PostStatus|string|null $value): ?self
+    {
+        if ($value instanceof self) {
+            return $value;
+        }
+
+        return self::tryFrom($value);
+    }
 
     public function getLabel(): ?string
     {
@@ -27,18 +40,5 @@ enum PostStatus: string implements HasLabel,HasColor
             self::Draft => 'gray',
             self::Rejected => 'danger',
         };
-    }
-
-    /**
-     * 临时方案
-     * https://github.com/filamentphp/filament/issues/10206
-     */
-    public static function parse(PostStatus | string | null $value): ?self
-    {
-        if ($value instanceof self) {
-            return $value;
-        }
-
-        return self::tryFrom($value);
     }
 }

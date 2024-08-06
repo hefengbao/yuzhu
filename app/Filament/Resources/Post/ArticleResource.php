@@ -111,7 +111,7 @@ class ArticleResource extends Resource
                             Forms\Components\Select::make('status')
                                 ->label('状态')
                                 ->options(PostStatus::class)
-                                ->disableOptionWhen(fn (string $value): bool => PostStatus::parse($value) === PostStatus::Rejected)
+                                ->disableOptionWhen(fn(string $value): bool => PostStatus::parse($value) === PostStatus::Rejected)
                                 ->default(fn(?Post $record) => $record != null ? $record->status : PostStatus::Draft)
                                 ->selectablePlaceholder(false)
                                 ->required()

@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use Spatie\Feed\Feedable;
 use Spatie\Feed\FeedItem;
@@ -19,19 +18,6 @@ use Vinkla\Hashids\Facades\Hashids;
 
 class Post extends Model implements Feedable
 {
-    const selectField = [
-        'id',
-        'slug',
-        'user_id',
-        'title',
-        'status',
-        'commentable',
-        'comment_count',
-        'pinned_at',
-        'created_at',
-        'updated_at',
-    ];
-
     protected $fillable = [
         'user_id',
         'title',
@@ -52,14 +38,8 @@ class Post extends Model implements Feedable
         'status' => PostStatus::class,
         'type' => PostType::class,
         'commentable' => Commentable::class,
-        'tags' => 'array',
-        'categories' => 'array',
-    ];
 
-    public static function getFeedItems()
-    {
-        return Post::with(['author'])->published()->orderBy('published_at', 'desc')->get();
-    }
+    ];
 
     public function slugId(): Attribute
     {
@@ -73,17 +53,7 @@ class Post extends Model implements Feedable
         return $this->belongsToMany(Tag::class, 'post_tag');
     }
 
-    public function tags2(): BelongsToMany
-    {
-        return $this->belongsToMany(Tag::class, 'post_tag');
-    }
-
     public function categories(): BelongsToMany
-    {
-        return $this->belongsToMany(Category::class, 'category_post');
-    }
-
-    public function categories2(): BelongsToMany
     {
         return $this->belongsToMany(Category::class, 'category_post');
     }
@@ -126,7 +96,7 @@ class Post extends Model implements Feedable
     public function scopePublished($query)
     {
         return $query->where('status', PostStatus::Published)
-            ->where('published_at','<=', Carbon::now()->format('Y-m-d H:i:s'));
+            ->where('published_at', '<=', Carbon::now()->format('Y-m-d H:i:s'));
     }
 
     public function scopeArticle($query)
@@ -146,17 +116,33 @@ class Post extends Model implements Feedable
 
     public function toFeedItem(): FeedItem
     {
-        return FeedItem::create([
+        return FeedItem::create()
+            ->id($this->slug_id)
+            ->title($this->title)
+            ->summary($this->excerpt ?? Str::limit($this->body, 120))
+            ->updated($this->updated_at)
+            ->link(route('articles.show', $this->slug_id))
+            ->authorName($this->author->name)
+            ->category(implode(',', $this->categories->pluck('name')->toArray()));
+
+       /* return FeedItem::create([
             'id' => Hashids::connection('one')->encode($this->id),
-            'title' => $this->title ?? Str::limit($this->body, 50),
+            'title' => $this->title,
             'summary' => $this->excerpt ?? Str::limit($this->body),
             'updated' => $this->updated_at,
-            'link' => match ($this->type) {
-                PostType::Tweet => \route('tweets.show', $this->slug_id),
-                PostType::Article => \route('articles.show', $this->slug_id),
-                PostType::Page => \route('pages.show', $this->slug_id),
-            },
+            'link' => route('articles.show', $this->slug_id),
             'authorName' => $this->author ? $this->author->name : url('/'),
-        ]);
+        ]);*/
     }
+
+    public static function getFeedItems()
+    {
+        return Post::with(['author','categories'])
+            ->article()
+            ->published()
+            ->orderBy('published_at', 'desc')
+            ->limit(5)
+            ->get();
+    }
+
 }

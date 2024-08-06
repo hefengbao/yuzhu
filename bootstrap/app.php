@@ -16,7 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+
     })
     ->withExceptions(function (Exceptions $exceptions) {
         // 404 跳转到首页

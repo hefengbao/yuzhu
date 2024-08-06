@@ -8,7 +8,6 @@ use App\Models\Post;
 use App\Models\User;
 use Carbon\Carbon;
 use Filament\Actions\Action;
-use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\ViewRecord;
 
 class ViewArticle extends ViewRecord

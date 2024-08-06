@@ -27,6 +27,8 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login()
             ->emailVerification()
+            ->passwordReset()
+            //->profile()
             ->colors([
                 'primary' => Color::Amber,
             ])
@@ -52,6 +54,7 @@ class AdminPanelProvider extends PanelProvider
                     ->icon('heroicon-o-cog-8-tooth')
                     ->collapsed(),
             ])
+            ->unsavedChangesAlerts()
             ->sidebarFullyCollapsibleOnDesktop()
             ->readOnlyRelationManagersOnResourceViewPagesByDefault(false)
             ->middleware([

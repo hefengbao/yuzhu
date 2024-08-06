@@ -16,7 +16,7 @@ return [
             /*
              * The feed will be available on this url.
              */
-            'url' => '/rss.xml',
+            'url' => '/atom.xml',
 
             'title' => env('APP_NAME', 'One'),
             'description' => env('FEED_DESCRIPTION', '欢迎订阅'),

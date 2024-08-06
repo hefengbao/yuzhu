@@ -26,6 +26,11 @@ class TagResource extends Resource
 
     protected static ?string $navigationGroup = '写作';
 
+    public static function shouldRegisterNavigation(): bool
+    {
+        return auth()->user()->isAdministrator() || auth()->user()->isEditor();
+    }
+
     public static function form(Form $form): Form
     {
         return $form
