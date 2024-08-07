@@ -7,6 +7,7 @@ Route::domain(config('domain.api'))
     ->middleware([
         \App\Http\Middleware\RequiresJson::class,
     ])
+    ->name('api.v1.')
     ->group(function () {
         Route::post('auth/login', [\App\Http\Controllers\Api\V1\AuthController::class, 'login']);
         Route::post('auth/logout', [\App\Http\Controllers\Api\V1\AuthController::class, 'logout']);
