@@ -14,8 +14,12 @@ Route::domain(config('domain.api'))
 
         Route::get('me', [\App\Http\Controllers\Api\V1\UserController::class, 'me']);
 
+        Route::get('articles/{id}/comments', [\App\Http\Controllers\Api\V1\CommentController::class, 'index']);
+        Route::post('articles/{id}/comments', [\App\Http\Controllers\Api\V1\CommentController::class, 'store']);
         Route::apiResource('articles', \App\Http\Controllers\Api\V1\ArticleController::class)->only(['index', 'store', 'update', 'destroy']);
 
+        Route::get('tweets/{id}/comments', [\App\Http\Controllers\Api\V1\CommentController::class, 'index']);
+        Route::post('tweets/{id}/comments', [\App\Http\Controllers\Api\V1\CommentController::class, 'store']);
         Route::apiResource('tweets', \App\Http\Controllers\Api\V1\TweetController::class)->only(['index', 'store', 'update', 'destroy']);
 
         Route::apiResource('pages', \App\Http\Controllers\Api\V1\PageController::class)->only(['index', 'store', 'update', 'destroy']);

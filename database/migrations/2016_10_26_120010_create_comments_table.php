@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->string('guest_email', 80)->nullable()->comment('游客邮箱');
             $table->ipAddress('ip')->nullable()->comment('IP');
             $table->string('user_agent')->nullable();
-            $table->enum('status', ['spam', 'trash', 'pending', 'approved'])->default('pending');
+            $table->enum('status', ['spam', 'trash', 'pending', 'approved'])->default('approved');
             $table->timestamps();
         });
     }
