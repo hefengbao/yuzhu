@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Constant\CommentStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\CommentResourece;
+use App\Models\Comment;
 use App\Models\Post;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -18,11 +19,16 @@ class CommentController extends Controller implements HasMiddleware
         return ['auth:sanctum'];
     }
 
-    public function index($id): ResourceCollection
+    public function index($id, Request $request): ResourceCollection
     {
-        $post = Post::findOrFail($id);
-
-        $comments = $post->comments()->with(['author'])->approved()->get();
+        $comments = Comment::with(['author'])->approved()
+            ->where('post_id', $id)
+            ->when($request->query('key'), function ($query) use ($request) {
+                $query->where('id', '>', $request->query('key'));
+            })
+            ->limit($request->query('page_size', 30))
+            ->orderByAsc('id')
+            ->get();
 
         return CommentResourece::collection($comments);
     }
