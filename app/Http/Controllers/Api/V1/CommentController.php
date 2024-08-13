@@ -27,7 +27,7 @@ class CommentController extends Controller implements HasMiddleware
                 $query->where('id', '>', $request->query('key'));
             })
             ->limit($request->query('page_size', 30))
-            ->orderByAsc('id')
+            ->orderBy('id')
             ->get();
 
         return CommentResourece::collection($comments);
