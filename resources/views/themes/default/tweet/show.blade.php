@@ -35,7 +35,7 @@
                     </div>
                     <p class="card-text mb-auto">{!! $tweet->body !!}</p>
                     <div class="mt-1">
-                        @foreach($tweet->tags2 as $tag)
+                        @foreach($tweet->tags as $tag)
                             <a href="{{ route('search.tags', $tag->slug) }}" class="link-secondary" target="_blank">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                      class="bi bi-hash" viewBox="0 0 16 16">
