@@ -1,7 +1,9 @@
 bootstrap/
+public/
+storage/
 vendor/
+.idea/
+.env
 node_modules/
 docs/.vitepress/dist
 docs/.vitepress/cache
-.idea/
-.env
