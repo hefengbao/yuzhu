@@ -140,7 +140,8 @@ class ArticleResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('title')
                     ->label('标题')
-                    ->prefix(fn(Post $post) => $post->pinned_at != null ? '[置顶]' : ''),
+                    ->prefix(fn(Post $post) => $post->pinned_at != null ? '[置顶]' : '')
+                    ->wrap(),
                 Tables\Columns\TextColumn::make('author.name')
                     ->label('作者'),
                 Tables\Columns\TextColumn::make('categories.name')
