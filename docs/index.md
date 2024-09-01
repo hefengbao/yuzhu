@@ -3,19 +3,19 @@
 layout: home
 
 hero:
-  name: "One"
+  name: "玉竹"
   text: "简洁的博客、微博客系统"
   tagline: "文档在手，快速搭建"
   actions:
     - theme: brand
-      text: "什么是 One？"
-      link: /guide/what-is-one
+      text: "什么是玉竹？"
+      link: /guide/what-is-yuzhu
     - theme: alt
       text: 快速开始
       link: /guide/getting-started
     - theme: alt
       text: Github
-      link: https://github.com/hefengbao/one
+      link: https://github.com/hefengbao/yuzhu
 
 features:
   - title: Feature A
