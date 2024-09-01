@@ -5,7 +5,7 @@ export default defineConfig({
   lang: 'zh-Hans',
   title: "One",
   description: "简洁的博客、微博客系统",
-  base: "/one/",
+  base: "/yuzhu/",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
@@ -27,7 +27,7 @@ export default defineConfig({
     },
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/hefengbao/one' }
+      { icon: 'github', link: 'https://github.com/hefengbao/yuzhu' }
     ]
   }
 })
