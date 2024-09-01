@@ -3,12 +3,12 @@
 layout: home
 
 hero:
-  name: "玉竹"
+  name: "玉竹（Yuzhu）"
   text: "简洁的博客、微博客系统"
   tagline: "文档在手，快速搭建"
   actions:
     - theme: brand
-      text: "什么是玉竹？"
+      text: "什么是玉竹（Yuzhu）？"
       link: /guide/what-is-yuzhu
     - theme: alt
       text: 快速开始

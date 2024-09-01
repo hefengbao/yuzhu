@@ -1,6 +1,6 @@
 # One 是什么？
 
-One 基于 [Laravel](https://laravel.com) 框架开发的简洁的博客、微博客系统。
+玉竹（Yuzhu）基于 [Laravel](https://laravel.com) 框架开发的简洁的博客、微博客系统。
 
 ::: tip 提示
 后续计划抽时间开发 Android 客户端，主要打算实现发微博、评论回复功能，敬请期待...
