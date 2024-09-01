@@ -1,4 +1,4 @@
-# One 是什么？
+# 玉竹（Yuzhu）是什么？
 
 玉竹（Yuzhu）基于 [Laravel](https://laravel.com) 框架开发的简洁的博客、微博客系统。
 
