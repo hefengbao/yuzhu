@@ -5,6 +5,9 @@
 @endsection
 @section('content')
     <div class="row">
+        {!! \Illuminate\Support\Str::markdown($post->body) !!}
+    </div>
+    {{--<div class="row">
         @foreach($tweets as $tweet)
             <div class="col-md-6">
                 <div
@@ -53,5 +56,5 @@
                 </ol>
             </div>
         </div>
-    </div>
+    </div>--}}
 @endsection

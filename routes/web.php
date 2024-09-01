@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
 Route::get('articles', [\App\Http\Controllers\ArticleController::class, 'index'])->name('articles.index');
 Route::get('articles/{slug}', [\App\Http\Controllers\ArticleController::class, 'show'])->name('articles.show');
+Route::get('pages', [\App\Http\Controllers\PageController::class, 'index'])->name('pages.index');
 Route::get('pages/{slug}', [\App\Http\Controllers\PageController::class, 'show'])->name('pages.show');
 Route::get('tweets', [\App\Http\Controllers\TweetController::class, 'index'])->name('tweets.index');
 Route::get('tweets/{slug}', [\App\Http\Controllers\TweetController::class, 'show'])->name('tweets.show');

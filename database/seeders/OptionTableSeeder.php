@@ -20,7 +20,7 @@ class OptionTableSeeder extends Seeder
             [
                 'id' => 1,
                 'name' => 'title',
-                'value' => 'One',
+                'value' => '玉竹',
                 'autoload' => 'yes',
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_at' => \Carbon\Carbon::now(),
@@ -36,7 +36,7 @@ class OptionTableSeeder extends Seeder
             [
                 'id' => 3,
                 'name' => 'keywords',
-                'value' => 'one,blog,博客,微博客',
+                'value' => 'Yuzhu,玉竹,blog,博客,微博客',
                 'autoload' => 'yes',
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_at' => \Carbon\Carbon::now(),
@@ -44,7 +44,7 @@ class OptionTableSeeder extends Seeder
             [
                 'id' => 4,
                 'name' => 'description',
-                'value' => 'one 一个简洁的博客、微博客。',
+                'value' => '玉竹，一个简洁的博客、微博客。',
                 'autoload' => 'yes',
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_at' => \Carbon\Carbon::now(),

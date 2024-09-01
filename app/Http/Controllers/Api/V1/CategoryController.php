@@ -8,11 +8,14 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
 
 class CategoryController extends Controller implements HasMiddleware
 {
+
+    private string $cacheKey = 'categories';
 
     public static function middleware(): array
     {
@@ -21,7 +24,9 @@ class CategoryController extends Controller implements HasMiddleware
 
     public function index(): ResourceCollection
     {
-        $tags = Category::all();
+        $tags = Cache::rememberForever($this->cacheKey, function () {
+            return Category::all();
+        });
 
         return CategoryResource::collection($tags);
     }
@@ -33,6 +38,8 @@ class CategoryController extends Controller implements HasMiddleware
         ]);
 
         $category = Category::where('name', $request->input('name'))->first();
+
+        Cache::forget($this->cacheKey);
 
         if ($category) {
             return new CategoryResource($category);

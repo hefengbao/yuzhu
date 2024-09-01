@@ -24,11 +24,11 @@ class PostTableSeeder extends Seeder
                 'slug' => 'about',
                 'user_id' => 1,
                 'title' => '关于',
-                'body' => 'One 是一个简介的博客，微博客系统。
+                'body' => '玉竹是一个简洁的博客，微博客系统。
 
 对微博客的一点说明，有时想写点的什么但是又没有一个贴合的标题，可能因此又不想写了，于是做了一个小的模块，就像发微博那样，只写内容就可以了。显示的时候也是单独的一块。
 
-Github: https://github.com/hefengbao/one
+Github: https://github.com/hefengbao/yuzhu
 
 微博：[@8ug_icu](https://weibo.com/u/7645900557)
 
@@ -45,7 +45,7 @@ Github: https://github.com/hefengbao/one
                 'user_id' => 1,
                 'title' => '隐私政策',
                 'body' => '## 我们是谁
-我们的站点地址是：http://one.test。
+我们的站点地址是：http://yuzhu.test。
 ## 评论
 当访客留下评论时，我们会收集评论表单所显示的数据（包括用户名、邮箱地址和评论内容），和访客的IP地址及浏览器的user agent字符串来帮助检查垃圾评论。
 ## 媒体

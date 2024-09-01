@@ -26,6 +26,7 @@
     <style>
         body {
             font-family: Microsoft YaHei, -apple-system, BlinkMacSystemFont, Helvetica Neue, PingFang SC, Source Han Sans SC, Noto Sans CJK SC, WenQuanYi Micro Hei, sans-serif;
+            line-height: 1.5;
         }
 
         .container {
@@ -177,6 +178,45 @@
         .crawler {
             display: none !important;
         }
+
+        /*table {
+            border-collapse: collapse;
+        }
+
+        th,
+        caption {
+            text-align: start;
+        }
+
+        caption {
+            margin-block: 0.75rem;
+        }
+
+        thead th:not(:first-child),
+        td {
+            text-align: end;
+        }
+
+        th,
+        td {
+            border: 1px solid;
+        }
+
+        thead {
+            border-block-end: 2px solid;
+            background: whitesmoke;
+        }
+
+        tfoot {
+            border-block: 2px solid;
+            background: whitesmoke;
+        }
+
+        th,
+        td {
+            border: 1px solid lightgrey;
+            padding: 0.25rem 0.75rem;
+        }*/
     </style>
     @yield('style')
     @if(isset($options->autoload()['site_analytics']))
@@ -196,6 +236,7 @@
                 <a class="me-3 py-2 text-dark text-decoration-none" href="/">首页</a>
                 <a class="me-3 py-2 text-dark text-decoration-none" href="{{ route('tweets.index') }}">微博</a>
                 <a class="me-3 py-2 text-dark text-decoration-none" href="{{ route('articles.index') }}">文章</a>
+                <a class="me-3 py-2 text-dark text-decoration-none" href="{{ route('pages.index') }}">页面</a>
                 <a class="me-3 py-2 text-dark text-decoration-none" href="{{ route('search.index') }}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                          class="bi bi-search" viewBox="0 0 16 16">
@@ -203,10 +244,10 @@
                             d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
                     </svg>
                 </a>
-                <a class="me-3 py-2 text-dark text-decoration-none" href="{{ route('feeds.main') }}">
+                <a class="me-3 py-2 text-dark text-decoration-none" href="{{ route('feeds.main') }}" target="_blank">
                     <img width="16" height="16" src="{{ asset('image/rss.svg') }}" alt="">
                 </a>
-                <a class="py-2 text-dark text-decoration-none" href="{{ url('/sitemap.xml') }}">
+                <a class="py-2 text-dark text-decoration-none" href="{{ url('/sitemap.xml') }}" target="_blank">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                          class="bi bi-diagram-3" viewBox="0 0 16 16">
                         <path fill-rule="evenodd"
@@ -227,7 +268,7 @@
 </main>
 
 <footer class="blog-footer">
-    <p>Powered by <a href="https://hefengbao.github.io/one/" class="link-secondary">One</a></p>
+    <p>Powered by <a href="https://hefengbao.github.io/yuzhu/" class="link-secondary" target="_blank">Yuzhu</a></p>
     @if($icp = $options->autoload()['icp'])
         <p><a href="https://beian.miit.gov.cn/" class="link-secondary" target="_blank">{{ $icp }}</a></p>
     @endif

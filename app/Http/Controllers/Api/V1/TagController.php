@@ -8,11 +8,13 @@ use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
 
 class TagController extends Controller implements HasMiddleware
 {
+    private string $cacheKey = 'tags';
     public static function middleware(): array
     {
         return ['auth:sanctum'];
@@ -20,7 +22,9 @@ class TagController extends Controller implements HasMiddleware
 
     public function index(): ResourceCollection
     {
-        $tags = Tag::all();
+        $tags = Cache::rememberForever($this->cacheKey, function (){
+            return Tag::all();
+        });
 
         return TagResource::collection($tags);
     }
@@ -32,6 +36,8 @@ class TagController extends Controller implements HasMiddleware
         ]);
 
         $tag = Tag::where('name', $request->input('name'))->first();
+
+        Cache::forget($this->cacheKey);
 
         if ($tag) {
             return new TagResource($tag);
