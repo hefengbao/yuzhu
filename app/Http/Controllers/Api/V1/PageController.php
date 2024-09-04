@@ -23,7 +23,7 @@ class PageController extends Controller implements HasMiddleware
         return ['auth:sanctum'];
     }
 
-    public function index(Request $request): ResourceCollection
+    public function index(Request $request): JsonResponse
     {
         $pages = Post::with([
             'author',
@@ -35,7 +35,10 @@ class PageController extends Controller implements HasMiddleware
             ->orderByDesc('id')
             ->get();
 
-        return PostResource::collection($pages);
+        return PostResource::collection($pages)
+            ->response()
+            ->header('Cache-Control', 'public, max-age=3600')
+            ->setEtag(md5($pages->pluck('id')->join(', ')));
     }
 
     public function store(Request $request): JsonResponse

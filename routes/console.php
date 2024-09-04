@@ -16,4 +16,4 @@ Schedule::command('backup:run')->daily()->at('01:30');
 Schedule::command('auth:clear-resets')->daily()->at('02:00');
 
 // 每日定时生成站点地图
-Schedule::command('sitemap:generate')->daily();
+Schedule::command('yuzhu:sitemap-generate')->daily();

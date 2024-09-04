@@ -29,5 +29,7 @@ return Application::configure(basePath: dirname(__DIR__))
                     'message' => $e->getMessage(),
                 ], Response::HTTP_UNAUTHORIZED);
             }
+
+            return redirect('filament.admin.auth.login');
         });
     })->create();

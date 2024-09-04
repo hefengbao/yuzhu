@@ -16,7 +16,7 @@ class SitemapGenerate extends Command
      *
      * @var string
      */
-    protected $signature = 'sitemap:generate';
+    protected $signature = 'yuzhu:sitemap-generate';
 
     /**
      * The console command description.
@@ -34,34 +34,17 @@ class SitemapGenerate extends Command
     {
         $creator = Sitemap::create();
 
-        $posts = Post::published()
+        $posts = Post::article()
+            ->published()
             ->orderByDesc('id')
             ->get();
 
         foreach ($posts as $post) {
-            $url = match ($post->type) {
-                PostType::Tweet => '/tweets/' . $post->slug_id,
-                PostType::Article => '/articles/' . $post->slug_id,
-                PostType::Page => '/pages/' . $post->slug_id,
-            };
-
-            $priority = match ($post->type) {
-                PostType::Tweet => 0.1,
-                PostType::Article => 0.8,
-                PostType::Page => 0.6,
-            };
-
-            $frequency = match ($post->type) {
-                PostType::Tweet => Url::CHANGE_FREQUENCY_YEARLY,
-                PostType::Article => Url::CHANGE_FREQUENCY_WEEKLY,
-                PostType::Page => Url::CHANGE_FREQUENCY_MONTHLY,
-            };
-
             $creator->add(
-                Url::create($url)
-                    ->setLastModificationDate($post->updated_at)
-                    ->setChangeFrequency($frequency)
-                    ->setPriority($priority)
+                Url::create(route('articles.show',$post->slug_id ))
+                    ->setLastModificationDate(max($post->updated_at, $post->published_at))
+                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_HOURLY)
+                    ->setPriority(0.8)
             );
         }
 

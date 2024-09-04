@@ -23,9 +23,9 @@ class ArticleController extends Controller implements HasMiddleware
         return ['auth:sanctum'];
     }
 
-    public function index(Request $request)
+    public function index(Request $request): JsonResponse
     {
-        $posts = Post::with([
+        $articles = Post::with([
             'author',
             'categories',
             'tags',
@@ -33,11 +33,13 @@ class ArticleController extends Controller implements HasMiddleware
             ->when($request->query('key'), function ($query) use ($request) {
                 $query->where('id', '<', $request->query('key'));
             })
-            ->limit($request->query('page_size', 30))
+            ->limit($request->query('page_size', 10))
             ->orderByDesc('id')
             ->get();
 
-        return PostResource::collection($posts);
+        return PostResource::collection($articles)->response()
+            ->header('Cache-Control', 'public, max-age=3600')
+            ->setEtag(md5($articles->pluck('id')->join(', ')));
     }
 
     public function store(Request $request): JsonResponse
@@ -125,7 +127,7 @@ class ArticleController extends Controller implements HasMiddleware
         return response()->json(new PostResource($article));
     }
 
-    public function destroy(Post $article): \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Foundation\Application|\Illuminate\Http\Response
+    public function destroy(Post $article): \Illuminate\Http\Response
     {
         $article->delete();
 

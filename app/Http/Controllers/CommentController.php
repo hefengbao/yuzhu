@@ -7,6 +7,7 @@ use App\Jobs\RepliedNotification;
 use App\Models\Comment;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Validator;
 
 class CommentController extends Controller
@@ -64,7 +65,10 @@ class CommentController extends Controller
 
         $comment->status = CommentStatus::Approved->value;
 
-        $comment->save();
+        DB::transaction(function () use ($comment, $post){
+            $comment->save();
+            $post->increment('comment_count');
+        });
 
         //通知
         RepliedNotification::dispatch($comment);

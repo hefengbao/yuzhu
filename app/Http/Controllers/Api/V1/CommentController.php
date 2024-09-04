@@ -19,7 +19,7 @@ class CommentController extends Controller implements HasMiddleware
         return ['auth:sanctum'];
     }
 
-    public function index($id, Request $request): ResourceCollection
+    public function index($id, Request $request): JsonResponse
     {
         $comments = Comment::with(['author'])->approved()
             ->where('post_id', $id)
@@ -30,10 +30,13 @@ class CommentController extends Controller implements HasMiddleware
             ->orderBy('id')
             ->get();
 
-        return CommentResourece::collection($comments);
+        return CommentResourece::collection($comments)
+            ->response()
+            ->header('Cache-Control', 'public, max-age=3600')
+            ->setEtag(md5($comments->pluck('id')->join(', ')));
     }
 
-    public function store($id,Request $request)
+    public function store($id,Request $request): JsonResponse
     {
         $post = Post::findOrFail($id);
 

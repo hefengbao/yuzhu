@@ -12,7 +12,7 @@ class CheckEmailConfigCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'one:check-email';
+    protected $signature = 'yuzhu:check-email';
 
     /**
      * The console command description.

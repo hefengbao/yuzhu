@@ -31,7 +31,7 @@ class PostResource extends JsonResource
             'type' => $this->type,
             'status' => $this->status,
             'commentable' => $this->commentable,
-            'comment_count' => $this->comment_count,
+            'comment_count' => $this->comment_count ?? 0,
             'pinned_at' => $this->pinned_at,
             'published_at' => $this->published_at,
             'created_at' => $this->created_at,

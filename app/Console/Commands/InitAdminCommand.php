@@ -17,7 +17,7 @@ class InitAdminCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'one:init-admin';
+    protected $signature = 'yuzhu:init-admin';
 
     /**
      * The console command description.

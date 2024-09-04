@@ -47,7 +47,11 @@ class TagController extends Controller implements HasMiddleware
                 'slug' => Str::slug($request->input('name')),
             ]);
 
-            return (new TagResource($tag))->response()->setStatusCode(Response::HTTP_CREATED);
+            return (new TagResource($tag))
+                ->response()
+                ->setStatusCode(Response::HTTP_CREATED)
+                ->header('Cache-Control', 'public, max-age=3600')
+                ->setEtag(md5($tag->updated_at));
         }
     }
 }

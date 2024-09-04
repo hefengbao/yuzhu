@@ -24,7 +24,7 @@ class TweetController extends Controller implements HasMiddleware
         return ['auth:sanctum'];
     }
 
-    public function index(Request $request): ResourceCollection
+    public function index(Request $request): JsonResponse
     {
         $tweets = Post::with([
             'author',
@@ -33,11 +33,14 @@ class TweetController extends Controller implements HasMiddleware
             ->when($request->query('key'), function ($query) use ($request) {
                 $query->where('id', '<', $request->query('key'));
             })
-            ->limit($request->query('page_size', 30))
+            ->limit($request->query('page_size', 10))
             ->orderByDesc('id')
             ->get();
 
-        return PostResource::collection($tweets);
+        return PostResource::collection($tweets)
+            ->response()
+            ->header('Cache-Control', 'public, max-age=3600')
+            ->setEtag(md5($tweets->pluck('id')->join(', ')));
     }
 
     public function store(Request $request): JsonResponse
@@ -90,7 +93,7 @@ class TweetController extends Controller implements HasMiddleware
         return new PostResource($tweet);
     }
 
-    public function destroy(Post $tweet): \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Foundation\Application|\Illuminate\Http\Response
+    public function destroy(Post $tweet): \Illuminate\Http\Response
     {
         $tweet->delete();
 
