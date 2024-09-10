@@ -265,6 +265,6 @@ class ArticleResource extends Resource
                         });
                 });
             })
-            ->orderByDesc('created_at');
+            ->orderByDesc('id');
     }
 }

@@ -169,6 +169,6 @@ class PageResource extends Resource
             ->when(!$auth->isAdministrator(), function ($query) {
                 $query->where('status', PostStatus::Published);
             })
-            ->orderByDesc('created_at');
+            ->orderByDesc('id');
     }
 }

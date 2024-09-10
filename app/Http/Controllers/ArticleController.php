@@ -35,16 +35,6 @@ class ArticleController extends Controller
             ->article()
             ->findOrFail($id);
 
-        $meta = $article->meta->pluck('meta_value', 'meta_key')->all();
-
-        $editor = $meta['editor_type'] ?? Editor::Markdown->value;
-
-        if ($editor == Editor::Markdown->value) {
-            $article->body = Markdown::convert($article->body)->getContent();
-        } else {
-            $article->body = LaravelEditorJs::render($article->body);
-        }
-
         $prev = Post::select(['id', 'title', 'slug'])->find($this->getPrevArticleId($article->id));
         $next = Post::select(['id', 'title', 'slug'])->find($this->getNextArticleId($article->id));
 

@@ -24,15 +24,44 @@ class PostTableSeeder extends Seeder
                 'slug' => 'about',
                 'user_id' => 1,
                 'title' => '关于',
-                'body' => '玉竹是一个简洁的博客，微博客系统。
+                'body' => '<!--简单示例--->
+<!--站点标题、站长用户名等-->
+<h1>玉竹</h1>
+<!--站点副标题、站长介绍等-->
+<p>
+	简洁的博客、微博客系统
+</p>
+<!--站点描述、其他说明-->
+<p>
+	对微博客的一点说明，有时想写点的什么但是又没有一个贴合的标题，可能因此又不想写了，于是做了一个小的模块，就像发微博那样，只写内容就可以了。显示的时候也是单独的一块。
+</p>
+<!--格言、座右铭之类-->
+<blockquote>
+ 如果你感觉自己被困住了，焦虑并充满消极情绪，生命出现了停滞，那么治疗方法很简单：做点什么。
+  <footer>
+    <cite>— 《摆脱束缚的最好方法》</cite>
+  </footer>
+</blockquote>
 
-对微博客的一点说明，有时想写点的什么但是又没有一个贴合的标题，可能因此又不想写了，于是做了一个小的模块，就像发微博那样，只写内容就可以了。显示的时候也是单独的一块。
-
-Github: https://github.com/hefengbao/yuzhu
-
-微博：[@8ug_icu](https://weibo.com/u/7645900557)
-
-微信公众号：[NowInLife](https://hefengbao.github.io/assets/images/NowInLife.png)',
+<!--链接-->
+<div class="grid">
+	<!--Github-->
+	<a class="contrast" data-discover="true" href="https://github.com/hefengbao" target="_blank">
+		Github
+	</a>
+	<!--微博-->
+	<a class="contrast" data-discover="true" href="https://weibo.com/u/6698759239" target="_blank">
+		微博
+	</a>
+	<!--微信-->
+	<a class="contrast" data-discover="true" href="https://hefengbao.github.io/assets/images/NowInLife.png" target="_blank">
+		微信公众号
+	</a>
+	<!--B站-->
+	<a class="contrast" data-discover="true" href="https://space.bilibili.com/34255662" target="_blank">
+		B 站
+	</a>
+</div>',
                 'type' => PostType::Page->value,
                 'status' => PostStatus::Published->value,
                 'published_at' => Carbon::now(),

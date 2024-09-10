@@ -81,6 +81,14 @@ class OptionTableSeeder extends Seeder
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_at' => \Carbon\Carbon::now(),
             ],
+            [
+                'id' => 9,
+                'name' => 'site_analytics',
+                'value' => '',
+                'autoload' => 'yes',
+                'created_at' => \Carbon\Carbon::now(),
+                'updated_at' => \Carbon\Carbon::now(),
+            ],
         ]);
     }
 }

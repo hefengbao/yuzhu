@@ -19,10 +19,6 @@ return Application::configure(basePath: dirname(__DIR__))
 
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        // 404 跳转到首页
-        $exceptions->render(function (NotFoundHttpException $exception) {
-            return redirect('/');
-        });
         $exceptions->render(function (AuthenticationException $e, Request $request) {
             if ($request->is('api/*')) {
                 return response()->json([
@@ -30,6 +26,10 @@ return Application::configure(basePath: dirname(__DIR__))
                 ], Response::HTTP_UNAUTHORIZED);
             }
 
-            return redirect('filament.admin.auth.login');
+            return redirect()->route('filament.admin.auth.login');
+        });
+        // 404 跳转到首页
+        $exceptions->render(function (NotFoundHttpException $exception) {
+            return redirect('/');
         });
     })->create();
