@@ -13,9 +13,9 @@
             <h1>{{ $page->title }}</h1>
             <p>
                 {{ $page->author->name }}
-                @if($page->published_at)
-                    发布于 {{ $page->published_at->format('Y.m.d') ?? $page->creatd_at->format('Y.m.d') }}
-                    @if( $page->published_at < $page->updated_at)
+                @if($page->created_at)
+                    发布于 {{ $page->created_at->format('Y.m.d') ?? $page->creatd_at->format('Y.m.d') }}
+                    @if( $page->created_at < $page->updated_at)
                         ，最后更新于 {{ $page->updated_at->format('Y.m.d') }}
                     @endif
                 @endif

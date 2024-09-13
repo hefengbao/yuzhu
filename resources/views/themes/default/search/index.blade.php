@@ -6,13 +6,13 @@
         <h3>分类</h3>
         <p>
             @foreach($categories as $category)
-                <a href="{{ route('search.categories', $category->slug) }}" target="_blank"><kbd>{{ $category->name }}</kbd></a>
+                <a style="padding: 8px;" href="{{ route('search.categories', $category->slug) }}" target="_blank">{{ $category->name }}</a>
             @endforeach
         </p>
         <h3 class="py-3">标签</h3>
         <p>
             @foreach($tags as $tag)
-                <a href="{{ route('search.tags', $tag->slug) }}" target="_blank"><kbd>{{ $tag->name }}</kbd></a>
+                <a style="padding: 8px;" href="{{ route('search.tags', $tag->slug) }}" target="_blank">{{ $tag->name }}</a>
             @endforeach
         </p>
     </div>

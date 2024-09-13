@@ -26,8 +26,10 @@
         <ul>
             @foreach($group as $article)
                 <li>
-                    <small>{{ $article->published_at->format('m月d日') }}</small> »
-                    <a href="{{ route('articles.show', $article->slug_id) }}">{{ $article->title }}</a>
+                    <p>
+                        <small>{{ $article->published_at->format('m月d日') }}</small> »
+                        <a href="{{ route('articles.show', $article->slug_id) }}">{{ $article->title }}</a>
+                    </p>
                 </li>
             @endforeach
         </ul>
