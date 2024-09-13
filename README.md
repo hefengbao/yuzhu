@@ -6,13 +6,19 @@
 
 ## 仓库
 
-Github:[https://github.com/hefengbao/one](https://github.com/hefengbao/one-client)
+Github:[https://github.com/hefengbao/yuzhu](https://github.com/hefengbao/yuzhu)
 
-Gitee:[https://gitee.com/hefengbao/one](https://gitee.com/hefengbao/one-client)
+Gitee:[https://gitee.com/hefengbao/yuzhu](https://gitee.com/hefengbao/yuzhu)
+
+## Android App 仓库:
+
+Github: [https://github.com/hefengbao/yuzhu-client](https://github.com/hefengbao/yuzhu-client)
+
+Gitee: [https://gitee.com/hefengbao/yuzhu-client](https://gitee.com/hefengbao/yuzhu-client)
 
 ## 文档
 
-[https://hefengbao.github.io/one/](https://hefengbao.github.io/one/)   
+[https://hefengbao.github.io/yuzhu/](https://hefengbao.github.io/yuzhu/)   
 
 ## 示例
 
