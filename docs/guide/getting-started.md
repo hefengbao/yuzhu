@@ -11,7 +11,7 @@ nginx 可替换为 apache
 mysql 可替换 MariaDB 等 MySQL 衍生数据库，以及 Laravel 支持的 Sqlite,PostgreSQL。
 :::
 
-::: alert 提示
+::: warning 提示
 以下说明基于 Ubuntu，如果使用其他版本的 Linux，请使用相应的命令。
 :::
 
