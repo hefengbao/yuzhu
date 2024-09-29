@@ -1,4 +1,4 @@
-# FAQ
+# App
 
 本系统开发了相应的 Android App。
 
