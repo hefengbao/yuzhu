@@ -16,11 +16,13 @@ export default defineConfig({
     sidebar: {
       '/guide/': [
         {
-          text: '简介',
+          text: '',
           items: [
-            { text: '什么是玉竹？', link: '/guide/what-is-yuzhu' },
-            { text: '快速开始', link: '/guide/getting-started' },
+            { text: '什么是『玉竹』？', link: '/guide/what-is-yuzhu' },
+            { text: '搭建环境', link: '/guide/getting-started' },
             { text: '部署', link: '/guide/deploy' },
+            { text: 'App', link: '/guide/app' },
+            { text: 'FAQ', link: '/guide/faq' },
           ]
         }
       ]

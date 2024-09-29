@@ -4,9 +4,7 @@ outline: deep
 
 # 部署
 
-## 安装部署
-
-### 创建数据库
+## 创建数据库
 
 ```bash
 mysql -u root -p
@@ -22,19 +20,31 @@ flush privileges;
 exit;
 ```
 
-### 克隆代码：
+## 下载源码
+
+### 1. 直接下载
+
+[https://github.com/hefengbao/yuzhu/releases](https://github.com/hefengbao/yuzhu/releases)
+
+### 2. 克隆代码
 
 ```
-git clone https://github.com/hefengbao/yuzhu.git
+git clone https://github.com/hefengbao/yuzhu.git /var/www/yuzhu
 ````
 
-### 安装扩展包：
+```shell
+cd /var/www/yuzhu
+
+git checkout release
+```
+
+## 安装扩展包：
 
 ```bash
 composer install --optimize-autoloader --no-dev
 ```
 
-### 配置：
+## 配置：
 
 ```
 cp .env.example .env
@@ -73,24 +83,33 @@ MAIL_FROM_ADDRESS="hello@example.com"
 php artisan yuzhu:check-email
 ```
 
-### 生成数据表及数据填充:
+## 生成数据表及数据填充:
 ```
 php artisan migrate --seed
 ```
 
-### 目录权限
+## 用户组
+
+```shell
+chown -R $USER:www-data ./
+```
+
+## 读写权限
 
 ```
 chmod -R 775 storage/ bootstrap/
 ```
 
-### 初始化管理员
+## 初始化管理员
+
 ```shell
 php artisan yuzhu:init-admin
 ```
 
-### nginx 站点配置
+## Nginx 站点配置
+
 可参考：
+
 ```bash
 server {
     listen 80;
@@ -122,7 +141,7 @@ server {
     
     location ~ \.php$ {
         fastcgi_split_path_info ^(.+\.php)(/.+)$;
-        fastcgi_pass unix:/var/run/php/php8.1-fpm.sock;
+        fastcgi_pass unix:/var/run/php/php8.3-fpm.sock;
         fastcgi_index index.php;
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
@@ -145,15 +164,17 @@ server {
 }
 ```
 
-### horizon
+## 配置并运行 Horizon
+
 在 `/etc/supervisor/conf.d` 目录中添加 `yuzhu-horizon.conf` 文件，内容如下：
+
 ```shell
-[program:one-horizon]
+[program:yuzhu-horizon]
 process_name=%(program_name)s
 command=php /var/www/yuzhu/artisan horizon
 autostart=true
 autorestart=true
-user=forge
+user=web
 redirect_stderr=true
 stdout_logfile=/var/www/yuzhu/storage/logs/horizon.log
 stopwaitsecs=3600
@@ -167,7 +188,7 @@ sudo supervisorctl update
 sudo supervisorctl start yuzhu-horizon:*
 ```
 
-### 添加 cron 配置项
+### 添加 Cron 配置项（定时任务）
 
 ```shell
 crontab -u www-data -e
@@ -178,6 +199,7 @@ crontab -u www-data -e
 ```
 
 ## 优化
+
 ```shell
 php artisan route:cache
 php artisan view:cache
