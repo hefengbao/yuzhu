@@ -13,4 +13,4 @@
 加群验证问题答案： hefengbao/yuzhu
 :::
 
-![One 技术支持群](../images/qq.png)
+![技术支持群](../images/qq.jpg)
