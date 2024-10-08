@@ -48,8 +48,8 @@
             "Database\\Seeders\\": "database/seeders/"
         },
         "files": [
-            "app/One/helpers.php",
-            "app/One/Active/helpers.php"
+            "app/Yuzhu/helpers.php",
+            "app/Yuzhu/Active/helpers.php"
         ]
     },
     "autoload-dev": {
