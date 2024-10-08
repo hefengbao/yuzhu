@@ -1,6 +1,6 @@
 <?php
 
-namespace App\One\Markdown;
+namespace App\Yuzhu\Markdown;
 
 interface Converter
 {

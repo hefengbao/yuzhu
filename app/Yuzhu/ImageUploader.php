@@ -1,6 +1,6 @@
 <?php
 
-namespace App\One;
+namespace App\Yuzhu;
 
 use Auth;
 use Intervention\Image\Exception\ImageException;

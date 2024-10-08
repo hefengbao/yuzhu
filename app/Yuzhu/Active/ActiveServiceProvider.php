@@ -1,6 +1,6 @@
 <?php
 
-namespace App\One\Active;
+namespace App\Yuzhu\Active;
 
 use Illuminate\Routing\Events\RouteMatched;
 use Illuminate\Support\ServiceProvider;

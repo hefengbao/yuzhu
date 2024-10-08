@@ -1,6 +1,6 @@
 <?php
 
-namespace App\One;
+namespace App\Yuzhu;
 
 use League\HTMLToMarkdown\HtmlConverter;
 use Parsedown;

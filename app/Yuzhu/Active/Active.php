@@ -1,6 +1,6 @@
 <?php
 
-namespace App\One\Active;
+namespace App\Yuzhu\Active;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;

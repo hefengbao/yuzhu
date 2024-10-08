@@ -1,6 +1,6 @@
 <?php
 
-namespace App\One\EditorJs;
+namespace App\Yuzhu\EditorJs;
 
 use EditorJS\EditorJS;
 use EditorJS\EditorJSException;

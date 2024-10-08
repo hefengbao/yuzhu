@@ -1,6 +1,6 @@
 <?php
 
-namespace App\One\Markdown;
+namespace App\Yuzhu\Markdown;
 
 use Illuminate\Support\ServiceProvider;
 use League\CommonMark\Environment\Environment;

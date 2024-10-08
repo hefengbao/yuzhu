@@ -1,6 +1,6 @@
 <?php
 
-namespace App\One\EditorJs\Facades;
+namespace App\Yuzhu\EditorJs\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
