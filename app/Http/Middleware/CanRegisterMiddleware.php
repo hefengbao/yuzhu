@@ -7,11 +7,11 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class OneMiddleware
+class CanRegisterMiddleware
 {
     public function handle(Request $request, Closure $next): Response
     {
-        if ($request->route()->uri() == 'register' && \Str::lower($request->method()) == 'post') {
+        if ($request->getRequestUri() == '/admin/register' && \Str::lower($request->method()) == 'get') {
             $options = (new OptionService())->autoload();
 
             if (!$options['users_can_register']) {
