@@ -172,7 +172,7 @@ class ArticleResource extends Resource
                     ->icon('heroicon-o-globe-alt')
                     ->label('访问')
                     ->color('info')
-                    ->url(fn(Post $record) => route('articles.show', $record->slugId)),
+                    ->url(fn(Post $record) => route('articles.show', $record->slugId), true),
             ])
             ->bulkActions([
 

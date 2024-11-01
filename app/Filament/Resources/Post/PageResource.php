@@ -89,7 +89,7 @@ class PageResource extends Resource
                     ->icon('heroicon-o-globe-alt')
                     ->label('访问')
                     ->color('info')
-                    ->url(fn(Post $record) => route('pages.show', $record->slugId)),
+                    ->url(fn(Post $record) => route('pages.show', $record->slugId), true),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
