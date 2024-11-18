@@ -119,10 +119,18 @@
 </main>
 <footer>
     <hr>
-    <p>Powered by <a href="https://hefengbao.github.io/yuzhu/" class="link-secondary"
-                     target="_blank">Yuzhu</a>@if($icp = $options->autoload()['icp'])
+    <p>
+        &copy {{ date('Y') }} · Powered by <a href="https://hefengbao.github.io/yuzhu/" class="link-secondary" target="_blank">Yuzhu</a>
+        @if($icp = $options->autoload()['icp'])
             · <a href="https://beian.miit.gov.cn/" target="_blank">{{ $icp }}</a>
-        @endif</p>
+        @endif
+        @if($gwb = $options->autoload()['gwb'] ?? null)
+            · <img src="{{ asset('images/gwb.png') }}" height="25" width="25" alt="">{!! $gwb !!}
+        @endif
+        @if($other_footer_links = $options->autoload()['other_footer_links'] ?? null)
+            · {!! $other_footer_links !!}
+        @endif
+    </p>
 </footer>
 <script src="{{ asset('libs/pico/minimal-theme-switcher.js') }}"></script>
 @yield('script')

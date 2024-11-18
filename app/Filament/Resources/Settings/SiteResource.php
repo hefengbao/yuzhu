@@ -59,6 +59,16 @@ class SiteResource extends Resource
                     ->label('ICP 备案号')
                     ->default($optionServe->options()['icp'] ?? '')
                     ->columnSpanFull(),
+                Forms\Components\TextInput::make('gwb')
+                    ->label('公安联网备案信息')
+                    ->hint('ICP 备案后，在 https://beian.mps.gov.cn 完成网站联网备案,备案成功后复制相应的 HTML 代码')
+                    ->default($optionServe->options()['gwb'] ?? '')
+                    ->columnSpanFull(),
+                Forms\Components\TextInput::make('other_footer_links')
+                    ->label('其他底部链接')
+                    ->hint('填写对应的 HTML 代码')
+                    ->default($optionServe->options()['other_footer_links'] ?? '')
+                    ->columnSpanFull(),
                 Forms\Components\Textarea::make('site_verify_meta')
                     ->label('搜索引擎验证 Meta')
                     ->hint('在常用的搜索引擎验证提交验证网站')
