@@ -57,7 +57,8 @@ class TagResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')->label('名称'),
-                Tables\Columns\TextColumn::make('slug')->label('slug'),
+                Tables\Columns\TextColumn::make('slug')->label('Slug'),
+                Tables\Columns\TextColumn::make('created_at')->label('创建时间'),
             ])
             ->filters([
                 //

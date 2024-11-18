@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use App\Constant\PostType;
 use App\Models\Post;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
@@ -41,7 +40,7 @@ class SitemapGenerate extends Command
 
         foreach ($posts as $post) {
             $creator->add(
-                Url::create(route('articles.show',$post->slug_id ))
+                Url::create(route('articles.show', $post->slug_id))
                     ->setLastModificationDate(max($post->updated_at, $post->published_at))
                     ->setChangeFrequency(Url::CHANGE_FREQUENCY_HOURLY)
                     ->setPriority(0.8)

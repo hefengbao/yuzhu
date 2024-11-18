@@ -14,7 +14,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 use Spatie\Feed\Feedable;
 use Spatie\Feed\FeedItem;
-use Vinkla\Hashids\Facades\Hashids;
 
 class Post extends Model implements Feedable
 {
@@ -40,6 +39,16 @@ class Post extends Model implements Feedable
         'commentable' => Commentable::class,
 
     ];
+
+    public static function getFeedItems()
+    {
+        return Post::with(['author', 'categories'])
+            ->article()
+            ->published()
+            ->orderBy('published_at', 'desc')
+            ->limit(5)
+            ->get();
+    }
 
     public function slugId(): Attribute
     {
@@ -125,24 +134,14 @@ class Post extends Model implements Feedable
             ->authorName($this->author->name)
             ->category(implode(',', $this->categories->pluck('name')->toArray()));
 
-       /* return FeedItem::create([
-            'id' => Hashids::connection('one')->encode($this->id),
-            'title' => $this->title,
-            'summary' => $this->excerpt ?? Str::limit($this->body),
-            'updated' => $this->updated_at,
-            'link' => route('articles.show', $this->slug_id),
-            'authorName' => $this->author ? $this->author->name : url('/'),
-        ]);*/
-    }
-
-    public static function getFeedItems()
-    {
-        return Post::with(['author','categories'])
-            ->article()
-            ->published()
-            ->orderBy('published_at', 'desc')
-            ->limit(5)
-            ->get();
+        /* return FeedItem::create([
+             'id' => Hashids::connection('one')->encode($this->id),
+             'title' => $this->title,
+             'summary' => $this->excerpt ?? Str::limit($this->body),
+             'updated' => $this->updated_at,
+             'link' => route('articles.show', $this->slug_id),
+             'authorName' => $this->author ? $this->author->name : url('/'),
+         ]);*/
     }
 
 }

@@ -9,7 +9,6 @@ use App\Models\Comment;
 use App\Models\Post;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Routing\Controllers\HasMiddleware;
 
 class CommentController extends Controller implements HasMiddleware
@@ -36,7 +35,7 @@ class CommentController extends Controller implements HasMiddleware
             ->setEtag(md5($comments->pluck('id')->join(', ')));
     }
 
-    public function store($id,Request $request): JsonResponse
+    public function store($id, Request $request): JsonResponse
     {
         $post = Post::findOrFail($id);
 

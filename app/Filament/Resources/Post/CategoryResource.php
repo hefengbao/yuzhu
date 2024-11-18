@@ -10,6 +10,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 
 class CategoryResource extends Resource
@@ -57,7 +58,8 @@ class CategoryResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')->label('名称'),
-                Tables\Columns\TextColumn::make('slug')->label('slug'),
+                Tables\Columns\TextColumn::make('slug')->label('Slug'),
+                Tables\Columns\TextColumn::make('created_at')->label('创建时间'),
             ])
             ->filters([
                 //
@@ -70,6 +72,12 @@ class CategoryResource extends Resource
                     //Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->orderByDesc('id');
     }
 
     public static function getRelations(): array

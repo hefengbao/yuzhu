@@ -32,7 +32,7 @@ class CommentResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Textarea::make('body')
+                Forms\Components\MarkdownEditor::make('body')
                     ->label('内容')
                     ->required()
                     ->columnSpanFull(),
@@ -57,7 +57,10 @@ class CommentResource extends Resource
                     ->description(fn(Comment $record) => $record->guest_email),
                 Tables\Columns\TextColumn::make('body')
                     ->label('内容')
+                    ->wrap()
                     ->description(fn(?Comment $record): string => $record?->parent != null ? $record->parent->body : ''),
+                Tables\Columns\TextColumn::make('status')->label('状态')->badge(),
+                Tables\Columns\TextColumn::make('created_at')->label('创建时间'),
             ])
             ->filters([
                 //
@@ -123,7 +126,9 @@ class CommentResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()->where('status', '!=', CommentStatus::Spam);
+        return parent::getEloquentQuery()
+            //->where('status', '!=', CommentStatus::Spam)
+            ->orderByDesc('id');
     }
 
     public static function getRelations(): array
@@ -137,7 +142,7 @@ class CommentResource extends Resource
     {
         return [
             'index' => Pages\ListComments::route('/'),
-            'create' => Pages\CreateComment::route('/create'),
+            //'create' => Pages\CreateComment::route('/create'),
             'edit' => Pages\EditComment::route('/{record}/edit'),
             'view' => Pages\ViewComment::route('/{record}'),
         ];

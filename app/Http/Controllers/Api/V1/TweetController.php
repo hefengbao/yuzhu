@@ -12,7 +12,6 @@ use App\Models\Tag;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;

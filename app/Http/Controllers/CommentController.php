@@ -65,7 +65,7 @@ class CommentController extends Controller
 
         $comment->status = CommentStatus::Approved->value;
 
-        DB::transaction(function () use ($comment, $post){
+        DB::transaction(function () use ($comment, $post) {
             $comment->save();
             $post->increment('comment_count');
         });

@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 class TagController extends Controller implements HasMiddleware
 {
     private string $cacheKey = 'tags';
+
     public static function middleware(): array
     {
         return ['auth:sanctum'];
@@ -22,7 +23,7 @@ class TagController extends Controller implements HasMiddleware
 
     public function index(): ResourceCollection
     {
-        $tags = Cache::rememberForever($this->cacheKey, function (){
+        $tags = Cache::rememberForever($this->cacheKey, function () {
             return Tag::all();
         });
 

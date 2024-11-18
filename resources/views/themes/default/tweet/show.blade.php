@@ -1,11 +1,25 @@
 @extends('themes.default.layout')
-@section('og_date'){{ $tweet->updated_at }}@endsection
-@section('og_title'){{ $tweet->title }}@endsection
-@section('og_description'){{ $tweet->eexcerpt }}@endsection
-@section('og_author'){{ $tweet->author->name ?? '' }}@endsection
-@section('title'){{ Str::limit($tweet->body,40) }} &#8211;@endsection
-@section('author'){{ $tweet->author->name ?? '' }}@endsection
-@section('description'){{ Str::limit($tweet->body,50) }}@endsection
+@section('og_date')
+    {{ $tweet->updated_at }}
+@endsection
+@section('og_title')
+    {{ $tweet->title }}
+@endsection
+@section('og_description')
+    {{ $tweet->eexcerpt }}
+@endsection
+@section('og_author')
+    {{ $tweet->author->name ?? '' }}
+@endsection
+@section('title')
+    {{ Str::limit($tweet->body,40) }} &#8211;
+@endsection
+@section('author')
+    {{ $tweet->author->name ?? '' }}
+@endsection
+@section('description')
+    {{ Str::limit($tweet->body,50) }}
+@endsection
 @section('content')
     <article>
         <p><small>{{ $tweet->author->name }} 发布于 {{ $tweet->published_at->format('Y.m.d') }}</small></p>

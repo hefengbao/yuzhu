@@ -1,31 +1,40 @@
 @inject('options', 'App\Services\OptionService')
 @extends('themes.default.layout')
-@section('description'){{ $options->autoload()['description'] }}@endsection
+@section('description')
+    {{ $options->autoload()['description'] }}
+@endsection
 @section('style')
     <style>
-        .home{
+        .home {
             max-width: 960px;
             margin: 0 auto;
         }
-        .home h1{
+
+        .home h1 {
             text-align: center;
         }
-        .home h2{
+
+        .home h2 {
             text-align: center;
         }
-        .home h3{
+
+        .home h3 {
             text-align: center;
         }
-        .home h4{
+
+        .home h4 {
             text-align: center;
         }
-        .home p{
+
+        .home p {
             text-align: center;
         }
-        .home .grid{
+
+        .home .grid {
             text-align: center;
         }
-        .grid a{
+
+        .grid a {
             padding: 8px;
         }
     </style>
