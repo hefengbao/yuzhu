@@ -76,11 +76,48 @@ MAIL_PASSWORD=null
 MAIL_ENCRYPTION=null
 MAIL_FROM_ADDRESS="hello@example.com"
 
+
+SESSION_DRIVER=redis
+
+QUEUE_CONNECTION=redis
+
+CACHE_STORE=redis
+
 ```
 
+### 使用 QQ 邮箱作为邮箱服务
+
+如果没有其他邮箱服务，可以使用 QQ 邮箱，登录 QQ 邮箱，选择 【设置】 - 【账号】，【POP3/IMAP/SMTP/Exchange/CardDAV/CalDAV服务】 ：
+
+![](../images/bt35.png)
+
+![](../images/bt36.png)
+
+如果已开启，在点击 【管理服务】 - 【生成授权码】：
+
+![](../images/bt37.png)
+
+
+示例配置：
+
+```
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.qq.com 
+MAIL_PORT=465
+MAIL_USERNAME="10000@qq.com"
+MAIL_PASSWORD=授权码
+MAIL_ENCRYPTION=ssl
+MAIL_FROM_ADDRESS="10000@qq.com"
+```
+
+
+
 验证邮箱是否配置成功：
+
 ```shell
 php artisan yuzhu:check-email
+
+php artisan queue:work --queue=high,default
 ```
 
 ## 生成数据表及数据填充:

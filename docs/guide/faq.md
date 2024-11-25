@@ -13,4 +13,3 @@
 ```shell
 php artisan vendor:publish --force --tag=livewire:assets
 ```
-这个问题是别人遇到的，解决办法也是别人说的，未曾验证。

@@ -24,16 +24,12 @@
 
 ![](../images/bt18.png)
 
-域名那里有域名填写域名，没有的话填写公网 IP。
-
-根目录选择到 `public` 目录：
-
-![](../images/bt19.png)
-
-数据库选择 MySql, 用户名、账号填写上一步创建的。
-
 
 一些设置：
+
+设置运行目录：
+
+![](../images/bt19.png)
 
 
 ![](../images/bt21.png)
@@ -68,9 +64,156 @@ location ~ \.php$ {
 ![](../images/bt22.png)
 
 
-
 一点修改：
+
+复制 `.env.example` 文件，修改名称为 `.env`，编辑 `.env` 文件：
+
+
+![](../images/bt25.png)
+
+
+修改权限：
 
 ![](../images/bt24.png)
 
-![](../images/bt25.png)
+
+需要修改的内容：
+
+```
+APP_NAME=玉竹 #修改为自己的博客名称，若中间有空格、标点符号，请用英文引号（""）包裹
+APP_ENV=production
+
+
+APP_URL=http://127.0.0.1 # 修改为自己的域名或公网IP
+ASSET_URL=http://127.0.0.1 # 修改为自己的域名或公网IP
+
+
+MAIL_MAILER=smtp
+MAIL_HOST=mailhog 
+MAIL_PORT=1025
+MAIL_USERNAME=null
+MAIL_PASSWORD=null
+MAIL_ENCRYPTION=null
+MAIL_FROM_ADDRESS="hello@example.com"
+
+SESSION_DRIVER=redis
+
+QUEUE_CONNECTION=redis
+
+CACHE_STORE=redis
+
+```
+
+邮箱配置参考 [使用 QQ 邮箱作为邮箱服务](deploy#使用-qq-邮箱作为邮箱服务)。
+
+登入终端，运行命令：
+
+
+![](../images/bt26.png)
+
+
+```shell
+cd /www/wwwroot/yuzhu-v1.0.0 # 修改为实际的目录
+```
+
+```shell
+php artisan key:generate
+```
+
+遇到权限问题，可使用 `sudo php artisan key:generate` 命令。
+
+创建软软连接：
+
+```shell
+php artisan storage:link
+```
+
+
+初始化数据库：
+
+```shell
+php artisan migrate --seed
+```
+
+![](../images/bt30.png)
+
+
+初始化管理员：
+
+```shell
+php artisan yuzhu:init-admin
+```
+
+![](../images/bt31.png)
+
+
+删除安装过程中因报错等生成的 Log 文件，以避免出现权限问题。
+
+![](../images/bt33.png)
+
+
+
+访问：
+
+![](../images/bt32.png)
+
+
+管理后台在域名后添加 `/admin` 访问即可。
+
+
+以下操作在终端完成：
+
+安装 `supervisor`:
+
+```shell
+sudo apt install supervisor
+```
+
+```shell
+sudo vi /etc/supervisor/conf.d/yuzhu-horizon.conf
+```
+
+复制如下内容，注意修改为自己的目录，
+
+```
+[program:yuzhu-horizon]
+process_name=%(program_name)s
+command=php /www/wwwroot/yuzhu-v1.0.0/artisan horizon
+autostart=true
+autorestart=true
+user=www
+redirect_stderr=true
+stdout_logfile=/www/wwwroot/yuzhu-v1.0.0/storage/logs/horizon.log
+stopwaitsecs=3600
+```
+
+鼠标右键粘贴，然后输入 `:wq` 保存。
+
+
+```shell
+sudo supervisorctl reread
+
+sudo supervisorctl update
+
+sudo supervisorctl start yuzhu-horizon:*
+```
+
+一些优化：
+
+```shell
+php artisan route:cache
+php artisan view:cache
+php artisan config:cache
+```
+
+
+设置定时任务：
+
+![](../images/bt40.png)
+
+```
+cd /www/wwwroot/yuzhu-v1.0.0 && php artisan schedule:run
+```
+
+注意设为自己实际的目录
+

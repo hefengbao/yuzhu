@@ -19,6 +19,11 @@
 需要安装的扩展参考 [https://laravel.com/docs/11.x/deployment#server-requirements](https://laravel.com/docs/11.x/deployment#server-requirements)
 
 
+删除被禁用的函数：`proc_open `，`symlink`,`pcntl_*` 相关的函数
+
+![](../images/bt29.png)
+
+
 ## 服务器软件选择 `Nginx`:
 
 
