@@ -15,6 +15,7 @@
 
 ![](../images/bt14.png)
 
+
 ## 添加数据库
 
 ![](../images/bt15.png)
@@ -57,9 +58,19 @@ location ~ \.php$ {
 
 ![](../images/bt23.png)
 
+点击【升级Composer】,提示升级成功后，点击左侧的【其他设置】，composer 会应用最新的版本。
+
 复制 `--optimize-autoloader --no-dev --ignore-platform-reqs` 粘贴到【补充命令】那里。
+
+配置好后点击【执行】。
 
 
 ![](../images/bt22.png)
 
 
+
+一点修改：
+
+![](../images/bt24.png)
+
+![](../images/bt25.png)
