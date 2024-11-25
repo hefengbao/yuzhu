@@ -16,4 +16,4 @@
         @endif
     </a> :
 </p>
-{!! \Illuminate\Support\Facades\App::make(\App\One\MarkdownToHtml::class)->convert($comment->body) !!}
+{!! \Illuminate\Support\Str::markdown($comment->body) !!}
