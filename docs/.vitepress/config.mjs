@@ -35,7 +35,7 @@ export default defineConfig({
                   ],
                 },
                 {
-                  text: '宝塔 Linux',
+                  text: '宝塔 Linux 面板',
                   items: [
                     { text: '宝塔安装', link: '/guide/bt' },
                     { text: '搭建环境', link: '/guide/bt-env' },

@@ -41,7 +41,7 @@ git checkout release
 ## 安装扩展包：
 
 ```bash
-composer install --optimize-autoloader --no-dev
+composer install --optimize-autoloader --no-dev --ignore-platform-reqs
 ```
 
 ## 配置：
