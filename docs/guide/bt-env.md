@@ -1,0 +1,42 @@
+# 搭建环境
+
+玉竹（Yuzhu）使用 PHP 语言开发。
+
+
+`PHP` 版本选择 8.2 及以上版本：
+
+![](../images/bt10.png)
+
+
+
+服务器软件选择 `Nginx`:
+
+
+![](../images/bt4.png)
+
+
+![](../images/bt5.png)
+
+
+
+数据库选择 `MySql`:
+
+![](../images/bt6.png)
+
+![](../images/bt7.png)
+
+
+
+缓存使用 `Redis` 数据库：
+
+
+![](../images/bt8.png)
+
+![](../images/bt9.png)
+
+
+
+
+
+
+
