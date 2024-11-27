@@ -2,9 +2,9 @@
     @php
         $post = $comment->post;
     @endphp
-    <a href="@if($post->type == \App\Constant\PostType::Article->value)
+    <a href="@if($post->type == \App\Constant\PostType::Article)
     {{ route('articles.show',$post->slug_id) }}#comment-{{$comment->id}}
-    @elseif($post->type == \App\Constant\PostType::Tweet->value)
+    @elseif($post->type == \App\Constant\PostType::Tweet)
     {{ route('tweets.show',$post->slug_id) }}#comment-{{$comment->id}}
     @else
     {{ route('pages.show',$post->slug_id) }}#comment-{{$comment->id}}
