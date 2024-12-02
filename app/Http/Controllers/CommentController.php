@@ -8,6 +8,7 @@ use App\Models\Comment;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Validator;
 
 class CommentController extends Controller
@@ -63,7 +64,13 @@ class CommentController extends Controller
             }
         }
 
-        $comment->status = CommentStatus::Approved->value;
+        // 含有链接的评论需审核后显示
+        if (Str::contains($request->input('body'), ['http://', 'https://'])) {
+            $comment->status = CommentStatus::Pending;
+        } else {
+            $comment->status = CommentStatus::Approved;
+        }
+
 
         DB::transaction(function () use ($comment, $post) {
             $comment->save();

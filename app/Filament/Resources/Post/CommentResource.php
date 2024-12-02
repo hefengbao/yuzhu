@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Post;
 
 use App\Constant\CommentStatus;
+use App\Constant\PostType;
 use App\Filament\Resources\Post\CommentResource\Pages;
 use App\Models\Comment;
 use Filament\Forms;
@@ -55,10 +56,11 @@ class CommentResource extends Resource
                 Tables\Columns\TextColumn::make('guest_name')
                     ->label('游客')
                     ->description(fn(Comment $record) => $record->guest_email),
+                Tables\Columns\TextColumn::make('ip')->label('IP'),
                 Tables\Columns\TextColumn::make('body')
                     ->label('内容')
                     ->wrap()
-                    ->description(fn(?Comment $record): string => $record?->parent != null ? $record->parent->body : ''),
+                    ->description(fn(?Comment $record): string => $record?->parent != null ? '引用：' . $record->parent->body : ''),
                 Tables\Columns\TextColumn::make('status')->label('状态')->badge(),
                 Tables\Columns\TextColumn::make('created_at')->label('创建时间'),
             ])
@@ -68,6 +70,22 @@ class CommentResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('visit')
+                    ->icon('heroicon-o-globe-alt')
+                    ->label('访问')
+                    ->color('info')
+                    ->url(
+                        function (Comment $record) {
+                            $post = $record->post;
+
+                            return match ($post->type) {
+                                PostType::Article => route('articles.show', slug_id($post->slug, $post->id)) . '#comment-' . $record->id,
+                                PostType::Page => route('pages.show', slug_id($post->slug, $post->id)) . '#comment-' . $record->id,
+                                PostType::Tweet => route('tweets.show', slug_id($post->slug, $post->id)) . '#comment-' . $record->id,
+                            };
+                        },
+                        true
+                    ),
             ])
             ->bulkActions([
                 /*Tables\Actions\BulkActionGroup::make([
