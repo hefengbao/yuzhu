@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Constant\CommentStatus;
 use App\Jobs\RepliedNotification;
+use App\Models\Blacklist;
 use App\Models\Comment;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
-use Validator;
+
 
 class CommentController extends Controller
 {
@@ -23,6 +25,7 @@ class CommentController extends Controller
             'body' => ['required'],
         ];
 
+        // 访客需要提供用户名和邮件地址
         if (!$request->user()) {
             $rules = array_merge($rules, [
                 'name' => ['required'],
@@ -41,6 +44,16 @@ class CommentController extends Controller
             return redirect(url()->previous() . '#respond')
                 ->withErrors($validator)
                 ->withInput();
+        }
+
+        // 同一 IP 地址内容相同
+        if (cache($request->ip()) == md5($request->input('body'))){
+            abort(403, '乖，不要做坏事哦!');
+        }
+
+        // IP 或 Email 在黑名单中
+        if (Blacklist::where('body', $request->ip())->orWhere('body', $request->input('email'))->first()){
+            abort(403, '乖，不要做坏事哦!');
         }
 
         $comment = new Comment();
@@ -76,6 +89,9 @@ class CommentController extends Controller
             $comment->save();
             $post->increment('comment_count');
         });
+
+        // 根据 IP 地址缓存内容 MD5
+        cache([$request->ip() => md5($request->input('body'))], now()->addDays());
 
         //通知
         RepliedNotification::dispatch($comment);

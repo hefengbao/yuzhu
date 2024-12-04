@@ -6,6 +6,7 @@ use App\Constant\CommentStatus;
 use App\Constant\PostType;
 use App\Filament\Resources\Post\CommentResource\Pages;
 use App\Models\Comment;
+use Filament\Actions\Action;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Infolists;
@@ -14,6 +15,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 
 class CommentResource extends Resource
 {
@@ -88,9 +90,7 @@ class CommentResource extends Resource
                     ),
             ])
             ->bulkActions([
-                /*Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),*/
+
             ]);
     }
 
@@ -115,6 +115,8 @@ class CommentResource extends Resource
                                     Infolists\Components\TextEntry::make('guest_email')
                                         ->label('邮箱')
                                         ->visible(fn(Comment $record) => $record->author == null),
+                                    Infolists\Components\TextEntry::make('ip')
+                                        ->label('IP')
                                 ]),
                             Infolists\Components\Group::make()->schema([
                                 Infolists\Components\TextEntry::make('status')
