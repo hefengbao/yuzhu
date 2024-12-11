@@ -5,6 +5,7 @@ namespace App\Providers;
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -14,7 +15,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        if ($this->app->environment('local')) {
+            $this->app->register(\Laravel\Telescope\TelescopeServiceProvider::class);
+            $this->app->register(TelescopeServiceProvider::class);
+        }
     }
 
     /**
@@ -29,5 +33,7 @@ class AppServiceProvider extends ServiceProvider
         \Blade::if('roles', function (array $roles) {
             return in_array(auth()->user()->role, $roles);
         });
+
+        Gate::policy(\App\Models\Finance\Category::class, \App\Policies\Finance\CategoryPolicy::class);
     }
 }

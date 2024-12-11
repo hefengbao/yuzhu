@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\Auth\Register;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -25,8 +26,9 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
+            ->brandName('玉竹')
             ->login()
-            ->registration()
+            ->registration(Register::class)
             ->emailVerification()
             ->passwordReset()
             //->profile()
@@ -35,24 +37,28 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
+            ->discoverClusters(in: app_path('Filament/Clusters'), for: 'App\\Filament\\Clusters')
             ->pages([
 
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
-                //Widgets\AccountWidget::class,
+                //\Filament\Widgets\AccountWidget::class,
                 //Widgets\FilamentInfoWidget::class,
             ])
             ->navigationGroups([
                 NavigationGroup::make()
-                    ->label('写作')
+                    ->label('内容')
                     ->icon('heroicon-o-pencil-square'),
+                NavigationGroup::make()
+                    ->label('财务')
+                    ->icon('iconpark-finance-o'),
                 NavigationGroup::make()
                     ->label('用户')
                     ->icon('heroicon-o-users'),
                 NavigationGroup::make()
-                    ->label(fn(): string => __('one.Settings'))
-                    ->icon('heroicon-o-cog-8-tooth')
+                    ->label('设置')
+                    ->icon('heroicon-o-cog-6-tooth')
                     ->collapsed(),
             ])
             ->unsavedChangesAlerts()
