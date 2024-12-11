@@ -24,7 +24,7 @@ class TagResource extends Resource
 
     protected static ?int $navigationSort = 6;
 
-    protected static ?string $navigationGroup = '写作';
+    protected static ?string $navigationGroup = '内容';
 
     public static function shouldRegisterNavigation(): bool
     {

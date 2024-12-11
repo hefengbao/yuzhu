@@ -25,7 +25,7 @@ class CategoryResource extends Resource
 
     protected static ?int $navigationSort = 5;
 
-    protected static ?string $navigationGroup = '写作';
+    protected static ?string $navigationGroup = '内容';
 
     public static function shouldRegisterNavigation(): bool
     {

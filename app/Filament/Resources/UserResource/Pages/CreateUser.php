@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\UserResource\Pages;
 
+use App\Events\UserRegistered;
 use App\Filament\Resources\UserResource;
 use Filament\Resources\Pages\CreateRecord;
 
@@ -18,7 +19,7 @@ class CreateUser extends CreateRecord
 
     protected function afterCreate(): void
     {
-        \Log::info('afterCreate');
+        event(new UserRegistered($this->record));
     }
 
     protected function getRedirectUrl(): string

@@ -1,22 +1,26 @@
 {
     "name": "hefengbao/one",
     "type": "project",
-    "description": "一个简洁的博客、微博客。",
+    "description": "『玉竹』一套简洁的内容管理（博客、微博客）、财务管理（记账）系统。",
     "keywords": [
         "blog",
         "blogger",
         "tweet",
         "博客",
-        "微博客"
+        "微博客",
+        "Finance",
+        "记账"
     ],
     "license": "MIT",
     "require": {
         "php": "^8.2",
         "calebporzio/sushi": "^2.5",
+        "codeat3/blade-iconpark": "^1.6",
         "codex-team/editor.js": "^2.0",
         "erusev/parsedown": "^1.7",
         "filament/filament": "^3.2",
         "filament/spatie-laravel-tags-plugin": "^3.2",
+        "flowframe/laravel-trend": "^0.3.0",
         "graham-campbell/markdown": "^15.2",
         "intervention/image": "^3.5",
         "laravel/framework": "^11.0",
@@ -36,6 +40,7 @@
         "fakerphp/faker": "^1.23",
         "laravel/pint": "^1.13",
         "laravel/sail": "^1.26",
+        "laravel/telescope": "^5.2",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.0",
         "phpunit/phpunit": "^10.5",
@@ -60,7 +65,8 @@
     "scripts": {
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover --ansi"
+            "@php artisan package:discover --ansi",
+            "@php artisan filament:upgrade"
         ],
         "post-update-cmd": [
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
@@ -76,7 +82,9 @@
     },
     "extra": {
         "laravel": {
-            "dont-discover": []
+            "dont-discover": [
+                "laravel/telescope"
+            ]
         }
     },
     "config": {

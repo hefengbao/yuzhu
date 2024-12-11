@@ -15,7 +15,7 @@ class CanRegisterMiddleware
             $options = (new OptionService())->autoload();
 
             if (!$options['users_can_register']) {
-                abort(403, '说不可以就是不可以 (￢︿̫̿￢☆)');
+                abort(403, '说不可以就是不可以(。・・)ノ');
             }
         }
 

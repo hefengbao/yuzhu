@@ -17,7 +17,8 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->append([
-            \App\Http\Middleware\CanRegisterMiddleware::class
+            \App\Http\Middleware\CanRegisterMiddleware::class,
+            \App\Http\Middleware\ForceJsonResponse::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
@@ -40,8 +41,14 @@ return Application::configure(basePath: dirname(__DIR__))
 
             return redirect()->route('filament.admin.auth.login');
         });
+
         // 404 跳转到首页
-        $exceptions->render(function (NotFoundHttpException $exception) {
+        $exceptions->render(function (NotFoundHttpException $exception,  Request $request) {
+            if ($request->is('api/*')) {
+                return response()->json([
+                    'message' => 'Record not found.'
+                ], 404);
+            }
             return redirect('/');
         });
     })->create();
