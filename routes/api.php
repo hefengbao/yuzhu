@@ -4,9 +4,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::domain(config('domain.api'))
     ->prefix('v1')
-    ->middleware([
-        \App\Http\Middleware\RequiresJson::class,
-    ])
     ->name('api.v1.')
     ->group(function () {
         Route::post('auth/login', [\App\Http\Controllers\Api\V1\AuthController::class, 'login']);
@@ -27,4 +24,12 @@ Route::domain(config('domain.api'))
         Route::apiResource('tags', \App\Http\Controllers\Api\V1\TagController::class)->only(['index', 'store']);
 
         Route::apiResource('categories', \App\Http\Controllers\Api\V1\CategoryController::class)->only(['index', 'store']);
+
+        Route::apiResource('finance/groups', \App\Http\Controllers\Api\V1\Finance\GroupController::class)->only(['index']);
+
+        Route::apiResource('finance/categories', \App\Http\Controllers\Api\V1\Finance\CategoryController::class)->only(['index']);
+
+        Route::apiResource('finance/transactions', \App\Http\Controllers\Api\V1\Finance\TransactionController::class)->only(['index', 'store', 'update']);
+
+        Route::apiResource('finance/accounts', \App\Http\Controllers\Api\V1\Finance\AccountController::class)->only(['index', 'store', 'update']);
     });
