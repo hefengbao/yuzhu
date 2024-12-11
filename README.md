@@ -1,4 +1,18 @@
+<div align="center">
+<div align="center">
+<img src="./screenshot/logo.png" alt="Logo" height="200">
+</div>
+
 # 玉竹
+
+<div>
+<img alt="GitHub Release" src="https://img.shields.io/github/v/release/hefengbao/yuzhu?display_name=release&style=for-the-badge">
+<img alt="GitHub Downloads (all assets, all releases)" src="https://img.shields.io/github/downloads/hefengbao/yuzhu/total?style=for-the-badge">
+<img alt="License" src="https://img.shields.io/github/license/hefengbao/yuzhu?style=for-the-badge">
+</div>
+
+</div>
+
 
 ## 介绍
 
