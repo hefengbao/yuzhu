@@ -90,7 +90,7 @@
     </section>
 
     <!--评论-->
-    @if($article->commentable = \App\Constant\Commentable::Open)
+    @if($article->commentable = \App\Constant\Post\Commentable::Open)
         <section>
             @include('themes.default.comment', ['model' => $article])
         </section>

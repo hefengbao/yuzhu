@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use App\One\EditorJs\Facades\LaravelEditorJs;
 
 class ArticleController extends Controller
 {

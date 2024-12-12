@@ -1,5 +1,5 @@
 @php
-    $comments = $model->comments()->with(['parent','author'])->where('status', \App\Constant\CommentStatus::Approved)->orderBy('id')->get();
+    $comments = $model->comments()->with(['parent','author'])->where('status', \App\Constant\Post\CommentStatus::Approved)->orderBy('id')->get();
 @endphp
 <h3>有 {{ $comments->count() }} 条评论</h3>
 <div>
@@ -28,7 +28,7 @@
                     @else
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px"
                              height="24px" viewBox="0 0 512 512" xml:space="preserve" fill="#000000"><g
-                                id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                    id="SVGRepo_bgCarrier" stroke-width="0"></g>
                             <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
                             <g id="SVGRepo_iconCarrier">
                                 <style type="text/css">  .st0 {

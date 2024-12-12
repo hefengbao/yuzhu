@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources\Post;
 
-use App\Constant\Commentable;
-use App\Constant\PostStatus;
-use App\Constant\PostType;
+use App\Constant\Post\Commentable;
+use App\Constant\Post\PostStatus;
+use App\Constant\Post\PostType;
 use App\Filament\Resources\Post\PageResource\Pages;
 use App\Filament\Resources\Post\PageResource\RelationManagers;
 use App\Models\Post;
@@ -78,6 +78,9 @@ class PageResource extends Resource
                 Tables\Columns\TextColumn::make('status')
                     ->label('状态')
                     ->badge(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->label('发布时间')
+                    ->dateTime('Y-m-d H:i:s'),
             ])
             ->filters([
                 //

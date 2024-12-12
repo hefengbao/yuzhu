@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\Post\ArticleResource\Pages;
 
-use App\Constant\PostStatus;
+use App\Constant\Post\PostStatus;
 use App\Filament\Resources\Post\ArticleResource;
 use App\Models\Post;
 use App\Models\User;

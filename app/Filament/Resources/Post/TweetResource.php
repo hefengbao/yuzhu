@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources\Post;
 
-use App\Constant\Commentable;
-use App\Constant\PostStatus;
-use App\Constant\PostType;
+use App\Constant\Post\Commentable;
+use App\Constant\Post\PostStatus;
+use App\Constant\Post\PostType;
 use App\Filament\Resources\Post\TweetResource\Pages;
 use App\Filament\Resources\Post\TweetResource\RelationManagers;
 use App\Models\Post;
@@ -78,15 +78,19 @@ class TweetResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('author.name')
+                    ->label('作者'),
                 Tables\Columns\TextColumn::make('body')
                     ->label('内容')
                     ->alignLeft()
-                    ->wrap(),
-                Tables\Columns\TextColumn::make('author.name')
-                    ->label('作者'),
+                    ->wrap()
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('tags.name')
                     ->label('标签')
                     ->badge(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->label('发布时间')
+                    ->dateTime('Y-m-d H:i:s'),
             ])
             ->filters([
                 //

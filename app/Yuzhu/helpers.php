@@ -89,6 +89,6 @@ if (!function_exists('md_to_html')) {
      */
     function md_to_html(string $markdown): string
     {
-        return app(App\One\Markdown\Converter::class)->toHtml($markdown);
+        return app(App\Yuzhu\Markdown\Converter::class)->toHtml($markdown);
     }
 }

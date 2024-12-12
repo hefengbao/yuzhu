@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Constant\CommentStatus;
+use App\Constant\Post\CommentStatus;
 use App\Jobs\RepliedNotification;
 use App\Models\Blacklist;
 use App\Models\Comment;
@@ -47,12 +47,12 @@ class CommentController extends Controller
         }
 
         // 同一 IP 地址内容相同
-        if (cache($request->ip()) == md5($request->input('body'))){
+        if (cache($request->ip()) == md5($request->input('body'))) {
             abort(403, '乖，不要做坏事哦!');
         }
 
         // IP 或 Email 在黑名单中
-        if (Blacklist::where('body', $request->ip())->orWhere('body', $request->input('email'))->first()){
+        if (Blacklist::where('body', $request->ip())->orWhere('body', $request->input('email'))->first()) {
             abort(403, '乖，不要做坏事哦!');
         }
 

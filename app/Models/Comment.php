@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-use App\Constant\CommentStatus;
+use App\Constant\Post\CommentStatus;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -15,6 +16,20 @@ class Comment extends Model
     protected $casts = [
         'status' => CommentStatus::class,
     ];
+
+    public function userName(): Attribute
+    {
+        return Attribute::make(
+            get: fn(mixed $value, array $attributes) => $this->author ? $this->author->name : $this->guest_name,
+        );
+    }
+
+    public function userEmail(): Attribute
+    {
+        return Attribute::make(
+            get: fn(mixed $value, array $attributes) => $this->author ? $this->author->email : $this->guest_email,
+        );
+    }
 
     public function author(): BelongsTo
     {

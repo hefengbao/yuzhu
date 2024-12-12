@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Constant\PostType;
+use App\Constant\Post\PostType;
 use App\Mail\PostCommented;
 use App\Models\Comment;
 use Illuminate\Bus\Queueable;

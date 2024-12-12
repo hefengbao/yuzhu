@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Constant\Commentable;
-use App\Constant\PostStatus;
-use App\Constant\PostType;
+use App\Constant\Post\Commentable;
+use App\Constant\Post\PostStatus;
+use App\Constant\Post\PostType;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\PostResource;
 use App\Models\Post;
@@ -53,7 +53,10 @@ class PageController extends Controller implements HasMiddleware
         $page->title = $request->input('title');
         $page->slug = $request->input('slug');
         $page->body = $request->input('body');
-        $page->excerpt = Str::limit(str_replace(PHP_EOL, '', strip_tags(md_to_html($request->input('body')))), 120);
+        $page->excerpt = Str::limit(
+            str_replace(PHP_EOL, '', strip_tags(Str::markdown($request->input('body')))),
+            120
+        );
         $page->commentable = $request->input('commentable', Commentable::Open);
         $page->type = PostType::Page;
         $page->status = PostStatus::Published;
@@ -77,7 +80,10 @@ class PageController extends Controller implements HasMiddleware
         $page->slug = $request->input('slug', Str::slug($request->input('title')));
         $page->body = $request->input('body');
         $page->commentable = $request->input('commentable', Commentable::Open);
-        $page->excerpt = Str::limit(str_replace(PHP_EOL, '', strip_tags(md_to_html($request->input('body')))), 120);
+        $page->excerpt = Str::limit(
+            str_replace(PHP_EOL, '', strip_tags(Str::markdown($request->input('body')))),
+            120
+        );
         $page->save();
 
         return new PostResource($page);

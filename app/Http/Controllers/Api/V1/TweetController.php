@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Constant\Commentable;
-use App\Constant\PostStatus;
-use App\Constant\PostType;
+use App\Constant\Post\Commentable;
+use App\Constant\Post\PostStatus;
+use App\Constant\Post\PostType;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\PostResource;
 use App\Models\Post;
@@ -52,7 +52,7 @@ class TweetController extends Controller implements HasMiddleware
 
         $tweet = new Post();
         $tweet->body = $request->input('body');
-        $tweet->excerpt = Str::limit(str_replace(PHP_EOL, '', strip_tags(md_to_html($request->input('body')))), 120);
+        $tweet->excerpt = Str::limit(str_replace(PHP_EOL, '', strip_tags(Str::markdown($request->input('body')))), 120);
         $tweet->slug = Str::slug(Str::random());
         $tweet->commentable = $request->input('commentable', Commentable::Open);
         $tweet->type = PostType::Tweet;
@@ -79,7 +79,7 @@ class TweetController extends Controller implements HasMiddleware
         ]);
 
         $tweet->body = $request->input('body');
-        $tweet->excerpt = Str::limit(str_replace(PHP_EOL, '', strip_tags(md_to_html($request->input('body')))), 120);
+        $tweet->excerpt = Str::limit(str_replace(PHP_EOL, '', strip_tags(Str::markdown($request->input('body')))), 120);
         $tweet->commentable = $request->input('commentable', Commentable::Open);
         $tweet->save();
 

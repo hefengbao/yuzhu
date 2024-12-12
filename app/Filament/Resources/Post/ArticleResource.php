@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources\Post;
 
-use App\Constant\Commentable;
-use App\Constant\PostStatus;
-use App\Constant\PostType;
+use App\Constant\Post\Commentable;
+use App\Constant\Post\PostStatus;
+use App\Constant\Post\PostType;
 use App\Filament\Resources\Post\ArticleResource\Pages;
 use App\Filament\Resources\Post\ArticleResource\RelationManagers;
 use App\Models\Post;
@@ -141,7 +141,9 @@ class ArticleResource extends Resource
                 Tables\Columns\TextColumn::make('title')
                     ->label('标题')
                     ->prefix(fn(Post $post) => $post->pinned_at != null ? '[置顶]' : '')
-                    ->wrap(),
+                    ->wrap()
+                    ->searchable(['title', 'excerpt'])
+                    ->description(fn(Post $post) => $post->excerpt),
                 Tables\Columns\TextColumn::make('author.name')
                     ->label('作者'),
                 Tables\Columns\TextColumn::make('categories.name')

@@ -2,8 +2,8 @@
 
 namespace App\Filament\Resources\Post\PageResource\Pages;
 
-use App\Constant\PostStatus;
-use App\Constant\PostType;
+use App\Constant\Post\PostStatus;
+use App\Constant\Post\PostType;
 use App\Filament\Resources\Post\PageResource;
 use Carbon\Carbon;
 use Filament\Resources\Pages\CreateRecord;
@@ -17,7 +17,7 @@ class CreatePage extends CreateRecord
     {
         $data['user_id'] = auth()->id();
         $data['ip'] = request()->ip();
-        $data['excerpt'] = Str::limit(str_replace(PHP_EOL, '', strip_tags(md_to_html($data['body']))), 160);
+        $data['excerpt'] = Str::limit(str_replace(PHP_EOL, '', strip_tags(Str::markdown($data['body']))), 160);
         $data['type'] = PostType::Page->value;
         $data['status'] = PostStatus::Published->value;
         $data['published_at'] = Carbon::now();

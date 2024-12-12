@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Constant\CommentStatus;
+use App\Constant\Post\CommentStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\CommentResourece;
 use App\Models\Comment;

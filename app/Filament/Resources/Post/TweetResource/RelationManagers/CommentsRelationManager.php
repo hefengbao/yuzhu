@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\Post\TweetResource\RelationManagers;
 
-use App\Filament\Resources\Post\CommentResource;
+use App\Filament\Clusters\Post\Comment\Resources\ApprovedResource;
 use Filament\Forms\Form;
 use Filament\Infolists\Infolist;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -17,12 +17,12 @@ class CommentsRelationManager extends RelationManager
 
     public function form(Form $form): Form
     {
-        return CommentResource::form($form);
+        return ApprovedResource::form($form);
     }
 
     public function table(Table $table): Table
     {
-        return CommentResource::table($table)
+        return ApprovedResource::table($table)
             ->modelLabel('评论')
             ->pluralModelLabel('评论')
             ->headerActions([
@@ -37,6 +37,6 @@ class CommentsRelationManager extends RelationManager
 
     public function infolist(Infolist $infolist): Infolist
     {
-        return CommentResource::infolist($infolist);
+        return ApprovedResource::infolist($infolist);
     }
 }
