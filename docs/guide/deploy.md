@@ -122,7 +122,7 @@ php artisan queue:work --queue=high,default
 
 ## 生成数据表及数据填充:
 ```
-php artisan migrate --seed
+php artisan migrate
 ```
 
 ## 用户组
@@ -137,10 +137,10 @@ chown -R $USER:www-data ./
 chmod -R 775 storage/ bootstrap/
 ```
 
-## 初始化管理员
+## 初始化站点
 
 ```shell
-php artisan yuzhu:init-admin
+php artisan yuzhu:init
 ```
 
 ## Nginx 站点配置
@@ -238,7 +238,6 @@ crontab -u www-data -e
 ## 优化
 
 ```shell
-php artisan route:cache
-php artisan view:cache
-php artisan config:cache
+php artisan optimize
+php artisan filament:optimize
 ```

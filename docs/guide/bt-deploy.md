@@ -132,16 +132,16 @@ php artisan storage:link
 初始化数据库：
 
 ```shell
-php artisan migrate --seed
+php artisan migrate
 ```
 
 ![](../images/bt30.png)
 
 
-初始化管理员：
+初始化站点：
 
 ```shell
-php artisan yuzhu:init-admin
+php artisan yuzhu:init
 ```
 
 ![](../images/bt31.png)
@@ -201,9 +201,8 @@ sudo supervisorctl start yuzhu-horizon:*
 一些优化：
 
 ```shell
-php artisan route:cache
-php artisan view:cache
-php artisan config:cache
+php artisan optimize
+php artisan filament:optimize
 ```
 
 
