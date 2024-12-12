@@ -47,7 +47,7 @@ export default defineConfig({
             {
               text: '更新',
               items: [
-                { text: '更新 & 升级', link: '/guide/update' },
+                { text: '更新 & 升级', link: '/guide/upgrade' },
               ],
             },
             {
