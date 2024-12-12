@@ -2,10 +2,10 @@
 
 namespace App\Policies\Finance;
 
-use App\Models\Finance\Category;
+use App\Models\Finance\Transaction;
 use App\Models\User;
 
-class CategoryPolicy
+class TransactionPolicy
 {
     /**
      * Determine whether the user can view any models.
@@ -18,9 +18,9 @@ class CategoryPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Category $category): bool
+    public function view(User $user, Transaction $transaction): bool
     {
-        return $user->id == $category->user_id;
+        return $user->id == $transaction->user_id;
     }
 
     /**
@@ -34,32 +34,32 @@ class CategoryPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Category $category): bool
+    public function update(User $user, Transaction $transaction): bool
     {
-        return $user->id == $category->user_id;
+        return $user->id == $transaction->user_id;
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Category $category): bool
+    public function delete(User $user, Transaction $transaction): bool
     {
-        return $user->id == $category->user_id;
+        return $user->id == $transaction->user_id;
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Category $category): bool
+    public function restore(User $user, Transaction $transaction): bool
     {
-        return $user->id == $category->user_id;
+        return $user->id == $transaction->user_id;
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Category $category): bool
+    public function forceDelete(User $user, Transaction $transaction): bool
     {
-        return $user->id == $category->user_id;
+        return $user->id == $transaction->user_id;
     }
 }

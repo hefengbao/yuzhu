@@ -23,8 +23,8 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withExceptions(function (Exceptions $exceptions) {
         // API 错误返回 json 格式
-        $exceptions->shouldRenderJsonWhen(function (Request $request, Throwable $e){
-            if ($request->is('api/*')){
+        $exceptions->shouldRenderJsonWhen(function (Request $request, Throwable $e) {
+            if ($request->is('api/*')) {
                 return true;
             }
 
@@ -43,11 +43,13 @@ return Application::configure(basePath: dirname(__DIR__))
         });
 
         // 404 跳转到首页
-        $exceptions->render(function (NotFoundHttpException $exception,  Request $request) {
+        $exceptions->render(function (NotFoundHttpException $exception, Request $request) {
             if ($request->is('api/*')) {
                 return response()->json([
                     'message' => 'Record not found.'
                 ], 404);
+            } elseif ($request->is('admin/*')) {
+                return;
             }
             return redirect('/');
         });
