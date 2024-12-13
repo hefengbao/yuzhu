@@ -14,7 +14,7 @@ class CreateAccount extends CreateRecord
     {
         $data['user_id'] = auth()->id();
 
-        if ($data['type'] != AccountType::Credit) {
+        if (AccountType::parse($data['type']) != AccountType::Credit) {
             unset($data['credit_limit']);
             unset($data['settlement_day']);
         }

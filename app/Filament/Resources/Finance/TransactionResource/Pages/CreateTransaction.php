@@ -8,6 +8,7 @@ use App\Filament\Resources\Finance\TransactionResource;
 use App\Models\Finance\Account;
 use App\Models\Finance\Transaction;
 use Filament\Resources\Pages\CreateRecord;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class CreateTransaction extends CreateRecord
@@ -38,7 +39,7 @@ class CreateTransaction extends CreateRecord
                 if ($account->type == AccountType::Credit) {
                     $account->increment('balance', $transaction->amount);
                 } else {
-                    $data = $account->blance - $transaction->amount ?: 0;
+                    $data = max($account->balance - $transaction->amount, 0);
 
                     $account->update(['balance' => $data]);
                 }

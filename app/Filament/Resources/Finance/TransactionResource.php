@@ -36,6 +36,7 @@ class TransactionResource extends Resource
                         'account',
                         'name',
                         fn(Builder $query) => $query->where('user_id', auth()->id())
+                            ->where('status', 1)
                     )
                     ->required(),
                 Forms\Components\DatePicker::make('date')
@@ -91,7 +92,8 @@ class TransactionResource extends Resource
                     ->description(fn(Transaction $transaction): string => $transaction->notes ?: ''),
                 Tables\Columns\TextColumn::make('amount')
                     ->prefix(fn(Transaction $transaction): string => $transaction->currency->symbol ?: $transaction->code)
-                    ->label('费用'),
+                    ->label('费用')
+                    ->alignEnd(),
                 Tables\Columns\TextColumn::make('date')
                     ->label('日期')
                     ->date('Y-m-d'),
