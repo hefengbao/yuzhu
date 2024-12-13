@@ -1,5 +1,7 @@
 # 升级
 
+建议先登录管理后台备份数据并下载。
+
 进入站点目录,切换到 release 分支：
 
 ```shell
@@ -16,6 +18,12 @@ git pull
 
 ```shell
 composer install
+```
+
+添加新数据表：
+
+```shell
+php artisan migrate
 ```
 
 新功能初始化：
