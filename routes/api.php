@@ -25,11 +25,15 @@ Route::domain(config('domain.api'))
 
         Route::apiResource('categories', \App\Http\Controllers\Api\V1\CategoryController::class)->only(['index', 'store']);
 
-        Route::apiResource('finance/groups', \App\Http\Controllers\Api\V1\Finance\GroupController::class)->only(['index']);
+        Route::prefix('finance')
+            ->name('finance.')
+            ->group(function () {
+                Route::apiResource('groups', \App\Http\Controllers\Api\V1\Finance\GroupController::class)->only(['index']);
 
-        Route::apiResource('finance/categories', \App\Http\Controllers\Api\V1\Finance\CategoryController::class)->only(['index']);
+                Route::apiResource('categories', \App\Http\Controllers\Api\V1\Finance\CategoryController::class)->only(['index']);
 
-        Route::apiResource('finance/transactions', \App\Http\Controllers\Api\V1\Finance\TransactionController::class)->only(['index', 'store', 'update']);
+                Route::apiResource('transactions', \App\Http\Controllers\Api\V1\Finance\TransactionController::class)->only(['index', 'store', 'update']);
 
-        Route::apiResource('finance/accounts', \App\Http\Controllers\Api\V1\Finance\AccountController::class)->only(['index', 'store', 'update']);
+                Route::apiResource('accounts', \App\Http\Controllers\Api\V1\Finance\AccountController::class)->only(['index', 'store', 'update']);
+            });
     });
