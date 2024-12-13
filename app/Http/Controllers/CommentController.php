@@ -46,14 +46,19 @@ class CommentController extends Controller
                 ->withInput();
         }
 
-        // 同一 IP 地址内容相同
-        if (cache($request->ip()) == md5($request->input('body'))) {
-            abort(403, '乖，不要做坏事哦!');
-        }
-
         // IP 或 Email 在黑名单中
         if (Blacklist::where('body', $request->ip())->orWhere('body', $request->input('email'))->first()) {
-            abort(403, '乖，不要做坏事哦!');
+            abort(500);
+        }
+
+        // 同一 IP 地址内容相同
+        if (cache($request->ip()) == md5($request->input('body'))) {
+            abort(500);
+        }
+
+        // 内容 MD5 在黑名单中
+        if (Blacklist::where('body',  md5($request->input('body')))->first()){
+            abort(500);
         }
 
         $comment = new Comment();

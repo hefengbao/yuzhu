@@ -66,7 +66,9 @@ class BlacklistResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()->orderBy('id', 'desc');
+        return parent::getEloquentQuery()
+            ->where('body', '!=', BlacklistType::ContentMd5)
+            ->orderBy('id', 'desc');
     }
 
     public static function getRelations(): array

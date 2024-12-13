@@ -37,6 +37,11 @@ class ViewComment extends ViewRecord
                         'body' => $record->ip
                     ]);
 
+                    Blacklist::firstOrCreate([
+                        'type' => BlacklistType::ContentMd5,
+                        'body' => md5($record->body)
+                    ]);
+
                     if ($record->guest_email) {
                         Blacklist::firstOrCreate([
                             'type' => BlacklistType::Email,

@@ -9,12 +9,13 @@ enum BlacklistType: string implements HasLabel, HasColor
 {
     case Ip = 'ip';
     case Email = 'email';
-
+    case ContentMd5 = 'content_md5';
     public function getLabel(): ?string
     {
         return match ($this) {
             self::Ip => 'IP地址',
             self::Email => '邮件地址',
+            self::ContentMd5 => '内容MD5',
         };
     }
 
@@ -23,6 +24,7 @@ enum BlacklistType: string implements HasLabel, HasColor
         return match ($this) {
             self::Ip => 'danger',
             self::Email => 'warning',
+            self::ContentMd5 => 'gray',
         };
     }
 }
