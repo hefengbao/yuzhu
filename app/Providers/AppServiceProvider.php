@@ -39,6 +39,9 @@ class AppServiceProvider extends ServiceProvider
             return $request->user()->isAdministrator();
         });
 
+        Gate::policy(\App\Models\Finance\Account::class, \App\Policies\Finance\AccountPolicy::class);
         Gate::policy(\App\Models\Finance\Category::class, \App\Policies\Finance\CategoryPolicy::class);
+        Gate::policy(\App\Models\Finance\Group::class, \App\Policies\Finance\GroupPolicy::class);
+        Gate::policy(\App\Models\Finance\Transaction::class, \App\Policies\Finance\TransactionPolicy::class);
     }
 }
