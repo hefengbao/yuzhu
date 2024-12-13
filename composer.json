@@ -30,6 +30,7 @@
         "laravel/tinker": "^2.9",
         "league/html-to-markdown": "^5.1",
         "mews/purifier": "^3.4",
+        "opcodesio/log-viewer": "^3.12",
         "predis/predis": "^2.2",
         "spatie/laravel-backup": "^8.6",
         "spatie/laravel-feed": "^4.4",

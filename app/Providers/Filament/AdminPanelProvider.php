@@ -7,6 +7,7 @@ use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Navigation\NavigationGroup;
+use Filament\Navigation\NavigationItem;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
@@ -59,6 +60,13 @@ class AdminPanelProvider extends PanelProvider
                     ->label('设置')
                     ->icon('heroicon-o-cog-6-tooth')
                     ->collapsed(),
+            ])
+            ->navigationItems([
+                NavigationItem::make('日志')
+                    ->url(url('admin/logs'), shouldOpenInNewTab: true)
+                    ->group('设置')
+                    ->sort(4)
+                    ->visible(fn(): bool => auth()->user()->isAdministrator()),
             ])
             ->unsavedChangesAlerts()
             ->sidebarFullyCollapsibleOnDesktop()

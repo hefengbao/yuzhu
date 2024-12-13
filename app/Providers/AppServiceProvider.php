@@ -7,6 +7,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Opcodes\LogViewer\Facades\LogViewer;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -32,6 +33,10 @@ class AppServiceProvider extends ServiceProvider
 
         \Blade::if('roles', function (array $roles) {
             return in_array(auth()->user()->role, $roles);
+        });
+
+        LogViewer::auth(function ($request) {
+            return $request->user()->isAdministrator();
         });
 
         Gate::policy(\App\Models\Finance\Category::class, \App\Policies\Finance\CategoryPolicy::class);
