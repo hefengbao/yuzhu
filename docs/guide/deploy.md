@@ -48,7 +48,10 @@ composer install --optimize-autoloader --no-dev --ignore-platform-reqs
 
 ```
 cp .env.example .env
+
 php artisan key:generate
+
+php artisan storage:link
 ```
 
 在 `.env` 文件中修改配置，主要是下面几项：
