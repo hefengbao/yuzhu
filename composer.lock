@@ -6041,16 +6041,16 @@
         },
         {
             "name": "spatie/browsershot",
-            "version": "5.0.0",
+            "version": "5.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/browsershot.git",
-                "reference": "1e212b596c104138550ed4ef1b9977d8df570c67"
+                "reference": "8a1e3476a9c07b72ace4d4747bac7c58dbc1c066"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/browsershot/zipball/1e212b596c104138550ed4ef1b9977d8df570c67",
-                "reference": "1e212b596c104138550ed4ef1b9977d8df570c67",
+                "url": "https://api.github.com/repos/spatie/browsershot/zipball/8a1e3476a9c07b72ace4d4747bac7c58dbc1c066",
+                "reference": "8a1e3476a9c07b72ace4d4747bac7c58dbc1c066",
                 "shasum": ""
             },
             "require": {
@@ -6061,10 +6061,10 @@
                 "symfony/process": "^6.0|^7.0"
             },
             "require-dev": {
-                "pestphp/pest": "^1.20",
+                "pestphp/pest": "^3.0",
                 "spatie/image": "^3.6",
                 "spatie/pdf-to-text": "^1.52",
-                "spatie/phpunit-snapshot-assertions": "^4.2.3"
+                "spatie/phpunit-snapshot-assertions": "^4.2.3|^5.0"
             },
             "type": "library",
             "autoload": {
@@ -6097,7 +6097,7 @@
                 "webpage"
             ],
             "support": {
-                "source": "https://github.com/spatie/browsershot/tree/5.0.0"
+                "source": "https://github.com/spatie/browsershot/tree/5.0.2"
             },
             "funding": [
                 {
@@ -6105,7 +6105,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-11-25T16:03:48+00:00"
+            "time": "2024-12-13T16:10:26+00:00"
         },
         {
             "name": "spatie/color",
