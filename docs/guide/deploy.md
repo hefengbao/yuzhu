@@ -13,7 +13,7 @@ create database if not exists yuzhu default character set utf8mb4 default collat
 
 create user 'yuzhu'@'localhost' identified with caching_sha2_password by '密码';  # 密码自行定义
 
-grant all privileges on <yuzhu>.* to 'yuzhu'@'localhost';
+grant all privileges on yuzhu.* to 'yuzhu'@'localhost';
 
 flush privileges;
 
@@ -120,7 +120,7 @@ php artisan yuzhu:check-email
 php artisan queue:work --queue=high,default
 ```
 
-## 生成数据表及数据填充:
+## 生成数据表:
 ```
 php artisan migrate
 ```
@@ -145,7 +145,12 @@ php artisan yuzhu:init
 
 ## Nginx 站点配置
 
-可参考：
+
+```shell
+vi /etc/nginx/sites-available/yuzhu
+```
+
+可参考复制如下内容修改：
 
 ```bash
 server {
@@ -199,6 +204,21 @@ server {
     ssl_certificate     /etc/ssl/certs/yuzhu.test.crt;
     ssl_certificate_key /etc/ssl/certs/yuzhu.test.key;
 }
+```
+
+
+```shell
+ln -s /etc/nginx/sites-available/yuzhu /etc/nginx/sites-enabled/yuzhu
+```
+
+测试配置是否成功：
+
+```shell
+nginx -t
+```
+
+```shell
+nginx -s reload
 ```
 
 ## 配置并运行 Horizon
