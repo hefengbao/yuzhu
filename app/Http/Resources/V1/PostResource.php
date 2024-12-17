@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources\V1;
 
-use App\Constant\PostType;
+use App\Constant\Post\PostType;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Str;
