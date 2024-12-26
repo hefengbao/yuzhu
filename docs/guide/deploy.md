@@ -26,10 +26,18 @@ exit;
 
 [https://github.com/hefengbao/yuzhu/releases](https://github.com/hefengbao/yuzhu/releases)
 
+或者
+
+[https://gitee.com/hefengbao/yuzhu/releases](https://gitee.com/hefengbao/yuzhu/releases)
+
 ### 2. 克隆代码
 
 ```
 git clone https://github.com/hefengbao/yuzhu.git /var/www/yuzhu
+
+或者
+
+git clone https://githee.com/hefengbao/yuzhu.git /var/www/yuzhu
 ````
 
 ```shell
