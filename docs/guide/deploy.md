@@ -145,7 +145,7 @@ chown -R $USER:www-data ./
 ## 读写权限
 
 ```
-chmod -R 775 storage/ bootstrap/
+chmod -R 775 storage/ bootstrap/cache
 ```
 
 ## 初始化站点
