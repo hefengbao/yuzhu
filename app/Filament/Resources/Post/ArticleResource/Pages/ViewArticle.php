@@ -35,7 +35,7 @@ class ViewArticle extends ViewRecord
                 ->color('danger')
                 ->requiresConfirmation()
                 ->action(fn(Post $record) => $record->update(['status' => PostStatus::Rejected]))
-                ->visible(fn(Post $record): bool => $record->status !== PostStatus::Rejected && !$record->isPinned()),
+                ->visible(fn(Post $record): bool => ($auth->isAdministrator() || $auth->isEditor()) & $record->status == PostStatus::Published),
         ];
     }
 }
