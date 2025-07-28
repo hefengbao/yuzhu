@@ -49,7 +49,7 @@ return Application::configure(basePath: dirname(__DIR__))
                     'message' => 'Record not found.'
                 ], 404);
             } elseif ($request->is('admin/*')) {
-                return;
+                return null;
             }
             return redirect('/');
         });
