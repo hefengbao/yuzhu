@@ -28,7 +28,7 @@ class ArticleResource extends Resource
     protected static ?string $navigationLabel = '文章';
     protected static ?int $navigationSort = 1;
     protected static ?string $navigationGroup = '内容';
-    protected static ?string $slug = 'cms';
+    protected static ?string $slug = 'cms/articles';
 
     public static function form(Form $form): Form
     {

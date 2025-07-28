@@ -27,7 +27,7 @@ class TweetResource extends Resource
     protected static ?string $navigationLabel = '微博';
     protected static ?int $navigationSort = 2;
     protected static ?string $navigationGroup = '内容';
-    protected static ?string $slug = 'cms';
+    protected static ?string $slug = 'cms/tweets';
 
     public static function form(Form $form): Form
     {

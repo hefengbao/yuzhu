@@ -21,7 +21,7 @@ class CategoryResource extends Resource
     protected static ?string $navigationLabel = '分类';
     protected static ?int $navigationSort = 5;
     protected static ?string $navigationGroup = '内容';
-    protected static ?string $slug = 'cms';
+    protected static ?string $slug = 'cms/categories';
 
     public static function shouldRegisterNavigation(): bool
     {

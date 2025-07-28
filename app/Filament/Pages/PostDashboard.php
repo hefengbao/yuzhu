@@ -10,7 +10,7 @@ class PostDashboard extends \Filament\Pages\Dashboard
 {
     use HasFiltersForm;
 
-    protected static string $routePath = 'post';
+    protected static string $routePath = 'cms';
     protected static ?string $title = '仪表板';
     protected static ?string $navigationGroup = '内容';
     protected static ?int $navigationSort = 1;

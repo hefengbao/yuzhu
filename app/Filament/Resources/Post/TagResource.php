@@ -20,7 +20,7 @@ class TagResource extends Resource
     protected static ?string $navigationLabel = '标签';
     protected static ?int $navigationSort = 6;
     protected static ?string $navigationGroup = '内容';
-    protected static ?string $slug = 'cms';
+    protected static ?string $slug = 'cms/tags';
 
     public static function shouldRegisterNavigation(): bool
     {
