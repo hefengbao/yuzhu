@@ -32,11 +32,7 @@ Gitee: [https://gitee.com/hefengbao/yuzhu-client](https://gitee.com/hefengbao/yu
 
 ## 文档
 
-[https://hefengbao.github.io/yuzhu/](https://hefengbao.github.io/yuzhu/)   
-
-## 示例
-
-[https://www.8ug.icu](https://www.8ug.icu)
+[https://hefengbao.github.io/yuzhu/](https://hefengbao.github.io/yuzhu/)
 
 ## 名称来源
 
