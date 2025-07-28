@@ -22,16 +22,12 @@ use Illuminate\Support\Str;
 class PageResource extends Resource
 {
     protected static ?string $model = Post::class;
-
     protected static ?string $modelLabel = '页面';
-
     protected static ?string $pluralModelLabel = '页面';
-
     protected static ?string $navigationLabel = '页面';
-
     protected static ?int $navigationSort = 3;
-
     protected static ?string $navigationGroup = '内容';
+    protected static ?string $slug = 'cms';
 
     public static function shouldRegisterNavigation(): bool
     {

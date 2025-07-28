@@ -16,16 +16,12 @@ use Illuminate\Support\Str;
 class CategoryResource extends Resource
 {
     protected static ?string $model = Category::class;
-
     protected static ?string $modelLabel = '分类';
-
     protected static ?string $pluralModelLabel = '分类';
-
     protected static ?string $navigationLabel = '分类';
-
     protected static ?int $navigationSort = 5;
-
     protected static ?string $navigationGroup = '内容';
+    protected static ?string $slug = 'cms';
 
     public static function shouldRegisterNavigation(): bool
     {

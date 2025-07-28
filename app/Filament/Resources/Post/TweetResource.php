@@ -22,16 +22,12 @@ use Illuminate\Support\Str;
 class TweetResource extends Resource
 {
     protected static ?string $model = Post::class;
-
     protected static ?string $modelLabel = '微博';
-
     protected static ?string $pluralModelLabel = '微博';
-
     protected static ?string $navigationLabel = '微博';
-
     protected static ?int $navigationSort = 2;
-
     protected static ?string $navigationGroup = '内容';
+    protected static ?string $slug = 'cms';
 
     public static function form(Form $form): Form
     {
