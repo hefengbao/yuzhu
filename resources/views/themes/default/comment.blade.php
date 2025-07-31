@@ -78,44 +78,46 @@
         </section>
     @endforeach
 </div>
-<h3 id="reply-title">发表评论</h3>
-<p>@auth
-        <a href="{{ route('filament.admin.resources.users.edit', auth()->id()) }}">已登录为{{ auth()->user()->name }}</a>
-        <a href="#">注销？</a>
-    @endauth @guest
-        您的电子邮箱地址不会被公开。
-    @endguest 必填项已用 * 标注</p>
-<form id="comment-form" action="{{ route('comments.store', $model->slug_id) }}" method="POST">
-    <fieldset>
-        @csrf
-        <input type="hidden" name="parent" id="parent">
-        <label for="editor">评论*</label>
-        <textarea id="editor" name="body" aria-label="写评论..." required>{{ old('body') }}</textarea>
-        @guest
-            <label for="name">显示名称*</label>
-            <input type="text" id="name" name="name" value="{{ old('name') }}" required>
-            <label for="email">电子邮箱*</label>
-            <input type="email" id="email" name="email" value="{{ old('email') }}" required>
-        @endguest
-    </fieldset>
-    <button id="submit" type="submit">发表评论</button>
-</form>
-<script type="text/javascript">
-    let replyTitle = document.getElementById('reply-title')
-    let parent = document.getElementById('parent')
+@if($model->commentable == \App\Constant\Post\Commentable::Open)
+    <h3 id="reply-title">发表评论</h3>
+    <p>@auth
+            <a href="{{ route('filament.admin.resources.users.edit', auth()->id()) }}">已登录为{{ auth()->user()->name }}</a>
+            <a href="#">注销？</a>
+        @endauth @guest
+            您的电子邮箱地址不会被公开。
+        @endguest 必填项已用 * 标注</p>
+    <form id="comment-form" action="{{ route('comments.store', $model->slug_id) }}" method="POST">
+        <fieldset>
+            @csrf
+            <input type="hidden" name="parent" id="parent">
+            <label for="editor">评论*</label>
+            <textarea id="editor" name="body" aria-label="写评论..." required>{{ old('body') }}</textarea>
+            @guest
+                <label for="name">显示名称*</label>
+                <input type="text" id="name" name="name" value="{{ old('name') }}" required>
+                <label for="email">电子邮箱*</label>
+                <input type="email" id="email" name="email" value="{{ old('email') }}" required>
+            @endguest
+        </fieldset>
+        <button id="submit" type="submit">发表评论</button>
+    </form>
+    <script type="text/javascript">
+        let replyTitle = document.getElementById('reply-title')
+        let parent = document.getElementById('parent')
 
-    function reply(commentId, commentAuthor) {
-        replyTitle.innerHTML = "回复<a class='link-secondary' href='{{ url()->current() }}#comment-"
-            + commentId
-            + "'>"
-            + commentAuthor
-            + "</a>&nbsp;&nbsp;<small><a class='link-secondary' href='{{ url()->current() }}#respond' onclick='cancelReply()'>取消回复<small>"
+        function reply(commentId, commentAuthor) {
+            replyTitle.innerHTML = "回复<a class='link-secondary' href='{{ url()->current() }}#comment-"
+                + commentId
+                + "'>"
+                + commentAuthor
+                + "</a>&nbsp;&nbsp;<small><a class='link-secondary' href='{{ url()->current() }}#respond' onclick='cancelReply()'>取消回复<small>"
 
-        parent.value = commentId
-    }
+            parent.value = commentId
+        }
 
-    function cancelReply() {
-        parent.value = null
-        replyTitle.innerHTML = '发表评论'
-    }
-</script>
+        function cancelReply() {
+            parent.value = null
+            replyTitle.innerHTML = '发表评论'
+        }
+    </script>
+@endif

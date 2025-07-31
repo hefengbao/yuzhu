@@ -59,7 +59,7 @@ class PageResource extends Resource
                 Forms\Components\Select::make('commentable')
                     ->label('评论设置')
                     ->options(Commentable::class)
-                    ->default(Commentable::Closed)
+                    ->default(Commentable::Close)
                     ->required()
                     ->columnSpanFull(),
             ]);
@@ -118,7 +118,7 @@ class PageResource extends Resource
                                         ->badge()
                                         ->color(fn(Commentable $state): string => match ($state) {
                                             Commentable::Open => 'success',
-                                            Commentable::Closed => 'danger',
+                                            Commentable::Close => 'danger',
                                         }),
                                     Infolists\Components\TextEntry::make('published_at')
                                         ->label('发布时间')

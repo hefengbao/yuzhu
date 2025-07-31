@@ -38,7 +38,5 @@
             @endif
         </p>
     </article>
-    @if($tweet->commentable == \App\Constant\Post\Commentable::Open)
-        @include('themes.default.comment', ['model' => $tweet])
-    @endif
+    @include('themes.default.comment', ['model' => $tweet])
 @endsection

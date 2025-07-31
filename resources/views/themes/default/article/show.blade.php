@@ -90,11 +90,9 @@
     </section>
 
     <!--评论-->
-    @if($article->commentable = \App\Constant\Post\Commentable::Open)
-        <section>
-            @include('themes.default.comment', ['model' => $article])
-        </section>
-    @endif
+    <section>
+        @include('themes.default.comment', ['model' => $article])
+    </section>
 @endsection
 @section('script')
     <script src="{{ asset('libs/prism/prism.js') }}"></script>
