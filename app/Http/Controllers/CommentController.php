@@ -57,7 +57,7 @@ class CommentController extends Controller
         }
 
         // 内容 MD5 在黑名单中
-        if (Blacklist::where('body',  md5($request->input('body')))->first()){
+        if (Blacklist::where('body', md5($request->input('body')))->first()) {
             abort(500);
         }
 

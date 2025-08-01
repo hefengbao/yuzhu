@@ -10,6 +10,7 @@ enum BlacklistType: string implements HasLabel, HasColor
     case Ip = 'ip';
     case Email = 'email';
     case ContentMd5 = 'content_md5';
+
     public function getLabel(): ?string
     {
         return match ($this) {

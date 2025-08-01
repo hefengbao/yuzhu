@@ -8,7 +8,6 @@ use App\Filament\Resources\Finance\TransactionResource;
 use App\Models\Finance\Account;
 use App\Models\Finance\Transaction;
 use Filament\Resources\Pages\CreateRecord;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class CreateTransaction extends CreateRecord
