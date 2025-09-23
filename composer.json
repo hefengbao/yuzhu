@@ -14,7 +14,6 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
-        "calebporzio/sushi": "^2.5",
         "codeat3/blade-iconpark": "^1.7",
         "codex-team/editor.js": "^2.0",
         "erusev/parsedown": "^1.7",

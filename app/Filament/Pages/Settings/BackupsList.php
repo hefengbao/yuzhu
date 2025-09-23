@@ -3,13 +3,14 @@
 namespace App\Filament\Pages\Settings;
 
 use App\Models\Backup;
-use Artisan;
+use Carbon\Carbon;
 use Filament\Actions\Action;
 use Filament\Pages\Page;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
 
 class BackupsList extends Page implements HasTable
@@ -42,8 +43,19 @@ class BackupsList extends Page implements HasTable
 
     public function table(Table $table): Table
     {
+        $files = Storage::allFiles(config('app.name'));
+        $files = collect($files)->sortDesc()->map(function ($item) {
+            $strs1 = explode('/', $item);
+            $strs2 = explode('-', $strs1[1]);
+
+            return [
+                'datetime' => Carbon::create(...$strs2)->format('Y-m-d H:i:s'),
+                'name' => $strs1[1],
+            ];
+        });
+
         return $table
-            ->query(Backup::query())
+            ->records(fn(): array => $files->all())
             ->columns([
                 TextColumn::make('name')->label('文件'),
                 TextColumn::make('datetime')->label('时间'),
