@@ -65,16 +65,17 @@ class BackupsList extends Page implements HasTable
                     ->label('下载')
                     ->color('gray')
                     ->icon('heroicon-o-arrow-down-tray')
-                    ->action(function (Backup $record) {
-                        return Storage::download(config('app.name') . '/' . $record->name);
+                    ->action(function (array $record) {
+                        return Storage::download(config('app.name') . '/' . $record['name']);
                     }),
                 Action::make('del')
                     ->label('删除')
                     ->color('danger')
                     ->icon('heroicon-o-trash')
                     ->requiresConfirmation()
-                    ->action(function (Backup $record) {
-                        Storage::delete(config('app.name') . '/' . $record->name);
+                    ->action(function (array $record) {
+                        Storage::delete(config('app.name') . '/' . $record['name']);
+                        return redirect('admin/backups-list');
                     }),
             ]);
     }
