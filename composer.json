@@ -55,8 +55,7 @@
             "Database\\Seeders\\": "database/seeders/"
         },
         "files": [
-            "app/Yuzhu/helpers.php",
-            "app/Yuzhu/Active/helpers.php"
+            "app/Yuzhu/helpers.php"
         ]
     },
     "autoload-dev": {

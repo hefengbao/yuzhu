@@ -10,9 +10,9 @@
         @foreach($posts as $post)
             <p>
                 <small>{{ $post->published_at->format('Y年m月d日') }}</small> »
-                @if($post->type == \App\Constant\Post\PostType::Article)
+                @if($post->type == \App\Constant\CMS\PostType::Article)
                     <a href="{{ route('articles.show', $post->slug_id) }}">{{ $post->title }}</a>
-                @elseif($post->type == \App\Constant\Post\PostType::Tweet)
+                @elseif($post->type == \App\Constant\CMS\PostType::Tweet)
                     <a href="{{ route('tweets.show', $post->slug_id) }}">{{ Str::limit($post->body, 20) }}</a>
                 @endif
             </p>

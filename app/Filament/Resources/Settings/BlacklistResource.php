@@ -7,7 +7,7 @@ use App\Filament\Resources\Settings\BlacklistResource\Pages\CreateBlacklist;
 use App\Filament\Resources\Settings\BlacklistResource\Pages\EditBlacklist;
 use App\Filament\Resources\Settings\BlacklistResource\Pages\ListBlacklists;
 use App\Filament\Resources\Settings\BlacklistResource\RelationManagers;
-use App\Models\Blacklist;
+use App\Models\Settings\Blacklist;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\Select;

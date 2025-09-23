@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Models\Option;
+use App\Models\Settings\Option;
 use Cache;
 
 class OptionService

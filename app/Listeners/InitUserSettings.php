@@ -3,7 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\UserRegistered;
-use App\Models\Finance\Settings;
+use App\Models\FMS\Settings;
 use App\Services\Finance\SeedCategories;
 
 class InitUserSettings

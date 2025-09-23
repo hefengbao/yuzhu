@@ -2,9 +2,9 @@
 
 namespace App\Services\Finance;
 
-use App\Constant\Finance\FinanceType;
-use App\Models\Finance\Category;
-use App\Models\Finance\Group;
+use App\Constant\FMS\FinanceType;
+use App\Models\FMS\Category;
+use App\Models\FMS\Group;
 use App\Models\User;
 
 /**

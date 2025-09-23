@@ -50,13 +50,16 @@ class AdminPanelProvider extends PanelProvider
             ->navigationGroups([
                 NavigationGroup::make()
                     ->label('内容')
-                    ->icon('heroicon-o-pencil-square'),
+                    ->icon('heroicon-o-pencil-square')
+                    ->collapsed(),
                 NavigationGroup::make()
                     ->label('财务')
-                    ->icon('iconpark-finance-o'),
+                    ->icon('iconpark-finance-o')
+                    ->collapsed(),
                 NavigationGroup::make()
                     ->label('用户')
-                    ->icon('heroicon-o-users'),
+                    ->icon('heroicon-o-users')
+                    ->collapsed(),
                 NavigationGroup::make()
                     ->label('设置')
                     ->icon('heroicon-o-cog-6-tooth')

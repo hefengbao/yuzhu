@@ -3,11 +3,11 @@
 namespace App\Filament\Pages;
 
 
-use App\Filament\Pages\Widgets\Finance\ExpensePie;
-use App\Filament\Pages\Widgets\Finance\IncomeExpenseMonthChart;
-use App\Filament\Pages\Widgets\Finance\IncomeExpenseStats;
-use App\Filament\Pages\Widgets\Finance\IncomeExpenseYearChart;
-use App\Filament\Pages\Widgets\Finance\IncomePie;
+use App\Filament\Pages\Widgets\FMS\ExpensePie;
+use App\Filament\Pages\Widgets\FMS\IncomeExpenseMonthChart;
+use App\Filament\Pages\Widgets\FMS\IncomeExpenseStats;
+use App\Filament\Pages\Widgets\FMS\IncomeExpenseYearChart;
+use App\Filament\Pages\Widgets\FMS\IncomePie;
 use Carbon\Carbon;
 use Filament\Forms\Components\DatePicker;
 use Filament\Pages\Dashboard;
@@ -19,7 +19,7 @@ class FinanceDashboard extends Dashboard
 {
     use HasFiltersForm;
 
-    protected static string $routePath = 'finance';
+    protected static string $routePath = 'fms';
     protected static ?string $title = '仪表板';
     protected static string|\UnitEnum|null $navigationGroup = '财务';
     protected static ?int $navigationSort = 1;
@@ -30,7 +30,7 @@ class FinanceDashboard extends Dashboard
     {
         return $schema
             ->components([
-                Section::make()
+                Section::make('请选择日期')
                     ->schema([
                         DatePicker::make('startDate')
                             ->label('开始日期')
@@ -41,7 +41,8 @@ class FinanceDashboard extends Dashboard
                             ->format('Y-m-d')
                             ->default(Carbon::now()->format('Y-m-d')),
                     ])
-                    ->columns(3),
+                    ->columns(2)
+                    ->columnSpanFull()
             ]);
     }
 

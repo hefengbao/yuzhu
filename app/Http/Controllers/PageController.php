@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
+use App\Models\CMS\Post;
 use GrahamCampbell\Markdown\Facades\Markdown;
 
 class PageController extends Controller

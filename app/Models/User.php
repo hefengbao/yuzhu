@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use App\Constant\Role;
-use App\Models\Finance\Settings;
-use App\Models\Finance\Transaction;
+use App\Models\FMS\Settings;
+use App\Models\FMS\Transaction;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

@@ -2,15 +2,15 @@
 
 namespace App\Console\Commands;
 
-use App\Constant\Post\CommentStatus;
-use App\Constant\Post\PostStatus;
-use App\Constant\Post\PostType;
+use App\Constant\CMS\CommentStatus;
+use App\Constant\CMS\PostStatus;
+use App\Constant\CMS\PostType;
 use App\Constant\Role;
-use App\Models\Category;
-use App\Models\Finance\Currency;
-use App\Models\Finance\Settings;
-use App\Models\Option;
-use App\Models\Post;
+use App\Models\CMS\Category;
+use App\Models\CMS\Post;
+use App\Models\FMS\Currency;
+use App\Models\FMS\Settings;
+use App\Models\Settings\Option;
 use App\Models\User;
 use App\Services\Finance\SeedCategories;
 use Carbon\Carbon;

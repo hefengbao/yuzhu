@@ -11,7 +11,7 @@ return [
              * You can also pass an argument to that method. Note that their key must be the name of the parameter:
              * [App\Model::class, 'getAllFeedItems', 'parameterName' => 'argument']
              */
-            'items' => [\App\Models\Post::class, 'getFeedItems'],
+            'items' => [\App\Models\CMS\Post::class, 'getFeedItems'],
 
             /*
              * The feed will be available on this url.

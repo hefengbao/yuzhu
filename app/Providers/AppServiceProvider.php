@@ -2,14 +2,14 @@
 
 namespace App\Providers;
 
-use App\Models\Finance\Account;
-use App\Models\Finance\Category;
-use App\Models\Finance\Group;
-use App\Models\Finance\Transaction;
-use App\Policies\Finance\AccountPolicy;
-use App\Policies\Finance\CategoryPolicy;
-use App\Policies\Finance\GroupPolicy;
-use App\Policies\Finance\TransactionPolicy;
+use App\Models\FMS\Account;
+use App\Models\FMS\Category;
+use App\Models\FMS\Group;
+use App\Models\FMS\Transaction;
+use App\Policies\FMS\AccountPolicy;
+use App\Policies\FMS\CategoryPolicy;
+use App\Policies\FMS\GroupPolicy;
+use App\Policies\FMS\TransactionPolicy;
 use Blade;
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;

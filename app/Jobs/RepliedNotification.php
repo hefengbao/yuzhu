@@ -2,9 +2,9 @@
 
 namespace App\Jobs;
 
-use App\Constant\Post\PostType;
+use App\Constant\CMS\PostType;
 use App\Mail\PostCommented;
-use App\Models\Comment;
+use App\Models\CMS\Comment;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;

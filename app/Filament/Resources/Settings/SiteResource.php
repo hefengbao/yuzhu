@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\Settings;
 
 use App\Filament\Resources\Settings\SiteResource\Pages\CreateSite;
-use App\Models\Option;
+use App\Models\Settings\Option;
 use App\Services\OptionService;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;

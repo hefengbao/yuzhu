@@ -3,7 +3,7 @@
 namespace App\Filament\Pages;
 
 
-use App\Filament\Pages\Widgets\Post\StatsOverview;
+use App\Filament\Pages\Widgets\CMS\StatsOverview;
 use Filament\Pages\Dashboard;
 use Filament\Pages\Dashboard\Concerns\HasFiltersForm;
 

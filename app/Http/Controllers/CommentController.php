@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Constant\Post\CommentStatus;
+use App\Constant\CMS\CommentStatus;
 use App\Jobs\RepliedNotification;
-use App\Models\Blacklist;
-use App\Models\Comment;
-use App\Models\Post;
+use App\Models\CMS\Comment;
+use App\Models\CMS\Post;
+use App\Models\Settings\Blacklist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;

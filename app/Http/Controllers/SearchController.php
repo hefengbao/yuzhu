@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
-use App\Models\Tag;
+use App\Models\CMS\Category;
+use App\Models\CMS\Tag;
 
 class SearchController extends Controller
 {

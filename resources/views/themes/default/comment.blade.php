@@ -1,5 +1,5 @@
 @php
-    $comments = $model->comments()->with(['parent','author'])->where('status', \App\Constant\Post\CommentStatus::Approved)->orderBy('id')->get();
+    $comments = $model->comments()->with(['parent','author'])->where('status', \App\Constant\CMS\CommentStatus::Approved)->orderBy('id')->get();
 @endphp
 <h3>有 {{ $comments->count() }} 条评论</h3>
 <div>
@@ -78,7 +78,7 @@
         </section>
     @endforeach
 </div>
-@if($model->commentable == \App\Constant\Post\Commentable::Open)
+@if($model->commentable == \App\Constant\CMS\Commentable::Open)
     <h3 id="reply-title">发表评论</h3>
     <p>@auth
             <a href="{{ route('filament.admin.resources.users.edit', auth()->id()) }}">已登录为{{ auth()->user()->name }}</a>

@@ -1,3 +1,6 @@
+@php
+$isHome = request()->route()->named('home.index')
+@endphp
 <!doctype html>
 <html lang="zh">
 @inject('options', 'App\Services\OptionService')
@@ -5,7 +8,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description"
-          content="@if(if_route('home.index')){{ $options->autoload()['description'] ?? '' }}@else @yield('description') @endif">
+          content="@if($isHome){{ $options->autoload()['description'] ?? '' }}@else @yield('description') @endif">
     <meta name="keywords" content="{{ $options->autoload()['keywords'] ?? '' }}">
     <meta name="color-scheme" content="light dark">
     <meta property="og:type" content="blog"/>
@@ -14,9 +17,7 @@
     <meta property="og:title" content="@yield('og_title')"/>
     <meta property="og:description" content="@yield('og_description')"/>
     <meta property="og:author" content="@yield('og_author')"/>
-    @if($options->autoload()['site_verify_meta'])
-        {!! $options->autoload()['site_verify_meta'] !!}
-    @endif
+    @if($options->autoload()['site_verify_meta']){!! $options->autoload()['site_verify_meta'] !!}@endif
     <link rel="canonical" href="{{ url()->current() }}">
     <link rel="shortcut icon" href="{{ asset('/favicons/favicon.ico') }}">
     <link rel="icon" href="{{ asset('/favicons/favicon-16x16.png') }}" type="image/png" sizes="16x16">
@@ -41,9 +42,7 @@
         }
     </style>
     @yield('style')
-    <title>@yield('title') {{ $options->autoload()['title'] }}@if(if_route('home.index'))
-            &#8211; {{ $options->autoload()['subtitle'] }}
-        @endif</title>
+    <title>@yield('title') {{ $options->autoload()['title'] }}@if($isHome)&#8211; {{ $options->autoload()['subtitle'] }}@endif</title>
 </head>
 <body>
 <header>

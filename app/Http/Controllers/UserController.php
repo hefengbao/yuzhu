@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
+use App\Models\CMS\Post;
 use App\Models\User;
 
 class UserController extends Controller

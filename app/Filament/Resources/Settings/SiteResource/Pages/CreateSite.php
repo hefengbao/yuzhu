@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\Settings\SiteResource\Pages;
 
 use App\Filament\Resources\Settings\SiteResource;
-use App\Models\Option;
+use App\Models\Settings\Option;
 use Cache;
 use Filament\Actions\Action;
 use Filament\Resources\Pages\CreateRecord;
