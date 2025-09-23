@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\TagResource;
 use App\Models\Tag;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Routing\Controllers\HasMiddleware;
@@ -30,7 +31,7 @@ class TagController extends Controller implements HasMiddleware
         return TagResource::collection($tags);
     }
 
-    public function store(Request $request): \Illuminate\Http\JsonResponse|TagResource
+    public function store(Request $request): JsonResponse|TagResource
     {
         $request->validate([
             'name' => 'required|string',

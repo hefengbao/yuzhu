@@ -8,12 +8,20 @@ use App\Filament\Clusters\Post\Comment\Resources\SpamResource\Pages\EditComment;
 use App\Filament\Clusters\Post\Comment\Resources\SpamResource\Pages\ListComments;
 use App\Filament\Clusters\Post\Comment\Resources\SpamResource\Pages\ViewComment;
 use App\Models\Comment;
-use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Infolists;
-use Filament\Infolists\Infolist;
+use Filament\Actions\Action;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
+use Filament\Forms\Components\MarkdownEditor;
+use Filament\Forms\Components\Select;
+use Filament\Infolists\Components\TextEntry;
 use Filament\Resources\Resource;
-use Filament\Tables;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Group;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Schema;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -25,15 +33,15 @@ class SpamResource extends Resource
     protected static ?string $cluster = \App\Filament\Clusters\Post\Comment::class;
     protected static ?string $slug = 'spam';
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
-                Forms\Components\MarkdownEditor::make('body')
+        return $schema
+            ->components([
+                MarkdownEditor::make('body')
                     ->label('内容')
                     ->required()
                     ->columnSpanFull(),
-                Forms\Components\Select::make('status')
+                Select::make('status')
                     ->label('状态')
                     ->options(CommentStatus::class)
                     ->default(CommentStatus::Approved)
@@ -46,25 +54,25 @@ class SpamResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('user_name')
+                TextColumn::make('user_name')
                     ->label('作者')
                     ->description(fn(Comment $record) => $record->user_email),
-                Tables\Columns\TextColumn::make('ip')->label('IP'),
-                Tables\Columns\TextColumn::make('body')
+                TextColumn::make('ip')->label('IP'),
+                TextColumn::make('body')
                     ->label('内容')
                     ->wrap()
                     ->description(fn(?Comment $record): string => $record?->parent != null ? '引用：' . $record->parent->body : ''),
-                Tables\Columns\TextColumn::make('status')
+                TextColumn::make('status')
                     ->label('状态')->badge()
                     ->description(fn(Comment $record) => $record->created_at->format('Y-m-d H:i:s')),
             ])
             ->filters([
                 //
             ])
-            ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\Action::make('visit')
+            ->recordActions([
+                ViewAction::make(),
+                EditAction::make(),
+                Action::make('visit')
                     ->icon('heroicon-o-globe-alt')
                     ->label('访问')
                     ->color('info')
@@ -81,39 +89,39 @@ class SpamResource extends Resource
                         true
                     ),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }
 
-    public static function infolist(Infolist $infolist): Infolist
+    public static function infolist(Schema $schema): Schema
     {
-        return $infolist->schema([
-            Infolists\Components\Section::make()
+        return $schema->components([
+            Section::make()
                 ->schema([
-                    Infolists\Components\Grid::make(2)
+                    Grid::make(2)
                         ->schema([
-                            Infolists\Components\Group::make()
+                            Group::make()
                                 ->schema([
-                                    Infolists\Components\TextEntry::make('author.name')
+                                    TextEntry::make('author.name')
                                         ->label('用户名')
                                         ->visible(fn(Comment $record) => $record->author != null),
-                                    Infolists\Components\TextEntry::make('author.email')
+                                    TextEntry::make('author.email')
                                         ->label('邮箱')
                                         ->visible(fn(Comment $record) => $record->author != null),
-                                    Infolists\Components\TextEntry::make('guest_name')
+                                    TextEntry::make('guest_name')
                                         ->label('用户名')
                                         ->visible(fn(Comment $record) => $record->author == null),
-                                    Infolists\Components\TextEntry::make('guest_email')
+                                    TextEntry::make('guest_email')
                                         ->label('邮箱')
                                         ->visible(fn(Comment $record) => $record->author == null),
-                                    Infolists\Components\TextEntry::make('ip')
+                                    TextEntry::make('ip')
                                         ->label('IP')
                                 ]),
-                            Infolists\Components\Group::make()->schema([
-                                Infolists\Components\TextEntry::make('status')
+                            Group::make()->schema([
+                                TextEntry::make('status')
                                     ->label('状态')
                                     ->badge()
                                     ->color(fn(CommentStatus $state) => match ($state) {
@@ -122,7 +130,7 @@ class SpamResource extends Resource
                                         CommentStatus::Spam => 'danger',
 
                                     }),
-                                Infolists\Components\TextEntry::make('created_at')
+                                TextEntry::make('created_at')
                                     ->label('发表时间')
                                     ->badge()
                                     ->dateTime()
@@ -130,8 +138,8 @@ class SpamResource extends Resource
                             ]),
                         ]),
                 ]),
-            Infolists\Components\Section::make('内容')->schema([
-                Infolists\Components\TextEntry::make('body')
+            Section::make('内容')->schema([
+                TextEntry::make('body')
                     ->hiddenLabel()
                     ->markdown(),
             ]),

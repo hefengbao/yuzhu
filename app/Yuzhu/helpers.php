@@ -1,5 +1,7 @@
 <?php
 
+use App\Yuzhu\Markdown\Converter;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Vinkla\Hashids\Facades\Hashids;
@@ -14,7 +16,7 @@ if (!function_exists('make_excerpt')) {
 }
 
 if (!function_exists('categories_to_str')) {
-    function categories_to_str(Illuminate\Database\Eloquent\Collection $categories, bool $withLink = true): ?string
+    function categories_to_str(Collection $categories, bool $withLink = true): ?string
     {
         if ($categories->isNotEmpty()) {
             $arr = [];
@@ -34,7 +36,7 @@ if (!function_exists('categories_to_str')) {
 }
 
 if (!function_exists('tags_to_str')) {
-    function tags_to_str(Illuminate\Database\Eloquent\Collection $tags, bool $withLink = true): ?string
+    function tags_to_str(Collection $tags, bool $withLink = true): ?string
     {
         if ($tags->isNotEmpty()) {
             $arr = [];
@@ -89,6 +91,6 @@ if (!function_exists('md_to_html')) {
      */
     function md_to_html(string $markdown): string
     {
-        return app(App\Yuzhu\Markdown\Converter::class)->toHtml($markdown);
+        return app(Converter::class)->toHtml($markdown);
     }
 }

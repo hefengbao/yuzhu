@@ -9,6 +9,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\PostResource;
 use App\Models\Post;
 use Carbon\Carbon;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
@@ -89,7 +91,7 @@ class PageController extends Controller implements HasMiddleware
         return new PostResource($page);
     }
 
-    public function destroy(Post $page): \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Foundation\Application|\Illuminate\Http\Response
+    public function destroy(Post $page): Application|ResponseFactory|\Illuminate\Foundation\Application|\Illuminate\Http\Response
     {
         $page->delete();
 

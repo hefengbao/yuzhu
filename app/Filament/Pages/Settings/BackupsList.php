@@ -3,9 +3,9 @@
 namespace App\Filament\Pages\Settings;
 
 use App\Models\Backup;
+use Artisan;
 use Filament\Actions\Action;
 use Filament\Pages\Page;
-use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
@@ -18,11 +18,11 @@ class BackupsList extends Page implements HasTable
 
     protected static ?string $title = '备份';
 
-    protected static ?string $navigationGroup = '设置';
+    protected static string|\UnitEnum|null $navigationGroup = '设置';
 
     protected static ?int $navigationSort = 2;
 
-    protected static string $view = 'filament.pages.settings.backups-list';
+    protected string $view = 'filament.pages.settings.backups-list';
 
     /**
      * 管理员显示菜单
@@ -43,20 +43,20 @@ class BackupsList extends Page implements HasTable
     public function table(Table $table): Table
     {
         return $table
-            ->query(\App\Models\Backup::query())
+            ->query(Backup::query())
             ->columns([
                 TextColumn::make('name')->label('文件'),
                 TextColumn::make('datetime')->label('时间'),
             ])
-            ->actions([
-                Tables\Actions\Action::make('download')
+            ->recordActions([
+                Action::make('download')
                     ->label('下载')
                     ->color('gray')
                     ->icon('heroicon-o-arrow-down-tray')
                     ->action(function (Backup $record) {
                         return Storage::download(config('app.name') . '/' . $record->name);
                     }),
-                Tables\Actions\Action::make('del')
+                Action::make('del')
                     ->label('删除')
                     ->color('danger')
                     ->icon('heroicon-o-trash')
@@ -72,7 +72,7 @@ class BackupsList extends Page implements HasTable
         return [
             Action::make('立即运行备份')
                 ->action(function () {
-                    \Artisan::call('backup:run');
+                    Artisan::call('backup:run');
 
                     return redirect('admin/backups-list');
                 }),

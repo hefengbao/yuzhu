@@ -2,14 +2,16 @@
 
 namespace App\Filament\Resources\Finance;
 
-use App\Filament\Resources\Finance\SettingsResource\Pages;
+use App\Filament\Resources\Finance\SettingsResource\Pages\CreateSettings;
 use App\Filament\Resources\Finance\SettingsResource\RelationManagers;
 use App\Models\Finance\Settings;
 use App\Models\User;
-use Filament\Forms;
-use Filament\Forms\Form;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
+use Filament\Forms\Components\Select;
 use Filament\Resources\Resource;
-use Filament\Tables;
+use Filament\Schemas\Schema;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -19,17 +21,17 @@ class SettingsResource extends Resource
     protected static ?string $modelLabel = '设置';
     protected static ?string $pluralModelLabel = '设置';
 
-    protected static ?string $navigationGroup = '财务';
+    protected static string|\UnitEnum|null $navigationGroup = '财务';
     protected static ?int $navigationSort = 5;
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
         /** @var User $user */
         $user = auth()->user();
 
-        return $form
-            ->schema([
-                Forms\Components\Select::make('currency')
+        return $schema
+            ->components([
+                Select::make('currency')
                     ->label('货币')
                     ->default($user->financeSettings->currency_id ?? '')
                     ->relationship('currency', 'name')
@@ -46,12 +48,12 @@ class SettingsResource extends Resource
             ->filters([
                 //
             ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
+            ->recordActions([
+                EditAction::make(),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }
@@ -71,7 +73,7 @@ class SettingsResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\CreateSettings::route('/create'),
+            'index' => CreateSettings::route('/create'),
         ];
     }
 }

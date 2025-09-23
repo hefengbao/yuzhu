@@ -14,6 +14,7 @@ use App\Models\Post;
 use App\Models\User;
 use App\Services\Finance\SeedCategories;
 use Carbon\Carbon;
+use Hash;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use function Laravel\Prompts\password;
@@ -46,10 +47,10 @@ class Init extends Command
 
         $this->initFinance();
 
-        return Command::SUCCESS;
+        return self::SUCCESS;
     }
 
-    private function initAdmin()
+    private function initAdmin(): void
     {
         $this->info('开始初始化【管理员账号】...');
 
@@ -79,7 +80,7 @@ class Init extends Command
             if ($password != $confirm_password) {
                 $this->error('密码和确认密码不一致!');
 
-                return Command::INVALID;
+                return;
             }
 
             $bar = $this->output->createProgressBar(1);
@@ -89,7 +90,7 @@ class Init extends Command
             $admin = new User();
             $admin->name = $name;
             $admin->email = $email;
-            $admin->password = \Hash::make($password);
+            $admin->password = Hash::make($password);
             $admin->role = Role::Administrator;
             $admin->save();
 
@@ -103,6 +104,7 @@ class Init extends Command
         } else {
             $this->info('【管理员账号】已存在，跳过此步骤。');
         }
+
     }
 
     private function initPost(): void
@@ -115,72 +117,72 @@ class Init extends Command
                 'name' => 'title',
                 'value' => '玉竹',
                 'autoload' => 'yes',
-                'created_at' => \Carbon\Carbon::now(),
-                'updated_at' => \Carbon\Carbon::now(),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ],
             [
                 'id' => 2,
                 'name' => 'subtitle',
                 'value' => '一个简洁的博客、微博客',
                 'autoload' => 'yes',
-                'created_at' => \Carbon\Carbon::now(),
-                'updated_at' => \Carbon\Carbon::now(),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ],
             [
                 'id' => 3,
                 'name' => 'keywords',
                 'value' => 'Yuzhu,玉竹,blog,博客,微博客',
                 'autoload' => 'yes',
-                'created_at' => \Carbon\Carbon::now(),
-                'updated_at' => \Carbon\Carbon::now(),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ],
             [
                 'id' => 4,
                 'name' => 'description',
                 'value' => '玉竹，一个简洁的博客、微博客。',
                 'autoload' => 'yes',
-                'created_at' => \Carbon\Carbon::now(),
-                'updated_at' => \Carbon\Carbon::now(),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ],
             [
                 'id' => 5,
                 'name' => 'icp',
                 'value' => '',
                 'autoload' => 'yes',
-                'created_at' => \Carbon\Carbon::now(),
-                'updated_at' => \Carbon\Carbon::now(),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ],
             [
                 'id' => 6,
                 'name' => 'users_can_register',
                 'value' => '0',
                 'autoload' => 'yes',
-                'created_at' => \Carbon\Carbon::now(),
-                'updated_at' => \Carbon\Carbon::now(),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ],
             [
                 'id' => 7,
                 'name' => 'default_comment_status',
                 'value' => CommentStatus::Approved->value,
                 'autoload' => 'yes',
-                'created_at' => \Carbon\Carbon::now(),
-                'updated_at' => \Carbon\Carbon::now(),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ],
             [
                 'id' => 8,
                 'name' => 'site_verify_meta',
                 'value' => '',
                 'autoload' => 'yes',
-                'created_at' => \Carbon\Carbon::now(),
-                'updated_at' => \Carbon\Carbon::now(),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ],
             [
                 'id' => 9,
                 'name' => 'site_analytics',
                 'value' => '',
                 'autoload' => 'yes',
-                'created_at' => \Carbon\Carbon::now(),
-                'updated_at' => \Carbon\Carbon::now(),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ],
         ];
 
@@ -189,8 +191,8 @@ class Init extends Command
                 'id' => 1,
                 'name' => '未分类',
                 'slug' => 'uncategorized',
-                'created_at' => \Carbon\Carbon::now(),
-                'updated_at' => \Carbon\Carbon::now(),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ],
         ];
 
@@ -241,8 +243,8 @@ class Init extends Command
                 'type' => PostType::Page->value,
                 'status' => PostStatus::Published->value,
                 'published_at' => Carbon::now(),
-                'created_at' => \Carbon\Carbon::now(),
-                'updated_at' => \Carbon\Carbon::now(),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ],
             [
                 'id' => 2,
@@ -269,8 +271,8 @@ class Init extends Command
                 'type' => PostType::Page->value,
                 'status' => PostStatus::Published->value,
                 'published_at' => Carbon::now(),
-                'created_at' => \Carbon\Carbon::now(),
-                'updated_at' => \Carbon\Carbon::now(),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ],
             [
                 'id' => 3,
@@ -281,8 +283,8 @@ class Init extends Command
                 'type' => PostType::Article->value,
                 'status' => PostStatus::Published->value,
                 'published_at' => Carbon::now(),
-                'created_at' => \Carbon\Carbon::now(),
-                'updated_at' => \Carbon\Carbon::now(),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ]
         ];
 

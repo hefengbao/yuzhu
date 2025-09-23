@@ -8,8 +8,8 @@ use App\Filament\Clusters\Post\Comment\Resources\PendingResource;
 use App\Models\Blacklist;
 use App\Models\Comment;
 use App\Models\User;
-use Filament\Actions;
 use Filament\Actions\Action;
+use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\ViewRecord;
 
 class ViewComment extends ViewRecord
@@ -29,7 +29,7 @@ class ViewComment extends ViewRecord
                     $record->update(['status' => CommentStatus::Approved]);
                 })
                 ->visible(fn(Comment $record) => $record->status === CommentStatus::Pending),
-            Actions\DeleteAction::make()
+            DeleteAction::make()
                 ->visible(fn(Comment $record) => $record->status === CommentStatus::Spam),
             Action::make('标记为垃圾评论')
                 ->color('danger')

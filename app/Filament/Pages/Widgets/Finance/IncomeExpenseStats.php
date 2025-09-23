@@ -15,8 +15,8 @@ class IncomeExpenseStats extends StatsOverviewWidget
 
     protected function getStats(): array
     {
-        $startDate = $this->filters['startDate'] ?? Carbon::now()->firstOfYear()->format('Y-m-d');
-        $endDate = $this->filters['endDate'] ?? Carbon::now()->format('Y-m-d');
+        $startDate = $this->pageFilters['startDate'] ?? Carbon::now()->firstOfYear()->format('Y-m-d');
+        $endDate = $this->pageFilters['endDate'] ?? Carbon::now()->format('Y-m-d');
 
         $settings = auth()->user()->financeSettings;
 

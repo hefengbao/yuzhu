@@ -7,9 +7,9 @@ use App\Constant\Post\PostType;
 use App\Filament\Resources\Post\ArticleResource;
 use App\Models\Post;
 use App\Models\User;
-use Filament\Actions;
-use Filament\Resources\Components\Tab;
+use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
+use Filament\Schemas\Components\Tabs\Tab;
 use Illuminate\Database\Eloquent\Builder;
 
 class ListArticles extends ListRecords
@@ -88,7 +88,7 @@ class ListArticles extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make()
+            CreateAction::make()
                 ->label('写文章')
                 ->icon('heroicon-o-pencil-square'),
         ];

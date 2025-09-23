@@ -29,7 +29,7 @@ class SitemapGenerate extends Command
      *
      * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         $creator = Sitemap::create();
 
@@ -62,6 +62,6 @@ class SitemapGenerate extends Command
 
         $creator->writeToFile(public_path('sitemap.xml'));
 
-        return Command::SUCCESS;
+        return self::SUCCESS;
     }
 }

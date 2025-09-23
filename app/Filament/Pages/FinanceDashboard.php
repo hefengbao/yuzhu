@@ -10,25 +10,26 @@ use App\Filament\Pages\Widgets\Finance\IncomeExpenseYearChart;
 use App\Filament\Pages\Widgets\Finance\IncomePie;
 use Carbon\Carbon;
 use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\Section;
-use Filament\Forms\Form;
+use Filament\Pages\Dashboard;
 use Filament\Pages\Dashboard\Concerns\HasFiltersForm;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Schema;
 
-class FinanceDashboard extends \Filament\Pages\Dashboard
+class FinanceDashboard extends Dashboard
 {
     use HasFiltersForm;
 
     protected static string $routePath = 'finance';
     protected static ?string $title = '仪表板';
-    protected static ?string $navigationGroup = '财务';
+    protected static string|\UnitEnum|null $navigationGroup = '财务';
     protected static ?int $navigationSort = 1;
-    protected static ?string $navigationIcon = '';
+    protected static string|\BackedEnum|null $navigationIcon = '';
 
 
-    public function filtersForm(Form $form): Form
+    public function filtersForm(Schema $schema): Schema
     {
-        return $form
-            ->schema([
+        return $schema
+            ->components([
                 Section::make()
                     ->schema([
                         DatePicker::make('startDate')
@@ -44,7 +45,7 @@ class FinanceDashboard extends \Filament\Pages\Dashboard
             ]);
     }
 
-    public function getColumns(): int|string|array
+    public function getColumns(): int|array
     {
         return [
             'lg' => 2,

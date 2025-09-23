@@ -9,11 +9,11 @@ use Filament\Widgets\ChartWidget;
 
 class ExpensePie extends ChartWidget
 {
-    protected static ?string $heading = '支出分类统计';
+    protected ?string $heading = '支出分类统计';
 
-    protected static ?string $maxHeight = '400px';
+    protected ?string $maxHeight = '400px';
 
-    protected static ?array $options = [
+    protected ?array $options = [
         'scales' => [
             'x' => [
                 'grid' => [
@@ -36,8 +36,8 @@ class ExpensePie extends ChartWidget
 
     public function getDescription(): ?string
     {
-        $startDate = $this->filters['startDate'] ?? Carbon::now()->firstOfYear()->format('Y-m-d');
-        $endDate = $this->filters['endDate'] ?? Carbon::now()->format('Y-m-d');
+        $startDate = $this->pageFilters['startDate'] ?? Carbon::now()->firstOfYear()->format('Y-m-d');
+        $endDate = $this->pageFilters['endDate'] ?? Carbon::now()->format('Y-m-d');
 
         return $startDate . ' - ' . $endDate;
     }
@@ -52,8 +52,8 @@ class ExpensePie extends ChartWidget
 
     protected function getData(): array
     {
-        $startDate = $this->filters['startDate'] ?? Carbon::now()->firstOfYear()->format('Y-m-d');
-        $endDate = $this->filters['endDate'] ?? Carbon::now()->format('Y-m-d');
+        $startDate = $this->pageFilters['startDate'] ?? Carbon::now()->firstOfYear()->format('Y-m-d');
+        $endDate = $this->pageFilters['endDate'] ?? Carbon::now()->format('Y-m-d');
 
         $data = Transaction::with('category')
             ->where('user_id', auth()->id())

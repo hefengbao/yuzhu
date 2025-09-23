@@ -3,6 +3,8 @@
 namespace App\Filament\Resources\Settings\SiteResource\Pages;
 
 use App\Filament\Resources\Settings\SiteResource;
+use App\Models\Option;
+use Cache;
 use Filament\Actions\Action;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Database\Eloquent\Model;
@@ -39,7 +41,7 @@ class CreateSite extends CreateRecord
     protected function handleRecordCreation(array $data): Model
     {
         foreach ($data as $item) {
-            \App\Models\Option::updateOrCreate(
+            Option::updateOrCreate(
                 ['name' => $item['name']],
                 [
                     'value' => $item['value'],
@@ -48,9 +50,9 @@ class CreateSite extends CreateRecord
             );
         }
 
-        \Cache::forget('autoload_options');
+        Cache::forget('autoload_options');
 
-        return new \App\Models\Option();
+        return new Option();
     }
 
     protected function getCreatedNotificationMessage(): ?string

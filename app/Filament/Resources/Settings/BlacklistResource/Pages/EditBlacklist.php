@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\Settings\BlacklistResource\Pages;
 
 use App\Filament\Resources\Settings\BlacklistResource;
-use Filament\Actions;
+use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
 
 class EditBlacklist extends EditRecord
@@ -13,7 +13,7 @@ class EditBlacklist extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            DeleteAction::make(),
         ];
     }
 }

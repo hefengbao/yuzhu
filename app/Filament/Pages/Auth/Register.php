@@ -8,17 +8,17 @@ use DanHarrin\LivewireRateLimiting\WithRateLimiting;
 use Exception;
 use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
-use Filament\Events\Auth\Registered;
+use Filament\Auth\Events\Registered;
+use Filament\Auth\Http\Responses\Contracts\RegistrationResponse;
+use Filament\Auth\Notifications\VerifyEmail;
 use Filament\Facades\Filament;
-use Filament\Forms\Components\Component;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Form;
-use Filament\Http\Responses\Auth\Contracts\RegistrationResponse;
-use Filament\Notifications\Auth\VerifyEmail;
 use Filament\Notifications\Notification;
 use Filament\Pages\Concerns\CanUseDatabaseTransactions;
 use Filament\Pages\Concerns\InteractsWithFormActions;
 use Filament\Pages\SimplePage;
+use Filament\Schemas\Components\Component;
+use Filament\Schemas\Schema;
 use Illuminate\Auth\EloquentUserProvider;
 use Illuminate\Auth\SessionGuard;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -30,7 +30,7 @@ use Illuminate\Validation\Rules\Password;
 /**
  * 复制自 Filament\Pages\Auth\Register;
  *
- * @property Form $form
+ * @property \Filament\Schemas\Schema $form
  */
 class Register extends SimplePage
 {
@@ -39,15 +39,13 @@ class Register extends SimplePage
     use WithRateLimiting;
 
     /**
-     * @var view-string
-     */
-    protected static string $view = 'filament-panels::pages.auth.register';
-
-    /**
      * @var array<string, mixed> | null
      */
     public ?array $data = [];
-
+    /**
+     * @var view-string
+     */
+    protected string $view = 'filament-panels::pages.auth.register';
     protected string $userModel;
 
     public function mount(): void
@@ -194,14 +192,14 @@ class Register extends SimplePage
     }
 
     /**
-     * @return array<int | string, string | Form>
+     * @return array<int|string, string|\Filament\Schemas\Schema>
      */
     protected function getForms(): array
     {
         return [
             'form' => $this->form(
                 $this->makeForm()
-                    ->schema([
+                    ->components([
                         $this->getNameFormComponent(),
                         $this->getEmailFormComponent(),
                         $this->getPasswordFormComponent(),
@@ -212,9 +210,9 @@ class Register extends SimplePage
         ];
     }
 
-    public function form(Form $form): Form
+    public function form(Schema $schema): Schema
     {
-        return $form;
+        return $schema;
     }
 
     protected function getNameFormComponent(): Component

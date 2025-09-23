@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\Finance\SettingsResource\Pages;
 
 use App\Filament\Resources\Finance\SettingsResource;
-use Filament\Actions;
+use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 
 class ListSettings extends ListRecords
@@ -13,7 +13,7 @@ class ListSettings extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            CreateAction::make(),
         ];
     }
 }

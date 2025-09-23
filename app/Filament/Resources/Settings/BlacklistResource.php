@@ -3,13 +3,18 @@
 namespace App\Filament\Resources\Settings;
 
 use App\Constant\BlacklistType;
-use App\Filament\Resources\Settings\BlacklistResource\Pages;
+use App\Filament\Resources\Settings\BlacklistResource\Pages\CreateBlacklist;
+use App\Filament\Resources\Settings\BlacklistResource\Pages\EditBlacklist;
+use App\Filament\Resources\Settings\BlacklistResource\Pages\ListBlacklists;
 use App\Filament\Resources\Settings\BlacklistResource\RelationManagers;
 use App\Models\Blacklist;
-use Filament\Forms;
-use Filament\Forms\Form;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\EditAction;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
-use Filament\Tables;
+use Filament\Schemas\Schema;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -19,7 +24,7 @@ class BlacklistResource extends Resource
     protected static ?string $modelLabel = '黑名单';
     protected static ?string $pluralModelLabel = '黑名单';
     protected static ?string $navigationLabel = '黑名单';
-    protected static ?string $navigationGroup = '设置';
+    protected static string|\UnitEnum|null $navigationGroup = '设置';
     protected static ?int $navigationSort = 2;
 
     public static function shouldRegisterNavigation(): bool
@@ -27,16 +32,16 @@ class BlacklistResource extends Resource
         return auth()->user()->isAdministrator();
     }
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
-                Forms\Components\Select::make('type')
+        return $schema
+            ->components([
+                Select::make('type')
                     ->label('类型')
                     ->options(BlacklistType::class)
                     ->required()
                     ->columnSpanFull(),
-                Forms\Components\TextInput::make('body')
+                TextInput::make('body')
                     ->label('内容')
                     ->required()
                     ->columnSpanFull(),
@@ -47,18 +52,18 @@ class BlacklistResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('type')->label('类型')->badge(),
-                Tables\Columns\TextColumn::make('body')->label('内容'),
-                Tables\Columns\TextColumn::make('created_at')->label('时间')->date('Y-m-d'),
+                TextColumn::make('type')->label('类型')->badge(),
+                TextColumn::make('body')->label('内容'),
+                TextColumn::make('created_at')->label('时间')->date('Y-m-d'),
             ])
             ->filters([
                 //
             ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
+            ->recordActions([
+                EditAction::make(),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
+            ->toolbarActions([
+                BulkActionGroup::make([
                     //Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
@@ -81,9 +86,9 @@ class BlacklistResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListBlacklists::route('/'),
-            'create' => Pages\CreateBlacklist::route('/create'),
-            'edit' => Pages\EditBlacklist::route('/{record}/edit'),
+            'index' => ListBlacklists::route('/'),
+            'create' => CreateBlacklist::route('/create'),
+            'edit' => EditBlacklist::route('/{record}/edit'),
         ];
     }
 }

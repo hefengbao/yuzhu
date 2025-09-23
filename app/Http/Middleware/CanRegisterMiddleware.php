@@ -5,13 +5,14 @@ namespace App\Http\Middleware;
 use App\Services\OptionService;
 use Closure;
 use Illuminate\Http\Request;
+use Str;
 use Symfony\Component\HttpFoundation\Response;
 
 class CanRegisterMiddleware
 {
     public function handle(Request $request, Closure $next): Response
     {
-        if ($request->getRequestUri() == '/admin/register' && \Str::lower($request->method()) == 'get') {
+        if ($request->getRequestUri() == '/admin/register' && Str::lower($request->method()) == 'get') {
             $options = (new OptionService())->autoload();
 
             if (!$options['users_can_register']) {

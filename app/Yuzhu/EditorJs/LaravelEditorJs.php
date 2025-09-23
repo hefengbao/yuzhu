@@ -4,6 +4,7 @@ namespace App\Yuzhu\EditorJs;
 
 use EditorJS\EditorJS;
 use EditorJS\EditorJSException;
+use Exception;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 
@@ -37,7 +38,7 @@ class LaravelEditorJs
 
             return implode($renderedBlocks);
         } catch (EditorJSException $e) {
-            throw new \Exception($e->getMessage());
+            throw new Exception($e->getMessage());
         }
     }
 }

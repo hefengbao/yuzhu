@@ -11,12 +11,12 @@ use Flowframe\Trend\TrendValue;
 
 class IncomeExpenseYearChart extends ChartWidget
 {
-    protected static ?string $heading = '收入/支出按年份统计';
+    protected ?string $heading = '收入/支出按年份统计';
 
     public function getDescription(): ?string
     {
-        $startDate = $this->filters['startDate'] ?? Carbon::now()->firstOfYear()->format('Y-m-d');
-        $endDate = $this->filters['endDate'] ?? Carbon::now()->format('Y-m-d');
+        $startDate = $this->pageFilters['startDate'] ?? Carbon::now()->firstOfYear()->format('Y-m-d');
+        $endDate = $this->pageFilters['endDate'] ?? Carbon::now()->format('Y-m-d');
 
         return $startDate . ' - ' . $endDate;
     }
@@ -31,8 +31,8 @@ class IncomeExpenseYearChart extends ChartWidget
 
     protected function getData(): array
     {
-        $startDate = $this->filters['startDate'] ?? Carbon::now()->firstOfYear()->format('Y-m-d');
-        $endDate = $this->filters['endDate'] ?? Carbon::now()->format('Y-m-d');
+        $startDate = $this->pageFilters['startDate'] ?? Carbon::now()->firstOfYear()->format('Y-m-d');
+        $endDate = $this->pageFilters['endDate'] ?? Carbon::now()->format('Y-m-d');
 
         $dataIncome = Trend::query(
             Transaction::where('type', FinanceType::Income)

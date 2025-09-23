@@ -3,10 +3,9 @@
 namespace App\Filament\Resources\Post\ArticleResource\RelationManagers;
 
 use App\Filament\Clusters\Post\Comment\Resources\ApprovedResource;
-use Filament\Forms\Form;
-use Filament\Infolists\Infolist;
+use Filament\Actions\CreateAction;
 use Filament\Resources\RelationManagers\RelationManager;
-use Filament\Tables\Actions;
+use Filament\Schemas\Schema;
 use Filament\Tables\Table;
 
 class CommentsRelationManager extends RelationManager
@@ -15,9 +14,9 @@ class CommentsRelationManager extends RelationManager
 
     protected static ?string $title = '评论';
 
-    public function form(Form $form): Form
+    public function form(Schema $schema): Schema
     {
-        return ApprovedResource::form($form);
+        return ApprovedResource::form($schema);
     }
 
     public function table(Table $table): Table
@@ -26,9 +25,9 @@ class CommentsRelationManager extends RelationManager
             ->modelLabel('评论')
             ->pluralModelLabel('评论')
             ->headerActions([
-                Actions\CreateAction::make()
+                CreateAction::make()
                     ->visible(fn(): bool => $this->ownerRecord->isPublished())
-                    ->mutateFormDataUsing(function (array $data): array {
+                    ->mutateDataUsing(function (array $data): array {
                         $data['ip'] = request()->ip();
                         $data['user_id'] = auth()->id();
 
@@ -37,8 +36,8 @@ class CommentsRelationManager extends RelationManager
             ]);
     }
 
-    public function infolist(Infolist $infolist): Infolist
+    public function infolist(Schema $schema): Schema
     {
-        return ApprovedResource::infolist($infolist);
+        return ApprovedResource::infolist($schema);
     }
 }

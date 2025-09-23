@@ -3,13 +3,16 @@
 namespace App\Filament\Clusters\Finance\Category\Resources;
 
 use App\Constant\Finance\FinanceType;
-use App\Filament\Clusters\Finance\Category\Resources;
+use App\Filament\Clusters\Finance\Category\Resources\CategoryResource\Pages\CreateCategory;
+use App\Filament\Clusters\Finance\Category\Resources\CategoryResource\Pages\EditCategory;
+use App\Filament\Clusters\Finance\Category\Resources\CategoryResource\Pages\ListCategories;
 use App\Models\Finance\Category;
-use Filament\Forms;
+use Filament\Actions\EditAction;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables;
+use Filament\Schemas\Schema;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -20,21 +23,21 @@ class CategoryResource extends Resource
     protected static ?string $pluralModelLabel = '类别';
     protected static ?string $cluster = \App\Filament\Clusters\Finance\Category::class;
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
-                Forms\Components\Select::make('group_id')
+        return $schema
+            ->components([
+                Select::make('group_id')
                     ->label('分类')
                     ->required()
                     ->columnSpanFull()
                     ->relationship('group', 'name', fn(Builder $query): Builder => $query->where('user_id', auth()->id()))
                     ->preload()
                     ->createOptionForm([
-                        Forms\Components\TextInput::make('name')
+                        TextInput::make('name')
                             ->label('名称')
                             ->required(),
-                        Forms\Components\Select::make('type')
+                        Select::make('type')
                             ->label('类型')
                             ->required()
                             ->options(FinanceType::class),
@@ -50,25 +53,25 @@ class CategoryResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('group.name')
+                TextColumn::make('group.name')
                     ->label('组别'),
-                Tables\Columns\TextColumn::make('name')
+                TextColumn::make('name')
                     ->label('名称'),
-                Tables\Columns\TextColumn::make('items')
+                TextColumn::make('items')
                     ->label('条目')
                     ->formatStateUsing(fn(string $state): string => implode(', ', json_decode($state, true)))
                     ->wrap(),
-                Tables\Columns\TextColumn::make('group.type')
+                TextColumn::make('group.type')
                     ->label('类型')
                     ->badge(),
             ])
             ->filters([
                 //
             ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
+            ->recordActions([
+                EditAction::make(),
             ])
-            ->bulkActions([
+            ->toolbarActions([
                 /*Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),*/
@@ -92,9 +95,9 @@ class CategoryResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Resources\CategoryResource\Pages\ListCategories::route('/'),
-            'create' => Resources\CategoryResource\Pages\CreateCategory::route('/create'),
-            'edit' => Resources\CategoryResource\Pages\EditCategory::route('/{record}/edit'),
+            'index' => ListCategories::route('/'),
+            'create' => CreateCategory::route('/create'),
+            'edit' => EditCategory::route('/{record}/edit'),
         ];
     }
 }

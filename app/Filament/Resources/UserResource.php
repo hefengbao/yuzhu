@@ -3,12 +3,20 @@
 namespace App\Filament\Resources;
 
 use App\Constant\Role;
-use App\Filament\Resources\UserResource\Pages;
+use App\Filament\Resources\UserResource\Pages\CreateUser;
+use App\Filament\Resources\UserResource\Pages\EditUser;
+use App\Filament\Resources\UserResource\Pages\ListUsers;
 use App\Models\User;
-use Filament\Forms;
-use Filament\Forms\Form;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\EditAction;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
-use Filament\Tables;
+use Filament\Schemas\Schema;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -23,29 +31,29 @@ class UserResource extends Resource
 
     protected static ?string $navigationLabel = '用户';
 
-    protected static ?string $navigationGroup = '用户';
+    protected static string|\UnitEnum|null $navigationGroup = '用户';
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('name')
+        return $schema
+            ->components([
+                TextInput::make('name')
                     ->label('用户名')
                     ->required()
                     ->columnSpanFull(),
-                Forms\Components\TextInput::make('email')
+                TextInput::make('email')
                     ->label('邮箱')
                     ->email()
                     ->required()
                     ->columnSpanFull(),
-                Forms\Components\TextInput::make('password')
+                TextInput::make('password')
                     ->label('密码')
                     ->hint('密码至少 8 位')
                     ->password()
                     ->minLength(8)
                     ->required(fn(string $operation): bool => $operation === 'create')
                     ->columnSpanFull(),
-                Forms\Components\Select::make('role')
+                Select::make('role')
                     ->label('角色')
                     ->hint('请谨慎授予管理员、编辑角色。')
                     ->options(Role::class)
@@ -53,10 +61,10 @@ class UserResource extends Resource
                     ->required()
                     ->visible(auth()->user()->isAdministrator())
                     ->columnSpanFull(),
-                Forms\Components\Textarea::make('bio')
+                Textarea::make('bio')
                     ->label('个人简介')
                     ->columnSpanFull(),
-                Forms\Components\FileUpload::make('avatar')
+                FileUpload::make('avatar')
                     ->label('头像')
                     ->image()
                     ->avatar()
@@ -79,16 +87,16 @@ class UserResource extends Resource
 
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('avatar')
+                ImageColumn::make('avatar')
                     ->label('头像')
                     ->circular()
                     ->grow(false),
-                Tables\Columns\TextColumn::make('name')
+                TextColumn::make('name')
                     ->label('用户名'),
-                Tables\Columns\TextColumn::make('email')
+                TextColumn::make('email')
                     ->label('邮箱')
                     ->suffix(fn(User $record): string => $record->email_verified_at !== null ? '✅' : ''),
-                Tables\Columns\TextColumn::make('role')
+                TextColumn::make('role')
                     ->label('角色')
                     ->badge()
                     ->color(fn(Role $state): string => match ($state) {
@@ -96,7 +104,7 @@ class UserResource extends Resource
                         Role::Editor => 'info',
                         Role::Author => 'gray',
                     }),
-                Tables\Columns\TextColumn::make('deleted_at')
+                TextColumn::make('deleted_at')
                     ->label('状态')
                     ->badge()
                     ->default('')
@@ -106,12 +114,12 @@ class UserResource extends Resource
             ->filters([
                 //
             ])
-            ->actions([
-                Tables\Actions\EditAction::make()
+            ->recordActions([
+                EditAction::make()
                     ->visible(fn(User $record): bool => $auth->isAdministrator() || $record->id === $auth->id),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
+            ->toolbarActions([
+                BulkActionGroup::make([
                     //Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
@@ -142,9 +150,9 @@ class UserResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListUsers::route('/'),
-            'create' => Pages\CreateUser::route('/create'),
-            'edit' => Pages\EditUser::route('/{record}/edit'),
+            'index' => ListUsers::route('/'),
+            'create' => CreateUser::route('/create'),
+            'edit' => EditUser::route('/{record}/edit'),
         ];
     }
 }

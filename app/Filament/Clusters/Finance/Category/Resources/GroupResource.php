@@ -4,14 +4,17 @@ namespace App\Filament\Clusters\Finance\Category\Resources;
 
 use App\Constant\Finance\FinanceType;
 use App\Filament\Clusters\Finance\Category;
-use App\Filament\Clusters\Finance\Category\Resources\GroupResource\Pages;
+use App\Filament\Clusters\Finance\Category\Resources\GroupResource\Pages\CreateGroup;
+use App\Filament\Clusters\Finance\Category\Resources\GroupResource\Pages\EditGroup;
+use App\Filament\Clusters\Finance\Category\Resources\GroupResource\Pages\ListGroups;
 use App\Filament\Clusters\Finance\Category\Resources\GroupResource\RelationManagers;
 use App\Models\Finance\Group;
-use Filament\Forms;
+use Filament\Actions\EditAction;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables;
+use Filament\Schemas\Schema;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -23,11 +26,11 @@ class GroupResource extends Resource
 
     protected static ?string $cluster = Category::class;
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
-                Forms\Components\Select::make('type')
+        return $schema
+            ->components([
+                Select::make('type')
                     ->label('类型')
                     ->options(FinanceType::class)
                     ->required()
@@ -43,19 +46,19 @@ class GroupResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
+                TextColumn::make('name')
                     ->label('名称'),
-                Tables\Columns\TextColumn::make('type')
+                TextColumn::make('type')
                     ->label('类型')
                     ->badge(),
             ])
             ->filters([
                 //
             ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
+            ->recordActions([
+                EditAction::make(),
             ])
-            ->bulkActions([
+            ->toolbarActions([
                 /*Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),*/
@@ -79,9 +82,9 @@ class GroupResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListGroups::route('/'),
-            'create' => Pages\CreateGroup::route('/create'),
-            'edit' => Pages\EditGroup::route('/{record}/edit'),
+            'index' => ListGroups::route('/'),
+            'create' => CreateGroup::route('/create'),
+            'edit' => EditGroup::route('/{record}/edit'),
         ];
     }
 }

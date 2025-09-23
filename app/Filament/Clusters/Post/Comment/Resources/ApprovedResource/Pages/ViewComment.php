@@ -8,8 +8,8 @@ use App\Filament\Clusters\Post\Comment\Resources\ApprovedResource;
 use App\Models\Blacklist;
 use App\Models\Comment;
 use App\Models\User;
-use Filament\Actions;
 use Filament\Actions\Action;
+use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\ViewRecord;
 use Illuminate\Support\Facades\Log;
 
@@ -24,7 +24,7 @@ class ViewComment extends ViewRecord
 
         Log::info(url()->previous());
         return [
-            Actions\DeleteAction::make()
+            DeleteAction::make()
                 ->visible(fn(Comment $record) => $record->status === CommentStatus::Spam),
             Action::make('标记为垃圾评论')
                 ->color('danger')

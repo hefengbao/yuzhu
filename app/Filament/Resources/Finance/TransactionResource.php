@@ -3,14 +3,23 @@
 namespace App\Filament\Resources\Finance;
 
 use App\Constant\Finance\FinanceType;
-use App\Filament\Resources\Finance\TransactionResource\Pages;
+use App\Filament\Resources\Finance\TransactionResource\Pages\CreateTransaction;
+use App\Filament\Resources\Finance\TransactionResource\Pages\EditTransaction;
+use App\Filament\Resources\Finance\TransactionResource\Pages\ListTransactions;
 use App\Filament\Resources\Finance\TransactionResource\RelationManagers;
 use App\Models\Finance\Group;
 use App\Models\Finance\Transaction;
-use Filament\Forms;
-use Filament\Forms\Form;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
-use Filament\Tables;
+use Filament\Schemas\Components\Utilities\Get;
+use Filament\Schemas\Schema;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -21,16 +30,16 @@ class TransactionResource extends Resource
     protected static ?string $modelLabel = '收支';
     protected static ?string $pluralModelLabel = '收支';
 
-    protected static ?string $navigationGroup = '财务';
+    protected static string|\UnitEnum|null $navigationGroup = '财务';
     protected static ?int $navigationSort = 1;
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
         $settings = auth()->user()->financeSettings;
 
-        return $form
-            ->schema([
-                Forms\Components\Select::make('account_id')
+        return $schema
+            ->components([
+                Select::make('account_id')
                     ->label('账户')
                     ->relationship(
                         'account',
@@ -39,20 +48,20 @@ class TransactionResource extends Resource
                             ->where('status', 1)
                     )
                     ->required(),
-                Forms\Components\DatePicker::make('date')
+                DatePicker::make('date')
                     ->label('日期')
                     ->format('Y-m-d')
                     ->displayFormat('Y-m-d')
                     ->default(date('Y-m-d'))
                     ->required(),
-                Forms\Components\Select::make('type')
+                Select::make('type')
                     ->label('类别')
                     ->options(FinanceType::class)
                     ->required()
                     ->live(),
-                Forms\Components\Select::make('category_id')
+                Select::make('category_id')
                     ->label('类型')
-                    ->options(function (Forms\Get $get) {
+                    ->options(function (Get $get) {
                         return Group::with('categories')
                             ->where('type', $get('type'))
                             ->get()
@@ -64,14 +73,14 @@ class TransactionResource extends Resource
                     })
                     ->searchable()
                     ->required(),
-                Forms\Components\TextInput::make('amount')
+                TextInput::make('amount')
                     ->label('费用')
                     ->numeric()
                     ->inputMode('decimal')
                     ->minValue(0)
                     ->prefix($settings ? ($settings->currency->symbol ?: $settings->currency->code) : '')
                     ->required(),
-                Forms\Components\Textarea::make('notes')
+                Textarea::make('notes')
                     ->label('备注')
                     ->placeholder('简要说明来源、去向...')
                     ->maxLength(100),
@@ -82,31 +91,31 @@ class TransactionResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('account.name')
+                TextColumn::make('account.name')
                     ->label('账户'),
-                Tables\Columns\TextColumn::make('type')
+                TextColumn::make('type')
                     ->label('类别')
                     ->badge(),
-                Tables\Columns\TextColumn::make('category.name')
+                TextColumn::make('category.name')
                     ->label('类型')
                     ->description(fn(Transaction $transaction): string => $transaction->notes ?: ''),
-                Tables\Columns\TextColumn::make('amount')
+                TextColumn::make('amount')
                     ->prefix(fn(Transaction $transaction): string => $transaction->currency->symbol ?: $transaction->code)
                     ->label('费用')
                     ->alignEnd(),
-                Tables\Columns\TextColumn::make('date')
+                TextColumn::make('date')
                     ->label('日期')
                     ->date('Y-m-d'),
             ])
             ->filters([
                 //
             ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
+            ->recordActions([
+                EditAction::make(),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }
@@ -126,9 +135,9 @@ class TransactionResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListTransactions::route('/'),
-            'create' => Pages\CreateTransaction::route('/create'),
-            'edit' => Pages\EditTransaction::route('/{record}/edit'),
+            'index' => ListTransactions::route('/'),
+            'create' => CreateTransaction::route('/create'),
+            'edit' => EditTransaction::route('/{record}/edit'),
         ];
     }
 }

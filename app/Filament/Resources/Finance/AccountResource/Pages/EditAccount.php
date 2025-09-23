@@ -4,7 +4,7 @@ namespace App\Filament\Resources\Finance\AccountResource\Pages;
 
 use App\Constant\Finance\AccountType;
 use App\Filament\Resources\Finance\AccountResource;
-use Filament\Actions;
+use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
 
 class EditAccount extends EditRecord
@@ -14,7 +14,7 @@ class EditAccount extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            DeleteAction::make(),
         ];
     }
 

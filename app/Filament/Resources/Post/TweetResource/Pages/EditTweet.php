@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\Post\TweetResource\Pages;
 
 use App\Filament\Resources\Post\TweetResource;
-use Filament\Actions;
+use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
 
 class EditTweet extends EditRecord
@@ -13,7 +13,7 @@ class EditTweet extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            DeleteAction::make(),
         ];
     }
 }
