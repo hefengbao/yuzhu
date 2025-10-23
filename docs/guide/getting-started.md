@@ -24,6 +24,8 @@ apt-get upgrade -y
 
 # Install Some PPAs
 apt-add-repository ppa:ondrej/php -y
+
+apt-get update
 ```
 
 ### 安装 PHP
