@@ -11,7 +11,7 @@ class Account extends Model
     /** @use HasFactory<\Database\Factories\Finance/AccountFactory> */
     use HasFactory;
 
-    protected $table = 'finance_accounts';
+    protected $table = 'fms_accounts';
 
     protected $fillable = [
         'user_id',

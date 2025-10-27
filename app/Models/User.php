@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use App\Constant\Role;
-use App\Models\FMS\Settings;
-use App\Models\FMS\Transaction;
+use App\Models\FMS\Settings as FmsSettings;
+use App\Models\FMS\Transaction as FmsTransaction;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -52,14 +52,14 @@ class User extends Authenticatable implements FilamentUser
         return $this->role == Role::Author;
     }
 
-    public function financeSettings(): HasOne
+    public function fmsSettings(): HasOne
     {
-        return $this->hasOne(Settings::class);
+        return $this->hasOne(FmsSettings::class);
     }
 
-    public function financeTransactions(): HasMany
+    public function fmsTransactions(): HasMany
     {
-        return $this->hasMany(Transaction::class);
+        return $this->hasMany(FmsTransaction::class);
     }
 
     public function canAccessPanel(Panel $panel): bool

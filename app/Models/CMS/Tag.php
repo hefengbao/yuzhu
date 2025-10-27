@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Tag extends Model
 {
+    protected $table = 'cms_tags';
     protected $fillable = ['name', 'slug'];
 
     public function posts(): BelongsToMany
     {
-        return $this->belongsToMany(Post::class, 'post_tag')->whereNotNull('published_at');
+        return $this->belongsToMany(Post::class, 'cms_post_tag')->whereNotNull('published_at');
     }
 }

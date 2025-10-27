@@ -13,7 +13,7 @@ class Transaction extends Model
     /** @use HasFactory<\Database\Factories\Financial/TransactionFactory> */
     use HasFactory;
 
-    protected $table = 'finance_transactions';
+    protected $table = 'fms_transactions';
 
     protected $fillable = [
         'uuid',

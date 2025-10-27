@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Category extends Model
 {
-    //
+    protected $table = 'cms_categories';
     protected $fillable = ['name', 'slug', 'parent_id'];
 
     public function posts(): BelongsToMany
     {
-        return $this->belongsToMany(Post::class, 'category_post')->whereNotNull('published_at');
+        return $this->belongsToMany(Post::class, 'cms_category_post')->whereNotNull('published_at');
     }
 
     public function child(): HasMany

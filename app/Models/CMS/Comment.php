@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Comment extends Model
 {
+    protected $table = 'cms_comments';
     protected $fillable = ['user_id', 'body', 'guest_name', 'guest_email', 'ip', 'user_agent', 'status'];
 
     protected $with = ['author'];

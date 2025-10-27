@@ -12,7 +12,7 @@ class Settings extends Model
     /** @use HasFactory<\Database\Factories\Finance/SettingsFactory> */
     use HasFactory;
 
-    protected $table = 'finance_settings';
+    protected $table = 'fms_settings';
 
     protected $fillable = ['user_id', 'currency_id'];
 

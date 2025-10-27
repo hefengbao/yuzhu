@@ -18,6 +18,7 @@ use Spatie\Feed\FeedItem;
 
 class Post extends Model implements Feedable
 {
+    protected $table = 'cms_posts';
     protected $fillable = [
         'user_id',
         'title',
@@ -60,12 +61,12 @@ class Post extends Model implements Feedable
 
     public function tags(): BelongsToMany
     {
-        return $this->belongsToMany(Tag::class, 'post_tag');
+        return $this->belongsToMany(Tag::class, 'cms_post_tag');
     }
 
     public function categories(): BelongsToMany
     {
-        return $this->belongsToMany(Category::class, 'category_post');
+        return $this->belongsToMany(Category::class, 'cms_category_post');
     }
 
     public function author(): BelongsTo
