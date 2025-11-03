@@ -1,6 +1,5 @@
 <?php
 
-use App\Yuzhu\Markdown\Converter;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
