@@ -2,16 +2,17 @@
 
 namespace App\Providers;
 
+use App\Models\FMS\Tag;
 use App\Models\FMS\Account;
 use App\Models\FMS\Category;
-use App\Models\FMS\Group;
 use App\Models\FMS\Transaction;
 use App\Policies\FMS\AccountPolicy;
 use App\Policies\FMS\CategoryPolicy;
-use App\Policies\FMS\GroupPolicy;
+use App\Policies\FMS\TagPolicy;
 use App\Policies\FMS\TransactionPolicy;
 use Blade;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Gate;
@@ -44,13 +45,13 @@ class AppServiceProvider extends ServiceProvider
             return in_array(auth()->user()->role, $roles);
         });
 
-        LogViewer::auth(function ($request) {
+        LogViewer::auth(function (Request $request) {
             return $request->user()->isAdministrator();
         });
 
         Gate::policy(Account::class, AccountPolicy::class);
         Gate::policy(Category::class, CategoryPolicy::class);
-        Gate::policy(Group::class, GroupPolicy::class);
+        Gate::policy(Tag::class, TagPolicy::class);
         Gate::policy(Transaction::class, TransactionPolicy::class);
     }
 }
