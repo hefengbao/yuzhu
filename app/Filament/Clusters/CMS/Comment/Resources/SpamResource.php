@@ -2,8 +2,8 @@
 
 namespace App\Filament\Clusters\CMS\Comment\Resources;
 
-use App\Constant\CMS\CommentStatus;
-use App\Constant\CMS\PostType;
+use App\Enums\CMS\CommentStatus;
+use App\Enums\CMS\PostType;
 use App\Filament\Clusters\CMS\Comment\Resources\SpamResource\Pages\EditComment;
 use App\Filament\Clusters\CMS\Comment\Resources\SpamResource\Pages\ListComments;
 use App\Filament\Clusters\CMS\Comment\Resources\SpamResource\Pages\ViewComment;
@@ -30,7 +30,7 @@ class SpamResource extends Resource
     protected static ?string $model = Comment::class;
     protected static ?string $modelLabel = '垃圾评论';
     protected static ?string $pluralModelLabel = '垃圾评论';
-    protected static ?string $cluster = \App\Filament\Clusters\CMS\Comment::class;
+    protected static ?string $cluster = \App\Filament\Clusters\CMS\CommentCluster::class;
     protected static ?string $slug = 'spam';
 
     public static function form(Schema $schema): Schema

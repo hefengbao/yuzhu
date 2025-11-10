@@ -2,8 +2,8 @@
 
 namespace App\Filament\Clusters\CMS\Comment\Resources\ApprovedResource\Pages;
 
-use App\Constant\BlacklistType;
-use App\Constant\CMS\CommentStatus;
+use App\Enums\BlacklistType;
+use App\Enums\CMS\CommentStatus;
 use App\Filament\Clusters\CMS\Comment\Resources\ApprovedResource;
 use App\Models\CMS\Comment;
 use App\Models\Settings\Blacklist;

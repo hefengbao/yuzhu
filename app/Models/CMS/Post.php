@@ -2,9 +2,9 @@
 
 namespace App\Models\CMS;
 
-use App\Constant\CMS\Commentable;
-use App\Constant\CMS\PostStatus;
-use App\Constant\CMS\PostType;
+use App\Enums\CMS\Commentable;
+use App\Enums\CMS\PostStatus;
+use App\Enums\CMS\PostType;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;

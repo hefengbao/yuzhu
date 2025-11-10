@@ -2,9 +2,9 @@
 
 namespace App\Filament\Pages\Widgets\CMS;
 
-use App\Constant\CMS\CommentStatus;
-use App\Constant\CMS\PostStatus;
-use App\Constant\CMS\PostType;
+use App\Enums\CMS\CommentStatus;
+use App\Enums\CMS\PostStatus;
+use App\Enums\CMS\PostType;
 use App\Models\CMS\Comment;
 use App\Models\CMS\Post;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;

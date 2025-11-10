@@ -2,7 +2,7 @@
 
 namespace App\Models\CMS;
 
-use App\Constant\CMS\CommentStatus;
+use App\Enums\CMS\CommentStatus;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;

@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources\CMS;
 
-use App\Constant\CMS\Commentable;
-use App\Constant\CMS\PostStatus;
-use App\Constant\CMS\PostType;
+use App\Enums\CMS\Commentable;
+use App\Enums\CMS\PostStatus;
+use App\Enums\CMS\PostType;
 use App\Filament\Resources\CMS\ArticleResource\Pages\CreateArticle;
 use App\Filament\Resources\CMS\ArticleResource\Pages\EditArticle;
 use App\Filament\Resources\CMS\ArticleResource\Pages\ListArticles;

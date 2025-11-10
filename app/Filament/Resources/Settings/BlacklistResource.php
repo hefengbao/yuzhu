@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\Settings;
 
-use App\Constant\BlacklistType;
+use App\Enums\BlacklistType;
 use App\Filament\Resources\Settings\BlacklistResource\Pages\CreateBlacklist;
 use App\Filament\Resources\Settings\BlacklistResource\Pages\EditBlacklist;
 use App\Filament\Resources\Settings\BlacklistResource\Pages\ListBlacklists;

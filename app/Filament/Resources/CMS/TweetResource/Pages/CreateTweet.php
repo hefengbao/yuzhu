@@ -2,8 +2,8 @@
 
 namespace App\Filament\Resources\CMS\TweetResource\Pages;
 
-use App\Constant\CMS\PostStatus;
-use App\Constant\CMS\PostType;
+use App\Enums\CMS\PostStatus;
+use App\Enums\CMS\PostType;
 use App\Filament\Resources\CMS\TweetResource;
 use Carbon\Carbon;
 use Filament\Resources\Pages\CreateRecord;

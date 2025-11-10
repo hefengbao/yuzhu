@@ -2,8 +2,8 @@
 
 namespace App\Filament\Clusters\CMS\Comment\Resources;
 
-use App\Constant\CMS\CommentStatus;
-use App\Constant\CMS\PostType;
+use App\Enums\CMS\CommentStatus;
+use App\Enums\CMS\PostType;
 use App\Filament\Clusters\CMS\Comment\Resources\ApprovedResource\Pages\EditComment;
 use App\Filament\Clusters\CMS\Comment\Resources\ApprovedResource\Pages\ListComments;
 use App\Filament\Clusters\CMS\Comment\Resources\ApprovedResource\Pages\ViewComment;
@@ -28,7 +28,7 @@ class ApprovedResource extends Resource
     protected static ?string $model = Comment::class;
     protected static ?string $modelLabel = '已发布';
     protected static ?string $pluralModelLabel = '已发布';
-    protected static ?string $cluster = \App\Filament\Clusters\CMS\Comment::class;
+    protected static ?string $cluster = \App\Filament\Clusters\CMS\CommentCluster::class;
     protected static ?string $slug = 'approved';
 
     public static function form(Schema $schema): Schema

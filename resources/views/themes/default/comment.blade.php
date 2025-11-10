@@ -1,5 +1,5 @@
 @php
-    $comments = $model->comments()->with(['parent','author'])->where('status', \App\Constant\CMS\CommentStatus::Approved)->orderBy('id')->get();
+    $comments = $model->comments()->with(['parent','author'])->where('status', \App\Enums\CMS\CommentStatus::Approved)->orderBy('id')->get();
 @endphp
 <h3>有 {{ $comments->count() }} 条评论</h3>
 <div>
@@ -52,7 +52,7 @@
                         <strong style="margin: 8px">{{ $comment->guest_name }} 说：</strong>
                     @endif
                 </p>
-                @if($comment->parent && $comment->parent->status == \App\Constant\CommentStatus::Approved)
+                @if($comment->parent && $comment->parent->status == \App\Enums\CommentStatus::Approved)
                     <div style="margin:32px;">
                         <blockquote>
                             <p>
@@ -78,7 +78,7 @@
         </section>
     @endforeach
 </div>
-@if($model->commentable == \App\Constant\CMS\Commentable::Open)
+@if($model->commentable == \App\Enums\CMS\Commentable::Open)
     <h3 id="reply-title">发表评论</h3>
     <p>@auth
             <a href="{{ route('filament.admin.resources.users.edit', auth()->id()) }}">已登录为{{ auth()->user()->name }}</a>

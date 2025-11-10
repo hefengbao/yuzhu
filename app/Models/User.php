@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Constant\Role;
+use App\Enums\Role;
 use App\Models\FMS\Settings as FmsSettings;
 use App\Models\FMS\Transaction as FmsTransaction;
 use Filament\Models\Contracts\FilamentUser;

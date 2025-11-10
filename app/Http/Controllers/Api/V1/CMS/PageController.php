@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Api\V1\CMS;
 
-use App\Constant\CMS\Commentable;
-use App\Constant\CMS\PostStatus;
-use App\Constant\CMS\PostType;
+use App\Enums\CMS\Commentable;
+use App\Enums\CMS\PostStatus;
+use App\Enums\CMS\PostType;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\CMS\PostResource;
 use App\Models\CMS\Post;

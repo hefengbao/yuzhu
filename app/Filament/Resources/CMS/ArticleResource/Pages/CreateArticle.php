@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\CMS\ArticleResource\Pages;
 
-use App\Constant\CMS\PostType;
+use App\Enums\CMS\PostType;
 use App\Filament\Resources\CMS\ArticleResource;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Support\Str;

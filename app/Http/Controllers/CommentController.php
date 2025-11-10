@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Constant\CMS\CommentStatus;
+use App\Enums\CMS\CommentStatus;
 use App\Jobs\RepliedNotification;
 use App\Models\CMS\Comment;
 use App\Models\CMS\Post;

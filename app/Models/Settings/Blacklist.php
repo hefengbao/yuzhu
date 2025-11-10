@@ -2,7 +2,7 @@
 
 namespace App\Models\Settings;
 
-use App\Constant\BlacklistType;
+use App\Enums\BlacklistType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 

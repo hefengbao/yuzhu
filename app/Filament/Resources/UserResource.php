@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources;
 
-use App\Constant\Role;
+use App\Enums\Role;
 use App\Filament\Resources\UserResource\Pages\CreateUser;
 use App\Filament\Resources\UserResource\Pages\EditUser;
 use App\Filament\Resources\UserResource\Pages\ListUsers;

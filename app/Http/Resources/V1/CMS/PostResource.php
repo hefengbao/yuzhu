@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources\V1\CMS;
 
-use App\Constant\CMS\PostType;
+use App\Enums\CMS\PostType;
 use App\Http\Resources\V1\UserResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;

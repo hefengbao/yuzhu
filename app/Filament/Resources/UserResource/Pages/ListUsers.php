@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\UserResource\Pages;
 
-use App\Constant\Role;
+use App\Enums\Role;
 use App\Filament\Resources\UserResource;
 use App\Models\User;
 use Filament\Actions\CreateAction;
