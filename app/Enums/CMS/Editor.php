@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Constant\CMS;
+namespace App\Enums\CMS;
 
 /**
  * 编辑器类型

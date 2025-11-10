@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Constant\CMS;
+namespace App\Enums\CMS;
 
 enum PostType: string
 {

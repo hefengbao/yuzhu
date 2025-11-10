@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Constant\CMS;
+namespace App\Enums\CMS;
 
 use Filament\Support\Contracts\HasColor;
 use Filament\Support\Contracts\HasLabel;
