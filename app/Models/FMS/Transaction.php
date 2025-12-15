@@ -2,7 +2,7 @@
 
 namespace App\Models\FMS;
 
-use App\Constant\FMS\FinanceType;
+use App\Enums\FMS\FinanceType;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Transaction extends Model
 {
-    /** @use HasFactory<\Database\Factories\Financial/TransactionFactory> */
+    /** @use HasFactory<\Database\Factories\FMS\TransactionFactory> */
     use HasFactory;
 
     protected $table = 'fms_transactions';
@@ -22,6 +22,7 @@ class Transaction extends Model
         'type',
         'date',
         'category_id',
+        'tag_id',
         'notes',
         'currency_id',
         'amount'

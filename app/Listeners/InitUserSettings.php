@@ -4,7 +4,7 @@ namespace App\Listeners;
 
 use App\Events\UserRegistered;
 use App\Models\FMS\Settings;
-use App\Services\Finance\SeedCategories;
+use App\Services\FMS\SeedCategory;
 
 class InitUserSettings
 {
@@ -21,7 +21,7 @@ class InitUserSettings
      */
     public function handle(UserRegistered $event): void
     {
-        (new SeedCategories())->seed($event->user);
+        (new SeedCategory())->seed($event->user);
 
         Settings::create([
             'user_id' => $event->user->id,

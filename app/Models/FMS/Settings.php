@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Settings extends Model
 {
-    /** @use HasFactory<\Database\Factories\Finance/SettingsFactory> */
+    /** @use HasFactory<\Database\Factories\Finance\SettingsFactory> */
     use HasFactory;
 
     protected $table = 'fms_settings';

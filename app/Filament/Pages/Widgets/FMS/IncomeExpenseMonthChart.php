@@ -2,7 +2,7 @@
 
 namespace App\Filament\Pages\Widgets\FMS;
 
-use App\Constant\FMS\FinanceType;
+use App\Enums\FMS\FinanceType;
 use App\Models\FMS\Transaction;
 use Carbon\Carbon;
 use Filament\Widgets\ChartWidget;
@@ -33,6 +33,7 @@ class IncomeExpenseMonthChart extends ChartWidget
     {
         $startDate = $this->pageFilters['startDate'] ?? Carbon::now()->firstOfYear()->format('Y-m-d');
         $endDate = $this->pageFilters['endDate'] ?? Carbon::now()->format('Y-m-d');
+        $endDate = Carbon::createFromFormat('Y-m-d', $endDate)->addDay()->format('Y-m-d');
 
         $dataIncome = Trend::query(
             Transaction::where('type', FinanceType::Income)

@@ -2,8 +2,8 @@
 
 namespace App\Filament\Resources\FMS\TransactionResource\Pages;
 
-use App\Constant\FMS\AccountType;
-use App\Constant\FMS\FinanceType;
+use App\Enums\FMS\AccountType;
+use App\Enums\FMS\FinanceType;
 use App\Filament\Resources\FMS\TransactionResource;
 use App\Models\FMS\Account;
 use App\Models\FMS\Transaction;
@@ -18,7 +18,7 @@ class CreateTransaction extends CreateRecord
     {
         $data['uuid'] = Str::uuid();
         $data['user_id'] = auth()->id();
-        $data['currency_id'] = auth()->user()->financeSettings->currency_id ?? 1;
+        $data['currency_id'] = auth()->user()->fmsSettings->currency_id ?? 1;
 
         return $data;
     }

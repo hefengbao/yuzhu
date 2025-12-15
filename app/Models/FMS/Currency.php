@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Currency extends Model
 {
-    /** @use HasFactory<\Database\Factories\Finance/CurrencyFactory> */
+    /** @use HasFactory<\Database\Factories\Finance\CurrencyFactory> */
     use HasFactory;
 
     protected $table = 'fms_currencies';

@@ -23,8 +23,8 @@ class TransactionController extends Controller implements HasMiddleware
     public function index(Request $request): ResourceCollection
     {
         $data = Transaction::with([
-            'category' => function ($query) {
-                $query->with('group');
+            'tag' => function ($query) {
+                $query->with('category');
             },
             'account',
             'currency'
@@ -52,7 +52,7 @@ class TransactionController extends Controller implements HasMiddleware
             'account_id' => $request->input('account_id'),
             'type' => $request->input('type'),
             'date' => $request->input('date'),
-            'category_id' => $request->input('category_id'),
+            'tag_id' => $request->input('tag_id'),
             'amount' => $request->input('amount'),
             'currency_id' => $user->financeSettings->currency_id ?? 1,
             'note' => $request->input('note'),
@@ -63,6 +63,7 @@ class TransactionController extends Controller implements HasMiddleware
 
     public function update(TransactionRequest $request, Transaction $transaction): TransactionResource
     {
+        /** @var User $user */
         $user = auth()->user();
 
         if ($transaction->user_id != $user->id) {
@@ -73,9 +74,9 @@ class TransactionController extends Controller implements HasMiddleware
             'account_id' => $request->input('account_id'),
             'type' => $request->input('type'),
             'date' => $request->input('date'),
-            'category_id' => $request->input('category_id'),
+            'tag_id' => $request->input('tag_id'),
             'amount' => $request->input('amount'),
-            'currency_id' => $user->financeSettings->currency_id ?? 1,
+            'currency_id' => $user->fmsSettings->currency_id ?? 1,
             'note' => $request->input('note'),
         ]);
 

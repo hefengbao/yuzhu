@@ -2,7 +2,7 @@
 
 namespace App\Filament\Pages\Widgets\FMS;
 
-use App\Constant\FMS\FinanceType;
+use App\Enums\FMS\FinanceType;
 use App\Models\FMS\Transaction;
 use Carbon\Carbon;
 use Filament\Widgets\Concerns\InteractsWithPageFilters;
@@ -17,8 +17,9 @@ class IncomeExpenseStats extends StatsOverviewWidget
     {
         $startDate = $this->pageFilters['startDate'] ?? Carbon::now()->firstOfYear()->format('Y-m-d');
         $endDate = $this->pageFilters['endDate'] ?? Carbon::now()->format('Y-m-d');
+        $endDate = Carbon::createFromFormat('Y-m-d', $endDate)->addDay()->format('Y-m-d');
 
-        $settings = auth()->user()->financeSettings;
+        $settings = auth()->user()->fmsSettings;
 
         $symbol = $settings ? $settings->currency->symbol ?: $settings->currency->code : '￥';
 
@@ -28,8 +29,7 @@ class IncomeExpenseStats extends StatsOverviewWidget
                 $symbol . number_format(
                     Transaction::where('type', FinanceType::Income)
                         ->where('user_id', auth()->id())
-                        ->where('date', '>=', $startDate)
-                        ->where('date', '<=', $endDate)
+                        ->whereBetween('date', [$startDate, $endDate])
                         ->sum('amount'),
                     2
                 )
@@ -40,8 +40,7 @@ class IncomeExpenseStats extends StatsOverviewWidget
                 $symbol . number_format(
                     Transaction::where('type', FinanceType::Expense)
                         ->where('user_id', auth()->id())
-                        ->where('date', '>=', $startDate)
-                        ->where('date', '<=', $endDate)
+                        ->whereBetween('date', [$startDate, $endDate])
                         ->sum('amount'),
                     2
                 )

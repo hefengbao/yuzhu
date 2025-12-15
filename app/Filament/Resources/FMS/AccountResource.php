@@ -2,14 +2,13 @@
 
 namespace App\Filament\Resources\FMS;
 
-use App\Constant\FMS\AccountType;
+use App\Enums\FMS\AccountType;
 use App\Filament\Resources\FMS\AccountResource\Pages\CreateAccount;
 use App\Filament\Resources\FMS\AccountResource\Pages\EditAccount;
 use App\Filament\Resources\FMS\AccountResource\Pages\ListAccounts;
 use App\Filament\Resources\FMS\AccountResource\RelationManagers;
 use App\Models\FMS\Account;
 use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
@@ -106,7 +105,7 @@ class AccountResource extends Resource
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
-                    DeleteBulkAction::make(),
+                    //DeleteBulkAction::make(),
                 ]),
             ]);
     }

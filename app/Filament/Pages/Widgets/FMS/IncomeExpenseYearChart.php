@@ -2,7 +2,7 @@
 
 namespace App\Filament\Pages\Widgets\FMS;
 
-use App\Constant\FMS\FinanceType;
+use App\Enums\FMS\FinanceType;
 use App\Models\FMS\Transaction;
 use Carbon\Carbon;
 use Filament\Widgets\ChartWidget;
@@ -45,6 +45,7 @@ class IncomeExpenseYearChart extends ChartWidget
             )
             ->perYear()
             ->sum('amount');
+
         $dataExpenses = Trend::query(Transaction::where('type', FinanceType::Expense))
             ->dateColumn('date')
             ->between(

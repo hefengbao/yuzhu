@@ -28,6 +28,6 @@ class AccountController extends Controller implements HasMiddleware
 
     public function store(Request $request): AccountResource
     {
-
+        return new AccountResource(Account::create($request->all()));
     }
 }

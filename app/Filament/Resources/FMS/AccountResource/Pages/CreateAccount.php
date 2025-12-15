@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\FMS\AccountResource\Pages;
 
-use App\Constant\FMS\AccountType;
+use App\Enums\FMS\AccountType;
 use App\Filament\Resources\FMS\AccountResource;
 use Filament\Resources\Pages\CreateRecord;
 

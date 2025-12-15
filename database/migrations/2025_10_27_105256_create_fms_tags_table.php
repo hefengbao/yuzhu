@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('fms_tags', function (Blueprint $table) {
             $table->id();
+            $table->unsignedInteger('user_id');
             $table->unsignedInteger('category_id');
             $table->string('name');
             $table->timestamps();

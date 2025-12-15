@@ -34,7 +34,7 @@ class SettingsResource extends Resource
             ->components([
                 Select::make('currency')
                     ->label('货币')
-                    ->default($user->financeSettings->currency_id ?? '')
+                    ->default($user->fmsSettings->currency_id ?? '')
                     ->relationship('currency', 'name')
                     ->required(),
             ]);

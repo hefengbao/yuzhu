@@ -2,17 +2,17 @@
 
 namespace App\Console\Commands;
 
-use App\Constant\CMS\CommentStatus;
-use App\Constant\CMS\PostStatus;
-use App\Constant\CMS\PostType;
-use App\Constant\Role;
+use App\Enums\CMS\CommentStatus;
+use App\Enums\CMS\PostStatus;
+use App\Enums\CMS\PostType;
+use App\Enums\Role;
 use App\Models\CMS\Category;
 use App\Models\CMS\Post;
 use App\Models\FMS\Currency;
 use App\Models\FMS\Settings;
 use App\Models\Settings\Option;
 use App\Models\User;
-use App\Services\Finance\SeedCategories;
+use App\Services\FMS\SeedCategory;
 use Carbon\Carbon;
 use Hash;
 use Illuminate\Console\Command;
@@ -41,75 +41,20 @@ class Init extends Command
      */
     public function handle(): int
     {
+        $this->initSite();
+
         $this->initAdmin();
 
-        $this->initPost();
+        $this->initCMS();
 
-        $this->initFinance();
+        $this->initFMS();
 
         return self::SUCCESS;
     }
 
-    private function initAdmin(): void
+    private function initSite(): void
     {
-        $this->info('开始初始化【管理员账号】...');
-
-        $admin = User::find(1);
-
-        if (!$admin) {
-            $name = text(
-                label: '请输入用户名',
-                required: true
-            );
-
-            $email = text(
-                label: '请输入邮箱',
-                required: true
-            );
-
-            $password = password(
-                label: '请输入密码',
-                required: true
-            );
-
-            $confirm_password = password(
-                label: '请输入确认密码',
-                required: true
-            );
-
-            if ($password != $confirm_password) {
-                $this->error('密码和确认密码不一致!');
-
-                return;
-            }
-
-            $bar = $this->output->createProgressBar(1);
-
-            $bar->start();
-
-            $admin = new User();
-            $admin->name = $name;
-            $admin->email = $email;
-            $admin->password = Hash::make($password);
-            $admin->role = Role::Administrator;
-            $admin->save();
-
-            $bar->finish();
-
-            $this->line('');
-
-            $this->info('一封验证邮件已发送到' . $email . ',请登录邮箱确认！');
-
-            $this->info('初始化【管理员账号】完成。');
-        } else {
-            $this->info('【管理员账号】已存在，跳过此步骤。');
-        }
-
-    }
-
-    private function initPost(): void
-    {
-        $this->info('开始初始化【内容】模块...');
+        $this->info('开始初始化【站点设置】...');
 
         $options = [
             [
@@ -185,6 +130,88 @@ class Init extends Command
                 'updated_at' => Carbon::now(),
             ],
         ];
+
+        $bar = $this->output->createProgressBar(count($options));
+
+        $bar->start();
+
+        foreach ($options as $option) {
+            Option::firstOrCreate(
+                ['id' => $option['id']],
+                $option
+            );
+        }
+
+        $bar->finish();
+
+        $this->line(''); // 用于换行
+
+        $this->info('初始化【站点设置】完成。');
+    }
+
+    private function initAdmin(): void
+    {
+        $this->line('');
+        $this->info('开始初始化【管理员账号】...');
+
+        $admin = User::find(1);
+
+        if (!$admin) {
+            $name = text(
+                label: '请输入用户名',
+                required: true
+            );
+
+            $email = text(
+                label: '请输入邮箱',
+                required: true
+            );
+
+            $password = password(
+                label: '请输入密码',
+                required: true
+            );
+
+            $confirm_password = password(
+                label: '请输入确认密码',
+                required: true
+            );
+
+            if ($password != $confirm_password) {
+                $this->error('密码和确认密码不一致!');
+
+                return;
+            }
+
+            $bar = $this->output->createProgressBar(1);
+
+            $bar->start();
+
+            $admin = new User();
+            $admin->name = $name;
+            $admin->email = $email;
+            $admin->password = Hash::make($password);
+            $admin->role = Role::Administrator;
+            $admin->save();
+
+            $bar->finish();
+
+            $this->line('');
+
+            $this->info('一封验证邮件已发送到' . $email . ',请登录邮箱确认！');
+
+            $this->info('初始化【管理员账号】完成。');
+        } else {
+            $this->info('【管理员账号】已存在，跳过此步骤。');
+        }
+
+    }
+
+    private function initCMS(): void
+    {
+        $this->line('');
+
+        $this->info('开始初始化【内容管理】模块...');
 
         $categories = [
             [
@@ -288,17 +315,11 @@ class Init extends Command
             ]
         ];
 
-        $bar = $this->output->createProgressBar(count($options) + count($categories) + count($posts));
+        $bar = $this->output->createProgressBar(count($categories) + count($posts));
 
         $bar->start();
 
-        DB::transaction(function () use ($options, $categories, $posts) {
-            foreach ($options as $option) {
-                Option::firstOrCreate(
-                    ['id' => $option['id']],
-                    $option
-                );
-            }
+        DB::transaction(function () use ($categories, $posts) {
 
             foreach ($categories as $category) {
                 Category::firstOrCreate(
@@ -319,14 +340,16 @@ class Init extends Command
 
         $this->line(''); // 用于换行
 
-        $this->info('初始化【内容】模块完成。');
+        $this->info('初始化【内容管理】模块完成。');
     }
 
-    private function initFinance(): void
+    private function initFMS(): void
     {
-        $this->info('开始初始化【财务】模块...');
+        $this->line('');
 
-        $users = User::with(['financeSettings'])->get();
+        $this->info('开始初始化【财务管理】模块...');
+
+        $users = User::with(['fmsSettings'])->get();
 
         $bar = $this->output->createProgressBar($users->count() + 1);
 
@@ -340,7 +363,7 @@ class Init extends Command
         ]);
 
         foreach ($users as $user) {
-            if (!$user->financeSettings) {
+            if (!$user->fmsSettings) {
 
                 DB::transaction(function () use ($currency, $user) {
                     Settings::firstOrcreate([
@@ -348,7 +371,7 @@ class Init extends Command
                         'currency_id' => $currency->id
                     ]);
 
-                    (new SeedCategories())->seed($user);
+                    (new SeedCategory())->seed($user);
                 }, 3);
 
             }
@@ -358,6 +381,6 @@ class Init extends Command
 
         $this->line(''); // 用于换行
 
-        $this->info('初始化【财务】模块完成。');
+        $this->info('初始化【财务管理】模块完成。');
     }
 }

@@ -2,13 +2,13 @@
 
 namespace App\Models\FMS;
 
-use App\Constant\FMS\AccountType;
+use App\Enums\FMS\AccountType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Account extends Model
 {
-    /** @use HasFactory<\Database\Factories\Finance/AccountFactory> */
+    /** @use HasFactory<\Database\Factories\FMS\AccountFactory> */
     use HasFactory;
 
     protected $table = 'fms_accounts';

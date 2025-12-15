@@ -35,7 +35,7 @@ class TransactionRequest extends FormRequest
             'POST', 'PATCH' => [
                 'account_id' => [
                     'required',
-                    Rule::exists('finance_accounts', 'id')
+                    Rule::exists('fms_accounts', 'id')
                         ->where(function (Builder $builder) use ($user) {
                             $builder->where('user_id', $user->id);
                         })],
@@ -43,7 +43,7 @@ class TransactionRequest extends FormRequest
                 'date' => 'required|date_format:Y-m-d',
                 'category_id' => [
                     'required',
-                    Rule::exists('finance_categories', 'id')
+                    Rule::exists('fms_categories', 'id')//TODO
                         ->where(function (Builder $builder) use ($user) {
                             $builder->whereIn(
                                 'group_id',
